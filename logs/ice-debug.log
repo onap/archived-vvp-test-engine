@@ -1,0 +1,409 @@
+2017-02-26 01:22:11,517 DEBUG logFuncEntry 34 3015 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:22:11,517 DEBUG test_ui_base 23 3015 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-02-26 01:22:13,647 DEBUG test_ui_base 33 3015 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:22:14,646 ERROR exception_decor 21 3015 140736596902848 There was an exception in test_admin_page
+2017-02-26 01:22:14,647 DEBUG logFuncEntry 34 3015 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:22:14,647 DEBUG logFuncEntry 34 3015 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:22:14,682 DEBUG test_ui_base 49 3015 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-02-26 01:22:34,346 DEBUG logFuncEntry 34 3034 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:22:34,347 DEBUG test_ui_base 23 3034 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-02-26 01:22:36,461 DEBUG test_ui_base 33 3034 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:22:37,744 DEBUG api_user 89 3034 140736596902848 Moving to next test case
+2017-02-26 01:22:37,745 DEBUG api_user 166 3034 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/01d7af6a-e214-4198-a4e5-49321e409398/076e6c3a221c4bbca371a5ae3dfbab55
+2017-02-26 01:22:37,787 DEBUG api_user 169 3034 140736596902848 APIUser activated successfully!
+2017-02-26 01:22:37,858 DEBUG api_user 107 3034 140736596902848 200 OK
+2017-02-26 01:22:37,858 DEBUG api_user 109 3034 140736596902848 Login successfully.
+2017-02-26 01:22:37,861 DEBUG db_general 91 3034 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:22:37,863 DEBUG db_general 102 3034 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:22:37,865 DEBUG db_general 91 3034 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:22:37,867 DEBUG db_general 102 3034 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:22:38,267 DEBUG api_virtual_function 57 3034 140736596902848 Virtual Function created successfully!
+2017-02-26 01:22:38,267 DEBUG api_gitlab 192 3034 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/6943ec6b-d425-48c0-b022-94a115692592
+2017-02-26 01:22:38,330 DEBUG api_user 107 3034 140736596902848 200 OK
+2017-02-26 01:22:38,331 DEBUG api_user 109 3034 140736596902848 Login successfully.
+2017-02-26 01:22:38,366 DEBUG api_gitlab 210 3034 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:22:48,937 ERROR exception_decor 21 3034 140736596902848 There was an exception in test_admin_page
+2017-02-26 01:22:48,939 DEBUG logFuncEntry 34 3034 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:22:48,939 DEBUG logFuncEntry 34 3034 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:22:48,954 DEBUG test_ui_base 49 3034 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-02-26 01:23:25,521 DEBUG logFuncEntry 34 3060 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:23:25,521 DEBUG test_ui_base 23 3060 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-02-26 01:23:27,632 DEBUG test_ui_base 33 3060 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:23:28,667 DEBUG api_user 89 3060 140736596902848 Moving to next test case
+2017-02-26 01:23:28,667 DEBUG api_user 166 3060 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/cd0fc08d-939b-47d5-b661-14a7f42bf8f6/cf7ebbfdffc144b7a289daef37170c64
+2017-02-26 01:23:28,698 DEBUG api_user 169 3060 140736596902848 APIUser activated successfully!
+2017-02-26 01:23:28,754 DEBUG api_user 107 3060 140736596902848 200 OK
+2017-02-26 01:23:28,754 DEBUG api_user 109 3060 140736596902848 Login successfully.
+2017-02-26 01:23:28,757 DEBUG db_general 91 3060 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:23:28,758 DEBUG db_general 102 3060 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:23:28,761 DEBUG db_general 91 3060 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:23:28,762 DEBUG db_general 102 3060 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:23:28,976 DEBUG api_virtual_function 57 3060 140736596902848 Virtual Function created successfully!
+2017-02-26 01:23:28,976 DEBUG api_gitlab 192 3060 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/7593daf2-e29b-4d22-b91a-9fc811af405a
+2017-02-26 01:23:29,042 DEBUG api_user 107 3060 140736596902848 200 OK
+2017-02-26 01:23:29,042 DEBUG api_user 109 3060 140736596902848 Login successfully.
+2017-02-26 01:23:29,076 DEBUG api_gitlab 210 3060 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:23:29,076 DEBUG fe_user 25 3060 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:23:29,076 DEBUG fe_user 26 3060 140736596902848 Insert Email
+2017-02-26 01:23:29,991 DEBUG fe_user 28 3060 140736596902848 Insert Password
+2017-02-26 01:23:30,643 DEBUG fe_user 30 3060 140736596902848 Click Login Button
+2017-02-26 01:23:30,734 DEBUG fe_user 32 3060 140736596902848 Login Button clicked
+2017-02-26 01:23:30,739 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:23:31,253 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:31,765 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:32,276 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:32,787 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:33,298 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:33,810 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:34,321 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:34,832 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:35,343 DEBUG wait 110 3060 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:23:35,849 ERROR fe_user 40 3060 140736596902848 Login FAILED: email=admin@att.com password=iceusers
+2017-02-26 01:23:35,849 ERROR exception_decor 21 3060 140736596902848 There was an exception in test_admin_page
+2017-02-26 01:23:35,851 DEBUG logFuncEntry 34 3060 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:23:35,851 DEBUG logFuncEntry 34 3060 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:23:35,864 DEBUG test_ui_base 49 3060 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-02-26 01:24:18,032 DEBUG logFuncEntry 34 3097 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:24:18,032 DEBUG test_ui_base 23 3097 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-02-26 01:24:20,136 DEBUG test_ui_base 33 3097 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:24:21,148 DEBUG api_user 89 3097 140736596902848 Moving to next test case
+2017-02-26 01:24:21,148 DEBUG api_user 166 3097 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/d2adafed-ea0c-43e6-88a8-b9c1146c12b6/9b4617a32a6543cf95ce830ea1b56540
+2017-02-26 01:24:21,181 DEBUG api_user 169 3097 140736596902848 APIUser activated successfully!
+2017-02-26 01:24:21,239 DEBUG api_user 107 3097 140736596902848 200 OK
+2017-02-26 01:24:21,240 DEBUG api_user 109 3097 140736596902848 Login successfully.
+2017-02-26 01:24:21,243 DEBUG db_general 91 3097 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:24:21,244 DEBUG db_general 102 3097 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:24:21,247 DEBUG db_general 91 3097 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:24:21,399 DEBUG db_general 102 3097 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:24:21,614 DEBUG api_virtual_function 57 3097 140736596902848 Virtual Function created successfully!
+2017-02-26 01:24:21,615 DEBUG api_gitlab 192 3097 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/6acfa375-dc6b-486a-9215-e385ae4633ef
+2017-02-26 01:24:21,672 DEBUG api_user 107 3097 140736596902848 200 OK
+2017-02-26 01:24:21,672 DEBUG api_user 109 3097 140736596902848 Login successfully.
+2017-02-26 01:24:21,706 DEBUG api_gitlab 210 3097 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:24:21,706 DEBUG fe_user 25 3097 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:24:21,707 DEBUG fe_user 26 3097 140736596902848 Insert Email
+2017-02-26 01:24:22,612 DEBUG fe_user 28 3097 140736596902848 Insert Password
+2017-02-26 01:24:23,272 DEBUG fe_user 30 3097 140736596902848 Click Login Button
+2017-02-26 01:24:23,364 DEBUG fe_user 32 3097 140736596902848 Login Button clicked
+2017-02-26 01:24:23,368 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:24:23,971 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:24,482 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:24,997 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:25,510 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:26,022 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:26,534 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:27,045 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:27,557 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:28,072 DEBUG wait 110 3097 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:24:29,459 DEBUG logFuncEntry 34 3097 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:24:29,459 DEBUG logFuncEntry 34 3097 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:24:29,476 DEBUG test_ui_base 49 3097 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-02-26 01:35:42,875 DEBUG logFuncEntry 34 3333 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:35:42,876 DEBUG test_ui_base 23 3333 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-02-26 01:35:44,979 DEBUG test_ui_base 33 3333 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:35:46,126 DEBUG api_user 89 3333 140736596902848 Moving to next test case
+2017-02-26 01:35:46,126 DEBUG api_user 166 3333 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/08247ade-9491-449d-91e5-dbb14462c7fa/09340231a2d44c418085e0fcc82b639f
+2017-02-26 01:35:46,159 DEBUG api_user 169 3333 140736596902848 APIUser activated successfully!
+2017-02-26 01:35:46,217 DEBUG api_user 107 3333 140736596902848 200 OK
+2017-02-26 01:35:46,217 DEBUG api_user 109 3333 140736596902848 Login successfully.
+2017-02-26 01:35:46,220 DEBUG db_general 91 3333 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:35:46,221 DEBUG db_general 102 3333 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:35:46,224 DEBUG db_general 91 3333 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:35:46,225 DEBUG db_general 102 3333 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:35:46,437 DEBUG api_virtual_function 57 3333 140736596902848 Virtual Function created successfully!
+2017-02-26 01:35:46,437 DEBUG api_gitlab 192 3333 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/b03dbf80-9a40-4edc-9fbe-2c03274ef794
+2017-02-26 01:35:46,503 DEBUG api_user 107 3333 140736596902848 200 OK
+2017-02-26 01:35:46,503 DEBUG api_user 109 3333 140736596902848 Login successfully.
+2017-02-26 01:35:46,538 DEBUG api_gitlab 210 3333 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:35:46,538 DEBUG fe_user 25 3333 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:35:46,538 DEBUG fe_user 26 3333 140736596902848 Insert Email
+2017-02-26 01:35:47,425 DEBUG fe_user 28 3333 140736596902848 Insert Password
+2017-02-26 01:35:48,094 DEBUG fe_user 30 3333 140736596902848 Click Login Button
+2017-02-26 01:35:48,190 DEBUG fe_user 32 3333 140736596902848 Login Button clicked
+2017-02-26 01:35:48,194 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:35:48,771 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:49,282 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:49,793 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:50,304 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:50,816 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:51,327 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:51,843 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:52,354 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:52,872 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:35:53,444 ERROR exception_decor 21 3333 140736596902848 There was an exception in test_admin_page
+2017-02-26 01:35:53,445 DEBUG logFuncEntry 34 3333 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:35:53,445 DEBUG logFuncEntry 34 3333 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:35:53,463 DEBUG test_ui_base 49 3333 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-02-26 01:35:53,464 DEBUG logFuncEntry 34 3333 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:35:53,465 DEBUG test_ui_base 23 3333 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_negative_admin_page ----------------------
+2017-02-26 01:35:55,567 DEBUG test_ui_base 33 3333 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:35:56,586 DEBUG api_user 89 3333 140736596902848 Moving to next test case
+2017-02-26 01:35:56,586 DEBUG api_user 166 3333 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/dbca2409-259b-4b7b-8b9c-ee8c72264554/8a7a7d8d10be4d818d9315bbad01b589
+2017-02-26 01:35:56,681 DEBUG api_user 169 3333 140736596902848 APIUser activated successfully!
+2017-02-26 01:35:56,737 DEBUG api_user 107 3333 140736596902848 200 OK
+2017-02-26 01:35:56,738 DEBUG api_user 109 3333 140736596902848 Login successfully.
+2017-02-26 01:35:56,741 DEBUG db_general 91 3333 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:35:56,742 DEBUG db_general 102 3333 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:35:56,745 DEBUG db_general 91 3333 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:35:56,746 DEBUG db_general 102 3333 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:35:56,969 DEBUG api_virtual_function 57 3333 140736596902848 Virtual Function created successfully!
+2017-02-26 01:35:56,969 DEBUG api_gitlab 192 3333 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/0b09c006-5c28-4c71-98b7-579a76969ec9
+2017-02-26 01:35:57,027 DEBUG api_user 107 3333 140736596902848 200 OK
+2017-02-26 01:35:57,027 DEBUG api_user 109 3333 140736596902848 Login successfully.
+2017-02-26 01:35:57,062 DEBUG api_gitlab 210 3333 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:35:57,062 DEBUG fe_user 25 3333 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:35:57,063 DEBUG fe_user 26 3333 140736596902848 Insert Email
+2017-02-26 01:35:58,013 DEBUG fe_user 28 3333 140736596902848 Insert Password
+2017-02-26 01:35:58,676 DEBUG fe_user 30 3333 140736596902848 Click Login Button
+2017-02-26 01:35:58,776 DEBUG fe_user 32 3333 140736596902848 Login Button clicked
+2017-02-26 01:35:58,781 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:35:59,297 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:05,229 DEBUG fe_general 25 3333 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:36:05,369 DEBUG fe_user 25 3333 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:36:05,369 DEBUG fe_user 26 3333 140736596902848 Insert Email
+2017-02-26 01:36:06,095 DEBUG fe_user 28 3333 140736596902848 Insert Password
+2017-02-26 01:36:06,743 DEBUG fe_user 30 3333 140736596902848 Click Login Button
+2017-02-26 01:36:06,836 DEBUG fe_user 32 3333 140736596902848 Login Button clicked
+2017-02-26 01:36:06,839 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:36:07,468 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:07,982 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:08,494 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:09,004 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:15,300 DEBUG fe_general 25 3333 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:36:15,454 DEBUG fe_user 25 3333 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:36:15,454 DEBUG fe_user 26 3333 140736596902848 Insert Email
+2017-02-26 01:36:16,230 DEBUG fe_user 28 3333 140736596902848 Insert Password
+2017-02-26 01:36:16,866 DEBUG fe_user 30 3333 140736596902848 Click Login Button
+2017-02-26 01:36:16,955 DEBUG fe_user 32 3333 140736596902848 Login Button clicked
+2017-02-26 01:36:16,958 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:36:17,468 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:17,983 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:23,834 DEBUG fe_general 25 3333 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:36:23,986 DEBUG fe_user 25 3333 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:36:23,986 DEBUG fe_user 26 3333 140736596902848 Insert Email
+2017-02-26 01:36:24,739 DEBUG fe_user 28 3333 140736596902848 Insert Password
+2017-02-26 01:36:25,394 DEBUG fe_user 30 3333 140736596902848 Click Login Button
+2017-02-26 01:36:25,481 DEBUG fe_user 32 3333 140736596902848 Login Button clicked
+2017-02-26 01:36:25,485 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:36:26,089 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:26,597 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:27,107 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:27,617 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:28,134 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:28,659 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:29,172 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:29,686 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:30,198 DEBUG wait 110 3333 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:36:36,365 DEBUG fe_general 25 3333 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:36:36,507 DEBUG logFuncEntry 34 3333 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:36:36,507 DEBUG logFuncEntry 34 3333 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:36:36,525 DEBUG test_ui_base 49 3333 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_negative_admin_page ----------------------
+
+2017-02-26 01:38:58,104 DEBUG logFuncEntry 34 3455 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:38:58,105 DEBUG test_ui_base 23 3455 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-02-26 01:39:00,214 DEBUG test_ui_base 33 3455 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:39:01,219 DEBUG api_user 89 3455 140736596902848 Moving to next test case
+2017-02-26 01:39:01,219 DEBUG api_user 166 3455 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/466e1f65-c037-4525-a586-393d5d8badf5/e5627d52c6a04cc6a30b437b99ff7f7b
+2017-02-26 01:39:01,251 DEBUG api_user 169 3455 140736596902848 APIUser activated successfully!
+2017-02-26 01:39:01,307 DEBUG api_user 107 3455 140736596902848 200 OK
+2017-02-26 01:39:01,308 DEBUG api_user 109 3455 140736596902848 Login successfully.
+2017-02-26 01:39:01,311 DEBUG db_general 91 3455 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:39:01,313 DEBUG db_general 102 3455 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:39:01,316 DEBUG db_general 91 3455 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:39:01,317 DEBUG db_general 102 3455 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:39:01,590 DEBUG api_virtual_function 57 3455 140736596902848 Virtual Function created successfully!
+2017-02-26 01:39:01,590 DEBUG api_gitlab 192 3455 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/7e7bb539-f912-42f1-bf14-79444eb65a88
+2017-02-26 01:39:01,647 DEBUG api_user 107 3455 140736596902848 200 OK
+2017-02-26 01:39:01,647 DEBUG api_user 109 3455 140736596902848 Login successfully.
+2017-02-26 01:39:01,682 DEBUG api_gitlab 210 3455 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:39:01,682 DEBUG fe_user 25 3455 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:39:01,682 DEBUG fe_user 26 3455 140736596902848 Insert Email
+2017-02-26 01:39:02,589 DEBUG fe_user 28 3455 140736596902848 Insert Password
+2017-02-26 01:39:03,264 DEBUG fe_user 30 3455 140736596902848 Click Login Button
+2017-02-26 01:39:03,359 DEBUG fe_user 32 3455 140736596902848 Login Button clicked
+2017-02-26 01:39:03,363 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:39:03,993 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:04,504 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:05,016 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:05,531 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:06,043 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:06,555 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:07,066 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:07,577 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:08,096 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:09,523 DEBUG logFuncEntry 34 3455 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:39:09,524 DEBUG logFuncEntry 34 3455 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:39:09,540 DEBUG test_ui_base 49 3455 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-02-26 01:39:09,541 DEBUG logFuncEntry 34 3455 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:39:09,541 DEBUG test_ui_base 23 3455 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_negative_admin_page ----------------------
+2017-02-26 01:39:11,640 DEBUG test_ui_base 33 3455 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:39:12,656 DEBUG api_user 89 3455 140736596902848 Moving to next test case
+2017-02-26 01:39:12,656 DEBUG api_user 166 3455 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/1c279e4b-48b9-4eab-816d-db309ef0e5b3/0113677ca89e432381cedda8e665776e
+2017-02-26 01:39:12,688 DEBUG api_user 169 3455 140736596902848 APIUser activated successfully!
+2017-02-26 01:39:12,747 DEBUG api_user 107 3455 140736596902848 200 OK
+2017-02-26 01:39:12,747 DEBUG api_user 109 3455 140736596902848 Login successfully.
+2017-02-26 01:39:12,750 DEBUG db_general 91 3455 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:39:12,751 DEBUG db_general 102 3455 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:39:12,755 DEBUG db_general 91 3455 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:39:12,756 DEBUG db_general 102 3455 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:39:12,995 DEBUG api_virtual_function 57 3455 140736596902848 Virtual Function created successfully!
+2017-02-26 01:39:12,996 DEBUG api_gitlab 192 3455 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/71be8cc9-6d57-41e5-88d3-26e35c555745
+2017-02-26 01:39:13,053 DEBUG api_user 107 3455 140736596902848 200 OK
+2017-02-26 01:39:13,053 DEBUG api_user 109 3455 140736596902848 Login successfully.
+2017-02-26 01:39:13,088 DEBUG api_gitlab 210 3455 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:39:13,088 DEBUG fe_user 25 3455 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:39:13,088 DEBUG fe_user 26 3455 140736596902848 Insert Email
+2017-02-26 01:39:14,051 DEBUG fe_user 28 3455 140736596902848 Insert Password
+2017-02-26 01:39:14,728 DEBUG fe_user 30 3455 140736596902848 Click Login Button
+2017-02-26 01:39:14,822 DEBUG fe_user 32 3455 140736596902848 Login Button clicked
+2017-02-26 01:39:14,827 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:39:15,343 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:21,607 DEBUG fe_general 25 3455 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:39:21,746 DEBUG fe_user 25 3455 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:39:21,746 DEBUG fe_user 26 3455 140736596902848 Insert Email
+2017-02-26 01:39:22,523 DEBUG fe_user 28 3455 140736596902848 Insert Password
+2017-02-26 01:39:23,158 DEBUG fe_user 30 3455 140736596902848 Click Login Button
+2017-02-26 01:39:23,248 DEBUG fe_user 32 3455 140736596902848 Login Button clicked
+2017-02-26 01:39:23,251 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:39:23,817 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:24,325 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:24,838 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:31,122 DEBUG fe_general 25 3455 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:39:31,271 DEBUG fe_user 25 3455 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:39:31,271 DEBUG fe_user 26 3455 140736596902848 Insert Email
+2017-02-26 01:39:32,004 DEBUG fe_user 28 3455 140736596902848 Insert Password
+2017-02-26 01:39:32,649 DEBUG fe_user 30 3455 140736596902848 Click Login Button
+2017-02-26 01:39:32,743 DEBUG fe_user 32 3455 140736596902848 Login Button clicked
+2017-02-26 01:39:32,746 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:39:33,311 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:33,820 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:34,332 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:34,847 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:41,039 DEBUG fe_general 25 3455 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:39:41,193 DEBUG fe_user 25 3455 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:39:41,193 DEBUG fe_user 26 3455 140736596902848 Insert Email
+2017-02-26 01:39:41,948 DEBUG fe_user 28 3455 140736596902848 Insert Password
+2017-02-26 01:39:42,595 DEBUG fe_user 30 3455 140736596902848 Click Login Button
+2017-02-26 01:39:42,683 DEBUG fe_user 32 3455 140736596902848 Login Button clicked
+2017-02-26 01:39:42,686 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:39:43,302 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:43,813 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:44,326 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:44,841 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:45,357 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:45,869 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:46,381 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:46,897 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:47,414 DEBUG wait 110 3455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:39:53,382 DEBUG fe_general 25 3455 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:39:53,530 DEBUG logFuncEntry 34 3455 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:39:53,530 DEBUG logFuncEntry 34 3455 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:39:53,546 DEBUG test_ui_base 49 3455 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_negative_admin_page ----------------------
+
+2017-02-26 01:48:50,646 DEBUG logFuncEntry 34 3688 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:48:50,647 DEBUG test_ui_base 23 3688 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-02-26 01:48:52,765 DEBUG test_ui_base 33 3688 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:48:53,793 DEBUG api_user 89 3688 140736596902848 Moving to next test case
+2017-02-26 01:48:53,793 DEBUG api_user 166 3688 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/03335c55-a1db-4c20-a1b0-70aef978f710/62b7fd300ad64887a5d035b374efe395
+2017-02-26 01:48:53,825 DEBUG api_user 169 3688 140736596902848 APIUser activated successfully!
+2017-02-26 01:48:53,884 DEBUG api_user 107 3688 140736596902848 200 OK
+2017-02-26 01:48:53,884 DEBUG api_user 109 3688 140736596902848 Login successfully.
+2017-02-26 01:48:53,887 DEBUG db_general 91 3688 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:48:53,889 DEBUG db_general 102 3688 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:48:53,892 DEBUG db_general 91 3688 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:48:53,894 DEBUG db_general 102 3688 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:48:54,149 DEBUG api_virtual_function 57 3688 140736596902848 Virtual Function created successfully!
+2017-02-26 01:48:54,150 DEBUG api_gitlab 192 3688 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/b42afd13-62bf-41dc-bf7e-260802f6a367
+2017-02-26 01:48:54,211 DEBUG api_user 107 3688 140736596902848 200 OK
+2017-02-26 01:48:54,211 DEBUG api_user 109 3688 140736596902848 Login successfully.
+2017-02-26 01:48:54,300 DEBUG api_gitlab 210 3688 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:48:54,301 DEBUG fe_user 25 3688 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:48:54,301 DEBUG fe_user 26 3688 140736596902848 Insert Email
+2017-02-26 01:48:55,178 DEBUG fe_user 28 3688 140736596902848 Insert Password
+2017-02-26 01:48:55,822 DEBUG fe_user 30 3688 140736596902848 Click Login Button
+2017-02-26 01:48:55,917 DEBUG fe_user 32 3688 140736596902848 Login Button clicked
+2017-02-26 01:48:55,921 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:48:56,523 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:48:57,038 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:48:57,552 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:48:58,063 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:48:58,575 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:48:59,088 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:48:59,599 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:00,110 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:00,626 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:02,067 DEBUG logFuncEntry 34 3688 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:49:02,067 DEBUG logFuncEntry 34 3688 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-02-26 01:49:02,085 DEBUG test_ui_base 49 3688 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-02-26 01:49:02,086 DEBUG logFuncEntry 34 3688 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:49:02,086 DEBUG test_ui_base 23 3688 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_negative_admin_page ----------------------
+2017-02-26 01:49:04,189 DEBUG test_ui_base 33 3688 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-02-26 01:49:05,224 DEBUG api_user 89 3688 140736596902848 Moving to next test case
+2017-02-26 01:49:05,225 DEBUG api_user 166 3688 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/494eb241-ea87-453d-b2c4-52994c4a1fed/aee506638ded486ea9d25f4df97160a4
+2017-02-26 01:49:05,256 DEBUG api_user 169 3688 140736596902848 APIUser activated successfully!
+2017-02-26 01:49:05,315 DEBUG api_user 107 3688 140736596902848 200 OK
+2017-02-26 01:49:05,315 DEBUG api_user 109 3688 140736596902848 Login successfully.
+2017-02-26 01:49:05,319 DEBUG db_general 91 3688 140736596902848 Query : select uuid from ice_deployment_target;
+2017-02-26 01:49:05,320 DEBUG db_general 102 3688 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-02-26 01:49:05,323 DEBUG db_general 91 3688 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-02-26 01:49:05,324 DEBUG db_general 102 3688 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-02-26 01:49:05,544 DEBUG api_virtual_function 57 3688 140736596902848 Virtual Function created successfully!
+2017-02-26 01:49:05,544 DEBUG api_gitlab 192 3688 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/fe4f3194-f973-45f0-adca-f1b2bd4f4d98
+2017-02-26 01:49:05,603 DEBUG api_user 107 3688 140736596902848 200 OK
+2017-02-26 01:49:05,603 DEBUG api_user 109 3688 140736596902848 Login successfully.
+2017-02-26 01:49:05,638 DEBUG api_gitlab 210 3688 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-02-26 01:49:05,638 DEBUG fe_user 25 3688 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:49:05,638 DEBUG fe_user 26 3688 140736596902848 Insert Email
+2017-02-26 01:49:06,607 DEBUG fe_user 28 3688 140736596902848 Insert Password
+2017-02-26 01:49:07,283 DEBUG fe_user 30 3688 140736596902848 Click Login Button
+2017-02-26 01:49:07,388 DEBUG fe_user 32 3688 140736596902848 Login Button clicked
+2017-02-26 01:49:07,392 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:49:07,908 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:14,169 DEBUG fe_general 25 3688 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:49:14,328 DEBUG fe_user 25 3688 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:49:14,328 DEBUG fe_user 26 3688 140736596902848 Insert Email
+2017-02-26 01:49:15,119 DEBUG fe_user 28 3688 140736596902848 Insert Password
+2017-02-26 01:49:15,753 DEBUG fe_user 30 3688 140736596902848 Click Login Button
+2017-02-26 01:49:15,840 DEBUG fe_user 32 3688 140736596902848 Login Button clicked
+2017-02-26 01:49:15,843 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:49:16,427 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:16,936 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:17,449 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:23,124 DEBUG fe_general 25 3688 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:49:23,233 DEBUG fe_user 25 3688 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:49:23,233 DEBUG fe_user 26 3688 140736596902848 Insert Email
+2017-02-26 01:49:24,028 DEBUG fe_user 28 3688 140736596902848 Insert Password
+2017-02-26 01:49:24,688 DEBUG fe_user 30 3688 140736596902848 Click Login Button
+2017-02-26 01:49:24,779 DEBUG fe_user 32 3688 140736596902848 Login Button clicked
+2017-02-26 01:49:24,782 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:49:25,301 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:25,814 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:26,324 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:32,324 DEBUG fe_general 25 3688 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:49:32,476 DEBUG fe_user 25 3688 140736596902848 Verifying and Insert Login page elements:
+2017-02-26 01:49:32,476 DEBUG fe_user 26 3688 140736596902848 Insert Email
+2017-02-26 01:49:33,218 DEBUG fe_user 28 3688 140736596902848 Insert Password
+2017-02-26 01:49:33,853 DEBUG fe_user 30 3688 140736596902848 Click Login Button
+2017-02-26 01:49:33,941 DEBUG fe_user 32 3688 140736596902848 Login Button clicked
+2017-02-26 01:49:33,944 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-02-26 01:49:34,454 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:34,964 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:35,475 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:35,987 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:36,500 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:37,025 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:37,538 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:38,050 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:38,565 DEBUG wait 110 3688 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-02-26 01:49:44,354 DEBUG fe_general 25 3688 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-02-26 01:49:44,500 DEBUG logFuncEntry 34 3688 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:49:44,500 DEBUG logFuncEntry 34 3688 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-02-26 01:49:44,519 DEBUG test_ui_base 49 3688 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_negative_admin_page ----------------------
+

@@ -1,0 +1,1382 @@
+2017-03-16 08:29:13,205 DEBUG logFuncEntry 34 65982 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:29:13,205 DEBUG test_ui_base 23 65982 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-03-16 08:29:15,347 DEBUG test_ui_base 33 65982 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 08:29:15,472 ERROR exception_decor 21 65982 140736596902848 There was an exception in test_admin_page
+2017-03-16 08:29:15,478 DEBUG logFuncEntry 34 65982 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:29:15,478 DEBUG logFuncEntry 34 65982 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:29:15,516 DEBUG logFuncEntry 34 65982 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:29:15,516 DEBUG test_ui_base 23 65982 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_negative_admin_page ----------------------
+2017-03-16 08:29:17,625 DEBUG test_ui_base 33 65982 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 08:29:17,755 ERROR exception_decor 21 65982 140736596902848 There was an exception in test_negative_admin_page
+2017-03-16 08:29:17,755 DEBUG logFuncEntry 34 65982 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:29:17,756 DEBUG logFuncEntry 34 65982 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:39:23,958 DEBUG logFuncEntry 34 66431 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:39:23,958 DEBUG test_ui_base 23 66431 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-03-16 08:39:26,084 DEBUG test_ui_base 33 66431 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 08:39:26,229 ERROR exception_decor 21 66431 140736596902848 There was an exception in test_admin_page
+2017-03-16 08:39:26,238 DEBUG logFuncEntry 34 66431 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:39:26,238 DEBUG logFuncEntry 34 66431 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:39:26,274 DEBUG logFuncEntry 34 66431 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:39:26,275 DEBUG test_ui_base 23 66431 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_negative_admin_page ----------------------
+2017-03-16 08:39:28,389 DEBUG test_ui_base 33 66431 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 08:39:28,511 ERROR exception_decor 21 66431 140736596902848 There was an exception in test_negative_admin_page
+2017-03-16 08:39:28,513 DEBUG logFuncEntry 34 66431 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:39:28,513 DEBUG logFuncEntry 34 66431 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:41:17,586 DEBUG logFuncEntry 34 66549 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:41:17,587 DEBUG test_ui_base 23 66549 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-03-16 08:41:19,738 DEBUG test_ui_base 33 66549 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 08:41:20,501 ERROR exception_decor 21 66549 140736596902848 There was an exception in test_admin_page
+2017-03-16 08:41:20,506 DEBUG logFuncEntry 34 66549 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:41:20,506 DEBUG logFuncEntry 34 66549 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:41:20,548 DEBUG test_ui_base 49 66549 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-03-16 08:41:20,550 DEBUG logFuncEntry 34 66549 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:41:20,551 DEBUG test_ui_base 23 66549 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_negative_admin_page ----------------------
+2017-03-16 08:41:22,693 DEBUG test_ui_base 33 66549 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 08:41:23,332 ERROR exception_decor 21 66549 140736596902848 There was an exception in test_negative_admin_page
+2017-03-16 08:41:23,334 DEBUG logFuncEntry 34 66549 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:41:23,335 DEBUG logFuncEntry 34 66549 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:41:23,350 DEBUG test_ui_base 49 66549 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_negative_admin_page ----------------------
+
+2017-03-16 08:43:05,967 DEBUG logFuncEntry 34 66672 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:43:05,968 DEBUG test_ui_base 23 66672 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-03-16 08:43:08,116 DEBUG test_ui_base 33 66672 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 08:43:09,129 DEBUG api_user 92 66672 140736596902848 Moving to next test case
+2017-03-16 08:43:09,130 DEBUG api_user 169 66672 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/38d6e787-89dc-44db-bab4-67f59bd02b7b/97d4919ab4fc452280c7c5e87a228f1a
+2017-03-16 08:43:09,181 DEBUG api_user 172 66672 140736596902848 APIUser activated successfully!
+2017-03-16 08:43:09,263 DEBUG api_user 110 66672 140736596902848 200 OK
+2017-03-16 08:43:09,263 DEBUG api_user 112 66672 140736596902848 Login successfully.
+2017-03-16 08:43:09,268 DEBUG db_general 92 66672 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 08:43:09,270 DEBUG db_general 103 66672 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 08:43:09,275 DEBUG db_general 92 66672 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 08:43:09,277 DEBUG db_general 103 66672 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 08:43:09,913 DEBUG api_virtual_function 59 66672 140736596902848 Virtual Function created successfully!
+2017-03-16 08:43:09,914 DEBUG api_gitlab 195 66672 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/5bfed8ae-778a-4521-b32a-15c31550d797
+2017-03-16 08:43:09,995 DEBUG api_user 110 66672 140736596902848 200 OK
+2017-03-16 08:43:09,996 DEBUG api_user 112 66672 140736596902848 Login successfully.
+2017-03-16 08:43:10,049 DEBUG api_gitlab 213 66672 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 08:43:10,050 DEBUG fe_user 26 66672 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 08:43:10,050 DEBUG fe_user 27 66672 140736596902848 Insert Email
+2017-03-16 08:43:10,867 DEBUG fe_user 29 66672 140736596902848 Insert Password
+2017-03-16 08:43:11,529 DEBUG fe_user 31 66672 140736596902848 Click Login Button
+2017-03-16 08:43:11,629 DEBUG fe_user 33 66672 140736596902848 Login Button clicked
+2017-03-16 08:43:11,634 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 08:43:12,151 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:12,668 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:13,187 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:13,702 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:14,217 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:14,736 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:15,253 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:15,771 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:16,286 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:16,852 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:18,144 DEBUG logFuncEntry 34 66672 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:43:18,144 DEBUG logFuncEntry 34 66672 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 08:43:18,208 DEBUG test_ui_base 49 66672 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-03-16 08:43:18,209 DEBUG logFuncEntry 34 66672 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:43:18,209 DEBUG test_ui_base 23 66672 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_negative_admin_page ----------------------
+2017-03-16 08:43:20,351 DEBUG test_ui_base 33 66672 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 08:43:21,154 DEBUG api_user 92 66672 140736596902848 Moving to next test case
+2017-03-16 08:43:21,155 DEBUG api_user 169 66672 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/a6c4db37-61d1-4966-abde-1b9c9d36ee6c/5134a3f3fc2b401bbf156a30975f5ce3
+2017-03-16 08:43:21,197 DEBUG api_user 172 66672 140736596902848 APIUser activated successfully!
+2017-03-16 08:43:21,286 DEBUG api_user 110 66672 140736596902848 200 OK
+2017-03-16 08:43:21,287 DEBUG api_user 112 66672 140736596902848 Login successfully.
+2017-03-16 08:43:21,291 DEBUG db_general 92 66672 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 08:43:21,292 DEBUG db_general 103 66672 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 08:43:21,296 DEBUG db_general 92 66672 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 08:43:21,297 DEBUG db_general 103 66672 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 08:43:21,614 DEBUG api_virtual_function 59 66672 140736596902848 Virtual Function created successfully!
+2017-03-16 08:43:21,614 DEBUG api_gitlab 195 66672 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/134ac07e-3315-4f78-ac91-3d0bed8f4d6e
+2017-03-16 08:43:21,722 DEBUG api_user 110 66672 140736596902848 200 OK
+2017-03-16 08:43:21,723 DEBUG api_user 112 66672 140736596902848 Login successfully.
+2017-03-16 08:43:21,770 DEBUG api_gitlab 213 66672 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 08:43:21,771 DEBUG fe_user 26 66672 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 08:43:21,771 DEBUG fe_user 27 66672 140736596902848 Insert Email
+2017-03-16 08:43:22,692 DEBUG fe_user 29 66672 140736596902848 Insert Password
+2017-03-16 08:43:23,373 DEBUG fe_user 31 66672 140736596902848 Click Login Button
+2017-03-16 08:43:23,479 DEBUG fe_user 33 66672 140736596902848 Login Button clicked
+2017-03-16 08:43:23,488 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 08:43:24,011 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:29,860 DEBUG fe_general 35 66672 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-03-16 08:43:30,565 DEBUG fe_user 26 66672 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 08:43:30,566 DEBUG fe_user 27 66672 140736596902848 Insert Email
+2017-03-16 08:43:31,366 DEBUG fe_user 29 66672 140736596902848 Insert Password
+2017-03-16 08:43:32,024 DEBUG fe_user 31 66672 140736596902848 Click Login Button
+2017-03-16 08:43:32,126 DEBUG fe_user 33 66672 140736596902848 Login Button clicked
+2017-03-16 08:43:32,132 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 08:43:32,648 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:33,162 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:33,679 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:34,197 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:39,963 DEBUG fe_general 35 66672 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-03-16 08:43:40,613 DEBUG fe_user 26 66672 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 08:43:40,614 DEBUG fe_user 27 66672 140736596902848 Insert Email
+2017-03-16 08:43:41,426 DEBUG fe_user 29 66672 140736596902848 Insert Password
+2017-03-16 08:43:42,093 DEBUG fe_user 31 66672 140736596902848 Click Login Button
+2017-03-16 08:43:42,199 DEBUG fe_user 33 66672 140736596902848 Login Button clicked
+2017-03-16 08:43:42,205 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 08:43:42,731 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:43,246 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:43,761 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:49,507 DEBUG fe_general 35 66672 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-03-16 08:43:50,187 DEBUG fe_user 26 66672 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 08:43:50,187 DEBUG fe_user 27 66672 140736596902848 Insert Email
+2017-03-16 08:43:50,943 DEBUG fe_user 29 66672 140736596902848 Insert Password
+2017-03-16 08:43:51,596 DEBUG fe_user 31 66672 140736596902848 Click Login Button
+2017-03-16 08:43:51,704 DEBUG fe_user 33 66672 140736596902848 Login Button clicked
+2017-03-16 08:43:51,709 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 08:43:52,357 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:52,877 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:53,405 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:53,922 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:54,441 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:54,955 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:55,477 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:55,994 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:43:56,509 DEBUG wait 110 66672 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 08:44:02,290 DEBUG fe_general 35 66672 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-03-16 08:44:02,941 DEBUG logFuncEntry 34 66672 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:44:02,942 DEBUG logFuncEntry 34 66672 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 08:44:02,965 DEBUG test_ui_base 49 66672 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_negative_admin_page ----------------------
+
+2017-03-16 13:24:42,087 DEBUG logFuncEntry 34 69177 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 13:24:42,088 DEBUG test_ui_base 23 69177 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-03-16 13:24:44,269 DEBUG test_ui_base 33 69177 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:24:45,412 DEBUG api_user 92 69177 140736596902848 Moving to next test case
+2017-03-16 13:24:45,412 DEBUG api_user 169 69177 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/fa95b26e-bb53-4257-b33f-ca583363c58c/8f31bcc39cba4df38046b08d3f07cb88
+2017-03-16 13:24:45,449 DEBUG api_user 172 69177 140736596902848 APIUser activated successfully!
+2017-03-16 13:24:45,520 DEBUG api_user 110 69177 140736596902848 200 OK
+2017-03-16 13:24:45,520 DEBUG api_user 112 69177 140736596902848 Login successfully.
+2017-03-16 13:24:45,524 DEBUG db_general 92 69177 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:24:45,525 DEBUG db_general 103 69177 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:24:45,529 DEBUG db_general 92 69177 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:24:45,530 DEBUG db_general 103 69177 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:24:45,922 DEBUG api_virtual_function 59 69177 140736596902848 Virtual Function created successfully!
+2017-03-16 13:24:45,923 DEBUG api_gitlab 195 69177 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/2c0445b7-a537-4221-aad0-fc5482dc6ae9
+2017-03-16 13:24:45,991 DEBUG api_user 110 69177 140736596902848 200 OK
+2017-03-16 13:24:45,991 DEBUG api_user 112 69177 140736596902848 Login successfully.
+2017-03-16 13:24:46,026 DEBUG api_gitlab 213 69177 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:24:46,026 DEBUG fe_user 26 69177 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:24:46,026 DEBUG fe_user 27 69177 140736596902848 Insert Email
+2017-03-16 13:24:46,863 DEBUG fe_user 29 69177 140736596902848 Insert Password
+2017-03-16 13:24:47,520 DEBUG fe_user 31 69177 140736596902848 Click Login Button
+2017-03-16 13:24:47,618 DEBUG fe_user 33 69177 140736596902848 Login Button clicked
+2017-03-16 13:24:47,622 DEBUG wait 110 69177 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:24:48,140 DEBUG wait 110 69177 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:24:48,650 ERROR fe_user 41 69177 140736596902848 Login FAILED: email=admin@att.com password=iceusers
+2017-03-16 13:24:48,653 ERROR exception_decor 21 69177 140736596902848 There was an exception in test_admin_page
+2017-03-16 13:24:48,659 DEBUG logFuncEntry 34 69177 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 13:24:48,659 DEBUG logFuncEntry 34 69177 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 13:24:56,519 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_audit_log>,) | {}
+2017-03-16 13:24:56,519 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:24:56,520 DEBUG logFuncEntry 34 69221 140736596902848 calling test_add_checklist_audit_log | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_audit_log>,) | {}
+2017-03-16 13:24:56,597 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:24:56,597 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/5ee5831f-be0b-480d-b4c6-46e540130833/ff3145ec66d54a798451a239fded7f37
+2017-03-16 13:24:56,635 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:24:56,702 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:56,702 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:56,706 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:24:56,707 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:24:56,710 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:24:56,711 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:24:56,985 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:24:56,986 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/b53a7c40-09b0-461a-81df-7bbaf32c6e5d
+2017-03-16 13:24:57,056 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:57,056 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:57,092 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:24:57,092 DEBUG test_negative_requests 157 69221 140736596902848 Create checklist with engagement lead (next: try to add audit log to checklist with standard user and admin_ro)
+2017-03-16 13:24:57,160 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:57,161 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:57,161 DEBUG api_checklist 16 69221 140736596902848 Post create checklist URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/create/b53a7c40-09b0-461a-81df-7bbaf32c6e5d
+2017-03-16 13:24:57,165 DEBUG db_general 116 69221 140736596902848 Query : select uuid from ice_checklist_template Where name = 'Heat';
+2017-03-16 13:24:57,167 DEBUG db_general 128 69221 140736596902848 Query result: 84709cb6-cb23-4e15-8ddf-998edd6a2c76
+2017-03-16 13:24:57,167 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/b53a7c40-09b0-461a-81df-7bbaf32c6e5d
+2017-03-16 13:24:57,237 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:57,238 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:57,273 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:24:57,363 DEBUG api_checklist 29 69221 140736596902848 DBChecklist was created successfully!
+2017-03-16 13:24:57,363 DEBUG test_negative_requests 161 69221 140736596902848 This negative test will try to add audit log to checklist using standard user / admin_ro auth token.
+2017-03-16 13:24:57,433 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:57,433 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:57,433 DEBUG test_negative_requests 167 69221 140736596902848 About to add audit log to checklist uuid 44dd7cca-933b-47d9-aa0c-ed8c431667ae
+2017-03-16 13:24:57,433 DEBUG api_checklist 71 69221 140736596902848 Post checklist audit log URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/44dd7cca-933b-47d9-aa0c-ed8c431667ae/auditlog/
+2017-03-16 13:24:57,467 ERROR api_checklist 85 69221 140736596902848 Failed to add audit log for checklist uuid: 44dd7cca-933b-47d9-aa0c-ed8c431667ae, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 5ee5831f-be0b-480d-b4c6-46e540130833. eng_uuid=b53a7c40-09b0-461a-81df-7bbaf32c6e5d. checklist_uuid=44dd7cca-933b-47d9-aa0c-ed8c431667ae"'
+2017-03-16 13:24:57,467 DEBUG test_negative_requests 171 69221 140736596902848 Success! Test failed to add audit log to checklist using other auth token.
+2017-03-16 13:24:57,541 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:57,542 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:57,542 DEBUG test_negative_requests 167 69221 140736596902848 About to add audit log to checklist uuid 44dd7cca-933b-47d9-aa0c-ed8c431667ae
+2017-03-16 13:24:57,542 DEBUG api_checklist 71 69221 140736596902848 Post checklist audit log URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/44dd7cca-933b-47d9-aa0c-ed8c431667ae/auditlog/
+2017-03-16 13:24:57,576 ERROR api_checklist 85 69221 140736596902848 Failed to add audit log for checklist uuid: 44dd7cca-933b-47d9-aa0c-ed8c431667ae, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 7268211a-5663-443f-86dd-9f1dcf0e0590. eng_uuid=b53a7c40-09b0-461a-81df-7bbaf32c6e5d. checklist_uuid=44dd7cca-933b-47d9-aa0c-ed8c431667ae"'
+2017-03-16 13:24:57,576 DEBUG test_negative_requests 171 69221 140736596902848 Success! Test failed to add audit log to checklist using other auth token.
+2017-03-16 13:24:57,576 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_audit_log>,) | {}
+2017-03-16 13:24:57,576 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_audit_log>,) | {}
+2017-03-16 13:24:57,584 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:24:57,585 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_next_step>,) | {}
+2017-03-16 13:24:57,585 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:24:57,585 DEBUG logFuncEntry 34 69221 140736596902848 calling test_add_checklist_next_step | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_next_step>,) | {}
+2017-03-16 13:24:57,586 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_next_step>,) | {}
+2017-03-16 13:24:57,586 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_next_step>,) | {}
+2017-03-16 13:24:57,591 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:24:57,593 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_contact>,) | {}
+2017-03-16 13:24:57,593 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:24:57,593 DEBUG logFuncEntry 34 69221 140736596902848 calling test_negative_add_contact | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_contact>,) | {}
+2017-03-16 13:24:57,593 DEBUG test_negative_requests 41 69221 140736596902848 This negative test will try to add contact to an engagement using other auth token.
+2017-03-16 13:24:57,669 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:24:57,669 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/8f9a55d2-b49b-4a7a-956f-6b1392cff823/d46bdfe06a8b49f08cfe5aa471c9ebb7
+2017-03-16 13:24:57,703 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:24:57,772 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:57,773 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:57,776 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:24:57,777 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:24:57,781 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:24:57,782 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:24:58,007 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:24:58,007 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/a338c7e1-d13a-4f3d-b485-e4619f393e51
+2017-03-16 13:24:58,074 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:58,074 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:58,111 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:24:58,186 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:24:58,186 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/96e50e2d-d68f-41d4-aa8f-a9ae251e5a1d/1ca26099cac6498696538b2fde9610d9
+2017-03-16 13:24:58,219 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:24:58,287 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:58,287 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:58,290 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:24:58,292 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:24:58,297 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:24:58,298 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:24:58,520 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:24:58,520 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/9cb1ad4f-ccd5-4f43-8efb-d911e9ea33c7
+2017-03-16 13:24:58,587 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:58,587 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:58,624 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:24:58,624 DEBUG test_negative_requests 46 69221 140736596902848 About to invite contact to the engagement of user STLKFd8
+2017-03-16 13:24:58,624 DEBUG api_virtual_function 102 69221 140736596902848 Post invite vendor contact URL: http://127.0.0.1:8181/ice/v1/engmgr/addcontact/
+2017-03-16 13:24:58,657 DEBUG test_negative_requests 50 69221 140736596902848 Success! Test failed to invite contact user using other auth token.
+2017-03-16 13:24:58,657 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_contact>,) | {}
+2017-03-16 13:24:58,657 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_contact>,) | {}
+2017-03-16 13:24:58,664 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:24:58,665 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_next_step>,) | {}
+2017-03-16 13:24:58,665 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:24:58,666 DEBUG logFuncEntry 34 69221 140736596902848 calling test_negative_add_next_step | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_next_step>,) | {}
+2017-03-16 13:24:58,666 DEBUG test_negative_requests 56 69221 140736596902848 This negative test will try to add a next step to engagement using PR / standard user / admin_ro auth token.
+2017-03-16 13:24:58,750 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:24:58,750 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/2b9ac829-9889-4120-b1c9-1a331cf820d8/12c8b11bd3e14e5f893edea8cdbb3b6e
+2017-03-16 13:24:58,781 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:24:58,856 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:58,856 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:58,860 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:24:58,862 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:24:58,865 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:24:58,867 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:24:59,087 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:24:59,087 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/dfce9bd0-ba2c-489e-9db9-3a83759f8a13
+2017-03-16 13:24:59,163 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:59,163 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:59,200 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:24:59,267 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:59,267 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:59,267 DEBUG test_negative_requests 63 69221 140736596902848 About to add a next step to VF STd4Aga using STwUmdn@intl.att.com token.
+2017-03-16 13:24:59,267 DEBUG api_virtual_function 18 69221 140736596902848 Post add next step URL: http://127.0.0.1:8181/ice/v1/engmgr/engagements/dfce9bd0-ba2c-489e-9db9-3a83759f8a13/nextsteps
+2017-03-16 13:24:59,299 ERROR api_virtual_function 39 69221 140736596902848 Failed to add next step to VF STd4Aga, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 2b9ac829-9889-4120-b1c9-1a331cf820d8. eng_uuid=dfce9bd0-ba2c-489e-9db9-3a83759f8a13. checklist_uuid=None"'
+2017-03-16 13:24:59,299 DEBUG test_negative_requests 67 69221 140736596902848 Success! Test failed to add a new next step to the engagement using other auth token.
+2017-03-16 13:24:59,475 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:59,475 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:59,475 DEBUG test_negative_requests 63 69221 140736596902848 About to add a next step to VF STd4Aga using STPfCHv@intl.att.com token.
+2017-03-16 13:24:59,475 DEBUG api_virtual_function 18 69221 140736596902848 Post add next step URL: http://127.0.0.1:8181/ice/v1/engmgr/engagements/dfce9bd0-ba2c-489e-9db9-3a83759f8a13/nextsteps
+2017-03-16 13:24:59,507 ERROR api_virtual_function 39 69221 140736596902848 Failed to add next step to VF STd4Aga, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 2358b242-de97-4db6-83ee-ce6f73af58c5. eng_uuid=dfce9bd0-ba2c-489e-9db9-3a83759f8a13. checklist_uuid=None"'
+2017-03-16 13:24:59,507 DEBUG test_negative_requests 67 69221 140736596902848 Success! Test failed to add a new next step to the engagement using other auth token.
+2017-03-16 13:24:59,574 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:59,575 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:59,575 DEBUG test_negative_requests 63 69221 140736596902848 About to add a next step to VF STd4Aga using admin_ro@att.com token.
+2017-03-16 13:24:59,575 DEBUG api_virtual_function 18 69221 140736596902848 Post add next step URL: http://127.0.0.1:8181/ice/v1/engmgr/engagements/dfce9bd0-ba2c-489e-9db9-3a83759f8a13/nextsteps
+2017-03-16 13:24:59,604 ERROR api_virtual_function 39 69221 140736596902848 Failed to add next step to VF STd4Aga, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 7268211a-5663-443f-86dd-9f1dcf0e0590. eng_uuid=dfce9bd0-ba2c-489e-9db9-3a83759f8a13. checklist_uuid=None"'
+2017-03-16 13:24:59,605 DEBUG test_negative_requests 67 69221 140736596902848 Success! Test failed to add a new next step to the engagement using other auth token.
+2017-03-16 13:24:59,605 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_next_step>,) | {}
+2017-03-16 13:24:59,605 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_next_step>,) | {}
+2017-03-16 13:24:59,615 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:24:59,617 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_checklist_files>,) | {}
+2017-03-16 13:24:59,617 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:24:59,617 DEBUG logFuncEntry 34 69221 140736596902848 calling test_negative_checklist_files | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_checklist_files>,) | {}
+2017-03-16 13:24:59,617 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_checklist_files>,) | {}
+2017-03-16 13:24:59,617 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_checklist_files>,) | {}
+2017-03-16 13:24:59,628 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:24:59,630 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_create_checklist>,) | {}
+2017-03-16 13:24:59,630 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:24:59,630 DEBUG logFuncEntry 34 69221 140736596902848 calling test_negative_create_checklist | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_create_checklist>,) | {}
+2017-03-16 13:24:59,713 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:24:59,713 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/e96aaa60-def3-4cfc-80fa-ab05b940bff0/4e7e3cc7bb11491699d959c330237fba
+2017-03-16 13:24:59,745 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:24:59,815 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:24:59,816 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:24:59,820 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:24:59,821 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:24:59,824 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:24:59,825 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:00,051 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:00,052 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/20c81c20-8a1b-4840-9029-9987d384c010
+2017-03-16 13:25:00,123 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:00,123 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:00,162 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:00,162 DEBUG test_negative_requests 94 69221 140736596902848 This negative test will try to create a checklist using PR / standard user / admin_ro auth token.
+2017-03-16 13:25:00,231 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:00,231 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:00,231 DEBUG test_negative_requests 100 69221 140736596902848 About to create checklist for VF STtP8yL
+2017-03-16 13:25:00,231 DEBUG api_checklist 16 69221 140736596902848 Post create checklist URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/create/20c81c20-8a1b-4840-9029-9987d384c010
+2017-03-16 13:25:00,234 DEBUG db_general 116 69221 140736596902848 Query : select uuid from ice_checklist_template Where name = 'Heat';
+2017-03-16 13:25:00,237 DEBUG db_general 128 69221 140736596902848 Query result: 84709cb6-cb23-4e15-8ddf-998edd6a2c76
+2017-03-16 13:25:00,237 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/20c81c20-8a1b-4840-9029-9987d384c010
+2017-03-16 13:25:00,307 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:00,308 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:00,343 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:00,374 ERROR api_checklist 38 69221 140736596902848 Failed to create checklist for VF STtP8yL, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: e96aaa60-def3-4cfc-80fa-ab05b940bff0. eng_uuid=20c81c20-8a1b-4840-9029-9987d384c010. checklist_uuid=None"'
+2017-03-16 13:25:00,375 DEBUG test_negative_requests 104 69221 140736596902848 Success! Test failed to create checklist using other auth token.
+2017-03-16 13:25:00,446 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:00,446 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:00,446 DEBUG test_negative_requests 100 69221 140736596902848 About to create checklist for VF STtP8yL
+2017-03-16 13:25:00,446 DEBUG api_checklist 16 69221 140736596902848 Post create checklist URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/create/20c81c20-8a1b-4840-9029-9987d384c010
+2017-03-16 13:25:00,449 DEBUG db_general 116 69221 140736596902848 Query : select uuid from ice_checklist_template Where name = 'Heat';
+2017-03-16 13:25:00,451 DEBUG db_general 128 69221 140736596902848 Query result: 84709cb6-cb23-4e15-8ddf-998edd6a2c76
+2017-03-16 13:25:00,451 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/20c81c20-8a1b-4840-9029-9987d384c010
+2017-03-16 13:25:00,520 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:00,520 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:00,555 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:00,586 ERROR api_checklist 38 69221 140736596902848 Failed to create checklist for VF STtP8yL, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: c5621915-0403-40f6-b3b9-bdcdcc31db46. eng_uuid=20c81c20-8a1b-4840-9029-9987d384c010. checklist_uuid=None"'
+2017-03-16 13:25:00,586 DEBUG test_negative_requests 104 69221 140736596902848 Success! Test failed to create checklist using other auth token.
+2017-03-16 13:25:00,653 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:00,653 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:00,653 DEBUG test_negative_requests 100 69221 140736596902848 About to create checklist for VF STtP8yL
+2017-03-16 13:25:00,653 DEBUG api_checklist 16 69221 140736596902848 Post create checklist URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/create/20c81c20-8a1b-4840-9029-9987d384c010
+2017-03-16 13:25:00,656 DEBUG db_general 116 69221 140736596902848 Query : select uuid from ice_checklist_template Where name = 'Heat';
+2017-03-16 13:25:00,658 DEBUG db_general 128 69221 140736596902848 Query result: 84709cb6-cb23-4e15-8ddf-998edd6a2c76
+2017-03-16 13:25:00,658 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/20c81c20-8a1b-4840-9029-9987d384c010
+2017-03-16 13:25:00,728 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:00,729 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:00,766 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:00,799 ERROR api_checklist 38 69221 140736596902848 Failed to create checklist for VF STtP8yL, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 7268211a-5663-443f-86dd-9f1dcf0e0590. eng_uuid=20c81c20-8a1b-4840-9029-9987d384c010. checklist_uuid=None"'
+2017-03-16 13:25:00,799 DEBUG test_negative_requests 104 69221 140736596902848 Success! Test failed to create checklist using other auth token.
+2017-03-16 13:25:00,799 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_create_checklist>,) | {}
+2017-03-16 13:25:00,799 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_create_checklist>,) | {}
+2017-03-16 13:25:00,806 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:00,807 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_edit_next_step>,) | {}
+2017-03-16 13:25:00,807 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:00,807 DEBUG logFuncEntry 34 69221 140736596902848 calling test_negative_edit_next_step | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_edit_next_step>,) | {}
+2017-03-16 13:25:00,807 DEBUG test_negative_requests 73 69221 140736596902848 This negative test will try to edit a next step using PR / standard user / admin_ro auth token.
+2017-03-16 13:25:00,883 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:25:00,883 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/dd1e0e10-d290-40fa-b0e6-5de7725031f2/195c319141c947849631d8ae30086d90
+2017-03-16 13:25:00,916 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:00,984 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:00,985 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:00,988 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:00,989 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:00,991 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:00,992 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:01,204 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:01,205 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/df835198-da94-46f0-8270-25d75aafef3d
+2017-03-16 13:25:01,272 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:01,272 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:01,307 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:01,375 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:01,376 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:01,376 DEBUG api_virtual_function 18 69221 140736596902848 Post add next step URL: http://127.0.0.1:8181/ice/v1/engmgr/engagements/df835198-da94-46f0-8270-25d75aafef3d/nextsteps
+2017-03-16 13:25:01,470 DEBUG api_virtual_function 32 69221 140736596902848 Next step was added to the engagement!
+2017-03-16 13:25:01,538 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:01,539 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:01,539 DEBUG test_negative_requests 83 69221 140736596902848 About to edit a next step (ns uuid: e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5) using STFJWN9@intl.att.com token.
+2017-03-16 13:25:01,539 DEBUG api_virtual_function 133 69221 140736596902848 Put next step URL: http://127.0.0.1:8181/ice/v1/engmgr/nextsteps/e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5/engagement/df835198-da94-46f0-8270-25d75aafef3d/modify/
+2017-03-16 13:25:01,574 ERROR api_virtual_function 150 69221 140736596902848 Failed to edit next step uuid: e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5, see response >>> 401 Unauthorized
+2017-03-16 13:25:01,574 DEBUG test_negative_requests 87 69221 140736596902848 Success! Test failed to edit a next step using other auth token.
+2017-03-16 13:25:01,673 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:01,673 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:01,673 DEBUG test_negative_requests 83 69221 140736596902848 About to edit a next step (ns uuid: e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5) using STGo3q7@intl.att.com token.
+2017-03-16 13:25:01,673 DEBUG api_virtual_function 133 69221 140736596902848 Put next step URL: http://127.0.0.1:8181/ice/v1/engmgr/nextsteps/e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5/engagement/df835198-da94-46f0-8270-25d75aafef3d/modify/
+2017-03-16 13:25:01,707 ERROR api_virtual_function 150 69221 140736596902848 Failed to edit next step uuid: e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5, see response >>> 401 Unauthorized
+2017-03-16 13:25:01,707 DEBUG test_negative_requests 87 69221 140736596902848 Success! Test failed to edit a next step using other auth token.
+2017-03-16 13:25:01,775 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:01,775 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:01,775 DEBUG test_negative_requests 83 69221 140736596902848 About to edit a next step (ns uuid: e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5) using admin_ro@att.com token.
+2017-03-16 13:25:01,775 DEBUG api_virtual_function 133 69221 140736596902848 Put next step URL: http://127.0.0.1:8181/ice/v1/engmgr/nextsteps/e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5/engagement/df835198-da94-46f0-8270-25d75aafef3d/modify/
+2017-03-16 13:25:01,808 ERROR api_virtual_function 150 69221 140736596902848 Failed to edit next step uuid: e9ff96b8-28b8-4e37-98a6-3e1ff1e745c5, see response >>> 401 Unauthorized
+2017-03-16 13:25:01,808 DEBUG test_negative_requests 87 69221 140736596902848 Success! Test failed to edit a next step using other auth token.
+2017-03-16 13:25:01,808 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_edit_next_step>,) | {}
+2017-03-16 13:25:01,808 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_edit_next_step>,) | {}
+2017-03-16 13:25:01,817 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:01,818 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_invite_member>,) | {}
+2017-03-16 13:25:01,818 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:01,818 DEBUG logFuncEntry 34 69221 140736596902848 calling test_negative_invite_member | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_invite_member>,) | {}
+2017-03-16 13:25:01,818 DEBUG test_negative_requests 26 69221 140736596902848 This negative test will try to invite team member to an engagement using other auth token.
+2017-03-16 13:25:01,892 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:25:01,893 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/5e5b33bd-7cf4-4ecc-ac35-6304608dab68/869e39db418b4e8597683631645f37d8
+2017-03-16 13:25:01,924 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:01,995 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:01,995 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:01,998 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:02,000 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:02,003 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:02,004 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:02,227 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:02,227 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/6591aba1-2e16-47a7-8c6a-4900504fea2b
+2017-03-16 13:25:02,299 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:02,299 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:02,335 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:02,412 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:25:02,412 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/21fab940-a348-423d-bc4e-f3b24f911c0f/2e6d1fc22e644ca3b3a9883a9fb5ff57
+2017-03-16 13:25:02,443 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:02,512 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:02,512 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:02,516 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:02,517 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:02,520 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:02,521 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:02,761 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:02,761 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/afcb55f2-e056-4cf0-bd01-5cf49c53e1e8
+2017-03-16 13:25:02,831 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:02,831 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:02,869 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:02,869 DEBUG test_negative_requests 31 69221 140736596902848 About to invite team member to the engagement of user STbnCu5
+2017-03-16 13:25:02,869 DEBUG api_virtual_function 73 69221 140736596902848 Post invite user URL: http://127.0.0.1:8181/ice/v1/engmgr/inviteteammembers/
+2017-03-16 13:25:02,902 ERROR api_virtual_function 95 69221 140736596902848 POST request failed to invite team member, see response >>> 401 Unauthorized
+2017-03-16 13:25:02,902 DEBUG test_negative_requests 35 69221 140736596902848 Success! Test failed to invite user using other auth token.
+2017-03-16 13:25:02,902 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_invite_member>,) | {}
+2017-03-16 13:25:02,902 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_invite_member>,) | {}
+2017-03-16 13:25:02,909 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:02,910 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_set_checklist_state>,) | {}
+2017-03-16 13:25:02,910 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:02,910 DEBUG logFuncEntry 34 69221 140736596902848 calling test_negative_set_checklist_state | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_set_checklist_state>,) | {}
+2017-03-16 13:25:02,910 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_set_checklist_state>,) | {}
+2017-03-16 13:25:02,910 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_set_checklist_state>,) | {}
+2017-03-16 13:25:02,915 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:02,917 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_update_checklist>,) | {}
+2017-03-16 13:25:02,917 DEBUG testApiBase 21 69221 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:02,917 DEBUG logFuncEntry 34 69221 140736596902848 calling test_negative_update_checklist | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_update_checklist>,) | {}
+2017-03-16 13:25:02,917 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_update_checklist>,) | {}
+2017-03-16 13:25:02,917 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_update_checklist>,) | {}
+2017-03-16 13:25:02,921 DEBUG testApiBase 32 69221 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:02,923 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_archive_engagement>,) | {}
+2017-03-16 13:25:02,923 DEBUG test_ui_base 23 69221 140736596902848 ---------------------- TestCase - Start - Class TestAdminDropdown Function test_archive_engagement ----------------------
+2017-03-16 13:25:05,049 DEBUG test_ui_base 33 69221 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:25:06,235 DEBUG api_user 92 69221 140736596902848 Moving to next test case
+2017-03-16 13:25:06,236 DEBUG api_user 169 69221 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/8a2db575-d785-4f07-9fba-8ab933cdab31/8908c0c9d0b44ecea0df56221910ffcb
+2017-03-16 13:25:06,269 DEBUG api_user 172 69221 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:06,346 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:06,346 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:06,350 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:06,352 DEBUG db_general 103 69221 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:06,355 DEBUG db_general 92 69221 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:06,356 DEBUG db_general 103 69221 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:06,644 DEBUG api_virtual_function 59 69221 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:06,645 DEBUG api_gitlab 195 69221 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/25ffed23-b375-4a20-a72b-30291d237787
+2017-03-16 13:25:06,757 DEBUG api_user 110 69221 140736596902848 200 OK
+2017-03-16 13:25:06,757 DEBUG api_user 112 69221 140736596902848 Login successfully.
+2017-03-16 13:25:06,797 DEBUG api_gitlab 213 69221 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:06,797 DEBUG fe_user 26 69221 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:25:06,797 DEBUG fe_user 27 69221 140736596902848 Insert Email
+2017-03-16 13:25:07,613 DEBUG fe_user 29 69221 140736596902848 Insert Password
+2017-03-16 13:25:08,285 DEBUG fe_user 31 69221 140736596902848 Click Login Button
+2017-03-16 13:25:08,384 DEBUG fe_user 33 69221 140736596902848 Login Button clicked
+2017-03-16 13:25:08,389 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:25:09,016 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:09,531 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:10,048 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:10,564 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:11,081 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:11,597 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:12,113 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:12,629 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:13,145 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:13,668 DEBUG wait 110 69221 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:16,621 DEBUG logFuncEntry 34 69221 140736596902848 calling tearDown | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_archive_engagement>,) | {}
+2017-03-16 13:25:16,622 DEBUG logFuncEntry 34 69221 140736596902848 calling results | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_archive_engagement>,) | {}
+2017-03-16 13:25:16,642 DEBUG test_ui_base 49 69221 140736596902848 ---------------------- TestCase - End - Class TestAdminDropdown Function test_archive_engagement ----------------------
+
+2017-03-16 13:25:16,642 DEBUG logFuncEntry 34 69221 140736596902848 calling setUp | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_change_peer_reviewer>,) | {}
+2017-03-16 13:25:16,643 DEBUG test_ui_base 23 69221 140736596902848 ---------------------- TestCase - Start - Class TestAdminDropdown Function test_change_peer_reviewer ----------------------
+2017-03-16 13:25:44,584 DEBUG logFuncEntry 34 69454 140736596902848 calling setUp | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_archive_engagement>,) | {}
+2017-03-16 13:25:44,585 DEBUG test_ui_base 23 69454 140736596902848 ---------------------- TestCase - Start - Class TestAdminDropdown Function test_archive_engagement ----------------------
+2017-03-16 13:25:44,585 DEBUG logFuncEntry 34 69455 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 13:25:44,585 DEBUG test_ui_base 23 69455 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_admin_page ----------------------
+2017-03-16 13:25:44,585 DEBUG logFuncEntry 34 69453 140736596902848 calling setUp | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_Create_New_Checklist>,) | {}
+2017-03-16 13:25:44,586 DEBUG test_ui_base 23 69453 140736596902848 ---------------------- TestCase - Start - Class TestChecklistValidations Function test_Create_New_Checklist ----------------------
+2017-03-16 13:25:44,592 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_audit_log>,) | {}
+2017-03-16 13:25:44,593 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:44,593 DEBUG logFuncEntry 34 69452 140736596902848 calling test_add_checklist_audit_log | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_audit_log>,) | {}
+2017-03-16 13:25:44,716 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:25:44,716 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/cf7a98f7-4076-475b-b6fb-5afb775599b1/350d9444b88c4253b50eb71be81ea00c
+2017-03-16 13:25:44,769 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:44,877 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:44,878 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:44,886 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:44,887 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:44,892 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:44,894 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:45,920 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:45,921 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/003d84cd-f48f-4a39-91a3-c0fcd16826ab
+2017-03-16 13:25:46,015 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:46,015 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:46,067 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:46,067 DEBUG test_negative_requests 157 69452 140736596902848 Create checklist with engagement lead (next: try to add audit log to checklist with standard user and admin_ro)
+2017-03-16 13:25:46,172 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:46,173 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:46,173 DEBUG api_checklist 16 69452 140736596902848 Post create checklist URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/create/003d84cd-f48f-4a39-91a3-c0fcd16826ab
+2017-03-16 13:25:46,177 DEBUG db_general 116 69452 140736596902848 Query : select uuid from ice_checklist_template Where name = 'Heat';
+2017-03-16 13:25:46,181 DEBUG db_general 128 69452 140736596902848 Query result: 84709cb6-cb23-4e15-8ddf-998edd6a2c76
+2017-03-16 13:25:46,181 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/003d84cd-f48f-4a39-91a3-c0fcd16826ab
+2017-03-16 13:25:46,271 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:46,271 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:46,320 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:46,467 DEBUG api_checklist 29 69452 140736596902848 DBChecklist was created successfully!
+2017-03-16 13:25:46,467 DEBUG test_negative_requests 161 69452 140736596902848 This negative test will try to add audit log to checklist using standard user / admin_ro auth token.
+2017-03-16 13:25:46,552 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:46,553 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:46,553 DEBUG test_negative_requests 167 69452 140736596902848 About to add audit log to checklist uuid b099f9fc-d54c-4d10-977c-4a619b30cb10
+2017-03-16 13:25:46,553 DEBUG api_checklist 71 69452 140736596902848 Post checklist audit log URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/b099f9fc-d54c-4d10-977c-4a619b30cb10/auditlog/
+2017-03-16 13:25:46,597 ERROR api_checklist 85 69452 140736596902848 Failed to add audit log for checklist uuid: b099f9fc-d54c-4d10-977c-4a619b30cb10, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: cf7a98f7-4076-475b-b6fb-5afb775599b1. eng_uuid=003d84cd-f48f-4a39-91a3-c0fcd16826ab. checklist_uuid=b099f9fc-d54c-4d10-977c-4a619b30cb10"'
+2017-03-16 13:25:46,598 DEBUG test_negative_requests 171 69452 140736596902848 Success! Test failed to add audit log to checklist using other auth token.
+2017-03-16 13:25:46,730 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:46,731 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:46,731 DEBUG test_negative_requests 167 69452 140736596902848 About to add audit log to checklist uuid b099f9fc-d54c-4d10-977c-4a619b30cb10
+2017-03-16 13:25:46,732 DEBUG api_checklist 71 69452 140736596902848 Post checklist audit log URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/b099f9fc-d54c-4d10-977c-4a619b30cb10/auditlog/
+2017-03-16 13:25:46,862 ERROR api_checklist 85 69452 140736596902848 Failed to add audit log for checklist uuid: b099f9fc-d54c-4d10-977c-4a619b30cb10, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 7268211a-5663-443f-86dd-9f1dcf0e0590. eng_uuid=003d84cd-f48f-4a39-91a3-c0fcd16826ab. checklist_uuid=b099f9fc-d54c-4d10-977c-4a619b30cb10"'
+2017-03-16 13:25:46,865 DEBUG test_negative_requests 171 69452 140736596902848 Success! Test failed to add audit log to checklist using other auth token.
+2017-03-16 13:25:46,866 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_audit_log>,) | {}
+2017-03-16 13:25:46,866 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_audit_log>,) | {}
+2017-03-16 13:25:47,028 DEBUG test_ui_base 33 69455 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:25:47,058 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:47,065 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_next_step>,) | {}
+2017-03-16 13:25:47,065 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:47,065 DEBUG logFuncEntry 34 69452 140736596902848 calling test_add_checklist_next_step | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_next_step>,) | {}
+2017-03-16 13:25:47,066 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_next_step>,) | {}
+2017-03-16 13:25:47,066 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_add_checklist_next_step>,) | {}
+2017-03-16 13:25:47,122 DEBUG test_ui_base 33 69454 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:25:47,138 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:47,142 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_contact>,) | {}
+2017-03-16 13:25:47,143 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:47,144 DEBUG logFuncEntry 34 69452 140736596902848 calling test_negative_add_contact | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_contact>,) | {}
+2017-03-16 13:25:47,144 DEBUG test_negative_requests 41 69452 140736596902848 This negative test will try to add contact to an engagement using other auth token.
+2017-03-16 13:25:47,355 DEBUG test_ui_base 33 69453 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:25:47,489 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:25:47,489 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/755a6bcd-7604-4b29-b4ce-5ec0e4cbd654/20074d8d15b44f5e88f80ae991ef89ed
+2017-03-16 13:25:47,576 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:47,698 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:47,699 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:47,705 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:47,707 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:47,715 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:47,717 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:48,150 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:48,151 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/13f2a28a-8b0e-4e94-8723-8797299154fb
+2017-03-16 13:25:48,305 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:48,306 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:48,505 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:48,778 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:25:48,781 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/dc597438-5571-45b6-9720-f10c31ca8456/0f8be95d58c4498e9335c80628c7d340
+2017-03-16 13:25:48,882 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:49,058 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:49,059 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:49,066 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:49,068 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:49,074 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:49,075 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:49,168 DEBUG api_user 92 69455 140736596902848 Moving to next test case
+2017-03-16 13:25:49,170 DEBUG api_user 169 69455 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/4b4e152d-041f-4b12-9ab2-05b3db5e3d80/8d323269212f4ae093ef8d56a931195f
+2017-03-16 13:25:49,257 DEBUG api_user 172 69455 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:49,401 DEBUG api_user 110 69455 140736596902848 200 OK
+2017-03-16 13:25:49,401 DEBUG api_user 112 69455 140736596902848 Login successfully.
+2017-03-16 13:25:49,406 DEBUG db_general 92 69455 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:49,407 DEBUG db_general 103 69455 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:49,410 DEBUG api_user 92 69454 140736596902848 Moving to next test case
+2017-03-16 13:25:49,411 DEBUG api_user 169 69454 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/cee54626-d05c-4373-85ad-a89b10b55c4b/75d7548b19a04c46817ee125c92606fd
+2017-03-16 13:25:49,411 DEBUG db_general 92 69455 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:49,413 DEBUG db_general 103 69455 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:49,457 DEBUG api_user 92 69453 140736596902848 Moving to next test case
+2017-03-16 13:25:49,457 DEBUG api_user 169 69453 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/f215cbb6-7178-4b61-9c45-168bca2c4f7f/d867f9ace30d4917bfc58eb25e79c6d4
+2017-03-16 13:25:49,464 DEBUG api_user 172 69454 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:49,510 DEBUG api_user 172 69453 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:49,592 DEBUG api_user 110 69454 140736596902848 200 OK
+2017-03-16 13:25:49,592 DEBUG api_user 112 69454 140736596902848 Login successfully.
+2017-03-16 13:25:49,597 DEBUG db_general 92 69454 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:49,599 DEBUG db_general 103 69454 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:49,602 DEBUG db_general 92 69454 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:49,604 DEBUG db_general 103 69454 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:49,649 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:25:49,649 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:25:49,654 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:49,657 DEBUG db_general 103 69453 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:49,661 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:49,662 DEBUG db_general 103 69453 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:51,273 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:51,273 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/f8c8c9c0-4d02-4436-957a-48a874a1d524
+2017-03-16 13:25:51,378 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:51,379 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:51,402 DEBUG api_virtual_function 59 69455 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:51,402 DEBUG api_gitlab 195 69455 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/64fa93db-cff2-4995-a8b9-12c48e15732a
+2017-03-16 13:25:51,484 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:51,484 DEBUG test_negative_requests 46 69452 140736596902848 About to invite contact to the engagement of user SToiFqX
+2017-03-16 13:25:51,484 DEBUG api_virtual_function 102 69452 140736596902848 Post invite vendor contact URL: http://127.0.0.1:8181/ice/v1/engmgr/addcontact/
+2017-03-16 13:25:51,504 DEBUG api_virtual_function 59 69454 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:51,504 DEBUG api_gitlab 195 69454 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/d8191f19-13e7-4f47-9eda-35242f0aece8
+2017-03-16 13:25:51,507 DEBUG api_virtual_function 59 69453 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:51,508 DEBUG api_gitlab 195 69453 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/3bff57cc-882c-4e29-a293-a02d1804fb49
+2017-03-16 13:25:51,546 DEBUG test_negative_requests 50 69452 140736596902848 Success! Test failed to invite contact user using other auth token.
+2017-03-16 13:25:51,547 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_contact>,) | {}
+2017-03-16 13:25:51,547 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_contact>,) | {}
+2017-03-16 13:25:51,550 DEBUG api_user 110 69455 140736596902848 200 OK
+2017-03-16 13:25:51,551 DEBUG api_user 112 69455 140736596902848 Login successfully.
+2017-03-16 13:25:51,553 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:51,554 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_next_step>,) | {}
+2017-03-16 13:25:51,554 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:51,554 DEBUG logFuncEntry 34 69452 140736596902848 calling test_negative_add_next_step | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_next_step>,) | {}
+2017-03-16 13:25:51,554 DEBUG test_negative_requests 56 69452 140736596902848 This negative test will try to add a next step to engagement using PR / standard user / admin_ro auth token.
+2017-03-16 13:25:51,612 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:25:51,612 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:25:51,613 DEBUG api_user 110 69454 140736596902848 200 OK
+2017-03-16 13:25:51,613 DEBUG api_gitlab 213 69455 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:51,613 DEBUG api_user 112 69454 140736596902848 Login successfully.
+2017-03-16 13:25:51,613 DEBUG fe_user 26 69455 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:25:51,613 DEBUG fe_user 27 69455 140736596902848 Insert Email
+2017-03-16 13:25:51,712 DEBUG api_gitlab 213 69453 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:51,712 DEBUG fe_user 26 69453 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:25:51,712 DEBUG fe_user 27 69453 140736596902848 Insert Email
+2017-03-16 13:25:51,716 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:25:51,716 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/c926d105-4174-4f14-a314-310a4773d93e/d8c82e86b2424af28e5c4899cf0191db
+2017-03-16 13:25:51,716 DEBUG api_gitlab 213 69454 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:51,716 DEBUG fe_user 26 69454 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:25:51,717 DEBUG fe_user 27 69454 140736596902848 Insert Email
+2017-03-16 13:25:51,754 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:51,869 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:51,869 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:51,875 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:51,878 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:51,883 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:51,884 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:52,149 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:52,150 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/bfac0aea-a579-4301-bb9d-c433f7b2aedd
+2017-03-16 13:25:52,222 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:52,222 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:52,262 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:52,332 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:52,332 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:52,332 DEBUG test_negative_requests 63 69452 140736596902848 About to add a next step to VF STBM8f1 using STsgPc2@intl.att.com token.
+2017-03-16 13:25:52,332 DEBUG api_virtual_function 18 69452 140736596902848 Post add next step URL: http://127.0.0.1:8181/ice/v1/engmgr/engagements/bfac0aea-a579-4301-bb9d-c433f7b2aedd/nextsteps
+2017-03-16 13:25:52,366 ERROR api_virtual_function 39 69452 140736596902848 Failed to add next step to VF STBM8f1, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: c926d105-4174-4f14-a314-310a4773d93e. eng_uuid=bfac0aea-a579-4301-bb9d-c433f7b2aedd. checklist_uuid=None"'
+2017-03-16 13:25:52,366 DEBUG test_negative_requests 67 69452 140736596902848 Success! Test failed to add a new next step to the engagement using other auth token.
+2017-03-16 13:25:52,449 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:52,450 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:52,450 DEBUG test_negative_requests 63 69452 140736596902848 About to add a next step to VF STBM8f1 using STGo3q7@intl.att.com token.
+2017-03-16 13:25:52,450 DEBUG api_virtual_function 18 69452 140736596902848 Post add next step URL: http://127.0.0.1:8181/ice/v1/engmgr/engagements/bfac0aea-a579-4301-bb9d-c433f7b2aedd/nextsteps
+2017-03-16 13:25:52,474 DEBUG fe_user 29 69455 140736596902848 Insert Password
+2017-03-16 13:25:52,488 ERROR api_virtual_function 39 69452 140736596902848 Failed to add next step to VF STBM8f1, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 7c84cfea-dfca-4ece-b78c-c2df93036217. eng_uuid=bfac0aea-a579-4301-bb9d-c433f7b2aedd. checklist_uuid=None"'
+2017-03-16 13:25:52,489 DEBUG test_negative_requests 67 69452 140736596902848 Success! Test failed to add a new next step to the engagement using other auth token.
+2017-03-16 13:25:52,573 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:52,573 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:52,573 DEBUG test_negative_requests 63 69452 140736596902848 About to add a next step to VF STBM8f1 using admin_ro@att.com token.
+2017-03-16 13:25:52,573 DEBUG api_virtual_function 18 69452 140736596902848 Post add next step URL: http://127.0.0.1:8181/ice/v1/engmgr/engagements/bfac0aea-a579-4301-bb9d-c433f7b2aedd/nextsteps
+2017-03-16 13:25:52,589 DEBUG fe_user 29 69454 140736596902848 Insert Password
+2017-03-16 13:25:52,621 ERROR api_virtual_function 39 69452 140736596902848 Failed to add next step to VF STBM8f1, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 7268211a-5663-443f-86dd-9f1dcf0e0590. eng_uuid=bfac0aea-a579-4301-bb9d-c433f7b2aedd. checklist_uuid=None"'
+2017-03-16 13:25:52,622 DEBUG test_negative_requests 67 69452 140736596902848 Success! Test failed to add a new next step to the engagement using other auth token.
+2017-03-16 13:25:52,622 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_next_step>,) | {}
+2017-03-16 13:25:52,622 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_add_next_step>,) | {}
+2017-03-16 13:25:52,640 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:52,642 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_checklist_files>,) | {}
+2017-03-16 13:25:52,642 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:52,642 DEBUG logFuncEntry 34 69452 140736596902848 calling test_negative_checklist_files | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_checklist_files>,) | {}
+2017-03-16 13:25:52,642 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_checklist_files>,) | {}
+2017-03-16 13:25:52,642 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_checklist_files>,) | {}
+2017-03-16 13:25:52,646 DEBUG fe_user 29 69453 140736596902848 Insert Password
+2017-03-16 13:25:52,661 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:52,664 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_create_checklist>,) | {}
+2017-03-16 13:25:52,664 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:52,664 DEBUG logFuncEntry 34 69452 140736596902848 calling test_negative_create_checklist | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_create_checklist>,) | {}
+2017-03-16 13:25:52,775 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:25:52,775 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/a5df2f79-ffb3-40af-9830-9d446077d841/aa967c1f40ec47e98e9aa8007a7c9428
+2017-03-16 13:25:52,812 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:52,886 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:52,886 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:52,890 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:52,891 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:52,895 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:52,896 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:53,134 DEBUG fe_user 31 69455 140736596902848 Click Login Button
+2017-03-16 13:25:53,243 DEBUG fe_user 33 69455 140736596902848 Login Button clicked
+2017-03-16 13:25:53,247 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:25:53,256 DEBUG fe_user 31 69454 140736596902848 Click Login Button
+2017-03-16 13:25:53,334 DEBUG fe_user 31 69453 140736596902848 Click Login Button
+2017-03-16 13:25:53,383 DEBUG fe_user 33 69454 140736596902848 Login Button clicked
+2017-03-16 13:25:53,389 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:25:53,486 DEBUG fe_user 33 69453 140736596902848 Login Button clicked
+2017-03-16 13:25:53,493 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:25:53,507 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:53,507 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/bc8d8425-7420-4e41-8dd6-022d1427aefd
+2017-03-16 13:25:53,709 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:53,709 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:54,210 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:54,211 DEBUG test_negative_requests 94 69452 140736596902848 This negative test will try to create a checklist using PR / standard user / admin_ro auth token.
+2017-03-16 13:25:54,454 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:54,520 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:54,645 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:54,761 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:54,762 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:54,762 DEBUG test_negative_requests 100 69452 140736596902848 About to create checklist for VF STzvN7L
+2017-03-16 13:25:54,762 DEBUG api_checklist 16 69452 140736596902848 Post create checklist URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/create/bc8d8425-7420-4e41-8dd6-022d1427aefd
+2017-03-16 13:25:54,772 DEBUG db_general 116 69452 140736596902848 Query : select uuid from ice_checklist_template Where name = 'Heat';
+2017-03-16 13:25:54,775 DEBUG db_general 128 69452 140736596902848 Query result: 84709cb6-cb23-4e15-8ddf-998edd6a2c76
+2017-03-16 13:25:54,775 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/bc8d8425-7420-4e41-8dd6-022d1427aefd
+2017-03-16 13:25:54,919 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:54,919 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:54,973 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:54,988 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:55,033 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:55,055 ERROR api_checklist 38 69452 140736596902848 Failed to create checklist for VF STzvN7L, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: a5df2f79-ffb3-40af-9830-9d446077d841. eng_uuid=bc8d8425-7420-4e41-8dd6-022d1427aefd. checklist_uuid=None"'
+2017-03-16 13:25:55,055 DEBUG test_negative_requests 104 69452 140736596902848 Success! Test failed to create checklist using other auth token.
+2017-03-16 13:25:55,247 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:55,264 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:55,264 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:55,264 DEBUG test_negative_requests 100 69452 140736596902848 About to create checklist for VF STzvN7L
+2017-03-16 13:25:55,264 DEBUG api_checklist 16 69452 140736596902848 Post create checklist URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/create/bc8d8425-7420-4e41-8dd6-022d1427aefd
+2017-03-16 13:25:55,269 DEBUG db_general 116 69452 140736596902848 Query : select uuid from ice_checklist_template Where name = 'Heat';
+2017-03-16 13:25:55,271 DEBUG db_general 128 69452 140736596902848 Query result: 84709cb6-cb23-4e15-8ddf-998edd6a2c76
+2017-03-16 13:25:55,272 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/bc8d8425-7420-4e41-8dd6-022d1427aefd
+2017-03-16 13:25:55,387 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:55,388 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:55,447 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:55,515 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'STnodvB';
+2017-03-16 13:25:55,519 DEBUG db_general 128 69453 140736596902848 Query result: 3bff57cc-882c-4e29-a293-a02d1804fb49
+2017-03-16 13:25:55,524 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'STnodvB';
+2017-03-16 13:25:55,526 DEBUG db_general 128 69453 140736596902848 Query result: 3bff57cc-882c-4e29-a293-a02d1804fb49
+2017-03-16 13:25:55,528 ERROR api_checklist 38 69452 140736596902848 Failed to create checklist for VF STzvN7L, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 2358b242-de97-4db6-83ee-ce6f73af58c5. eng_uuid=bc8d8425-7420-4e41-8dd6-022d1427aefd. checklist_uuid=None"'
+2017-03-16 13:25:55,528 DEBUG test_negative_requests 104 69452 140736596902848 Success! Test failed to create checklist using other auth token.
+2017-03-16 13:25:55,531 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = '3bff57cc-882c-4e29-a293-a02d1804fb49';
+2017-03-16 13:25:55,534 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5650
+2017-03-16 13:25:55,539 DEBUG db_general 116 69453 140736596902848 Query : select reviewer_id from ice_engagement Where engagement_manual_id = '2017-5650';
+2017-03-16 13:25:55,546 DEBUG db_general 128 69453 140736596902848 Query result: 761
+2017-03-16 13:25:55,552 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:55,560 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = '3bff57cc-882c-4e29-a293-a02d1804fb49';
+2017-03-16 13:25:55,563 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5650
+2017-03-16 13:25:55,570 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:55,646 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:55,646 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:55,646 DEBUG test_negative_requests 100 69452 140736596902848 About to create checklist for VF STzvN7L
+2017-03-16 13:25:55,646 DEBUG api_checklist 16 69452 140736596902848 Post create checklist URL: http://127.0.0.1:8181/ice/v1/engmgr/checklist/create/bc8d8425-7420-4e41-8dd6-022d1427aefd
+2017-03-16 13:25:55,650 DEBUG db_general 116 69452 140736596902848 Query : select uuid from ice_checklist_template Where name = 'Heat';
+2017-03-16 13:25:55,652 DEBUG db_general 128 69452 140736596902848 Query result: 84709cb6-cb23-4e15-8ddf-998edd6a2c76
+2017-03-16 13:25:55,652 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/bc8d8425-7420-4e41-8dd6-022d1427aefd
+2017-03-16 13:25:55,763 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:55,773 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:55,773 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:55,835 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:55,906 ERROR api_checklist 38 69452 140736596902848 Failed to create checklist for VF STzvN7L, see response >>> 401 Unauthorized.
+Content: b'"User not authorized: 7268211a-5663-443f-86dd-9f1dcf0e0590. eng_uuid=bc8d8425-7420-4e41-8dd6-022d1427aefd. checklist_uuid=None"'
+2017-03-16 13:25:55,906 DEBUG test_negative_requests 104 69452 140736596902848 Success! Test failed to create checklist using other auth token.
+2017-03-16 13:25:55,907 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_create_checklist>,) | {}
+2017-03-16 13:25:55,907 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_create_checklist>,) | {}
+2017-03-16 13:25:55,920 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:55,922 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_edit_next_step>,) | {}
+2017-03-16 13:25:55,922 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:55,922 DEBUG logFuncEntry 34 69452 140736596902848 calling test_negative_edit_next_step | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_edit_next_step>,) | {}
+2017-03-16 13:25:55,922 DEBUG test_negative_requests 73 69452 140736596902848 This negative test will try to edit a next step using PR / standard user / admin_ro auth token.
+2017-03-16 13:25:56,041 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:25:56,041 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/bb73ffa7-2d74-424f-b6e3-0dcc0b94eef7/c9d88b6132cc4dc8a32181803b8b6704
+2017-03-16 13:25:56,071 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:56,084 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:56,199 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:56,199 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:56,203 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:56,205 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:56,209 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:56,211 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:56,277 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:56,584 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:56,810 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:56,964 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_next_step Where engagement_id = '3bff57cc-882c-4e29-a293-a02d1804fb49';
+2017-03-16 13:25:56,967 DEBUG db_general 128 69453 140736596902848 Query result: ["('e6301e6e-483d-41a4-82e9-edb91e9df71b", "('43a87f4e-93f1-4d9b-b9f9-97625f2bf656", "('7a618ab9-0b41-4d8e-8e74-2c526415819b", "('2f39f1fd-66f0-4627-a75f-73dbdbe7a337"]
+2017-03-16 13:25:56,975 ERROR exception_decor 21 69453 140736596902848 There was an exception in test_Create_New_Checklist
+2017-03-16 13:25:56,978 DEBUG logFuncEntry 34 69453 140736596902848 calling tearDown | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_Create_New_Checklist>,) | {}
+2017-03-16 13:25:56,978 DEBUG logFuncEntry 34 69453 140736596902848 calling results | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_Create_New_Checklist>,) | {}
+2017-03-16 13:25:56,985 DEBUG logFuncEntry 34 69453 140736596902848 calling setUp | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_AddNextStep_Test>,) | {}
+2017-03-16 13:25:56,985 DEBUG test_ui_base 23 69453 140736596902848 ---------------------- TestCase - Start - Class TestChecklistValidations Function test_E2EChecklist_AddNextStep_Test ----------------------
+2017-03-16 13:25:57,036 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:57,037 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/ab7d24c4-7cad-49fe-9f77-012a03afa623
+2017-03-16 13:25:57,104 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:57,185 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:57,186 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:57,284 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:57,326 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:57,441 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:57,441 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:57,442 DEBUG api_virtual_function 18 69452 140736596902848 Post add next step URL: http://127.0.0.1:8181/ice/v1/engmgr/engagements/ab7d24c4-7cad-49fe-9f77-012a03afa623/nextsteps
+2017-03-16 13:25:57,623 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:57,818 DEBUG api_virtual_function 32 69452 140736596902848 Next step was added to the engagement!
+2017-03-16 13:25:57,844 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:57,933 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:57,933 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:57,933 DEBUG test_negative_requests 83 69452 140736596902848 About to edit a next step (ns uuid: 01552186-125e-4b23-abb9-5bedf31bcb0a) using STjMBkt@intl.att.com token.
+2017-03-16 13:25:57,934 DEBUG api_virtual_function 133 69452 140736596902848 Put next step URL: http://127.0.0.1:8181/ice/v1/engmgr/nextsteps/01552186-125e-4b23-abb9-5bedf31bcb0a/engagement/ab7d24c4-7cad-49fe-9f77-012a03afa623/modify/
+2017-03-16 13:25:58,002 ERROR api_virtual_function 150 69452 140736596902848 Failed to edit next step uuid: 01552186-125e-4b23-abb9-5bedf31bcb0a, see response >>> 401 Unauthorized
+2017-03-16 13:25:58,004 DEBUG test_negative_requests 87 69452 140736596902848 Success! Test failed to edit a next step using other auth token.
+2017-03-16 13:25:58,139 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:58,169 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:58,169 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:58,169 DEBUG test_negative_requests 83 69452 140736596902848 About to edit a next step (ns uuid: 01552186-125e-4b23-abb9-5bedf31bcb0a) using STnF2Xe@intl.att.com token.
+2017-03-16 13:25:58,169 DEBUG api_virtual_function 133 69452 140736596902848 Put next step URL: http://127.0.0.1:8181/ice/v1/engmgr/nextsteps/01552186-125e-4b23-abb9-5bedf31bcb0a/engagement/ab7d24c4-7cad-49fe-9f77-012a03afa623/modify/
+2017-03-16 13:25:58,250 ERROR api_virtual_function 150 69452 140736596902848 Failed to edit next step uuid: 01552186-125e-4b23-abb9-5bedf31bcb0a, see response >>> 401 Unauthorized
+2017-03-16 13:25:58,251 DEBUG test_negative_requests 87 69452 140736596902848 Success! Test failed to edit a next step using other auth token.
+2017-03-16 13:25:58,363 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:58,385 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:58,386 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:58,386 DEBUG test_negative_requests 83 69452 140736596902848 About to edit a next step (ns uuid: 01552186-125e-4b23-abb9-5bedf31bcb0a) using admin_ro@att.com token.
+2017-03-16 13:25:58,386 DEBUG api_virtual_function 133 69452 140736596902848 Put next step URL: http://127.0.0.1:8181/ice/v1/engmgr/nextsteps/01552186-125e-4b23-abb9-5bedf31bcb0a/engagement/ab7d24c4-7cad-49fe-9f77-012a03afa623/modify/
+2017-03-16 13:25:58,440 ERROR api_virtual_function 150 69452 140736596902848 Failed to edit next step uuid: 01552186-125e-4b23-abb9-5bedf31bcb0a, see response >>> 401 Unauthorized
+2017-03-16 13:25:58,440 DEBUG test_negative_requests 87 69452 140736596902848 Success! Test failed to edit a next step using other auth token.
+2017-03-16 13:25:58,441 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_edit_next_step>,) | {}
+2017-03-16 13:25:58,441 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_edit_next_step>,) | {}
+2017-03-16 13:25:58,453 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:25:58,455 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_invite_member>,) | {}
+2017-03-16 13:25:58,455 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:25:58,455 DEBUG logFuncEntry 34 69452 140736596902848 calling test_negative_invite_member | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_invite_member>,) | {}
+2017-03-16 13:25:58,455 DEBUG test_negative_requests 26 69452 140736596902848 This negative test will try to invite team member to an engagement using other auth token.
+2017-03-16 13:25:58,615 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:25:58,615 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/4950c328-81c3-47f6-9e3d-f639ef768362/48c99dbc9acc4852bf5dd1d2a7bab98e
+2017-03-16 13:25:58,659 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:58,670 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:58,790 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:58,791 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:58,795 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:58,796 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:58,801 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:58,802 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:25:58,877 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:59,175 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:59,392 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:59,472 DEBUG test_ui_base 33 69453 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:25:59,481 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:25:59,481 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/1ba6eb00-c44d-4eb3-b656-90acde16e981
+2017-03-16 13:25:59,620 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:59,621 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:59,691 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:59,696 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:25:59,836 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:25:59,836 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/4d6f56c6-eacc-49ae-82da-10a0d5e849fc/d8bc15f79007449a9cbceb6894bf355d
+2017-03-16 13:25:59,883 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:25:59,911 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:25:59,984 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:25:59,985 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:25:59,990 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:25:59,992 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:25:59,997 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:25:59,998 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:00,215 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:00,424 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:00,659 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:00,660 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/1b7fea56-e76f-4756-a7f8-fb0bb89e8043
+2017-03-16 13:26:00,739 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:00,807 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:26:00,807 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:26:00,856 DEBUG api_user 92 69453 140736596902848 Moving to next test case
+2017-03-16 13:26:00,857 DEBUG api_user 169 69453 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/9622fec9-4af1-4250-a67d-365ba286e9b9/1c00df7902c04327881c0207cd3864ce
+2017-03-16 13:26:00,896 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:00,896 DEBUG test_negative_requests 31 69452 140736596902848 About to invite team member to the engagement of user STLVagT
+2017-03-16 13:26:00,896 DEBUG api_virtual_function 73 69452 140736596902848 Post invite user URL: http://127.0.0.1:8181/ice/v1/engmgr/inviteteammembers/
+2017-03-16 13:26:00,916 DEBUG api_user 172 69453 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:00,940 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:00,982 ERROR api_virtual_function 95 69452 140736596902848 POST request failed to invite team member, see response >>> 401 Unauthorized
+2017-03-16 13:26:00,982 DEBUG test_negative_requests 35 69452 140736596902848 Success! Test failed to invite user using other auth token.
+2017-03-16 13:26:00,983 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_invite_member>,) | {}
+2017-03-16 13:26:00,983 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_invite_member>,) | {}
+2017-03-16 13:26:00,990 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:26:00,995 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_set_checklist_state>,) | {}
+2017-03-16 13:26:00,996 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:26:00,996 DEBUG logFuncEntry 34 69452 140736596902848 calling test_negative_set_checklist_state | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_set_checklist_state>,) | {}
+2017-03-16 13:26:00,997 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_set_checklist_state>,) | {}
+2017-03-16 13:26:00,998 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_set_checklist_state>,) | {}
+2017-03-16 13:26:01,029 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:26:01,038 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_update_checklist>,) | {}
+2017-03-16 13:26:01,039 DEBUG testApiBase 21 69452 140736596902848 ---------------------- TestCase TestNegativeRequests ----------------------
+2017-03-16 13:26:01,040 DEBUG logFuncEntry 34 69452 140736596902848 calling test_negative_update_checklist | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_update_checklist>,) | {}
+2017-03-16 13:26:01,042 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_update_checklist>,) | {}
+2017-03-16 13:26:01,043 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.apiTests.test_negative_requests.TestNegativeRequests testMethod=test_negative_update_checklist>,) | {}
+2017-03-16 13:26:01,067 DEBUG testApiBase 32 69452 140736596902848 ----------------------  TestCase TestNegativeRequests ----------------------
+
+
+2017-03-16 13:26:01,073 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_detailed_view>,) | {}
+2017-03-16 13:26:01,074 DEBUG test_ui_base 23 69452 140736596902848 ---------------------- TestCase - Start - Class TestDetailedView Function test_detailed_view ----------------------
+2017-03-16 13:26:01,081 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:01,082 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:01,086 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:01,089 DEBUG db_general 103 69453 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:01,096 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:01,099 DEBUG db_general 103 69453 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:01,254 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:01,457 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:01,771 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:01,970 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:02,204 DEBUG api_virtual_function 59 69453 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:02,205 DEBUG api_gitlab 195 69453 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/e13192a1-549a-4807-acb6-0aaa7ddd099b
+2017-03-16 13:26:02,285 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:02,358 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:02,359 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:02,424 DEBUG api_gitlab 213 69453 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:02,424 DEBUG fe_user 26 69453 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:02,424 DEBUG fe_user 27 69453 140736596902848 Insert Email
+2017-03-16 13:26:02,483 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:02,800 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:02,997 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:03,314 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:03,413 DEBUG fe_user 29 69453 140736596902848 Insert Password
+2017-03-16 13:26:03,512 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:03,558 DEBUG test_ui_base 33 69452 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:03,829 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:04,025 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:04,134 DEBUG fe_user 31 69453 140736596902848 Click Login Button
+2017-03-16 13:26:04,296 DEBUG fe_user 33 69453 140736596902848 Login Button clicked
+2017-03-16 13:26:04,301 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:04,345 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:04,541 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:04,867 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:04,918 DEBUG logFuncEntry 34 69452 140736596902848 calling test_detailed_view | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_detailed_view>,) | {}
+2017-03-16 13:26:04,949 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:05,058 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:05,251 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:26:05,251 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/d2a2b4f7-3410-4200-a6e7-7bcc3903892c/b495510a38ec4849a51c333fe679bf4f
+2017-03-16 13:26:05,291 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:05,382 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:26:05,382 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:26:05,387 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:05,388 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:05,392 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:05,394 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:05,400 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:05,472 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:05,572 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:05,912 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:05,948 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:05,949 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/c97f2821-c6e0-4525-9393-6dc8dadf1aaf
+2017-03-16 13:26:06,017 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_vf Where name = 'STEZ4io';
+2017-03-16 13:26:06,021 DEBUG db_general 128 69453 140736596902848 Query result: aebf73e6-7117-4238-9d07-05964683f220
+2017-03-16 13:26:06,025 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'STEZ4io';
+2017-03-16 13:26:06,029 DEBUG db_general 128 69453 140736596902848 Query result: e13192a1-549a-4807-acb6-0aaa7ddd099b
+2017-03-16 13:26:06,041 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'STEZ4io';
+2017-03-16 13:26:06,046 DEBUG db_general 128 69453 140736596902848 Query result: e13192a1-549a-4807-acb6-0aaa7ddd099b
+2017-03-16 13:26:06,050 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = 'e13192a1-549a-4807-acb6-0aaa7ddd099b';
+2017-03-16 13:26:06,053 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5656
+2017-03-16 13:26:06,058 DEBUG db_general 116 69453 140736596902848 Query : select reviewer_id from ice_engagement Where engagement_manual_id = '2017-5656';
+2017-03-16 13:26:06,062 DEBUG db_general 128 69453 140736596902848 Query result: 690
+2017-03-16 13:26:06,069 DEBUG fe_checklist 50 69453 140736596902848 EL email: STGo3q7@intl.att.com
+2017-03-16 13:26:06,074 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = 'e13192a1-549a-4807-acb6-0aaa7ddd099b';
+2017-03-16 13:26:06,076 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5656
+2017-03-16 13:26:06,088 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:06,136 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:26:06,137 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:26:06,243 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:06,244 DEBUG fe_user 26 69452 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:06,244 DEBUG fe_user 27 69452 140736596902848 Insert Email
+2017-03-16 13:26:06,466 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_next_step Where engagement_id = 'e13192a1-549a-4807-acb6-0aaa7ddd099b';
+2017-03-16 13:26:06,471 DEBUG db_general 128 69453 140736596902848 Query result: ["('f787f9e4-344b-49dc-b83f-e0d22216c0ae", "('84ca3edf-fe7d-47bf-9c8a-0c2f53a53bcf", "('76cd13c9-cb07-46ab-8a52-3b71adcee15e", "('cb28bb08-1e46-4cef-b921-96adfd078746"]
+2017-03-16 13:26:06,486 ERROR exception_decor 21 69453 140736596902848 There was an exception in test_E2EChecklist_AddNextStep_Test
+2017-03-16 13:26:06,489 DEBUG logFuncEntry 34 69453 140736596902848 calling tearDown | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_AddNextStep_Test>,) | {}
+2017-03-16 13:26:06,490 DEBUG logFuncEntry 34 69453 140736596902848 calling results | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_AddNextStep_Test>,) | {}
+2017-03-16 13:26:06,500 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:06,501 DEBUG logFuncEntry 34 69453 140736596902848 calling setUp | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_Happy_Test>,) | {}
+2017-03-16 13:26:06,501 DEBUG test_ui_base 23 69453 140736596902848 ---------------------- TestCase - Start - Class TestChecklistValidations Function test_E2EChecklist_Happy_Test ----------------------
+2017-03-16 13:26:06,609 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:07,022 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:07,137 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:07,519 DEBUG fe_user 29 69452 140736596902848 Insert Password
+2017-03-16 13:26:07,552 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:07,661 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:08,279 DEBUG fe_user 31 69452 140736596902848 Click Login Button
+2017-03-16 13:26:09,338 DEBUG fe_user 33 69452 140736596902848 Login Button clicked
+2017-03-16 13:26:09,632 DEBUG logFuncEntry 34 69455 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 13:26:09,634 DEBUG logFuncEntry 34 69455 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_admin_page>,) | {}
+2017-03-16 13:26:09,658 DEBUG test_ui_base 49 69455 140736596902848 ---------------------- TestCase - End - Class TestAdminSection Function test_admin_page ----------------------
+
+2017-03-16 13:26:09,660 DEBUG logFuncEntry 34 69455 140736596902848 calling setUp | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 13:26:09,660 DEBUG test_ui_base 23 69455 140736596902848 ---------------------- TestCase - Start - Class TestAdminSection Function test_negative_admin_page ----------------------
+2017-03-16 13:26:09,971 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:10,590 DEBUG test_ui_base 33 69453 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:11,042 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:11,580 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:12,111 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:12,636 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:13,158 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:13,475 DEBUG api_user 92 69453 140736596902848 Moving to next test case
+2017-03-16 13:26:13,475 DEBUG api_user 169 69453 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/c252937d-2165-4130-81a9-39c9a083e05a/89be31847326486680aa65a69d4270cc
+2017-03-16 13:26:13,520 DEBUG api_user 172 69453 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:13,681 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:13,718 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:13,720 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:13,745 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:13,750 DEBUG db_general 103 69453 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:13,773 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:13,775 DEBUG db_general 103 69453 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:14,149 DEBUG test_ui_base 33 69455 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:14,193 DEBUG logFuncEntry 34 69454 140736596902848 calling tearDown | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_archive_engagement>,) | {}
+2017-03-16 13:26:14,196 DEBUG logFuncEntry 34 69454 140736596902848 calling results | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_archive_engagement>,) | {}
+2017-03-16 13:26:14,209 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:14,236 DEBUG test_ui_base 49 69454 140736596902848 ---------------------- TestCase - End - Class TestAdminDropdown Function test_archive_engagement ----------------------
+
+2017-03-16 13:26:14,237 DEBUG logFuncEntry 34 69454 140736596902848 calling setUp | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_change_peer_reviewer>,) | {}
+2017-03-16 13:26:14,237 DEBUG test_ui_base 23 69454 140736596902848 ---------------------- TestCase - Start - Class TestAdminDropdown Function test_change_peer_reviewer ----------------------
+2017-03-16 13:26:14,727 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:15,263 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:15,785 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:16,056 DEBUG api_virtual_function 59 69453 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:16,056 DEBUG api_gitlab 195 69453 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/d99440e5-ec0f-4276-962a-ffc8a275e671
+2017-03-16 13:26:16,308 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:16,381 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:16,381 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:16,748 DEBUG api_gitlab 213 69453 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:16,748 DEBUG fe_user 26 69453 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:16,749 DEBUG fe_user 27 69453 140736596902848 Insert Email
+2017-03-16 13:26:16,827 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:17,116 DEBUG api_user 92 69455 140736596902848 Moving to next test case
+2017-03-16 13:26:17,117 DEBUG api_user 169 69455 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/0388124c-9d68-4497-b1d0-d4cc360d88b0/006ab65d0aa64fd6a55e4015fa1e8cce
+2017-03-16 13:26:17,188 DEBUG api_user 172 69455 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:17,344 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:17,373 DEBUG api_user 110 69455 140736596902848 200 OK
+2017-03-16 13:26:17,374 DEBUG api_user 112 69455 140736596902848 Login successfully.
+2017-03-16 13:26:17,382 DEBUG db_general 92 69455 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:17,388 DEBUG db_general 103 69455 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:17,394 DEBUG db_general 92 69455 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:17,397 DEBUG db_general 103 69455 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:17,862 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:18,105 DEBUG fe_user 29 69453 140736596902848 Insert Password
+2017-03-16 13:26:18,250 DEBUG api_virtual_function 59 69455 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:18,250 DEBUG api_gitlab 195 69455 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/3b1f44ba-458f-4ea4-a104-74c174d73b3f
+2017-03-16 13:26:18,380 DEBUG api_user 110 69455 140736596902848 200 OK
+2017-03-16 13:26:18,381 DEBUG api_user 112 69455 140736596902848 Login successfully.
+2017-03-16 13:26:18,411 DEBUG test_ui_base 33 69454 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:18,468 DEBUG api_gitlab 213 69455 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:18,469 DEBUG fe_user 26 69455 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:18,469 DEBUG fe_user 27 69455 140736596902848 Insert Email
+2017-03-16 13:26:18,859 DEBUG fe_user 31 69453 140736596902848 Click Login Button
+2017-03-16 13:26:19,093 DEBUG fe_user 33 69453 140736596902848 Login Button clicked
+2017-03-16 13:26:19,106 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:19,624 DEBUG fe_user 29 69455 140736596902848 Insert Password
+2017-03-16 13:26:19,865 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:20,388 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:20,391 DEBUG fe_user 31 69455 140736596902848 Click Login Button
+2017-03-16 13:26:20,730 DEBUG fe_user 33 69455 140736596902848 Login Button clicked
+2017-03-16 13:26:20,742 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:20,760 DEBUG api_user 92 69454 140736596902848 Moving to next test case
+2017-03-16 13:26:20,761 DEBUG api_user 169 69454 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/04c90d36-23a6-4028-bd38-f1d0c5bc9645/c7516aec251242cd86a7190436778068
+2017-03-16 13:26:20,883 DEBUG api_user 172 69454 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:20,937 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_vf Where name = 'ST4bjmr';
+2017-03-16 13:26:20,950 DEBUG db_general 128 69453 140736596902848 Query result: 9d8b620e-2025-4a4b-a591-bf8cd83f3a49
+2017-03-16 13:26:20,983 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'ST4bjmr';
+2017-03-16 13:26:20,998 DEBUG db_general 128 69453 140736596902848 Query result: d99440e5-ec0f-4276-962a-ffc8a275e671
+2017-03-16 13:26:21,068 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'ST4bjmr';
+2017-03-16 13:26:21,126 DEBUG db_general 128 69453 140736596902848 Query result: d99440e5-ec0f-4276-962a-ffc8a275e671
+2017-03-16 13:26:21,171 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = 'd99440e5-ec0f-4276-962a-ffc8a275e671';
+2017-03-16 13:26:21,176 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5658
+2017-03-16 13:26:21,211 DEBUG db_general 116 69453 140736596902848 Query : select reviewer_id from ice_engagement Where engagement_manual_id = '2017-5658';
+2017-03-16 13:26:21,220 DEBUG db_general 128 69453 140736596902848 Query result: 625
+2017-03-16 13:26:21,243 DEBUG api_user 110 69454 140736596902848 200 OK
+2017-03-16 13:26:21,244 DEBUG api_user 112 69454 140736596902848 Login successfully.
+2017-03-16 13:26:21,251 DEBUG fe_checklist 50 69453 140736596902848 EL email: STTX0Pj@intl.att.com
+2017-03-16 13:26:21,265 DEBUG db_general 92 69454 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:21,267 DEBUG db_general 103 69454 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:21,267 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = 'd99440e5-ec0f-4276-962a-ffc8a275e671';
+2017-03-16 13:26:21,274 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5658
+2017-03-16 13:26:21,283 DEBUG db_general 92 69454 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:21,286 DEBUG db_general 103 69454 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:21,436 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:21,634 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:21,758 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_next_step Where engagement_id = 'd99440e5-ec0f-4276-962a-ffc8a275e671';
+2017-03-16 13:26:21,762 DEBUG db_general 128 69453 140736596902848 Query result: ["('56ac90c2-29da-46b2-9ca9-ddf775f82b24", "('83212af5-8791-4500-a3c3-cdb8234e121d", "('09e26c58-0afb-4623-b933-07db3acb0308", "('2cd9ba1a-85d2-4275-9519-efc4275a8bc2"]
+2017-03-16 13:26:21,770 DEBUG logFuncEntry 34 69453 140736596902848 calling tearDown | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_Happy_Test>,) | {}
+2017-03-16 13:26:21,770 DEBUG logFuncEntry 34 69453 140736596902848 calling results | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_Happy_Test>,) | {}
+2017-03-16 13:26:21,778 DEBUG logFuncEntry 34 69453 140736596902848 calling setUp | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_Reject>,) | {}
+2017-03-16 13:26:21,779 DEBUG test_ui_base 23 69453 140736596902848 ---------------------- TestCase - Start - Class TestChecklistValidations Function test_E2EChecklist_Reject ----------------------
+2017-03-16 13:26:22,086 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:22,165 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:22,603 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:23,063 DEBUG api_virtual_function 59 69454 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:23,064 DEBUG api_gitlab 195 69454 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/1c092955-c878-4e0a-bf43-9112b8a56a58
+2017-03-16 13:26:23,260 DEBUG api_user 110 69454 140736596902848 200 OK
+2017-03-16 13:26:23,260 DEBUG api_user 112 69454 140736596902848 Login successfully.
+2017-03-16 13:26:23,267 DEBUG test_detailed_view 25 69452 140736596902848 Add Deployment Target
+2017-03-16 13:26:23,370 DEBUG api_gitlab 213 69454 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:23,370 DEBUG fe_user 26 69454 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:23,371 DEBUG fe_user 27 69454 140736596902848 Insert Email
+2017-03-16 13:26:23,913 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:24,361 DEBUG fe_user 29 69454 140736596902848 Insert Password
+2017-03-16 13:26:24,429 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:24,934 DEBUG test_ui_base 33 69453 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:25,007 DEBUG test_detailed_view 27 69452 140736596902848 Add VFC no.1
+2017-03-16 13:26:25,086 DEBUG fe_user 31 69454 140736596902848 Click Login Button
+2017-03-16 13:26:25,524 DEBUG fe_user 33 69454 140736596902848 Login Button clicked
+2017-03-16 13:26:25,533 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:26,078 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:26,734 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:27,116 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:27,183 DEBUG api_user 92 69453 140736596902848 Moving to next test case
+2017-03-16 13:26:27,183 DEBUG api_user 169 69453 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/348cdaa0-cb76-4adf-9c55-6067316a3b97/dac56a779cc84c10998b64e7d9c62462
+2017-03-16 13:26:27,232 DEBUG api_user 172 69453 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:27,253 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:27,352 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:27,353 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:27,357 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:27,359 DEBUG db_general 103 69453 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:27,363 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:27,364 DEBUG db_general 103 69453 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:27,773 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:27,780 DEBUG fe_detailed_view 116 69452 140736596902848 Add VFC no.2
+2017-03-16 13:26:27,981 DEBUG fe_general 35 69455 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-03-16 13:26:28,021 DEBUG api_virtual_function 59 69453 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:28,022 DEBUG api_gitlab 195 69453 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/58b4d40b-bbf0-4b6b-b55b-1a9f59dbbb10
+2017-03-16 13:26:28,233 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:28,233 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:28,294 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:28,422 DEBUG api_gitlab 213 69453 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:28,422 DEBUG fe_user 26 69453 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:28,423 DEBUG fe_user 27 69453 140736596902848 Insert Email
+2017-03-16 13:26:28,813 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:29,194 DEBUG fe_user 26 69455 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:29,195 DEBUG fe_user 27 69455 140736596902848 Insert Email
+2017-03-16 13:26:29,340 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:29,472 DEBUG fe_user 29 69453 140736596902848 Insert Password
+2017-03-16 13:26:29,857 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:30,133 DEBUG fe_user 29 69455 140736596902848 Insert Password
+2017-03-16 13:26:30,165 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:30,178 DEBUG fe_user 31 69453 140736596902848 Click Login Button
+2017-03-16 13:26:30,367 DEBUG fe_user 33 69453 140736596902848 Login Button clicked
+2017-03-16 13:26:30,372 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:30,375 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:30,690 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:30,839 DEBUG fe_user 31 69455 140736596902848 Click Login Button
+2017-03-16 13:26:30,894 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:30,896 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:30,968 DEBUG fe_user 33 69455 140736596902848 Login Button clicked
+2017-03-16 13:26:30,976 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:31,204 DEBUG db_general 116 69452 140736596902848 Query : select uuid from ice_vf Where name = 'STVlCaM';
+2017-03-16 13:26:31,208 DEBUG db_general 128 69452 140736596902848 Query result: 62243b52-0654-4c5e-8b82-907268629bc3
+2017-03-16 13:26:31,408 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:31,412 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:31,415 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:31,495 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:31,929 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:31,954 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_vf Where name = 'ST2P3F9';
+2017-03-16 13:26:31,959 DEBUG db_general 128 69453 140736596902848 Query result: 95dc4ebc-8853-4ddf-a8ad-0320311df27f
+2017-03-16 13:26:31,965 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'ST2P3F9';
+2017-03-16 13:26:31,968 DEBUG db_general 128 69453 140736596902848 Query result: 58b4d40b-bbf0-4b6b-b55b-1a9f59dbbb10
+2017-03-16 13:26:31,974 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'ST2P3F9';
+2017-03-16 13:26:31,983 DEBUG db_general 128 69453 140736596902848 Query result: 58b4d40b-bbf0-4b6b-b55b-1a9f59dbbb10
+2017-03-16 13:26:31,989 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = '58b4d40b-bbf0-4b6b-b55b-1a9f59dbbb10';
+2017-03-16 13:26:31,995 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5661
+2017-03-16 13:26:32,002 DEBUG db_general 116 69453 140736596902848 Query : select reviewer_id from ice_engagement Where engagement_manual_id = '2017-5661';
+2017-03-16 13:26:32,018 DEBUG db_general 128 69453 140736596902848 Query result: 625
+2017-03-16 13:26:32,030 DEBUG fe_checklist 50 69453 140736596902848 EL email: STTX0Pj@intl.att.com
+2017-03-16 13:26:32,037 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:32,039 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = '58b4d40b-bbf0-4b6b-b55b-1a9f59dbbb10';
+2017-03-16 13:26:32,046 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_detailed_view>,) | {}
+2017-03-16 13:26:32,047 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_detailed_view>,) | {}
+2017-03-16 13:26:32,048 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5661
+2017-03-16 13:26:32,074 DEBUG test_ui_base 49 69452 140736596902848 ---------------------- TestCase - End - Class TestDetailedView Function test_detailed_view ----------------------
+
+2017-03-16 13:26:32,075 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_edit_ecomp_release_and_aic>,) | {}
+2017-03-16 13:26:32,075 DEBUG test_ui_base 23 69452 140736596902848 ---------------------- TestCase - Start - Class TestDetailedView Function test_edit_ecomp_release_and_aic ----------------------
+2017-03-16 13:26:32,448 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:32,562 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:32,799 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_next_step Where engagement_id = '58b4d40b-bbf0-4b6b-b55b-1a9f59dbbb10';
+2017-03-16 13:26:32,804 DEBUG db_general 128 69453 140736596902848 Query result: ["('aea250f6-dacf-46a5-bcb7-f78508b1fe57", "('a9fa8519-9616-4aff-9fa4-82d2e803f7bc", "('9f57f6d0-bd25-4516-b265-8bc1533bf9b9", "('1df11a90-3984-4fac-bd44-2440ebef1078"]
+2017-03-16 13:26:32,813 ERROR exception_decor 21 69453 140736596902848 There was an exception in test_E2EChecklist_Reject
+2017-03-16 13:26:32,816 DEBUG logFuncEntry 34 69453 140736596902848 calling tearDown | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_Reject>,) | {}
+2017-03-16 13:26:32,816 DEBUG logFuncEntry 34 69453 140736596902848 calling results | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_Reject>,) | {}
+2017-03-16 13:26:32,832 DEBUG logFuncEntry 34 69453 140736596902848 calling setUp | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_UpdateAddNextStep_Test>,) | {}
+2017-03-16 13:26:32,832 DEBUG test_ui_base 23 69453 140736596902848 ---------------------- TestCase - Start - Class TestChecklistValidations Function test_E2EChecklist_UpdateAddNextStep_Test ----------------------
+2017-03-16 13:26:32,971 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:33,085 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:33,487 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:33,909 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:34,003 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:34,428 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:34,519 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:34,946 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:35,035 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:35,473 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:35,555 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:36,012 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:36,075 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:36,279 DEBUG test_ui_base 33 69452 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:36,539 DEBUG test_ui_base 33 69453 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:36,547 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:36,593 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:37,084 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:37,123 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:37,642 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:38,179 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:38,230 DEBUG logFuncEntry 34 69452 140736596902848 calling test_edit_ecomp_release_and_aic | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_edit_ecomp_release_and_aic>,) | {}
+2017-03-16 13:26:38,431 DEBUG api_user 92 69452 140736596902848 Moving to next test case
+2017-03-16 13:26:38,431 DEBUG api_user 169 69452 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/82c27301-d1c6-4ad9-9e7e-fb4327dc687a/0e8a409b88b34a8ea66c7d4a1a86359b
+2017-03-16 13:26:38,479 DEBUG api_user 172 69452 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:38,590 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:26:38,590 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:26:38,595 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:38,597 DEBUG db_general 103 69452 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:38,602 DEBUG db_general 92 69452 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:38,604 DEBUG db_general 103 69452 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:38,682 DEBUG api_user 92 69453 140736596902848 Moving to next test case
+2017-03-16 13:26:38,682 DEBUG api_user 169 69453 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/40385811-ec64-4964-9bad-3196f1a3928e/cf9ba8ae74d241b6bbea0549a63581a6
+2017-03-16 13:26:38,700 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:38,729 DEBUG api_user 172 69453 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:38,946 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:38,947 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:38,954 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:38,957 DEBUG db_general 103 69453 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:38,963 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:38,965 DEBUG db_general 103 69453 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:39,219 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:39,254 DEBUG api_virtual_function 59 69452 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:39,254 DEBUG api_gitlab 195 69452 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/3099e35a-2cbc-4615-a16f-75447350c922
+2017-03-16 13:26:39,384 DEBUG api_user 110 69452 140736596902848 200 OK
+2017-03-16 13:26:39,385 DEBUG api_user 112 69452 140736596902848 Login successfully.
+2017-03-16 13:26:39,480 DEBUG api_gitlab 213 69452 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:39,495 DEBUG fe_user 26 69452 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:39,495 DEBUG fe_user 27 69452 140736596902848 Insert Email
+2017-03-16 13:26:39,604 DEBUG api_virtual_function 59 69453 140736596902848 Virtual Function created successfully!
+2017-03-16 13:26:39,604 DEBUG api_gitlab 195 69453 140736596902848 Get URL to check if GitLab and Jenkins are ready: http://127.0.0.1:8181/ice/v1/engmgr/checklist/getcreate/a90678e0-3eb9-41b1-97d6-e6f9e398c109
+2017-03-16 13:26:39,732 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:39,732 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:39,738 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:39,818 DEBUG api_gitlab 213 69453 140736596902848 Gitlab and Jenkins are ready to continue!
+2017-03-16 13:26:39,818 DEBUG fe_user 26 69453 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:39,819 DEBUG fe_user 27 69453 140736596902848 Insert Email
+2017-03-16 13:26:40,264 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:40,513 DEBUG fe_user 29 69452 140736596902848 Insert Password
+2017-03-16 13:26:40,779 DEBUG wait 110 69454 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:40,793 DEBUG fe_user 29 69453 140736596902848 Insert Password
+2017-03-16 13:26:41,178 DEBUG fe_user 31 69452 140736596902848 Click Login Button
+2017-03-16 13:26:41,314 DEBUG fe_user 33 69452 140736596902848 Login Button clicked
+2017-03-16 13:26:41,321 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:41,325 DEBUG db_general 50 69454 140736596902848 Query: select full_name from ice_user_profile where role_id = 2 and full_name != 'Donald Duck' and full_name != 'STnyri9';
+2017-03-16 13:26:41,333 DEBUG db_general 58 69454 140736596902848 Query result: Homer Simpson
+2017-03-16 13:26:41,498 DEBUG fe_user 31 69453 140736596902848 Click Login Button
+2017-03-16 13:26:41,633 DEBUG fe_user 33 69453 140736596902848 Login Button clicked
+2017-03-16 13:26:41,639 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:41,850 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:42,365 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:42,395 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:42,915 DEBUG wait 110 69453 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:42,932 DEBUG fe_general 35 69455 140736596902848 Reopen URL: http://127.0.0.1:8181#/login
+2017-03-16 13:26:43,447 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_vf Where name = 'STBZcoi';
+2017-03-16 13:26:43,450 DEBUG db_general 128 69453 140736596902848 Query result: 69c77274-d033-46a2-8297-82c2a6df14c4
+2017-03-16 13:26:43,455 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'STBZcoi';
+2017-03-16 13:26:43,458 DEBUG db_general 128 69453 140736596902848 Query result: a90678e0-3eb9-41b1-97d6-e6f9e398c109
+2017-03-16 13:26:43,463 DEBUG db_general 116 69453 140736596902848 Query : select engagement_id from ice_vf Where name = 'STBZcoi';
+2017-03-16 13:26:43,466 DEBUG db_general 128 69453 140736596902848 Query result: a90678e0-3eb9-41b1-97d6-e6f9e398c109
+2017-03-16 13:26:43,474 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = 'a90678e0-3eb9-41b1-97d6-e6f9e398c109';
+2017-03-16 13:26:43,479 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5663
+2017-03-16 13:26:43,486 DEBUG db_general 116 69453 140736596902848 Query : select reviewer_id from ice_engagement Where engagement_manual_id = '2017-5663';
+2017-03-16 13:26:43,490 DEBUG db_general 128 69453 140736596902848 Query result: 4498
+2017-03-16 13:26:43,513 DEBUG fe_checklist 50 69453 140736596902848 EL email: STeAt62@intl.att.com
+2017-03-16 13:26:43,541 DEBUG db_general 116 69453 140736596902848 Query : select engagement_manual_id from ice_engagement Where uuid = 'a90678e0-3eb9-41b1-97d6-e6f9e398c109';
+2017-03-16 13:26:43,554 DEBUG db_general 128 69453 140736596902848 Query result: 2017-5663
+2017-03-16 13:26:44,106 DEBUG fe_user 26 69455 140736596902848 Verifying and Insert Login page elements:
+2017-03-16 13:26:44,106 DEBUG fe_user 27 69455 140736596902848 Insert Email
+2017-03-16 13:26:44,303 DEBUG db_general 116 69453 140736596902848 Query : select uuid from ice_next_step Where engagement_id = 'a90678e0-3eb9-41b1-97d6-e6f9e398c109';
+2017-03-16 13:26:44,310 DEBUG db_general 128 69453 140736596902848 Query result: ["('c5963305-21c0-4db8-87df-c2c9c5d9995d", "('be31b8f2-7012-416d-a047-fd24beca01b8", "('4441c2d0-ca51-4c99-8821-5e58591c72bf", "('8c4d2acf-25f2-4300-a781-8d9b985ad3c2"]
+2017-03-16 13:26:44,317 ERROR exception_decor 21 69453 140736596902848 There was an exception in test_E2EChecklist_UpdateAddNextStep_Test
+2017-03-16 13:26:44,319 DEBUG logFuncEntry 34 69453 140736596902848 calling tearDown | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_UpdateAddNextStep_Test>,) | {}
+2017-03-16 13:26:44,319 DEBUG logFuncEntry 34 69453 140736596902848 calling results | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_E2EChecklist_UpdateAddNextStep_Test>,) | {}
+2017-03-16 13:26:44,352 DEBUG logFuncEntry 34 69453 140736596902848 calling setUp | (<tests.uiTests.test_checklist_validations.TestChecklistValidations testMethod=test_MultiEL>,) | {}
+2017-03-16 13:26:44,352 DEBUG test_ui_base 23 69453 140736596902848 ---------------------- TestCase - Start - Class TestChecklistValidations Function test_MultiEL ----------------------
+2017-03-16 13:26:44,917 DEBUG logFuncEntry 34 69454 140736596902848 calling tearDown | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_change_peer_reviewer>,) | {}
+2017-03-16 13:26:44,917 DEBUG logFuncEntry 34 69454 140736596902848 calling results | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_change_peer_reviewer>,) | {}
+2017-03-16 13:26:44,985 DEBUG test_ui_base 49 69454 140736596902848 ---------------------- TestCase - End - Class TestAdminDropdown Function test_change_peer_reviewer ----------------------
+
+2017-03-16 13:26:44,987 DEBUG logFuncEntry 34 69454 140736596902848 calling setUp | (<tests.uiTests.test_admin_dropdown.TestAdminDropdown testMethod=test_change_reviewer>,) | {}
+2017-03-16 13:26:44,987 DEBUG test_ui_base 23 69454 140736596902848 ---------------------- TestCase - Start - Class TestAdminDropdown Function test_change_reviewer ----------------------
+2017-03-16 13:26:45,203 DEBUG fe_user 29 69455 140736596902848 Insert Password
+2017-03-16 13:26:46,098 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:46,116 DEBUG fe_user 31 69455 140736596902848 Click Login Button
+2017-03-16 13:26:46,359 DEBUG fe_user 33 69455 140736596902848 Login Button clicked
+2017-03-16 13:26:46,367 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/login page is loaded.
+2017-03-16 13:26:46,623 DEBUG wait 110 69452 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/detailedview page is loaded.
+2017-03-16 13:26:46,924 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:47,450 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:47,967 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:48,492 DEBUG wait 110 69455 140736596902848 Checking if http://127.0.0.1:8181/#/dashboard/dashboard page is loaded.
+2017-03-16 13:26:48,558 DEBUG test_ui_base 33 69453 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:49,227 DEBUG test_ui_base 33 69454 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:49,233 DEBUG logFuncEntry 34 69452 140736596902848 calling tearDown | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_edit_ecomp_release_and_aic>,) | {}
+2017-03-16 13:26:49,233 DEBUG logFuncEntry 34 69452 140736596902848 calling results | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_edit_ecomp_release_and_aic>,) | {}
+2017-03-16 13:26:49,271 DEBUG test_ui_base 49 69452 140736596902848 ---------------------- TestCase - End - Class TestDetailedView Function test_edit_ecomp_release_and_aic ----------------------
+
+2017-03-16 13:26:49,272 DEBUG logFuncEntry 34 69452 140736596902848 calling setUp | (<tests.uiTests.test_detailed_view.TestDetailedView testMethod=test_negative_role_for_deployment_targets>,) | {}
+2017-03-16 13:26:49,272 DEBUG test_ui_base 23 69452 140736596902848 ---------------------- TestCase - Start - Class TestDetailedView Function test_negative_role_for_deployment_targets ----------------------
+2017-03-16 13:26:51,103 DEBUG api_user 92 69453 140736596902848 Moving to next test case
+2017-03-16 13:26:51,103 DEBUG api_user 169 69453 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/db2718ec-fad8-44a5-a892-04c5d9302a17/470ea4186f6d4399ae2aab95426f1124
+2017-03-16 13:26:51,232 DEBUG api_user 172 69453 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:51,480 DEBUG api_user 110 69453 140736596902848 200 OK
+2017-03-16 13:26:51,480 DEBUG api_user 112 69453 140736596902848 Login successfully.
+2017-03-16 13:26:51,495 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:51,497 DEBUG db_general 103 69453 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:51,502 DEBUG db_general 92 69453 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:51,504 DEBUG db_general 103 69453 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:51,574 DEBUG api_user 92 69454 140736596902848 Moving to next test case
+2017-03-16 13:26:51,575 DEBUG api_user 169 69454 140736596902848 http://127.0.0.1:8181/ice/v1/engmgr/activate/57c7b2de-d540-49c3-8edb-9bf1c1b0ff0d/75f5ee85dc0f445792ba67228210815c
+2017-03-16 13:26:51,705 DEBUG api_user 172 69454 140736596902848 APIUser activated successfully!
+2017-03-16 13:26:52,118 DEBUG api_user 110 69454 140736596902848 200 OK
+2017-03-16 13:26:52,119 DEBUG api_user 112 69454 140736596902848 Login successfully.
+2017-03-16 13:26:52,125 DEBUG db_general 92 69454 140736596902848 Query : select uuid from ice_deployment_target;
+2017-03-16 13:26:52,132 DEBUG db_general 103 69454 140736596902848 Query result: 7b99ffd6-2494-4ff1-b511-78f1f3304e9f
+2017-03-16 13:26:52,156 DEBUG db_general 92 69454 140736596902848 Query : select uuid from ice_ecomp_release;
+2017-03-16 13:26:52,160 DEBUG db_general 103 69454 140736596902848 Query result: 14a270d9-7b34-47bb-b900-6c46606c3770
+2017-03-16 13:26:52,783 DEBUG test_ui_base 33 69452 140736596902848                 <Open Firefox with URL http://127.0.0.1:8181#/login>
+2017-03-16 13:26:53,718 ERROR exception_decor 21 69455 140736596902848 There was an exception in test_negative_admin_page
+2017-03-16 13:26:53,728 DEBUG logFuncEntry 34 69455 140736596902848 calling tearDown | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}
+2017-03-16 13:26:53,728 DEBUG logFuncEntry 34 69455 140736596902848 calling results | (<tests.uiTests.test_admin_section.TestAdminSection testMethod=test_negative_admin_page>,) | {}

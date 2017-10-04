@@ -1,0 +1,407 @@
+1499075490836	geckodriver	INFO	Listening on 127.0.0.1:59989
+1499075492045	geckodriver::marionette	INFO	Starting browser /Applications/Firefox.app/Contents/MacOS/firefox-bin with args ["-marionette"]
+1499075493942	Marionette	INFO	Listening on port 60002
+1499075494052	Marionette	WARN	TLS certificate errors will be ignored for this session
+1499075494214	Marionette	DEBUG	loaded listener.js
+2017-07-03 04:51:34.284 plugin-container[26874:838532] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9d3b, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2017-07-03 04:51:34.286 plugin-container[26874:838532] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0xa103, name = 'com.apple.CFPasteboardClient'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1499075494964	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499075494968	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499075494968	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499075494972	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "about:blank"
+1499075494973	Marionette	DEBUG	Received DOM event "pageshow" for "about:blank"
+1499075494994	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499075495001	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499075495002	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499075495343	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075495346	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075495891	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075495908	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075495908	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075495914	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075495920	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075495995	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075496001	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075496002	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075496340	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075496345	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075500094	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075503912	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075505748	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075506581	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075506893	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075507657	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075568604	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075568607	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075568608	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075568614	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075568616	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075568627	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075568632	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075568632	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075569067	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075569070	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075569338	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075569347	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075569347	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075569355	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075569356	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075569405	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075569448	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075569448	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075569901	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075569905	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075573633	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075577929	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075580529	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075582297	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075582910	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075582912	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075582913	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075582919	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075582921	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075583019	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075583028	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075583028	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075583646	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075583648	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075583985	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075583995	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075583995	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075584141	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075584142	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075584226	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075584229	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075584229	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075584806	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075584809	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075588128	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075592403	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075594589	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075596300	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075597616	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075598509	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075599665	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075599668	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075599670	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075599680	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075599682	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075599691	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075599696	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075599696	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075600173	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075600176	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075600433	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075600513	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075600514	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075600598	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075600600	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075600680	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075600683	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075600683	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075601258	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075601261	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075604608	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075608610	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075610705	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075612178	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075613571	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075614479	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075615593	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075615596	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075615598	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075615608	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075615611	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075615690	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075615694	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075615695	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075616275	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075616277	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075616530	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075616612	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075616612	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075616689	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075616690	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075616773	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075616777	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075616777	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075617442	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075617445	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075620878	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075625068	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075627373	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075629509	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075629809	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075630568	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075691455	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075691458	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075691458	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075691464	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075691466	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075691478	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075691482	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075691482	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075692004	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075692007	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075692423	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075692503	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075692503	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075692585	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075692586	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075692594	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075692670	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075692670	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075693169	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075693172	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075696553	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075700618	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075702742	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075863360	geckodriver	INFO	Listening on 127.0.0.1:49230
+1499075864370	geckodriver::marionette	INFO	Starting browser /Applications/Firefox.app/Contents/MacOS/firefox-bin with args ["-marionette"]
+1499075866013	Marionette	INFO	Listening on port 49239
+1499075866119	Marionette	WARN	TLS certificate errors will be ignored for this session
+1499075866293	Marionette	DEBUG	loaded listener.js
+2017-07-03 04:57:46.354 plugin-container[888:9516] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9e3b, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2017-07-03 04:57:46.355 plugin-container[888:9516] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0xa103, name = 'com.apple.CFPasteboardClient'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1499075885804	geckodriver	INFO	Listening on 127.0.0.1:49301
+1499075886817	geckodriver::marionette	INFO	Starting browser /Applications/Firefox.app/Contents/MacOS/firefox-bin with args ["-marionette"]
+1499075888447	Marionette	INFO	Listening on port 49310
+1499075888515	Marionette	WARN	TLS certificate errors will be ignored for this session
+1499075888702	Marionette	DEBUG	loaded listener.js
+2017-07-03 04:58:08.761 plugin-container[923:10659] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9c3b, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2017-07-03 04:58:08.761 plugin-container[923:10659] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9f03, name = 'com.apple.CFPasteboardClient'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1499075889735	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499075889738	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499075889738	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499075889742	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "about:blank"
+1499075889744	Marionette	DEBUG	Received DOM event "pageshow" for "about:blank"
+1499075889762	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499075889771	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499075889771	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499075890087	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075890090	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075890552	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075890560	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075890561	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075890570	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075890573	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075890594	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075890604	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075890604	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075890888	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075890892	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075894458	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075898231	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075900171	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075901003	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075901310	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075902083	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075962845	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075962848	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075962848	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075962896	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075962898	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075962968	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075963056	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075963056	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499075964124	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075964128	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075964459	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075964563	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075964563	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075964613	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075964615	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075964802	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499075964811	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499075964811	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499075965756	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499075965760	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499075969469	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499075974211	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076112204	Marionette	INFO	Ceased listening
+1499076242457	geckodriver	INFO	Listening on 127.0.0.1:50187
+1499076243464	geckodriver::marionette	INFO	Starting browser /Applications/Firefox.app/Contents/MacOS/firefox-bin with args ["-marionette"]
+1499076245106	Marionette	INFO	Listening on port 50196
+1499076245176	Marionette	WARN	TLS certificate errors will be ignored for this session
+1499076245357	Marionette	DEBUG	loaded listener.js
+2017-07-03 05:04:05.424 plugin-container[1131:21405] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9c3b, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2017-07-03 05:04:05.426 plugin-container[1131:21405] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9f03, name = 'com.apple.CFPasteboardClient'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1499076246060	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499076246063	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499076246064	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499076246068	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "about:blank"
+1499076246069	Marionette	DEBUG	Received DOM event "pageshow" for "about:blank"
+1499076246093	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499076246101	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499076246101	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499076246417	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076246420	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076246922	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499076246929	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499076246929	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499076246936	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076246939	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076246977	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499076246984	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499076246984	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499076247294	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076247298	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076251116	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076255445	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076257401	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499076258241	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076263773	Marionette	DEBUG	loaded listener.js
+*************************
+A coding exception was thrown in a Promise resolution callback.
+See https://developer.mozilla.org/Mozilla/JavaScript_code_modules/Promise.jsm/Promise
+
+Full message: TypeError: this.conn is null
+Full stack: onListTabs/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/server/actors/root.js:288:9
+process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:922:23
+walkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:806:7
+scheduleWalkerLoop/<@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:742:11
+
+*************************
+console.error: 
+  Message: Error: connectionClosed: 'listTabs' active request packet to 'root' can't be sent as the connection just closed.
+  Stack:
+    _getRoot/</<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/client/framework/target.js:293:18
+DebuggerClient.requester/</<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:283:9
+exports.makeInfallible/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/ThreadSafeDevToolsUtils.js:101:14
+emitOnObject@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:112:9
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:89:38
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:1322:29
+reject@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:1145:7
+purgeRequests/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:1166:47
+purgeRequests@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:1166:5
+onClosed@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:1100:5
+close@chrome://marionette/content/server.js -> resource://devtools/shared/transport/transport.js:668:11
+close@chrome://marionette/content/server.js -> resource://devtools/shared/transport/transport.js:664:9
+close@chrome://marionette/content/server.js -> resource://devtools/shared/transport/transport.js:664:9
+cleanup@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:371:7
+detachClients@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:395:9
+DebuggerClient.requester/</<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:283:9
+exports.makeInfallible/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/ThreadSafeDevToolsUtils.js:101:14
+emitOnObject@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:112:9
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:89:38
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:1322:29
+emitReply@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:1021:29
+callFunctionWithAsyncStack@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/platform/chrome/stack.js:69:12
+onPacket@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/client/main.js:1023:9
+send/<@chrome://marionette/content/server.js -> resource://devtools/shared/transport/transport.js:570:13
+exports.makeInfallible/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/ThreadSafeDevToolsUtils.js:101:14
+exports.makeInfallible/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://devtools/shared/ThreadSafeDevToolsUtils.js:101:14
+
+1499076265363	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076266408	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076605958	geckodriver	INFO	Listening on 127.0.0.1:50836
+1499076606963	geckodriver::marionette	INFO	Starting browser /Applications/Firefox.app/Contents/MacOS/firefox-bin with args ["-marionette"]
+1499076608629	Marionette	INFO	Listening on port 50845
+1499076608721	Marionette	WARN	TLS certificate errors will be ignored for this session
+1499076608864	Marionette	DEBUG	loaded listener.js
+2017-07-03 05:10:08.929 plugin-container[1313:30803] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9c3b, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2017-07-03 05:10:08.930 plugin-container[1313:30803] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9f03, name = 'com.apple.CFPasteboardClient'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1499076609568	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499076609571	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499076609571	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499076609575	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "about:blank"
+1499076609576	Marionette	DEBUG	Received DOM event "pageshow" for "about:blank"
+1499076609601	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499076609611	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499076609611	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499076609957	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076609960	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076610427	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499076610433	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499076610433	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499076610444	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076610446	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076610489	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499076610492	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499076610493	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499076610783	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076610786	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076614750	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076619296	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076621080	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499076621904	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076629492	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076630286	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076635408	Marionette	DEBUG	loaded listener.js
+1499076682769	geckodriver	INFO	Listening on 127.0.0.1:51277
+1499076683781	geckodriver::marionette	INFO	Starting browser /Applications/Firefox.app/Contents/MacOS/firefox-bin with args ["-marionette"]
+1499076685449	Marionette	INFO	Listening on port 51286
+1499076685544	Marionette	WARN	TLS certificate errors will be ignored for this session
+1499076685703	Marionette	DEBUG	loaded listener.js
+2017-07-03 05:11:25.769 plugin-container[1389:33416] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9c3b, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2017-07-03 05:11:25.771 plugin-container[1389:33416] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9f03, name = 'com.apple.CFPasteboardClient'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1499076686406	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499076686410	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499076686410	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499076686414	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "about:blank"
+1499076686415	Marionette	DEBUG	Received DOM event "pageshow" for "about:blank"
+1499076686434	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499076686443	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499076686443	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499076686767	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076686770	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076687245	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499076687251	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499076687251	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499076687260	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076687264	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076687300	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499076687305	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499076687305	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499076687599	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499076687602	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499076692092	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499076696168	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+[Child 1389] WARNING: pipe error: Broken pipe: file /builds/slave/m-rel-m64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 702
+1499151414546	geckodriver	INFO	Listening on 127.0.0.1:53307
+1499151415767	geckodriver::marionette	INFO	Starting browser /Applications/Firefox.app/Contents/MacOS/firefox-bin with args ["-marionette"]
+1499151417811	Marionette	INFO	Listening on port 53323
+1499151417904	Marionette	WARN	TLS certificate errors will be ignored for this session
+1499151418115	Marionette	DEBUG	loaded listener.js
+2017-07-04 01:56:58.191 plugin-container[10769:370142] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x9d3b, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2017-07-04 01:56:58.192 plugin-container[10769:370142] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0xa003, name = 'com.apple.CFPasteboardClient'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1499151418953	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499151418957	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499151418957	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499151418962	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "about:blank"
+1499151418963	Marionette	DEBUG	Received DOM event "pageshow" for "about:blank"
+1499151418986	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1499151418999	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1499151418999	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1499151419681	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499151419743	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499151420203	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499151420207	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499151420208	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499151420215	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499151420217	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499151420230	Marionette	DEBUG	Received DOM event "beforeunload" for "http://127.0.0.1:8181/#/login"
+1499151420233	Marionette	DEBUG	Received DOM event "pagehide" for "http://127.0.0.1:8181/#/login"
+1499151420234	Marionette	DEBUG	Received DOM event "unload" for "http://127.0.0.1:8181/#/login"
+1499151420876	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://127.0.0.1:8181/#/login"
+1499151420906	Marionette	DEBUG	Received DOM event "pageshow" for "http://127.0.0.1:8181/#/login"
+1499151424470	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499151428571	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499151430606	Marionette	DEBUG	Received DOM event "hashchange" for "http://127.0.0.1:8181/#/dashboard/detailedview"
+1499151431459	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499151431783	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1499151432544	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
