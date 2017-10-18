@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -71,7 +71,8 @@ class TestSanity(TestUiBase):
         engagement_manual_id = newObjWithChecklist[2]
         actualVfNameid = newObjWithChecklist[3]
         checklistName = newObjWithChecklist[5]
-        DB.Checklist.state_changed("uuid", checklistUuid, 'review')
+        DB.Checklist.state_changed(
+            "uuid", checklistUuid, Constants.ChecklistStates.Review.TEXT)
         DB.Checklist.update_decisions(checklistUuid, checklistName)
 
         Frontend.User.relogin(
@@ -79,7 +80,7 @@ class TestSanity(TestUiBase):
         Frontend.Checklist.click_on_checklist(user_content, checklistName)
         Frontend.Checklist.validate_reject_is_enabled()
         Frontend.Checklist.review_state_actions_and_validations(
-            checklistName, user_content['vfName'], "review")
+            checklistName, user_content['vfName'], Constants.ChecklistStates.Review.TEXT)
 
         Frontend.Checklist.cl_to_next_stage(actualVfNameid)
         engPreeRiviewerLeadEmail = DB.Checklist.get_pr_email(checklistUuid)

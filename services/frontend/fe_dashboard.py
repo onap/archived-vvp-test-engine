@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -221,21 +221,21 @@ class FEDashboard:
             eng_manual_id = user_content['engagement_manual_id'] + ":"
             Wait.text_by_id(engSearchID, eng_manual_id)
             logger.debug("Engagement found (searched by engagement_manual_id)")
-            FEGeneral.refresh()
+            FEGeneral.smart_refresh()
             logger.debug("Search engagement by VF name")
             # Search by VF name.
             Enter.text_by_id(
                 Constants.Dashboard.Statuses.SearchBox.ID, user_content['vfName'])
             Wait.text_by_id(engSearchID, eng_manual_id)
             logger.debug("Engagement found (searched by VF name)")
-            FEGeneral.refresh()
+            FEGeneral.smart_refresh()
             logger.debug("Search engagement by VFC")
             # Search by VFC.
             Enter.text_by_id(
                 Constants.Dashboard.Statuses.SearchBox.ID, vfcName)
             Wait.text_by_id(engSearchID, eng_manual_id)
             logger.debug("Engagement found (searched by VFC)")
-            FEGeneral.refresh()
+            FEGeneral.smart_refresh()
             logger.debug("Negative search: search by random string")
             # Search by VFC.
             Enter.text_by_id(Constants.Dashboard.Statuses.SearchBox.ID,

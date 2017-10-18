@@ -50,7 +50,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 
-from services.constants import Constants
+from services.constants import Constants, ServiceProvider
 from services.logging_service import LoggingServiceFactory
 
 
@@ -59,15 +59,17 @@ admin_mail_from = settings.ICE_CONTACT_FROM_ADDRESS
 param = "1"
 logger = LoggingServiceFactory.get_logger()
 
+
 def sendMail(param,email, data, mail_body, mail_subject, mail_from=admin_mail_from):
     logger.debug("about to send mail to " + email)
     
-    try: 
-#         lastBuild = param
+    try:
         html_msg = mail_body.substitute(data)
         mail_subject = mail_subject.substitute(data)
-        #send mail with template           
-        send_mail(mail_subject, '', Constants.FEGeneral.ProgramName.name +"-CI Report Test Team <" + mail_from + ">",settings.ICE_CONTACT_EMAILS , fail_silently=False, html_message=html_msg)
+        send_mail(mail_subject, '', ServiceProvider.PROGRAM_NAME
+                  + "-CI Report Test Team <" + mail_from + ">",
+                  settings.ICE_CONTACT_EMAILS , fail_silently=False,
+                  html_message=html_msg)
         logger.debug("Looks like email delivery to "+email+" has succeeded")
     except Exception:
         traceback.print_exc()

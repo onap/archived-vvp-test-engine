@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -54,6 +54,7 @@ from services.session import session
 
 
 logger = LoggingServiceFactory.get_logger()
+
 
 class FEUser:
 
@@ -343,24 +344,24 @@ class FEUser:
     def validate_user_profile_settings_checkboxes(checked):
         Wait.page_has_loaded()
         receive_emails = Get.is_selected_by_id(
-            Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveEmailsID, wait_for_page=True)
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveEmailsID, True)
         Helper.internal_assert(receive_emails, checked)
         receive_notifications = \
             Get.is_selected_by_id(
-                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveNotificationsID)
+                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveNotificationsID, True)
         receive_email_every_time = \
             Get.is_selected_by_id(
-                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveEmailEveryTimeID)
+                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveEmailEveryTimeID, True)
         Helper.internal_assert(receive_email_every_time, checked)
         receive_digest_email = \
             Get.is_selected_by_id(
-                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveDigestEmailID, wait_for_page=True)
+                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveDigestEmailID, True)
         Helper.internal_assert(receive_digest_email, not checked)
 
     @staticmethod
     def compare_notifications_count_for_user(expected_count):
         Wait.text_by_id(
-            Constants.Dashboard.Avatar.Notifications.Count.ID, expected_count, wait_for_page=True)
+            Constants.Dashboard.Avatar.Notifications.Count.ID, expected_count, True)
 
     @staticmethod
     def check_notification_number_is_not_presented():

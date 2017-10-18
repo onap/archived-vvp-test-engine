@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -204,7 +204,8 @@ class TestNextStep(TestUiBase):
             API.User.login_user(user_content['el_email'])
         Wait.page_has_loaded()
         cl_content = API.Checklist.create_checklist(user_content)
-        DB.Checklist.state_changed("name", cl_content['name'], 'review')
+        DB.Checklist.state_changed(
+            "name", cl_content['name'], Constants.ChecklistStates.Review.TEXT)
         new_cl_uuid = DB.Checklist.get_recent_checklist_uuid(cl_content['name'])[
             0]
         API.Checklist.add_checklist_next_step(user_content, new_cl_uuid)
@@ -221,7 +222,8 @@ class TestNextStep(TestUiBase):
         user_content['session_token'] = "token " + \
             API.User.login_user(user_content['el_email'])
         checklist = API.Checklist.create_checklist(user_content)
-        DB.Checklist.state_changed("uuid", checklist['uuid'], 'review')
+        DB.Checklist.state_changed(
+            "uuid", checklist['uuid'], Constants.ChecklistStates.Review.TEXT)
         Frontend.User.relogin(
             user_content['el_email'], 'iceusers')
         eng_id = "clickable-%s: %s" % (

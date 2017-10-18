@@ -51,6 +51,7 @@ from services.session import session
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class FEWizard:
 
     E2Edate = None
@@ -126,7 +127,7 @@ class FEWizard:
         Enter.text_by_name("phone", phone)
         Click.css(Constants.SubmitButton.CSS)
         Wait.name_to_dissappear("Add AT&T Sponsor")
-        sponsor = {"company": "AT&T", "full_name": fullname,
+        sponsor = {"company": ServiceProvider.MainServiceProvider, "full_name": fullname,
                    "email": email, "phone": phone}
         return sponsor
 
@@ -179,7 +180,7 @@ class FEWizard:
             raise Exception(errorMsg)
 
     @staticmethod
-    def invite_team_members_modal(email):
+    def invite_team_members_modal(email, wait_modal_to_disappear=True):
         try:
             Click.id(
                 Constants.Dashboard.Overview.TeamMember.ID, wait_for_page=True)
@@ -188,11 +189,9 @@ class FEWizard:
             Enter.text_by_name("email", email)
             Wait.text_by_css(
                 Constants.SubmitButton.CSS, Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
-            Wait.css_to_dissappear(
-                '.inviteMembers-form button[disabled="disabled"].btn.btn-primary')
-            Wait.css(".inviteMembers-form button.btn.btn-primary")
-            Click.css(".inviteMembers-form button.btn.btn-primary")
-            Wait.modal_to_dissappear()
+            Click.css(".inviteMembers-form button.btn.btn-primary", True)
+            if wait_modal_to_disappear:
+                Wait.modal_to_dissappear()
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             errorMsg = "FAILED in PopUp Invite Team Members. Exception=" + \

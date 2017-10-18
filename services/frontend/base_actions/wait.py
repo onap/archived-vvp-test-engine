@@ -196,17 +196,18 @@ class Wait:
 
     @staticmethod
     def page_has_loaded():
-        countwait_untilelement_to_be_presented_by_id = 0
         for _ in range(Constants.FEConstants.RETRIES_NUMBER):
-            httpRequests = session.ice_driver.execute_script(
-                'return window.angular ? window.angular.element("body").injector().get("$http").pendingRequests.length : 1;')
-            if(str(httpRequests) == "0"):
+            try:
+                httpRequests = session.ice_driver.execute_script(
+                    'return window.angular ? window.angular.element("body").injector().get("$http").pendingRequests.length : 1;')
+                if(str(httpRequests) == "0"):
+                    time.sleep(session.wait_until_time_pause)
+                    return
+                logger.debug(
+                    "Checking if {} page is loaded. ".format(session.ice_driver.current_url))
                 time.sleep(session.wait_until_time_pause)
-                return
-            logger.debug(
-                "Checking if {} page is loaded. ".format(session.ice_driver.current_url))
-            time.sleep(session.wait_until_time_pause)
-            countwait_untilelement_to_be_presented_by_id += 1
+            except Exception as exception:
+                continue
 
         raise Exception("Page loading took too much time")
 

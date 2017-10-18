@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -301,20 +301,3 @@ class TestGitSignal(TestSignalBase):
                     "Invited user: " + email + " and" + second_invited_email['full_name'] + " found in GitLab.")
             logger.debug(
                 "Inviter and invited users were created successfully on GitLab!")
-
-    @exception()
-    def test_push_yaml_files_to_repo_check_decline_of_cl(self):
-
-        if settings.DATABASE_TYPE == 'local':
-            logger.debug("Local environment, skipping test...")
-        else:
-            user_content = API.VirtualFunction.create_engagement()
-            token = "token " + API.User.login_user(user_content['el_email'])
-            user_content['session_token'] = token
-            cl_content_before_push_and_decline = API.Checklist.retrieve_heat_checklist(
-                user_content)
-            API.GitLab.git_clone_push(user_content, yaml=True)
-            cl_content_after_push_and_decline = API.Checklist.retrieve_heat_checklist(
-                user_content)
-            Helper.internal_not_equal(
-                cl_content_before_push_and_decline, cl_content_after_push_and_decline)

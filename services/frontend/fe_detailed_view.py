@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -40,7 +40,7 @@ import time
 
 from selenium.webdriver.support.ui import Select
 
-from services.constants import Constants
+from services.constants import Constants, ServiceProvider
 from services.database.db_general import DBGeneral
 from services.frontend.base_actions.click import Click
 from services.frontend.base_actions.enter import Enter
@@ -237,7 +237,7 @@ class FEDetailedView:
         session.ice_driver.find_element_by_name("extRefID").click()
         Enter.text_by_name("extRefID", Helper.rand_string("randomNumber"))
         Select(session.ice_driver.find_element_by_id(
-            Constants.Dashboard.DetailedView.VFC.Choose_Company.ID)).select_by_visible_text("AT&T")
+            Constants.Dashboard.DetailedView.VFC.Choose_Company.ID)).select_by_visible_text(ServiceProvider.MainServiceProvider)
         Click.id(Constants.Dashboard.DetailedView.VFC.Save_button.ID)
         return vfcName
 

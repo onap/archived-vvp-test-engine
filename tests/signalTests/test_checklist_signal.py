@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -59,10 +59,10 @@ class TestChecklistSignal(TestSignalBase):
             logger.debug("Local environment, skipping test...")
         else:
             user_content = API.VirtualFunction.create_engagement()
-            API.GitLab.git_clone_push(user_content, yaml=True)
+            API.GitLab.git_clone_push(user_content)
             token = "token " + API.User.login_user(user_content['el_email'])
             user_content['session_token'] = token
-            cl_content = API.Checklist.retrieve_heat_checklist(user_content)
-            API.GitLab.git_push_commit(user_content, yaml=True)
+            cl_content = API.Checklist.create_checklist(user_content)
+            API.GitLab.git_push_commit(user_content)
             DB.Checklist.state_changed(
                 "uuid", cl_content['uuid'], Constants.ChecklistStates.Archive.TEXT)

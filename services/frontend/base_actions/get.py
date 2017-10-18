@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -37,6 +37,7 @@
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 from services.frontend.base_actions.wait import Wait
+from services.helper import Helper
 from services.session import session
 
 
@@ -98,8 +99,10 @@ class Get:
             raise Exception(errorMsg, attr_name_value)
 
     @staticmethod
-    def value_by_name(attr_name_value):
+    def value_by_name(attr_name_value, wait_for_page=False):
         try:
+            if wait_for_page:
+                Wait.page_has_loaded()
             Wait.name(attr_name_value)
             return session.ice_driver.find_element_by_name(attr_name_value).get_attribute("value")
         except Exception as e:
@@ -122,6 +125,19 @@ class Get:
                 Wait.page_has_loaded()
             Wait.id(attr_id_value)
             return session.ice_driver.find_element_by_id(attr_id_value).is_selected()
+        except Exception as e:
+            errorMsg = "Failed to get if it's selected by id:" + attr_id_value
+            raise Exception(errorMsg, attr_id_value)
+
+    @staticmethod
+    def is_checkbox_selected_by_id(attr_id_value, wait_for_page=False):
+        try:
+            if wait_for_page:
+                Wait.page_has_loaded()
+            Wait.id(attr_id_value)
+            return Helper.internal_assert_boolean_true_false(
+                session.ice_driver.find_element_by_id(
+                    attr_id_value).get_attribute("value"), "on")
         except Exception as e:
             errorMsg = "Failed to get if it's selected by id:" + attr_id_value
             raise Exception(errorMsg, attr_id_value)

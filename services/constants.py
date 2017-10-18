@@ -42,7 +42,7 @@ from django.conf import settings
 class ServiceProvider:
     PROGRAM_NAME = "VVP"
     MainServiceProvider = "ServiceProvider"
-    email = "example.com"
+    email = "example-domain.com"
 
 
 class Constants:
@@ -89,8 +89,20 @@ class Constants:
         class Review:
             TEXT = "review"
 
+        class PeerReview:
+            TEXT = "peer_review"
+
+        class Approval:
+            TEXT = "approval"
+
+        class Handoff:
+            TEXT = "handoff"
+
         class Archive:
             TEXT = "archive"
+
+        class Closed:
+            TEXT = "closed"
 
     class FEConstants:
         RETRIES_NUMBER = 120
@@ -108,14 +120,15 @@ class Constants:
     class Users:
 
         class Admin:
-            EMAIL = "admin@example.com"
+            EMAIL = "admin@" + ServiceProvider.email
             FULLNAME = "admin bogus user"
 
         class AdminRO:
-            EMAIL = "admin_ro@example.com"
+            EMAIL = "admin_ro@" + ServiceProvider.email
 
         class LongEmailLengthStandardUser:
-            EMAIL = "50charslengthemailofstandarduserforinvite@example.com"
+            EMAIL = "50charslengthemailofstandardus@" + \
+                ServiceProvider.email
 
     class Toast:
         ID = "toast-successfully-message"
@@ -745,9 +758,9 @@ class Constants:
                 class FilterByFileDropDown:
                     ID = "selected-file-filter-dropdown"
                     ANY_FILE_LINK_TEXT = "Any file"
-                    FILE0_LINK_TEXT = "file0.yaml"
-                    FILE1_LINK_TEXT = "file1.yaml"
-                    FILE2_LINK_TEXT = "file2.yaml"
+                    FILE0_LINK_TEXT = "file0"
+                    FILE1_LINK_TEXT = "file1"
+                    FILE2_LINK_TEXT = "file2"
 
                 class StateDropDown:
                     ID = "selected-state-filter-dropdown"

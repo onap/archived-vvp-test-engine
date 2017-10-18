@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -37,26 +37,36 @@
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 from django.conf import settings
-import requests
 from requests.auth import HTTPBasicAuth
-
 from services.constants import Constants
 from services.helper import Helper
-from services.logging_service import LoggingServiceFactory
+import logging
+import requests
+import time
+from services.session import session
 
 
-logger = LoggingServiceFactory.get_logger()
+logger = logging.getLogger('ice-ci.logger')
+
 
 class APIJenkins:
 
     @staticmethod
     def get_jenkins_job(job_name):
         r1 = None
+        counter = 0
         getURL = settings.JENKINS_URL + "job/" + job_name
         logger.debug("Get APIJenkins job URL: " + getURL)
         try:
             r1 = requests.get(getURL, auth=HTTPBasicAuth(
                 settings.JENKINS_USERNAME, settings.JENKINS_PASSWORD))
+            while r1.status_code != 200 and counter <= Constants.GitLabConstants.RETRIES_NUMBER:
+                r1 = requests.get(getURL, auth=HTTPBasicAuth(
+                    settings.JENKINS_USERNAME, settings.JENKINS_PASSWORD))
+                time.sleep(session.wait_until_time_pause)
+                logger.debug(
+                    "try to get jenkins job (try #%s)" % counter)
+                counter += 1
             Helper.internal_assert(r1.status_code, 200)
             logger.debug("Job was created on APIJenkins!")
         except:
@@ -78,4 +88,3 @@ class APIJenkins:
             if Constants.Dashboard.Checklist.JenkinsLog.Modal.Body.BUILD_IDENTIFIER in line:
                 parts = line.partition('jenkins')
                 return parts[2]
-

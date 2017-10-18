@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -49,6 +49,7 @@ from services.session import session
 
 
 logger = LoggingServiceFactory.get_logger()
+
 
 class DBChecklist:
 
@@ -361,16 +362,18 @@ class DBChecklist:
 
     @staticmethod
     def state_changed(identify_field, field_value, expected_state):
-        get_state = str(DBGeneral.select_where(
-            "state", Constants.DBConstants.IceTables.CHECKLIST, identify_field, field_value, 1))
+        get_state = DBGeneral.select_where_order_by_desc(
+            "state", Constants.DBConstants.IceTables.CHECKLIST,
+            identify_field, field_value, "create_time")[0]
         counter = 0
         while get_state != expected_state and counter <= Constants.DBConstants.RETRIES_NUMBER:
             time.sleep(session.wait_until_time_pause_long)
             logger.debug("Checklist state not changed yet , expecting state: %s, current result: %s (attempt %s of %s)" % (
                 expected_state, get_state, counter, Constants.DBConstants.RETRIES_NUMBER))
             counter += 1
-            get_state = str(DBGeneral.select_where(
-                "state", Constants.DBConstants.IceTables.CHECKLIST, identify_field, field_value, 1))
+            get_state = DBGeneral.select_where_order_by_desc(
+                "state", Constants.DBConstants.IceTables.CHECKLIST,
+                identify_field, field_value, "create_time")[0]
 
         if get_state == expected_state:
             logger.debug("Checklist state was successfully changed into: " +
@@ -382,5 +385,6 @@ class DBChecklist:
     @staticmethod
     def get_recent_checklist_uuid(name):
         required_uuid = DBGeneral.select_where_not_and_order_by_desc(
-            'uuid', Constants.DBConstants.IceTables.CHECKLIST, 'name', name, 'state', Constants.ChecklistStates.Archive.TEXT, 'create_time')
+            'uuid', Constants.DBConstants.IceTables.CHECKLIST, 'name', name,
+            'state', Constants.ChecklistStates.Archive.TEXT, 'create_time')
         return required_uuid

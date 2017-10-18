@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -56,6 +56,7 @@ from services.session import session
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class APIGitLab:
 
     @staticmethod
@@ -79,13 +80,13 @@ class APIGitLab:
         headers['PRIVATE-TOKEN'] = settings.GITLAB_TOKEN
         try:
             r1 = requests.get(getURL, headers=headers, verify=False)
-            Helper.internal_assert(r1.status_code, 200)
             counter = 0
-            while r1.content == b'[]' and counter <= Constants.GitLabConstants.RETRIES_NUMBER:
+            while r1.status_code == 404 or r1.content == b'[]' and counter <= Constants.GitLabConstants.RETRIES_NUMBER:
                 time.sleep(session.wait_until_time_pause)
                 r1 = requests.get(getURL, headers=headers, verify=False)
-                Helper.internal_assert(r1.status_code, 200)
-
+                logger.debug(
+                    "trying to get the git project, yet to succeed (try #%s)" % counter)
+                counter += 1
             if r1.content == b'[]':
                 logger.error("Got an empty list as a response.")
                 raise
@@ -363,32 +364,15 @@ class APIGitLab:
 
     @staticmethod
     def is_gitlab_ready(user_content):
-        counter = 1
-        gettURL = settings.ICE_EM_URL + '/v1/engmgr/engagement/' + \
-            user_content['engagement_uuid'] + '/checklist/new/'
-        logger.debug(
-            "Get URL to check if GitLab and Jenkins are ready: " + gettURL)
-        # Validate with EL
-        token = "token " + APIBridge.login_user(user_content['el_email'])
-        headers = dict()  # Create header for get request.
-        headers['Content-type'] = 'application/json'
-        headers['Authorization'] = token
-        r1 = requests.get(gettURL, headers=headers, verify=False)
-        while (r1.content == b'"Create New checklist is not ready yet"' and counter <=
-               Constants.GitLabConstants.RETRIES_NUMBER):
-            time.sleep(session.wait_until_time_pause_long)
-            logger.debug(
-                "GitLab and Jenkins are not ready yet, trying again (%s of %s)" %
-                (counter, Constants.GitLabConstants.RETRIES_NUMBER))
-            r1 = requests.get(gettURL, headers=headers, verify=False)
-            counter += 1
-        if r1.status_code != 200:
-            if r1.content == "Create New checklist is not ready yet":
-                raise Exception("Max retries exceeded, failing test...")
-            else:
-                raise Exception("Something went wrong while waiting for GitLab and Jenkins. %s %s" % (
-                    r1.status_code, r1.reason))
-            return False
-        elif r1.status_code == 200:
-            logger.debug("Gitlab and Jenkins are ready to continue!")
+        path_with_namespace = user_content[
+            'engagement_manual_id'] + "%2F" + user_content['vfName']
+        # If admin user is in project repo, it means the project exists as
+        # well.
+        cont = APIGitLab.validate_git_project_members(
+            path_with_namespace, Constants.Users.Admin.EMAIL)
+        if cont:
+            logger.debug("Gitlab is ready for action, git repo was found!")
             return True
+        else:
+            raise Exception(
+                "Something went wrong while waiting for GitLab.")

@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -47,6 +47,7 @@ from services.constants import Constants
 from services.database.db_general import DBGeneral
 from services.helper import Helper
 from services.logging_service import LoggingServiceFactory
+from services.database.db_checklist import DBChecklist
 
 
 logger = LoggingServiceFactory.get_logger()
@@ -208,12 +209,21 @@ class APIChecklist:
     @staticmethod
     def move_cl_to_closed(cl_uuid, vf_staff_emails):
         api_checklist_obj = APIChecklist()
-
+        states = [Constants.ChecklistStates.PeerReview.TEXT,
+                  Constants.ChecklistStates.Approval.TEXT,
+                  Constants.ChecklistStates.Handoff.TEXT,
+                  Constants.ChecklistStates.Closed.TEXT]
         for i in range(len(vf_staff_emails)):
-            logger.debug("Trying to jump state for %s [%s]" % (vf_staff_emails[i], i))
+            logger.debug(
+                "Trying to jump state for %s [%s]" % (vf_staff_emails[i], i))
+            DBChecklist.update_all_decisions_to_approve(cl_uuid)
             api_checklist_obj.jump_state(cl_uuid, vf_staff_emails[i])
+            logger.debug("Checking state changed to %s" % states[i])
+            DBChecklist.state_changed("uuid", cl_uuid, states[i])
 
         # Move CL to closed state.
-        logger.debug("Trying to jump state 'closed' for %s" % vf_staff_emails[0])
+        logger.debug("Trying to jump state 'closed' for %s" %
+                     vf_staff_emails[0])
         api_checklist_obj.jump_state(cl_uuid, vf_staff_emails[0])
-
+        logger.debug("Checking state changed to %s" % states[-1])
+        DBChecklist.state_changed("uuid", cl_uuid, states[-1])

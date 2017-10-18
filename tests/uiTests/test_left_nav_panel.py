@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -150,7 +150,7 @@ class TestLeftNavPanel(TestUiBase):
         myVfName = self.user_content[
             'engagement_manual_id'] + ": " + self.user_content['vfName']
         actualVfNameid = "clickable-" + myVfName
-        actualVfName = Get.by_id(actualVfNameid)
+        actualVfName = Get.by_id(actualVfNameid, True)
         Helper.internal_assert(myVfName, actualVfName)
         Click.id(actualVfNameid)
         uuid = DB.General.select_where_email(
@@ -176,7 +176,6 @@ class TestLeftNavPanel(TestUiBase):
         DB.VirtualFunction.remove_engagement_from_recent(
             self.user_content['vf_uuid'])
         Frontend.General.refresh()
-        Wait.id_to_dissappear(self.left_panel_eng_id)
         Frontend.Dashboard.statuses_search_vf(
             self.user_content['engagement_manual_id'], self.user_content['vfName'])
         Wait.text_by_id(self.left_panel_eng_id, self.eng_title)

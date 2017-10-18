@@ -1,5 +1,5 @@
  
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -56,6 +56,7 @@ from utils.authentication import JWTAuthentication
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class Helper:
 
     tc = unittest.TestCase('__init__')
@@ -102,7 +103,8 @@ class Helper:
             ).decode("utf-8")
 
             logger.debug("Generated SSH Public Key: " + public_key)
-        except Exception as e:  # If failed write to log the error and return 'None'.
+        # If failed write to log the error and return 'None'.
+        except Exception as e:
             logger.error(e)
             logger.error("Failed to generate SSH Public Key.")
             raise e
@@ -118,7 +120,8 @@ class Helper:
 
     @staticmethod
     def get_or_create_rsa_key_for_admin():
-        try:  # Create pair of keys for the given user and return his public key.
+        # Create pair of keys for the given user and return his public key.
+        try:
             ssh_folder = Constants.Paths.SSH.PATH
             public_file = ssh_folder + "id_rsa.pub"
             privateFile = ssh_folder + "id_rsa"
@@ -130,7 +133,8 @@ class Helper:
                 admin_ssh = DBUser.retrieve_admin_ssh_from_db()
                 admin_ssh_exist_and_equal = Helper.check_admin_ssh_existence(
                     public_file, admin_ssh)
-            # TODO find pending gitlab bug causing old ssh key not be updated in gitlab cache
+            # TODO find pending gitlab bug causing old ssh key not be updated
+            # in gitlab cache
             if False and admin_ssh_exist_and_equal:
                 return admin_ssh
             else:
@@ -152,7 +156,8 @@ class Helper:
 
                 with open(privateFile, 'w') as content_file:
                     os.chmod(privateFile, 0o600)
-                    content_file.write(private_key)  # Save private key to file.
+                    # Save private key to file.
+                    content_file.write(private_key)
                 logger.debug(
                     "Private key created successfully for admin")
                 user_pub_key = public_key
@@ -187,6 +192,10 @@ class Helper:
         except Exception as e:
             raise Exception("AssertionError: \"" + str(x) +
                             "\" != \"" + str(y) + "\"", e)
+
+    @staticmethod
+    def internal_assert_boolean_true_false(x, y):
+        return Helper.tc.assertEqual(str(x), str(y))
 
     @staticmethod
     def internal_not_equal(x, y):

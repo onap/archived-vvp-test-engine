@@ -157,7 +157,8 @@ class FEInvite:
         user_content['el_email'] = engLeadEmail
         uuid = DBGeneral.select_where_email(
             "uuid", "ice_user_profile", user_content['email'])
-        sponsor = ["AT&T", 'aaaaaa', inviteEmail, '3058000000']
+        sponsor = [ServiceProvider.MainServiceProvider, 'aaaaaa', inviteEmail,
+                   '3058000000']
         invitation_token = DBUser.select_invitation_token(
             "invitation_token", "ice_invitation", "engagement_uuid", engagement_id, inviteEmail, 1)
         signUpURLforContact = DBUser.get_contact_signup_url(
@@ -181,7 +182,8 @@ class FEInvite:
 
     @staticmethod
     def invite_x_users_and_verify_VF_appers_for_invited(user_content, engName):
-        inviteEmail = Helper.rand_string('randomString') + "@intl." + ServiceProvider.email
+        inviteEmail = Helper.rand_string('randomString') + "@" \
+                      + ServiceProvider.email
         vflist = FEInvite.create_x_vfs(user_content, engName, x=3)
         for vfName in vflist:
             # Fetch one AT&T user ID.
@@ -192,7 +194,8 @@ class FEInvite:
             engName = engagement_manual_id + ": " + vfName
             vf_left_nav_id = "clickable-" + engName
             Click.id(vf_left_nav_id)
-            FEWizard.invite_team_members_modal(inviteEmail)
+            FEWizard.invite_team_members_modal(inviteEmail,
+                                               wait_modal_to_disappear=False)
             FEGeneral.refresh()
             # validations
         FEInvite.validations_for_user2(user_content, inviteEmail, vflist)

@@ -47,7 +47,7 @@ from rest_framework.renderers import JSONRenderer
 
 from iceci import mail
 from iceci.mail import testsResults_mail_body
-from services.constants import Constants
+from services.constants import Constants, ServiceProvider
 from services.logging_service import LoggingServiceFactory
 
 from .models import TestResults
@@ -60,7 +60,8 @@ LAST_BUILD_REPORT_NUM = None
 logger = LoggingServiceFactory.get_logger()
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the "+Constants.FEGeneral.ProgramName.name+" ci index.")
+    return HttpResponse("Hello, world. You're at the "
+                        + ServiceProvider.PROGRAM_NAME + " ci index.")
 
 @csrf_exempt
 def testResult_list(request):  # List all tests, or create a new test.

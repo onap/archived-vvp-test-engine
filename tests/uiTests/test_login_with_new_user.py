@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -137,7 +137,7 @@ class TestLoginPageWithNewUser(TestUiBase):
         vfFullName = user_content[
             'engagement_manual_id'] + ": " + user_content['vfName']
         actualVfNameid = "clickable-" + vfFullName
-        Click.id(actualVfNameid,wait_for_page=True)
+        Click.id(actualVfNameid, wait_for_page=True)
         Wait.id(Constants.Dashboard.Overview.TeamMember.ID)
         Frontend.Wizard.invite_team_members_modal(second_user_content['email'])
         enguuid = DB.General.select_where("uuid", "ice_engagement", "engagement_manual_id", user_content[
@@ -203,13 +203,15 @@ class TestLoginPageWithNewUser(TestUiBase):
                                                              service_provider_internal["full_name"], service_provider_internal["phone"], service_provider_internal["company"])
         Frontend.General.re_open(signUpURLforContact)
         actualInvitedEmail = Get.value_by_name(Constants.Signup.Email.NAME)
-        Helper.internal_assert(service_provider_internal["email"], actualInvitedEmail)
+        Helper.internal_assert(
+            service_provider_internal["email"], actualInvitedEmail)
         Helper.internal_assert(
             "+" + service_provider_internal["phone"], Get.value_by_name(Constants.Signup.Phone.NAME))
         Helper.internal_assert(
             service_provider_internal["full_name"], Get.value_by_name(Constants.Signup.FullName.NAME))
+        signupCompany = Get.value_by_name(Constants.Signup.Company.NAME, True)
         Helper.internal_assert(
-            service_provider_internal["company"], Get.value_by_name(Constants.Signup.Company.NAME))
+            service_provider_internal["company"], signupCompany)
 
     @exception()
     def test_create_2_new_users(self):
@@ -295,11 +297,8 @@ class TestLoginPageWithNewUser(TestUiBase):
         engLeadEmail = DB.User.select_el_email(vfName)
         engagement_manual_id = DB.General.select_where(
             "engagement_manual_id", "ice_engagement", "uuid", engagement_id, 1)
-        # Fetch one is_service_provider_contact user ID.
-        enguuid = DB.General.select_where(
-            "uuid", "ice_engagement", "engagement_manual_id", engagement_manual_id, 1)
         invitation_token = DB.User.select_invitation_token("invitation_token", "ice_invitation", "engagement_uuid",
-                                                           enguuid, vendor_contact["email"], 1)
+                                                           engagement_id, vendor_contact["email"], 1)
         signUpURLforContact = DB.User.get_contact_signup_url(invitation_token, uuid, vendor_contact["email"],
                                                              vendor_contact["full_name"], vendor_contact["phone"], vendor_contact["company"])
         Frontend.General.re_open(signUpURLforContact)
@@ -313,6 +312,8 @@ class TestLoginPageWithNewUser(TestUiBase):
             vendor_contact["company"], Get.value_by_name(Constants.Signup.Company.NAME))
         # SignUp for VendorContact
         user_content['engagement_uuid'] = engagement_id
+        user_content['engagement_manual_id'] = engagement_manual_id
+        user_content['vfName'] = vfName
         user_content['el_email'] = engLeadEmail
         API.User.signup_invited_user(vendor_contact["company"], vendor_contact["email"], invitation_token,
                                      signUpURLforContact, user_content, True)
@@ -384,18 +385,24 @@ class TestLoginPageWithNewUser(TestUiBase):
         # SignUp for MainServiceProviderSponsorContact
         engagement_manual_id = DB.General.select_where(
             "engagement_manual_id", "ice_engagement", "uuid", engagement_id, 1)
-        # Fetch one is_service_provider_contact user ID.
-        enguuid = DB.General.select_where(
-            "uuid", "ice_engagement", "engagement_manual_id", engagement_manual_id, 1)
+
         invitation_token = DB.User.select_invitation_token("invitation_token", "ice_invitation", "engagement_uuid",
-                                                           enguuid, service_provider_internal["email"], 1)
+                                                           engagement_id, service_provider_internal["email"], 1)
         engLeadEmail = DB.User.select_el_email(vfName)
         user_content['engagement_uuid'] = engagement_id
+        user_content['engagement_manual_id'] = engagement_manual_id
+        user_content['vfName'] = vfName
         user_content['el_email'] = engLeadEmail
+
         API.User.signup_invited_user(service_provider_internal["company"], service_provider_internal["email"], invitation_token,
                                      signUpURLforContact, user_content, True)
-        activationUrl2 = DB.User.get_activation_url(service_provider_internal["email"])
+        activationUrl2 = DB.User.get_activation_url(
+            service_provider_internal["email"])
         # Activate for VendorContact
+
+
+
+
         engagement_manual_id = DB.General.select_where(
             "engagement_manual_id", "ice_engagement", "uuid", engagement_id, 1)
         # Validate opened right VF for VendorContact

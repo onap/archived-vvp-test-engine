@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -54,6 +54,7 @@ from services.session import session
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class FEGeneral(Helper):
 
     @staticmethod
@@ -103,14 +104,30 @@ class FEGeneral(Helper):
 
     @staticmethod
     def refresh():
-        try:  # Click on element in UI, by CSS locator.
+        try:
             session.ice_driver.refresh()
             Wait.page_has_loaded()
-        # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             errorMsg = "Could not refresh the page."
             logger.error(errorMsg)
             raise Exception(errorMsg, e)
+
+    @staticmethod
+    def smart_refresh():
+        session.ice_driver.refresh()
+        i = 0
+        success = False
+        while not success and i < 2:
+            try:
+                Wait.page_has_loaded()
+                success = True
+                break
+            except:
+                i += 1
+                time.sleep(1)
+                pass
+        if not success:
+            raise Exception("Failed to wait for refresh")
 
     @staticmethod
     def select_vendor_from_list(vendor):

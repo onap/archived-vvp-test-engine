@@ -58,6 +58,7 @@ from services.session import session
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class FEOverview:
 
     @staticmethod
@@ -65,9 +66,9 @@ class FEOverview:
         vfFullName = user_content[
             'engagement_manual_id'] + ": " + user_content['vfName']
         Enter.text_by_id(Constants.Dashboard.LeftPanel.SearchBox.ID, user_content[
-                         'vfName'])
+                         'vfName'], True)
         Click.id(Constants.Dashboard.LeftPanel.SearchBox.Results.ID %
-                 user_content['vfName'])
+                 user_content['vfName'], True)
         Wait.text_by_id(
             Constants.Dashboard.Overview.Title.ID, vfFullName)
 

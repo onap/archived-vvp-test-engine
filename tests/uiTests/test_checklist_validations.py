@@ -105,7 +105,8 @@ class TestChecklistValidations(TestUiBase):
         engagement_manual_id = newObjWithChecklist[2]
         actualVfNameid = newObjWithChecklist[3]
         checklistName = newObjWithChecklist[5]
-        DB.Checklist.state_changed("uuid", checklistUuid, 'review')
+        DB.Checklist.state_changed(
+            "uuid", checklistUuid, Constants.ChecklistStates.Review.TEXT)
         DB.Checklist.update_decisions(checklistUuid, checklistName)
 
         Frontend.User.relogin(
@@ -154,7 +155,8 @@ class TestChecklistValidations(TestUiBase):
         engagement_manual_id = newObjWithChecklist[2]
         actualVfNameid = newObjWithChecklist[3]
         checklistName = newObjWithChecklist[5]
-        DB.Checklist.state_changed("uuid", checklistUuid, 'review')
+        DB.Checklist.state_changed(
+            "uuid", checklistUuid, Constants.ChecklistStates.Review.TEXT)
         DB.Checklist.update_decisions(checklistUuid, checklistName)
         Frontend.User.relogin(
             engLeadEmail, Constants.Default.Password.TEXT, engagement_manual_id)
@@ -186,7 +188,8 @@ class TestChecklistValidations(TestUiBase):
         actualVfNameid = newObjWithChecklist[3]
         myVfName = newObjWithChecklist[4]
         checklistName = newObjWithChecklist[5]
-        DB.Checklist.state_changed("uuid", checklistUuid, 'review')
+        DB.Checklist.state_changed(
+            "uuid", checklistUuid, Constants.ChecklistStates.Review.TEXT)
         DB.Checklist.update_decisions(checklistUuid, checklistName)
 
         Frontend.User.relogin(
@@ -228,7 +231,8 @@ class TestChecklistValidations(TestUiBase):
     @exception()
     def test_reject_anytime_checklist(self):
         cl_content = API.Checklist.create_checklist(self.user_content_api)
-        DB.Checklist.state_changed("name", cl_content['name'], 'review')
+        DB.Checklist.state_changed(
+            "name", cl_content['name'], Constants.ChecklistStates.Review.TEXT)
         Frontend.User.login(
             self.user_content_api['el_email'], Constants.Default.Password.TEXT)
         Frontend.Checklist.search_by_manual_id(
@@ -238,7 +242,8 @@ class TestChecklistValidations(TestUiBase):
         Frontend.Checklist.click_on_checklist(
             self.user_content_api, cl_content['name'], recent_checklist_uuid)
         Frontend.Checklist.reject("Reject checklist on review state.")
-        DB.Checklist.state_changed("uuid", recent_checklist_uuid, 'archive')
+        DB.Checklist.state_changed(
+            "uuid", recent_checklist_uuid, Constants.ChecklistStates.Archive.TEXT)
 
     @exception()
     def test_clone_decision_auditlogs(self):

@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -45,7 +45,6 @@ from services.logging_service import LoggingServiceFactory
 from services.types import API, Frontend, DB
 from tests.uiTests.test_ui_base import TestUiBase
 
-
 logger = LoggingServiceFactory.get_logger()
 
 
@@ -54,9 +53,10 @@ class TestOverview(TestUiBase):
     @exception()
     def test_engagement_validation_details_update_when_cl_closed(self):
         user_content = API.VirtualFunction.create_engagement()
-        API.GitLab.git_clone_push(user_content)
-        cl_uuid = DB.General.select_where_and('uuid', Constants.DBConstants.IceTables.CHECKLIST, 'engagement_id', user_content['engagement_uuid'],
-                                              'name', Constants.Dashboard.Checklist.ChecklistDefaultNames.AIC_INSTANTIATION, 1)
+        cl_name = Constants.Dashboard.Checklist.ChecklistDefaultNames.AIC_INSTANTIATION
+        DB.Checklist.state_changed(
+            "name", cl_name, Constants.ChecklistStates.Review.TEXT)
+        cl_uuid = DB.Checklist.get_recent_checklist_uuid(cl_name)[0]
         vf_staff_emails = [user_content['el_email'], user_content[
             'pr_email'], Constants.Users.Admin.EMAIL]
         API.Checklist.move_cl_to_closed(cl_uuid, vf_staff_emails)

@@ -600,7 +600,7 @@ class FEChecklist:
         if checklist_uuid is None:
             checklist_uuid = DBGeneral.select_where_not_and_order_by_desc(
                 'uuid', Constants.DBConstants.IceTables.CHECKLIST, 'name', checklistName, 'state', Constants.ChecklistStates.Archive.TEXT, 'create_time')[0]
-        Click.id("checklist-" + checklist_uuid)
+        Click.id("checklist-" + checklist_uuid, True)
 
     @staticmethod
     def validate_reject_is_enabled():
@@ -752,4 +752,3 @@ class FEChecklist:
                           "Jenkins log could not be viewed.")
         Click.id(Constants.Dashboard.Modal.CLOSE_BUTTON_ID)
         return log
-
