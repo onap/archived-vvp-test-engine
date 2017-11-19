@@ -47,7 +47,6 @@ from services.constants import Constants, ServiceProvider
 from services.logging_service import LoggingServiceFactory
 from services.types import API
 from tests.signalTests.test_signal_base import TestSignalBase
-from services.helper import Helper
 
 
 logger = LoggingServiceFactory.get_logger()
@@ -65,7 +64,8 @@ class TestGitSignal(TestSignalBase):
             path_with_namespace = user_content[
                 'engagement_manual_id'] + "%2F" + user_content['vfName']
             API.GitLab.get_git_project(path_with_namespace)
-            if not API.GitLab.validate_git_project_members(path_with_namespace, user_content['el_email']):
+            if not API.GitLab.validate_git_project_members(
+                    path_with_namespace, user_content['el_email']):
                 logger.error("Couldn't find user in GitLab response.")
                 raise
             logger.debug(
@@ -76,7 +76,7 @@ class TestGitSignal(TestSignalBase):
                 API.Jenkins.get_jenkins_job(job_name)
             except Exception as e:
                 logger.error(
-                    "_-_-_-_-_- Unexpected error in test_create_eng: " + str(e))
+                    "_-_-_-_- Unexpected error in test_create_eng: " + str(e))
                 raise Exception("Job wasnt created on APIJenkins." + str(e))
 
     @exception()
@@ -91,10 +91,14 @@ class TestGitSignal(TestSignalBase):
             git_user_pub_key = API.GitLab.get_git_user_ssh_key(git_user['id'])
             if sshKey != git_user_pub_key:
                 logger.error(
-                    "The SSH Key received does not equal to the one provided! The key from GitLab:\n" + git_user_pub_key)
+                    "The SSH Key received does not " +
+                    "equal to the one provided! The key from GitLab:\n" +
+                    git_user_pub_key)
                 raise
             logger.debug(
-                "SSH Key for user " + user_content['full_name'] + " added to GitLab.")
+                "SSH Key for user " +
+                user_content['full_name'] +
+                " added to GitLab.")
 
     @exception()
     def test_set_ssh(self):
@@ -108,10 +112,14 @@ class TestGitSignal(TestSignalBase):
             git_user_pub_key = API.GitLab.get_git_user_ssh_key(git_user['id'])
             if sshKey != git_user_pub_key:
                 logger.error(
-                    "The SSH Key received does not equal to the one provided! The key from GitLab:\n" + git_user_pub_key)
+                    "The SSH Key received does not equal" +
+                    " to the one provided! The key from GitLab:\n" +
+                    git_user_pub_key)
                 raise
             logger.debug(
-                "SSH Key for user " + user_content['full_name'] + " added to GitLab.")
+                "SSH Key for user " +
+                user_content['full_name'] +
+                " added to GitLab.")
 
     @exception()
     def test_invite_member(self):
@@ -119,8 +127,9 @@ class TestGitSignal(TestSignalBase):
             logger.debug("Local environment, skipping test...")
         else:
             user_content = API.VirtualFunction.create_engagement()
-            invited_email, invite_token, invite_url = API.VirtualFunction.invite_team_member(
-                user_content)
+            invited_email, invite_token,\
+                invite_url = API.VirtualFunction.invite_team_member(
+                    user_content)
             second_user = API.User.signup_invited_user(
                 user_content[
                     'vendor'], invited_email, invite_token, invite_url,
@@ -129,14 +138,19 @@ class TestGitSignal(TestSignalBase):
                 user_content, Constants.EngagementStages.ACTIVE)
             path_with_namespace = user_content[
                 'engagement_manual_id'] + "%2F" + user_content['vfName']
-            if not API.GitLab.validate_git_project_members(path_with_namespace, user_content['email']):
+            if not API.GitLab.validate_git_project_members(
+                    path_with_namespace, user_content['email']):
                 raise Exception(
-                    "Couldn't find the inviter user (%s) in GitLab." % user_content['email'])
-            if not API.GitLab.validate_git_project_members(path_with_namespace, second_user['email']):
+                    "Couldn't find the inviter user (%s) in GitLab." %
+                    user_content['email'])
+            if not API.GitLab.validate_git_project_members(
+                    path_with_namespace, second_user['email']):
                 raise Exception(
-                    "Couldn't find the inviter user (%s) in GitLab." % second_user['email'])
+                    "Couldn't find the inviter user (%s) in GitLab." %
+                    second_user['email'])
             logger.debug(
-                "Inviter and invited users were created successfully on GitLab!")
+                "Inviter and invited users " +
+                "were created successfully on GitLab!")
 
     @exception()
     def test_add_contact(self):
@@ -149,20 +163,33 @@ class TestGitSignal(TestSignalBase):
             path_with_namespace = user_content[
                 'engagement_manual_id'] + "%2F" + user_content['vfName']
             API.GitLab.get_git_project(path_with_namespace)
-            if not API.GitLab.validate_git_project_members(path_with_namespace, user_content['email']):
+            if not API.GitLab.validate_git_project_members(
+                    path_with_namespace, user_content['email']):
                 raise Exception(
-                    "Couldn't find the inviter user (%s) in GitLab." % user_content['email'])
-            second_user_email, invite_token, invite_url = API.VirtualFunction.add_contact(
-                user_content)
-            second_user = API.User.signup_invited_user(ServiceProvider.MainServiceProvider, second_user_email, invite_token, invite_url,
-                                                       user_content, "true", True)
-            if API.GitLab.validate_git_project_members(path_with_namespace, second_user_email):
+                    "Couldn't find the inviter user (%s) in GitLab." %
+                    user_content['email'])
+            second_user_email, invite_token, \
+                invite_url = API.VirtualFunction.add_contact(
+                    user_content)
+            second_user = API.User.signup_invited_user(
+                ServiceProvider.MainServiceProvider,
+                second_user_email,
+                invite_token,
+                invite_url,
+                user_content,
+                "true",
+                True)
+            if API.GitLab.validate_git_project_members(
+                    path_with_namespace, second_user_email):
                 logger.debug(
-                    "Invited contact user " + second_user['full_name'] + " found in GitLab.")
+                    "Invited contact user " +
+                    second_user['full_name'] +
+                    " found in GitLab.")
             else:
                 raise Exception("Couldn't find the invited user in GitLab.")
             logger.debug(
-                "Inviter and invited users were created successfully on GitLab!")
+                "Inviter and invited users were " +
+                "created successfully on GitLab!")
 
     @exception()
     def test_join_of_staff_users_to_new_gitlab_repo(self):
@@ -173,10 +200,13 @@ class TestGitSignal(TestSignalBase):
             path_with_namespace = user_content[
                 'engagement_manual_id'] + "%2F" + user_content['vfName']
             eng_team_users_emails = [
-                user_content['el_email'], user_content['pr_email'], Constants.Users.Admin.EMAIL]
+                user_content['el_email'],
+                user_content['pr_email'],
+                Constants.Users.Admin.EMAIL]
             API.GitLab.are_all_list_users_registered_as_project_members(
                 eng_team_users_emails, path_with_namespace)
-            logger.debug("Staff users were added successfully to GitLab repo!")
+            logger.debug("Staff users were added " +
+                         "successfully to GitLab repo!")
 
     @exception()
     def test_join_of_stn_users_to_new_rep_after_active(self):
@@ -188,27 +218,41 @@ class TestGitSignal(TestSignalBase):
                 'engagement_manual_id'] + "%2F" + user_content['vfName']
             # invite 2 new users in order to join standard users in the eng
             # team
-            invited_email_address, invite_token, invite_url = API.VirtualFunction.invite_team_member(
+            invited_email_address, invite_token, \
+                invite_url = API.VirtualFunction.invite_team_member(
+                    user_content)
+            invited_email_address = API.User.signup_invited_user(
+                user_content['vendor'],
+                invited_email_address,
+                invite_token,
+                invite_url,
                 user_content)
-            invited_email_address = API.User.signup_invited_user(user_content['vendor'], invited_email_address,
-                                                                 invite_token, invite_url, user_content)
 
-            second_invited_email, second_invite_token, second_invite_url = API.VirtualFunction.invite_team_member(
+            second_invited_email, second_invite_token, \
+                second_invite_url = API.VirtualFunction.invite_team_member(
+                    user_content)
+            second_invited_email = API.User.signup_invited_user(
+                user_content['vendor'],
+                second_invited_email,
+                second_invite_token,
+                second_invite_url,
                 user_content)
-            second_invited_email = API.User.signup_invited_user(user_content['vendor'], second_invited_email,
-                                                                second_invite_token, second_invite_url, user_content)
 
             API.VirtualFunction.set_eng_stage(
                 user_content, Constants.EngagementStages.ACTIVE)
-            eng_team_users_emails = [invited_email_address['email'], second_invited_email['email'],
-                                     user_content['email'], user_content[
-                                         'el_email'], user_content['pr_email'],
-                                     Constants.Users.Admin.EMAIL]
+            eng_team_users_emails = [
+                invited_email_address['email'],
+                second_invited_email['email'],
+                user_content['email'],
+                user_content['el_email'],
+                user_content['pr_email'],
+                Constants.Users.Admin.EMAIL]
 
             API.GitLab.are_all_list_users_registered_as_project_members(
                 eng_team_users_emails, path_with_namespace)
             logger.debug(
-                "Staff, Inviter and invited users were added successfully to GitLab repo!")
+                "Staff, Inviter and invited users were " +
+                "added successfully to GitLab repo!")
 
     @exception()
     def test_rem_users_from_repo_after_active_and_validated(self):
@@ -218,15 +262,24 @@ class TestGitSignal(TestSignalBase):
             user_content = API.VirtualFunction.create_engagement()
             # invite 2 new users in order to join standard users in the eng
             # team
-            invited_email_address, invite_token, invite_url = API.VirtualFunction.invite_team_member(
-                user_content)
+            invited_email_address, invite_token, invite_url\
+                = API.VirtualFunction.invite_team_member(user_content)
             invited_email_address = API.User.signup_invited_user(
-                user_content['vendor'], invited_email_address, invite_token, invite_url, user_content)
-
-            second_invited_email, second_invite_token, second_invite_url = API.VirtualFunction.invite_team_member(
+                user_content['vendor'],
+                invited_email_address,
+                invite_token,
+                invite_url,
                 user_content)
+
+            second_invited_email, second_invite_token, \
+                second_invite_url = API.VirtualFunction.invite_team_member(
+                    user_content)
             second_invited_email = API.User.signup_invited_user(
-                user_content['vendor'], second_invited_email, second_invite_token, second_invite_url, user_content)
+                user_content['vendor'],
+                second_invited_email,
+                second_invite_token,
+                second_invite_url,
+                user_content)
 
             # change eng stage in order to include all standard users in the
             # eng git lab repo
@@ -240,20 +293,29 @@ class TestGitSignal(TestSignalBase):
             # check that all standard users, staff users and admin are in the
             # git lab repo
             API.GitLab.get_git_project(path_with_namespace)
-            eng_team_users_emails = [user_content['el_email'],
-                                     user_content['pr_email'], Constants.Users.Admin.EMAIL]
+            eng_team_users_emails = [
+                user_content['el_email'],
+                user_content['pr_email'],
+                Constants.Users.Admin.EMAIL]
             should_not_be_in_repo_users_list = [
                 invited_email_address['email'], user_content['email']]
             for email in eng_team_users_emails:
-                if not API.GitLab.validate_git_project_members(path_with_namespace, email):
+                if not API.GitLab.validate_git_project_members(
+                        path_with_namespace, email):
                     if email not in should_not_be_in_repo_users_list:
                         raise Exception(
-                            "Couldn't find the invited users: " + email + " in GitLab.")
+                            "Couldn't find the invited users: " + email +
+                            " in GitLab.")
 
                 logger.debug(
-                    "Invited user: " + email + " and" + second_invited_email['full_name'] + " found in GitLab.")
+                    "Invited user: " +
+                    email +
+                    " and" +
+                    second_invited_email['full_name'] +
+                    " found in GitLab.")
             logger.debug(
-                "Inviter and invited users were created successfully on GitLab!")
+                "Inviter and invited users were created " +
+                "successfully on GitLab!")
 
     @exception()
     def test_rem_users_from_repo_after_completed(self):
@@ -263,15 +325,22 @@ class TestGitSignal(TestSignalBase):
             user_content = API.VirtualFunction.create_engagement()
             # invite 2 new users in order to join standard users in the eng
             # team
-            invited_email, invite_token, invite_url = API.VirtualFunction.invite_team_member(
-                user_content)
+            invited_email, invite_token, \
+                invite_url = API.VirtualFunction.invite_team_member(
+                    user_content)
             invited_email = API.User.signup_invited_user(
-                user_content['vendor'], invited_email, invite_token, invite_url, user_content)
+                user_content['vendor'], invited_email, invite_token,
+                invite_url, user_content)
 
-            second_invited_email, second_invite_token, second_invite_url = API.VirtualFunction.invite_team_member(
-                user_content)
+            second_invited_email, second_invite_token, \
+                second_invite_url = API.VirtualFunction.invite_team_member(
+                    user_content)
             second_invited_email = API.User.signup_invited_user(
-                user_content['vendor'], second_invited_email, second_invite_token, second_invite_url, user_content)
+                user_content['vendor'],
+                second_invited_email,
+                second_invite_token,
+                second_invite_url,
+                user_content)
 
             # change eng stage in order to include all standard users in the
             # eng git lab repo
@@ -287,17 +356,26 @@ class TestGitSignal(TestSignalBase):
             # check that all standard users, staff users and admin are in the
             # git lab repo
             API.GitLab.get_git_project(path_with_namespace)
-            eng_team_users_emails = [user_content['el_email'],
-                                     user_content['pr_email'], Constants.Users.Admin.EMAIL]
+            eng_team_users_emails = [
+                user_content['el_email'],
+                user_content['pr_email'],
+                Constants.Users.Admin.EMAIL]
             should_not_be_in_repo_users_list = [
                 invited_email['email'], user_content['email']]
             for email in eng_team_users_emails:
-                if not API.GitLab.validate_git_project_members(path_with_namespace, email):
+                if not API.GitLab.validate_git_project_members(
+                        path_with_namespace, email):
                     if email not in should_not_be_in_repo_users_list:
                         raise Exception(
-                            "Couldn't find the user: " + email + " in GitLab.")
+                            "Couldn't find the user: " +
+                            email + " in GitLab.")
 
                 logger.debug(
-                    "Invited user: " + email + " and" + second_invited_email['full_name'] + " found in GitLab.")
+                    "Invited user: " +
+                    email +
+                    " and" +
+                    second_invited_email['full_name'] +
+                    " found in GitLab.")
             logger.debug(
-                "Inviter and invited users were created successfully on GitLab!")
+                "Inviter and invited users were created " +
+                "successfully on GitLab!")

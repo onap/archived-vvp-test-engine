@@ -1,5 +1,5 @@
-# -*- encoding: utf-8 -*- 
-# ============LICENSE_START======================================================= 
+# -*- encoding: utf-8 -*-
+# ============LICENSE_START=======================================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.

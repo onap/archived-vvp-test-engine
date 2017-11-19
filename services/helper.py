@@ -1,4 +1,3 @@
- 
 # ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
@@ -42,9 +41,10 @@ import string
 import subprocess
 import unittest
 
-from cryptography.hazmat.backends import default_backend as crypto_default_backend, \
-    default_backend
-from cryptography.hazmat.primitives import serialization as crypto_serialization
+from cryptography.hazmat.backends import \
+    default_backend as crypto_default_backend, default_backend
+from cryptography.hazmat.primitives import \
+    serialization as crypto_serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 from django.conf import settings
 
@@ -65,8 +65,11 @@ class Helper:
     def rand_string(type_of_value='randomString', numberOfDigits=0):
         letters_and_numbers = string.ascii_letters + string.digits
         if type_of_value == 'email':
-            myEmail = ''.join(random.choice(letters_and_numbers) for _ in range(
-                4)) + "@" + ''.join(random.choice(string.ascii_uppercase) for _ in range(4)) + ".com"
+            myEmail = ''.join(
+                random.choice(letters_and_numbers) for _ in range(
+                    4)) + "@" + ''.join(
+                random.choice(
+                    string.ascii_uppercase) for _ in range(4)) + ".com"
             return "ST" + myEmail
         elif type_of_value == 'randomNumber':
             randomNumber = ''.join("%s" % random.randint(2, 9)
@@ -93,7 +96,7 @@ class Helper:
                 key_size=2048,
                 backend=default_backend()
             )
-            private_key = key.private_bytes(
+            key.private_bytes(
                 encoding=crypto_serialization.Encoding.PEM,
                 format=crypto_serialization.PrivateFormat.TraditionalOpenSSL,
                 encryption_algorithm=crypto_serialization.NoEncryption())
@@ -114,7 +117,8 @@ class Helper:
     def check_admin_ssh_existence(path, admin_ssh):
         if admin_ssh == open(path).read().rstrip('\n'):
             logger.debug(
-                "Admin SSH already defined in DB and equal to the one stored on the local system.")
+                "Admin SSH already defined in DB and equal " +
+                "to the one stored on the local system.")
             return True
         return False
 
@@ -173,7 +177,8 @@ class Helper:
                 return user_pub_key
         except Exception as error:
             logger.error(
-                "_-_-_-_-_- Unexpected error in get_or_create_rsa_key_for_admin: %s" % error)
+                "_-_-_-_-_- Unexpected error in " +
+                "get_or_create_rsa_key_for_admin: %s" % error)
             raise Exception("Failed to create SSH keys for user admin", error)
 
     @staticmethod
@@ -215,5 +220,5 @@ class Helper:
     @staticmethod
     def assertTrue(expr, msg=None):
         """Check that the expression is true."""
-        if expr != True:
+        if not expr:
             raise Exception("AssertionError: \"not expr")

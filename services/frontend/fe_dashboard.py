@@ -113,10 +113,12 @@ class FEDashboard:
         Wait.text_by_id("dashboard-title", "Statuses")
         Wait.id(Constants.Dashboard.Statuses.FilterDropdown.ID)
         Select(session.ice_driver.find_element_by_id(
-            Constants.Dashboard.Statuses.FilterDropdown.ID)).select_by_visible_text("Intake")
+            Constants.Dashboard.Statuses.FilterDropdown.ID
+        )).select_by_visible_text("Intake")
         Wait.page_has_loaded()
         Select(session.ice_driver.find_element_by_id(
-            Constants.Dashboard.Statuses.FilterDropdown.ID)).select_by_visible_text(stage)
+            Constants.Dashboard.Statuses.FilterDropdown.ID
+        )).select_by_visible_text(stage)
         Wait.id(
             Constants.Dashboard.Statuses.ExportExcel.ID, wait_for_page=True)
         countIdsActive = 0
@@ -159,7 +161,8 @@ class FEDashboard:
         Wait.text_by_id("dashboard-title", "Statuses")
         Wait.css(Constants.Dashboard.Statuses.Statistics.FilterDropdown.CSS)
         Select(session.ice_driver.find_element_by_css_selector(
-            Constants.Dashboard.Statuses.Statistics.FilterDropdown.CSS)).select_by_visible_text("All")
+            Constants.Dashboard.Statuses.Statistics.FilterDropdown.CSS
+        )).select_by_visible_text("All")
         engLeadID = DBUser.select_user_native_id(user_content['el_email'])
         countOfEngInStagePerUser = DBUser.select_all_user_engagements(
             engLeadID)  # Scroll    #
@@ -171,13 +174,17 @@ class FEDashboard:
         # Stage Active Validation    #
         element.location_once_scrolled_into_view
         Wait.css(
-            Constants.Dashboard.Statuses.Statistics.FilterDropdown.CSS, wait_for_page=True)
+            Constants.Dashboard.Statuses.Statistics.FilterDropdown.CSS,
+            wait_for_page=True)
         Select(session.ice_driver.find_element_by_css_selector(
-            Constants.Dashboard.Statuses.Statistics.FilterDropdown.CSS)).select_by_visible_text("Active")
+            Constants.Dashboard.Statuses.Statistics.FilterDropdown.CSS
+        )).select_by_visible_text("Active")
         countOfEngInStagePerUser = DBUser.select_user_engagements_by_stage(
             "Active", engLeadID)
         Wait.text_by_id(
-            Constants.Dashboard.Statuses.Statistics.EngagementsNumber.ID, str(countOfEngInStagePerUser), wait_for_page=True)
+            Constants.Dashboard.Statuses.Statistics.EngagementsNumber.ID,
+            str(countOfEngInStagePerUser),
+            wait_for_page=True)
 
     @staticmethod
     def search_by_vf(user_content):
@@ -186,8 +193,10 @@ class FEDashboard:
         engSearchID = "eng-" + engName
         FEGeneral.re_open_not_clean_cache(Constants.Default.DashbaordURL.TEXT)
         logger.debug("Search engagement by engagement_manual_id")
-        Enter.text_by_id(Constants.Dashboard.Statuses.SearchBox.ID,
-                         user_content['engagement_manual_id'], wait_for_page=True)
+        Enter.text_by_id(
+            Constants.Dashboard.Statuses.SearchBox.ID,
+            user_content['engagement_manual_id'],
+            wait_for_page=True)
         eng_manual_id = user_content['engagement_manual_id'] + ":"
         Wait.text_by_id(engSearchID, eng_manual_id)
 
@@ -203,7 +212,11 @@ class FEDashboard:
     @staticmethod
     def check_vnf_version(user_content):
         current_vnf_value = Get.by_css(
-            "#progress_bar_" + user_content['engagement_manual_id'] + " ." + Constants.Dashboard.Overview.Progress.VnfVersion.CLASS, wait_for_page=True)
+            "#progress_bar_" +
+            user_content['engagement_manual_id'] +
+            " ." +
+            Constants.Dashboard.Overview.Progress.VnfVersion.CLASS,
+            wait_for_page=True)
         Helper.internal_assert(current_vnf_value, user_content['vnf_version'])
 
     @staticmethod
@@ -217,7 +230,8 @@ class FEDashboard:
             FEUser.login(user, Constants.Default.Password.TEXT)
             logger.debug("Search engagement by engagement_manual_id")
             Enter.text_by_id(
-                Constants.Dashboard.Statuses.SearchBox.ID, user_content['engagement_manual_id'])
+                Constants.Dashboard.Statuses.SearchBox.ID,
+                user_content['engagement_manual_id'])
             eng_manual_id = user_content['engagement_manual_id'] + ":"
             Wait.text_by_id(engSearchID, eng_manual_id)
             logger.debug("Engagement found (searched by engagement_manual_id)")
@@ -225,7 +239,8 @@ class FEDashboard:
             logger.debug("Search engagement by VF name")
             # Search by VF name.
             Enter.text_by_id(
-                Constants.Dashboard.Statuses.SearchBox.ID, user_content['vfName'])
+                Constants.Dashboard.Statuses.SearchBox.ID,
+                user_content['vfName'])
             Wait.text_by_id(engSearchID, eng_manual_id)
             logger.debug("Engagement found (searched by VF name)")
             FEGeneral.smart_refresh()
@@ -254,8 +269,10 @@ class FEDashboard:
     @staticmethod
     def check_if_creator_of_NS_is_the_EL(user_content):
         logger.debug(
-            "    > Check if creator of NS is the EL " + user_content['el_name'])
-        if (user_content['el_name'] not in Get.by_name("creator-full-name-" + user_content['el_name'])):
+            "    > Check if creator of NS is the EL " +
+            user_content['el_name'])
+        if (user_content['el_name'] not in Get.by_name(
+                "creator-full-name-" + user_content['el_name'])):
             logger.error("EL is not the creator of the NS according to UI.")
             raise
 
@@ -264,7 +281,9 @@ class FEDashboard:
         engName = engagement_manual_id + ": " + vf_name
         # Search by VF name.
         Enter.text_by_id(
-            Constants.Dashboard.Statuses.SearchBox.ID, vf_name, wait_for_page=True)
+            Constants.Dashboard.Statuses.SearchBox.ID,
+            vf_name,
+            wait_for_page=True)
         Wait.id("eng-" + engName, wait_for_page=True)
         Click.id("eng-" + engName, wait_for_page=True)
         Wait.text_by_id(
@@ -279,8 +298,10 @@ class FEDashboard:
         #         Click.id(Constants.Dashboard.Default.DASHBOARD_ID)
         Wait.page_has_loaded()
         if is_negative:
-            session.run_negative(lambda: Wait.id(
-                Constants.Dashboard.Default.STATISTICS), "Negative test failed at Statistics appears")
+            session.run_negative(
+                lambda: Wait.id(
+                    Constants.Dashboard.Default.STATISTICS),
+                "Negative test failed at Statistics appears")
         else:
             Wait.id(Constants.Dashboard.Default.STATISTICS)
 

@@ -65,8 +65,10 @@ class FEOverview:
     def click_on_vf(user_content):
         vfFullName = user_content[
             'engagement_manual_id'] + ": " + user_content['vfName']
-        Enter.text_by_id(Constants.Dashboard.LeftPanel.SearchBox.ID, user_content[
-                         'vfName'], True)
+        Enter.text_by_id(
+            Constants.Dashboard.LeftPanel.SearchBox.ID,
+            user_content['vfName'],
+            True)
         Click.id(Constants.Dashboard.LeftPanel.SearchBox.Results.ID %
                  user_content['vfName'], True)
         Wait.text_by_id(
@@ -78,22 +80,28 @@ class FEOverview:
             "Go to engagement's overview by clicking on the created Next Step")
         Click.name(user_content['engagement_manual_id'], wait_for_page=True)
         Wait.text_by_id(
-            Constants.Dashboard.Overview.Title.ID, user_content['engagement_manual_id'] + ":", wait_for_page=True)
+            Constants.Dashboard.Overview.Title.ID,
+            user_content['engagement_manual_id'] + ":",
+            wait_for_page=True)
         FEGeneral.re_open(Constants.Default.LoginURL.TEXT)
         logger.debug("Login with EL user " + user_content['el_email'])
         FEUser.login(user_content['el_email'], Constants.Default.Password.TEXT)
         # Query to select all assigned next steps on TODO state    #
         el_native_id = str(DBGeneral.select_where(
             "id", "ice_user_profile", "email", user_content['el_email'], 1))
-        queryStr = "SELECT count(*) FROM ice_user_profile AS users, ice_next_step_assignees AS assignees, ice_next_step AS ns WHERE users.id=" + \
+        queryStr = "SELECT count(*) FROM ice_user_profile AS users, " +\
+            "ice_next_step_assignees AS assignees, " +\
+            "ice_next_step AS ns WHERE users.id=" + \
             el_native_id + \
-            " AND users.id=assignees.iceuserprofile_id AND assignees.nextstep_id=ns.uuid AND ns.state='Incomplete';"
+            " AND users.id=assignees.iceuserprofile_id " +\
+            "AND assignees.nextstep_id=ns.uuid AND ns.state='Incomplete';"
         el_assigned_ns = str(DBGeneral.select_query(queryStr))
         logger.debug("el_assigned_ns=" + el_assigned_ns)
         Wait.page_has_loaded()
         if (int(el_assigned_ns) >= 5):
             logger.debug(
-                "EL has 5 or more assigned next steps, checking that only 5 are shown")
+                "EL has 5 or more assigned next steps, " +
+                "checking that only 5 are shown")
             ns_list = Get.by_id("next-steps-list")
             if (ns_list.count("Engagement - ") > 5):
                 logger.error("More than 5 next steps are listed in dashboard.")
@@ -119,15 +127,25 @@ class FEOverview:
 
     @staticmethod
     def check_stage_next_steps(stage, engagement_uuid):
-        ns_list = DBGeneral.select_where_and("description", "ice_next_step",
-                                             "engagement_id", engagement_uuid,
-                                             "engagement_stage", stage, 0)  # List of next steps from DB.
+        ns_list = DBGeneral.select_where_and(
+            "description",
+            "ice_next_step",
+            "engagement_id",
+            engagement_uuid,
+            "engagement_stage",
+            stage,
+            0)  # List of next steps from DB.
         logger.debug("Got list of Next Steps for current stage " + stage)
         for i in range(len(ns_list)):
             ns_description = ns_list[i]     # Value number i from the list.
-            ns_uuid = DBGeneral.select_where_and("uuid", "ice_next_step",
-                                                 "engagement_id", engagement_uuid,
-                                                 "description", ns_description, 1)
+            ns_uuid = DBGeneral.select_where_and(
+                "uuid",
+                "ice_next_step",
+                "engagement_id",
+                engagement_uuid,
+                "description",
+                ns_description,
+                1)
             logger.debug(
                 "Compare presented text of next step with the text from DB.")
             portal_ns = Get.by_id("step-" + ns_uuid)
@@ -146,10 +164,14 @@ class FEOverview:
                 lambda: Wait.id(txtLine2ID), "Error: modal window opened.")
         else:
             Wait.text_by_id(
-                txtLine2ID, "Are you sure you want to set the Engagement's stage to " + next_stage + "?")
+                txtLine2ID,
+                "Are you sure you want to set the Engagement's stage to " +
+                next_stage +
+                "?")
             # Click on Approve (after validations inside window).
             Click.xpath(
-                Constants.Dashboard.Overview.Stage.Approve.XPATH, wait_for_page=True)
+                Constants.Dashboard.Overview.Stage.Approve.XPATH,
+                wait_for_page=True)
 
     @staticmethod
     def check_progress(expected_progress):
@@ -166,12 +188,14 @@ class FEOverview:
     @staticmethod
     def set_progress(new_value):
         Click.id(Constants.Dashboard.Overview.Progress.Change.ID)
-        Helper.internal_assert(Constants.Dashboard.Overview.Progress.Wizard.Title.TEXT,
-                               Get.by_id(Constants.Dashboard.Modal.TITLE_ID))
+        Helper.internal_assert(
+            Constants.Dashboard.Overview.Progress.Wizard.Title.TEXT, Get.by_id(
+                Constants.Dashboard.Modal.TITLE_ID))
         Enter.text_by_name(
             Constants.Dashboard.Overview.Progress.Wizard.NAME, new_value)
-        Wait.text_by_css(Constants.SubmitButton.CSS,
-                         Constants.Dashboard.Overview.Progress.Wizard.Button.TEXT)
+        Wait.text_by_css(
+            Constants.SubmitButton.CSS,
+            Constants.Dashboard.Overview.Progress.Wizard.Button.TEXT)
         Click.css(Constants.SubmitButton.CSS)
         Wait.modal_to_dissappear()
 
@@ -182,7 +206,8 @@ class FEOverview:
         Wait.text_by_id(
             Constants.Dashboard.GeneralPrompt.Title.ID, "Delete Step")
         Click.id(
-            Constants.Dashboard.GeneralPrompt.ApproveButton.ID, wait_for_page=True)
+            Constants.Dashboard.GeneralPrompt.ApproveButton.ID,
+            wait_for_page=True)
         Wait.id_to_dissappear("test_" + next_step_uuid)
 
     @staticmethod
@@ -194,56 +219,83 @@ class FEOverview:
     def click_on_archeive_engagement_from_dropdown():
         FEOverview.click_on_admin_dropdown()
         Click.link_text(
-            Constants.Dashboard.Overview.AdminDropdown.ArchiveEngagement.LINK_TEXT, wait_for_page=True)
+            Constants.Dashboard.Overview.AdminDropdown.
+            ArchiveEngagement.LINK_TEXT,
+            wait_for_page=True)
 
     @staticmethod
     def archive_engagement_modal(engagement_manual_id, vf_name):
-        Wait.text_by_id(Constants.Dashboard.Overview.AdminDropdown.ArchiveEngagement.Wizard.Title.ID,
-                        Constants.Dashboard.Overview.AdminDropdown.ArchiveEngagement.Wizard.Title.TEXT)
+        Wait.text_by_id(
+            Constants.Dashboard.Overview.AdminDropdown.
+            ArchiveEngagement.Wizard.Title.ID,
+            Constants.Dashboard.Overview.AdminDropdown.
+            ArchiveEngagement.Wizard.Title.TEXT)
         random_reason = Helper.rand_string()
-        Enter.text_by_name(Constants.Dashboard.Overview.AdminDropdown.ArchiveEngagement.Wizard.Reason.NAME,
-                           random_reason)
+        Enter.text_by_name(
+            Constants.Dashboard.Overview.AdminDropdown.
+            ArchiveEngagement.Wizard.Reason.NAME,
+            random_reason)
         Click.id(Constants.SubmitButton.ID)
-        Wait.text_by_id(Constants.Toast.ID, "Engagement '%s: %s' archived successfully." %
-                        (engagement_manual_id, vf_name))
-        query = "select archived_time,archive_reason from ice_engagement where engagement_manual_id='{engagement_manual_id}'".format(
-            engagement_manual_id=engagement_manual_id)
+        Wait.text_by_id(
+            Constants.Toast.ID,
+            "Engagement '%s: %s' archived successfully." % (
+                engagement_manual_id, vf_name))
+        query = "select archived_time,archive_reason from " +\
+            "ice_engagement where engagement_manual_id" +\
+            "='{engagement_manual_id}'".format(
+                engagement_manual_id=engagement_manual_id)
         archived_time, db_reason = DBGeneral.select_query(query, "list")
-        Helper.assertTrue(archived_time != None)
+        Helper.assertTrue(archived_time is not None)
         Helper.internal_assert(random_reason, db_reason)
 
     @staticmethod
     def click_on_change_reviewer_from_dropdown():
         FEOverview.click_on_admin_dropdown()
         Click.link_text(
-            Constants.Dashboard.Overview.AdminDropdown.ChangeReviewer.LINK_TEXT)
+            Constants.Dashboard.Overview.AdminDropdown.
+            ChangeReviewer.LINK_TEXT)
 
     @staticmethod
     def select_engagement_lead_from_list(el_name):
         Wait.name(
-            Constants.Dashboard.Overview.AdminDropdown.ChangeReviewer.Wizard.Select.NAME, wait_for_page=True)
+            Constants.Dashboard.Overview.AdminDropdown.
+            ChangeReviewer.Wizard.Select.NAME,
+            wait_for_page=True)
         Select(session.ice_driver.find_element_by_name(
-            Constants.Dashboard.Overview.AdminDropdown.ChangeReviewer.Wizard.Select.NAME)).select_by_visible_text(el_name)
+            Constants.Dashboard.Overview.AdminDropdown.
+            ChangeReviewer.Wizard.Select.NAME)).\
+            select_by_visible_text(el_name)
 
     @staticmethod
     def change_engagement_lead_modal(el_name, is_reviewer=True):
-        Wait.text_by_id(Constants.Dashboard.Overview.AdminDropdown.ChangeReviewer.Wizard.Title.ID,
-                        Constants.Dashboard.Overview.AdminDropdown.ChangeReviewer.Wizard.Title.TEXT)
+        Wait.text_by_id(
+            Constants.Dashboard.Overview.AdminDropdown.
+            ChangeReviewer.Wizard.Title.ID,
+            Constants.Dashboard.Overview.AdminDropdown.
+            ChangeReviewer.Wizard.Title.TEXT)
         FEOverview.select_engagement_lead_from_list(el_name)
         if is_reviewer:
             Wait.text_by_id(
-                Constants.Toast.ID, Constants.Dashboard.Overview.AdminDropdown.ChangeReviewer.Toast.TEXT)
+                Constants.Toast.ID,
+                Constants.Dashboard.Overview.AdminDropdown.
+                ChangeReviewer.Toast.TEXT)
         else:
             Wait.text_by_id(
-                Constants.Toast.ID, Constants.Dashboard.Overview.AdminDropdown.ChangePeerReviewer.Toast.TEXT)
+                Constants.Toast.ID,
+                Constants.Dashboard.Overview.AdminDropdown.
+                ChangePeerReviewer.Toast.TEXT)
 
     @staticmethod
     def click_on_change_peer_reviewer_from_dropdown():
         FEOverview.click_on_admin_dropdown()
         Click.link_text(
-            Constants.Dashboard.Overview.AdminDropdown.ChangePeerReviewer.LINK_TEXT)
-        Wait.text_by_id(Constants.Dashboard.Overview.AdminDropdown.ChangePeerReviewer.Wizard.Title.ID,
-                        Constants.Dashboard.Overview.AdminDropdown.ChangePeerReviewer.Wizard.Title.TEXT)
+            Constants.Dashboard.Overview.AdminDropdown.
+            ChangePeerReviewer.LINK_TEXT)
+        Wait.text_by_id(
+            Constants.Dashboard.Overview.AdminDropdown.
+            ChangePeerReviewer.Wizard.Title.ID,
+            Constants.Dashboard.Overview.AdminDropdown.
+            ChangePeerReviewer.Wizard.Title.TEXT)
 
     @staticmethod
     def click_on_update_status_from_dropdown():
@@ -256,23 +308,39 @@ class FEOverview:
     def fill_update_status_form_admin_dropdown():
         random_string = Helper.rand_string()
         Enter.text_by_name(
-            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.PROGRESS, str(50))
-        Enter.date_picker(Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.PROGRESS_CSS,
-                          Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.TARGET)
-        Enter.date_picker(Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.PROGRESS_CSS,
-                          Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.HEAT)
-        Enter.date_picker(Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.PROGRESS_CSS,
-                          Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.IMAGE_SACN)
-        Enter.date_picker(Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.PROGRESS_CSS,
-                          Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.AIC)
-        Enter.date_picker(Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.PROGRESS_CSS,
-                          Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.ASDC)
+            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.PROGRESS,
+            str(50))
+        Enter.date_picker(
+            Constants.Dashboard.Overview.AdminDropdown.
+            UpdateStatus.PROGRESS_CSS,
+            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.TARGET)
+        Enter.date_picker(
+            Constants.Dashboard.Overview.AdminDropdown.
+            UpdateStatus.PROGRESS_CSS,
+            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.HEAT)
+        Enter.date_picker(
+            Constants.Dashboard.Overview.AdminDropdown.
+            UpdateStatus.PROGRESS_CSS,
+            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.IMAGE_SACN)
+        Enter.date_picker(
+            Constants.Dashboard.Overview.AdminDropdown.
+            UpdateStatus.PROGRESS_CSS,
+            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.AIC)
+        Enter.date_picker(
+            Constants.Dashboard.Overview.AdminDropdown.
+            UpdateStatus.PROGRESS_CSS,
+            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.ASDC)
         Enter.text_by_name(
-            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.STATUS, random_string)
+            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.STATUS,
+            random_string)
         Click.css(
-            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.SUBMIT, wait_for_page=True)
+            Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.SUBMIT,
+            wait_for_page=True)
         Wait.text_by_id(
-            Constants.Toast.ID, Constants.Dashboard.Overview.AdminDropdown.UpdateStatus.SUCCESS_MSG, wait_for_page=True)
+            Constants.Toast.ID,
+            Constants.Dashboard.Overview.AdminDropdown.
+            UpdateStatus.SUCCESS_MSG,
+            wait_for_page=True)
         Wait.text_by_id(
             Constants.Dashboard.Overview.Status.Description.ID, random_string)
 
@@ -285,7 +353,8 @@ class FEOverview:
         i = 0
         ns_list = []
         steps_length = len(
-            session.ice_driver.find_elements_by_css_selector(".step-indication > li"))
+            session.ice_driver.find_elements_by_css_selector(
+                ".step-indication > li"))
         while i < steps_length:
             ns_list.append(FEOverview.get_next_step_description(i))
             i += 1
@@ -297,20 +366,31 @@ class FEOverview:
         for idx, step_uuid in enumerate(steps_uuids):
             db_step_text = DBVirtualFunction.select_next_step_description(
                 step_uuid)
-            Wait.text_by_id(Constants.Dashboard.Overview.NextSteps.Add.Description.STEP_DESC_ID +
-                            str(idx), ui_steps[idx], wait_for_page=True)
+            Wait.text_by_id(
+                Constants.Dashboard.Overview.NextSteps.Add.Description.
+                STEP_DESC_ID + str(idx),
+                ui_steps[idx],
+                wait_for_page=True)
             if db_step_text != ui_steps[idx]:
-                raise AssertionError("Next step is not located in expected index. db_step_text = "
-                                     + db_step_text + " ui_steps[idx] = " + ui_steps[idx] + "|| uuid = " + step_uuid)
+                raise AssertionError(
+                    "Next step is not located in expected index. " +
+                    "db_step_text = " +
+                    db_step_text +
+                    " ui_steps[idx] = " +
+                    ui_steps[idx] +
+                    "|| uuid = " +
+                    step_uuid)
 
     @staticmethod
     def next_steps_filter_by_files():
         Click.id(
             Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.ID)
         Click.link_text(
-            Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.ANY_FILE_LINK_TEXT)
+            Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.
+            ANY_FILE_LINK_TEXT)
         Click.link_text(
-            Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.FILE0_LINK_TEXT)
+            Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.
+            FILE0_LINK_TEXT)
         Click.id(
             Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.ID)
 
@@ -327,9 +407,11 @@ class FEOverview:
     def next_steps_filter_by_states():
         Click.id(Constants.Dashboard.Overview.NextSteps.StateDropDown.ID)
         Click.link_text(
-            Constants.Dashboard.Overview.NextSteps.StateDropDown.INCOMPLETE_LINK_TEXT)
+            Constants.Dashboard.Overview.NextSteps.StateDropDown.
+            INCOMPLETE_LINK_TEXT)
         Click.link_text(
-            Constants.Dashboard.Overview.NextSteps.StateDropDown.COMPLETED_LINK_TEXT)
+            Constants.Dashboard.Overview.NextSteps.StateDropDown.
+            COMPLETED_LINK_TEXT)
         Click.id(Constants.Dashboard.Overview.NextSteps.StateDropDown.ID)
 
     @staticmethod
@@ -341,10 +423,12 @@ class FEOverview:
             Helper.rand_string("randomString")
         Click.id(Constants.Dashboard.Overview.NextSteps.Add.Description.ID)
         Enter.text_by_id(
-            Constants.Dashboard.Overview.NextSteps.Add.Description.ID, ns_description)
+            Constants.Dashboard.Overview.NextSteps.Add.Description.ID,
+            ns_description)
         FEWizard.date_picker_add_ns(0)
-        Wait.text_by_css(Constants.SubmitButton.CSS,
-                         Constants.Dashboard.Overview.NextSteps.Add.Button.TEXT)
+        Wait.text_by_css(
+            Constants.SubmitButton.CSS,
+            Constants.Dashboard.Overview.NextSteps.Add.Button.TEXT)
         Click.css(Constants.SubmitButton.CSS)
         Wait.modal_to_dissappear()
 
@@ -361,10 +445,14 @@ class FEOverview:
                 Constants.Dashboard.Overview.TeamMember.RemoveUser.ID)
         else:
             Click.id(Constants.Dashboard.Overview.TeamMember.RemoveUser.ID)
-            Wait.text_by_id(Constants.Dashboard.GeneralPrompt.UpperTitle.ID,
-                            Constants.Dashboard.Overview.TeamMember.RemoveUser.Title.TEXT % full_name)
-            Wait.text_by_id(Constants.Dashboard.GeneralPrompt.Title.ID,
-                            Constants.Dashboard.Overview.TeamMember.RemoveUser.Message.TEXT)
+            Wait.text_by_id(
+                Constants.Dashboard.GeneralPrompt.UpperTitle.ID,
+                Constants.Dashboard.Overview.TeamMember.RemoveUser.Title.TEXT %
+                full_name)
+            Wait.text_by_id(
+                Constants.Dashboard.GeneralPrompt.Title.ID,
+                Constants.Dashboard.Overview.TeamMember.RemoveUser.
+                Message.TEXT)
             Click.id(Constants.Dashboard.GeneralPrompt.ApproveButton.ID)
             FEGeneral.refresh()
             Wait.id_to_dissappear(
@@ -373,9 +461,18 @@ class FEOverview:
     @staticmethod
     def invite_and_reopen_link(user_content, other_el_email):
         enguuid = DBGeneral.select_where(
-            "uuid", "ice_engagement", "engagement_manual_id", user_content['engagement_manual_id'], 1)
+            "uuid",
+            "ice_engagement",
+            "engagement_manual_id",
+            user_content['engagement_manual_id'],
+            1)
         invitation_token = DBUser.select_invitation_token(
-            "invitation_token", "ice_invitation", "engagement_uuid", enguuid, other_el_email, 1)
+            "invitation_token",
+            "ice_invitation",
+            "engagement_uuid",
+            enguuid,
+            other_el_email,
+            1)
         inviterURL = Constants.Default.InviteURL.Login.TEXT + invitation_token
         FEGeneral.re_open(inviterURL)
 
@@ -392,14 +489,16 @@ class FEOverview:
     def validate_empty_associated_files():
         FEOverview.add_next_step()
         Click.id(Constants.Dashboard.Overview.NextSteps.AssociatedFiles.ID)
-        Wait.text_by_id(Constants.Dashboard.Overview.NextSteps.AssociatedFiles.EmptyMsgID,
-                        Constants.Dashboard.Overview.NextSteps.AssociatedFiles.EmptyMsg)
+        Wait.text_by_id(
+            Constants.Dashboard.Overview.NextSteps.AssociatedFiles.EmptyMsgID,
+            Constants.Dashboard.Overview.NextSteps.AssociatedFiles.EmptyMsg)
 
     @staticmethod
     def validate_associated_files(file_name):
         Click.id(Constants.Dashboard.Overview.NextSteps.AssociatedFiles.ID)
         Wait.text_by_id(
-            Constants.Dashboard.Overview.NextSteps.AssociatedFiles.FileId, file_name)
+            Constants.Dashboard.Overview.NextSteps.AssociatedFiles.FileId,
+            file_name)
 
     @staticmethod
     def validate_bucket_url(eng_manual_id, vf_name):
@@ -411,9 +510,10 @@ class FEOverview:
     @staticmethod
     def verify_validation_dates():
         validation_date = Get.by_id(
-            Constants.Dashboard.Overview.Progress.ValidationsDates.AIC_ID, True)
-        validation_date = datetime.datetime.strptime(
-            validation_date, "%m/%d/%y").date()
+            Constants.Dashboard.Overview.Progress.ValidationsDates.AIC_ID,
+            True)
+        validation_date = datetime.datetime.strptime(validation_date,
+                                                     "%m/%d/%y").date()
         current_date = timezone.now().date()
         Helper.internal_assert(validation_date, current_date)
 

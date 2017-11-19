@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -47,7 +47,8 @@ def export_csv(modeladmin, request, queryset):
     from django.utils.encoding import smart_str
     from django.http import HttpResponse
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=ci_Test_Results.csv'
+    response['Content-Disposition'] = \
+        'attachment; filename=ci_Test_Results.csv'
     writer = csv.writer(response, csv.excel)
     # BOM (optional...Excel needs it to open UTF-8 file properly)
     response.write(u'\ufeff'.encode('utf8'))
@@ -113,8 +114,15 @@ def as_percentage_of(part, whole):
 @admin.register(TestResults)
 class TestResultsModelAdmin(admin.ModelAdmin):
 
-    list_display = ["testType", "testFeature", "testName",
-                    "testResult", "notes", "duration", "build_id", "create_time"]
+    list_display = [
+        "testType",
+        "testFeature",
+        "testName",
+        "testResult",
+        "notes",
+        "duration",
+        "build_id",
+        "create_time"]
     list_filter = ["testResult", "testType", "testFeature",
                    "testName", "notes", "duration", "build_id", "create_time"]
     search_fields = ["testResult", "testType", "testFeature", "testName",

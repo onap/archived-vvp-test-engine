@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -94,12 +94,17 @@ class RGWAClient(object):
 
     """
     valid_args = {
-                     'quota_type': ['user', 'bucket'],
-                     'key_type': ['s3', 'swift'],
-                 },
+        'quota_type': ['user', 'bucket'],
+        'key_type': ['s3', 'swift'],
+    },
 
-    def __init__(self, base_url, access_key=None, secret_key=None, verify='/opt/secrets/site-crt/site.crt',
-                 return_raw_response=False):
+    def __init__(
+            self,
+            base_url,
+            access_key=None,
+            secret_key=None,
+            verify='/opt/secrets/site-crt/site.crt',
+            return_raw_response=False):
         """
 
         base_url (string):
@@ -259,7 +264,13 @@ class RGWAClient(object):
     # http://docs.ceph.com/docs/master/radosgw/adminops/
     #
 
-    def get_usage(self, uid=None, start=None, end=None, show_entries=False, show_summary=False):
+    def get_usage(
+            self,
+            uid=None,
+            start=None,
+            end=None,
+            show_entries=False,
+            show_summary=False):
         """Request bandwidth usage information.
 
         Note: this feature is disabled by default, can be enabled by setting
@@ -353,8 +364,15 @@ class RGWAClient(object):
             purge_data=purge_data,
         )
 
-    def create_subuser(self, uid, subuser=None, secret_key=None, access_key=None,
-                       key_type=None, access=None, generate_secret=False):
+    def create_subuser(
+            self,
+            uid,
+            subuser=None,
+            secret_key=None,
+            access_key=None,
+            key_type=None,
+            access=None,
+            generate_secret=False):
         """Create a new subuser.
 
         (Primarily useful for clients using the Swift API). Note that in
@@ -374,8 +392,14 @@ class RGWAClient(object):
             generate_secret=generate_secret,
         )
 
-    def modify_subuser(self, uid, subuser, secret=None, key_type='swift', access=None,
-                       generate_secret=False):
+    def modify_subuser(
+            self,
+            uid,
+            subuser,
+            secret=None,
+            key_type='swift',
+            access=None,
+            generate_secret=False):
         """Modify an existing subuser."""
         return self._request(
             'post', 'user', 'subuser',
@@ -569,7 +593,12 @@ class RGWAClient(object):
     def get_user_quota(self, uid):
         return self.get_quota(uid=uid, quota_type='user')
 
-    def set_user_quota(self, uid, max_size_kb=None, max_objects=None, enabled=None):
+    def set_user_quota(
+            self,
+            uid,
+            max_size_kb=None,
+            max_objects=None,
+            enabled=None):
         return self.set_quota(
             uid=uid,
             quota_type='user',
@@ -581,8 +610,13 @@ class RGWAClient(object):
     def get_user_bucket_quota(self, uid):
         return self.get_quota(uid=uid, quota_type='bucket')
 
-    def set_user_bucket_quota(self, uid, bucket, max_size_kb=None, max_objects=None,
-                              enabled=None):
+    def set_user_bucket_quota(
+            self,
+            uid,
+            bucket,
+            max_size_kb=None,
+            max_objects=None,
+            enabled=None):
         return self.set_quota(
             uid=uid,
             bucket=bucket,

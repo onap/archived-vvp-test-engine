@@ -37,7 +37,6 @@
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 import datetime
-import logging
 
 import requests
 
@@ -56,7 +55,12 @@ logger = LoggingServiceFactory.get_logger()
 class APIChecklist:
 
     @staticmethod
-    def create_checklist(user_content, files=["file0", "file1"], return_negative_response=False):
+    def create_checklist(
+            user_content,
+            files=[
+                "file0",
+                "file1"],
+            return_negative_response=False):
         r1 = None
         postURL = Constants.Default.URL.Checklist.TEXT + \
             user_content['engagement_uuid'] + '/checklist/new/'
@@ -69,11 +73,13 @@ class APIChecklist:
         data['checkListName'] = "checklistAPI" + \
             Helper.rand_string('randomString')
         data['checkListTemplateUuid'] = DBGeneral.select_where(
-            "uuid", "ice_checklist_template", "name", Constants.Template.Heat.TEXT, 1)
+            "uuid", "ice_checklist_template", "name",
+            Constants.Template.Heat.TEXT, 1)
         try:
             if not APIGitLab.is_gitlab_ready(user_content):
                 raise Exception(
-                    "Gitlab is not ready and because of that the test is failed.")
+                    "Gitlab is not ready and because " +
+                    "of that the test is failed.")
 
             r1 = requests.post(postURL, json=data,
                                headers=headers, verify=False)
@@ -82,15 +88,19 @@ class APIChecklist:
             logger.debug("Checklist was created successfully!")
             cl_content = r1.json()
             return cl_content
-        except:
+        except BaseException:
             if return_negative_response:
                 return r1
             if r1 is None:
                 logger.error(
-                    "Failed to create checklist for VF " + user_content['vfName'])
+                    "Failed to create checklist for VF " +
+                    user_content['vfName'])
             else:
-                logger.error("Failed to create checklist for VF " + user_content[
-                             'vfName'] + ", see response >>> %s %s.\nContent: %s" % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "Failed to create checklist for VF " +
+                    user_content['vfName'] +
+                    ", see response >>> %s %s.\nContent: %s" %
+                    (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -107,7 +117,8 @@ class APIChecklist:
         data['checkListName'] = "UpdateChecklistAPI" + \
             Helper.rand_string('randomString')
         data['checkListTemplateUuid'] = DBGeneral.select_where(
-            "uuid", "ice_checklist_template", "name", Constants.Template.Heat.TEXT, 1)
+            "uuid", "ice_checklist_template", "name",
+            Constants.Template.Heat.TEXT, 1)
         try:
             r1 = requests.put(
                 postURL, json=data, headers=headers, verify=False)
@@ -115,13 +126,17 @@ class APIChecklist:
             logger.debug("DBChecklist was created successfully!")
             cl_content = r1.json()
             return cl_content['uuid']
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error(
-                    "Failed to create checklist for VF " + user_content['vfName'])
+                    "Failed to create checklist for VF " +
+                    user_content['vfName'])
             else:
-                logger.error("Failed to create checklist for VF " + user_content[
-                             'vfName'] + ", see response >>> %s %s.\nContent: %s" % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "Failed to create checklist for VF " +
+                    user_content['vfName'] +
+                    ", see response >>> %s %s.\nContent: %s" %
+                    (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -141,13 +156,16 @@ class APIChecklist:
                 postURL, json=data, headers=headers, verify=False)
             Helper.internal_assert_boolean(r1.status_code, 200)
             logger.debug("Audit log was added successfully!")
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error(
                     "Failed to add audit log for checklist uuid: " + cl_uuid)
             else:
-                logger.error("Failed to add audit log for checklist uuid: " + cl_uuid +
-                             ", see response >>> %s %s.\nContent: %s" % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "Failed to add audit log for checklist uuid: " +
+                    cl_uuid +
+                    ", see response >>> %s %s.\nContent: %s" %
+                    (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -175,13 +193,16 @@ class APIChecklist:
             logger.debug("Next step was added successfully!")
             ns_uuid = r1.json()
             return ns_uuid[0]['uuid']
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error(
                     "Failed to add next step for checklist uuid: " + cl_uuid)
             else:
-                logger.error("Failed to add next step for checklist uuid: " + cl_uuid +
-                             ", see response >>> %s %s.\nContent: %s" % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "Failed to add next step for checklist uuid: " +
+                    cl_uuid +
+                    ", see response >>> %s %s.\nContent: %s" %
+                    (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -202,8 +223,8 @@ class APIChecklist:
             logger.debug("go_to_next_state put request result status: %s" %
                          r.status_code)
         else:
-            logger.error(
-                "PUT request failed to change checklist state >>> " + str(r.status_code) + " " + r.reason)
+            logger.error("PUT request failed to change checklist state >>> " +
+                         str(r.status_code) + " " + r.reason)
             raise Exception("PUT request failed to change checklist state")
 
     @staticmethod
@@ -215,7 +236,8 @@ class APIChecklist:
                   Constants.ChecklistStates.Closed.TEXT]
         for i in range(len(vf_staff_emails)):
             logger.debug(
-                "Trying to jump state for %s [%s]" % (vf_staff_emails[i], i))
+                "Trying to jump state for %s [%s]" %
+                (vf_staff_emails[i], i))
             DBChecklist.update_all_decisions_to_approve(cl_uuid)
             api_checklist_obj.jump_state(cl_uuid, vf_staff_emails[i])
             logger.debug("Checking state changed to %s" % states[i])

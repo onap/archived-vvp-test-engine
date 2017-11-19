@@ -51,7 +51,7 @@ class Get:
             Wait.id(attr_id_value)
             return session.ice_driver.find_element_by_id(attr_id_value).text
         # If failed - count the failure and add the error to list of errors.
-        except Exception as e:
+        except Exception:
             errorMsg = "Failed to get text of element " + attr_id_value
             raise Exception(errorMsg, attr_id_value)
 
@@ -61,9 +61,10 @@ class Get:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.css(attr_css_value)
-            return session.ice_driver.find_element_by_css_selector(attr_css_value).text
+            return session.ice_driver.find_element_by_css_selector(
+                attr_css_value).text
         # If failed - count the failure and add the error to list of errors.
-        except Exception as e:
+        except Exception:
             errorMsg = "Failed to get text of element " + attr_css_value
             raise Exception(errorMsg, attr_css_value)
 
@@ -74,7 +75,7 @@ class Get:
             return session.ice_driver.find_element_by_css_selector(
                 "#" + attr_id_value + ".wysiwyg-textarea")
         # If failed - count the failure and add the error to list of errors.
-        except Exception as e:
+        except Exception:
             errorMsg = "Failed to get element by id " + attr_id_value
             raise Exception(errorMsg, attr_id_value)
 
@@ -82,9 +83,10 @@ class Get:
     def by_name(attr_name_value):
         try:
             Wait.name(attr_name_value)
-            return session.ice_driver.find_element_by_name(attr_name_value).text
+            return session.ice_driver.find_element_by_name(
+                attr_name_value).text
         # If failed - count the failure and add the error to list of errors.
-        except Exception as e:
+        except Exception:
             errorMsg = "Failed to get text of element " + attr_name_value
             raise Exception(errorMsg, attr_name_value)
 
@@ -92,9 +94,10 @@ class Get:
     def by_xpath(attr_name_value):
         try:
             Wait.xpath(attr_name_value)
-            return session.ice_driver.find_element_by_xpath(attr_name_value).text
+            return session.ice_driver.find_element_by_xpath(
+                attr_name_value).text
         # If failed - count the failure and add the error to list of errors.
-        except Exception as e:
+        except Exception:
             errorMsg = "Failed to get text of element " + attr_name_value
             raise Exception(errorMsg, attr_name_value)
 
@@ -104,8 +107,9 @@ class Get:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.name(attr_name_value)
-            return session.ice_driver.find_element_by_name(attr_name_value).get_attribute("value")
-        except Exception as e:
+            return session.ice_driver.find_element_by_name(
+                attr_name_value).get_attribute("value")
+        except Exception:
             errorMsg = "Failed to get value by name:" + attr_name_value
             raise Exception(errorMsg, attr_name_value)
 
@@ -113,8 +117,9 @@ class Get:
     def meta_order_by_id(attr_id_value):
         try:
             Wait.id(attr_id_value)
-            return session.ice_driver.find_element_by_id(attr_id_value).get_attribute("meta-order")
-        except Exception as e:
+            return session.ice_driver.find_element_by_id(
+                attr_id_value).get_attribute("meta-order")
+        except Exception:
             errorMsg = "Failed to get meta order by id:" + attr_id_value
             raise Exception(errorMsg, attr_id_value)
 
@@ -124,8 +129,9 @@ class Get:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.id(attr_id_value)
-            return session.ice_driver.find_element_by_id(attr_id_value).is_selected()
-        except Exception as e:
+            return session.ice_driver.find_element_by_id(
+                attr_id_value).is_selected()
+        except Exception:
             errorMsg = "Failed to get if it's selected by id:" + attr_id_value
             raise Exception(errorMsg, attr_id_value)
 
@@ -138,6 +144,6 @@ class Get:
             return Helper.internal_assert_boolean_true_false(
                 session.ice_driver.find_element_by_id(
                     attr_id_value).get_attribute("value"), "on")
-        except Exception as e:
+        except Exception:
             errorMsg = "Failed to get if it's selected by id:" + attr_id_value
             raise Exception(errorMsg, attr_id_value)

@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -63,7 +63,6 @@ class RGWAClientFactory(object):
                 calling_format=OrdinaryCallingFormat(),
                 is_secure=True)
             cls.__standard_client.num_retries = 0
-            
 
     @classmethod
     def __set_admin_client(cls):
@@ -78,8 +77,7 @@ class RGWAClientFactory(object):
         if cls.__standard_client is None:
             cls.__set_standard_client()
         return cls.__standard_client
-    
-    
+
     @classmethod
     def admin(cls):
         if cls.__admin_client is None:

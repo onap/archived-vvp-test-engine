@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -49,6 +49,7 @@ from services.logging_service import LoggingServiceFactory
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class DBVirtualFunction:
 
     @staticmethod
@@ -67,8 +68,10 @@ class DBVirtualFunction:
         try:
             logger.debug("DATABASE_TYPE: " + settings.DATABASE_TYPE)
             # Create INSERT query.
-            queryStr = "INSERT INTO %s (""uuid, name, weight, ui_visibility"") VALUES ('%s', '%s', '%s', '%s');" % (
-                queryTableName, uuid, name, 0, ui_visibility)
+            queryStr = "INSERT INTO %s " % queryTableName +\
+                "(""uuid, name, weight, ui_visibility"") VALUES " +\
+                "('%s', '%s', " % (uuid, name) +\
+                "'%s', '%s');" % (0, ui_visibility)
             logger.debug("Query: " + queryStr)
             cur.execute(queryStr)  # Execute query.
             dbConn.commit()
@@ -100,7 +103,8 @@ class DBVirtualFunction:
             dbConn.commit()
             logger.debug("Test results are in General now.")
         except Exception as e:
-            errorMsg = "Failed to delete ECOMP release from General . because :" + \
+            errorMsg = "Failed to delete ECOMP release from General ." +\
+                " because :" + \
                 str(e)
             raise Exception(errorMsg)
             raise
@@ -114,8 +118,10 @@ class DBVirtualFunction:
 
     @staticmethod
     def select_next_steps_uuids_by_stage(engagement_uuid, engagement_stage):
-        query = "SELECT uuid FROM %s WHERE engagement_id='%s' AND engagement_stage='%s' ORDER BY position;" % (
-            Constants.DBConstants.IceTables.NEXT_STEP, engagement_uuid, engagement_stage)
+        query = "SELECT uuid FROM %s WHERE " % (
+            Constants.DBConstants.IceTables.NEXT_STEP) + "engagement_id=" +\
+            "'%s' AND engagement_stage='%s' ORDER BY position;" % (
+            engagement_uuid, engagement_stage)
         return DBGeneral.select_query(query, "list", 0)
 
     @staticmethod
@@ -125,11 +131,17 @@ class DBVirtualFunction:
 
     @staticmethod
     def select_next_step_description(next_step_uuid):
-        return DBGeneral.select_where("description", "ice_next_step", "uuid", next_step_uuid, 1)
+        return DBGeneral.select_where(
+            "description",
+            "ice_next_step",
+            "uuid",
+            next_step_uuid,
+            1)
 
     @staticmethod
     def select_eng_uuid(vf_name):
-        return DBGeneral.select_where("engagement_id", "ice_vf", "name", vf_name, 1)
+        return DBGeneral.select_where(
+            "engagement_id", "ice_vf", "name", vf_name, 1)
 
     @staticmethod
     def select_engagment_uuid_by_vf_name(vfName):
@@ -138,7 +150,11 @@ class DBVirtualFunction:
         engagement_manual_id = DBGeneral.select_where(
             "engagement_manual_id", "ice_engagement", "uuid", engagement_id, 1)
         enguuid = DBGeneral.select_where(
-            "uuid", "ice_engagement", "engagement_manual_id", engagement_manual_id, 1)
+            "uuid",
+            "ice_engagement",
+            "engagement_manual_id",
+            engagement_manual_id,
+            1)
         return enguuid
 
     @staticmethod
@@ -149,7 +165,8 @@ class DBVirtualFunction:
 
     @staticmethod
     def select_vf_name_by_vf_version(version_name):
-        queryofname = "SELECT name FROM ice_vf WHERE version= '%s';" % version_name
+        queryofname = "SELECT name FROM ice_vf WHERE " +\
+            "version= '%s';" % version_name
         vfNameDb = str(DBGeneral.select_query(queryofname))
         return vfNameDb
 
@@ -164,64 +181,106 @@ class DBVirtualFunction:
 
     @staticmethod
     def get_engagement():
-        """Use this function instead of creating a new engagement where no need to"""
-        queryStr = "SELECT DISTINCT ice_engagement.uuid, engagement_manual_id, ice_vf.name, ice_user_profile.full_name, \
-                    ice_user_profile.email, reviewer_table.full_name, reviewer_table.email, \
+        """Use this function instead of creating a new """ +\
+            """engagement where no need to"""
+        queryStr = "SELECT DISTINCT ice_engagement.uuid, " +\
+            "engagement_manual_id, ice_vf.name, ice_user_profile.full_name, \
+                    ice_user_profile.email, reviewer_table.full_name, " +\
+            "reviewer_table.email, \
                     ice_deployment_target.version, ice_ecomp_release.name \
-                    FROM ice_engagement LEFT JOIN ice_vf ON engagement_id = ice_engagement.uuid \
-                    LEFT JOIN ice_user_profile reviewer_table ON reviewer_table.id = ice_engagement.reviewer_id \
-                    LEFT JOIN ice_user_profile ON ice_user_profile.id = ice_engagement.peer_reviewer_id \
-                    LEFT JOIN ice_deployment_target ON ice_deployment_target.uuid = ice_vf.deployment_target_id \
-                    LEFT JOIN ice_ecomp_release ON ice_ecomp_release.uuid = ice_vf.ecomp_release_id \
+                    FROM ice_engagement LEFT JOIN ice_vf ON engagement_id " +\
+            "= ice_engagement.uuid \
+                    LEFT JOIN ice_user_profile reviewer_table ON " +\
+            "reviewer_table.id = ice_engagement.reviewer_id \
+                    LEFT JOIN ice_user_profile ON ice_user_profile.id = " +\
+            "ice_engagement.peer_reviewer_id \
+                    LEFT JOIN ice_deployment_target ON " +\
+            "ice_deployment_target.uuid = " +\
+            "ice_vf.deployment_target_id \
+                    LEFT JOIN ice_ecomp_release ON " +\
+            "ice_ecomp_release.uuid = ice_vf.ecomp_release_id \
                     WHERE ice_user_profile.id IS NOT NULL LIMIT 1;"
         list_of_values = DBGeneral.select_query(queryStr, return_type="list")
-        list_of_keys = ["engagement_uuid", "engagement_manual_id", "vfName", "pr_name",
-                        "pr_email", "el_name", "el_email", "target_aic", "ecomp_release"]
+        list_of_keys = [
+            "engagement_uuid",
+            "engagement_manual_id",
+            "vfName",
+            "pr_name",
+            "pr_email",
+            "el_name",
+            "el_email",
+            "target_aic",
+            "ecomp_release"]
         return dict(zip(list_of_keys, list_of_values))
 
     @staticmethod
     def insert_aic_version(ui_visibility="TRUE"):
         new_aic_version = {
-            "uuid": str(uuid.uuid4()), "name": "AIC", "version": DBBridge.helper_rand_string("randomNumber", 2), "ui_visibility": ui_visibility, "weight": 0}
+            "uuid": str(
+                uuid.uuid4()),
+            "name": "AIC",
+            "version": DBBridge.helper_rand_string(
+                "randomNumber",
+                2),
+            "ui_visibility": ui_visibility,
+            "weight": 0}
         queryStr = "INSERT INTO public.ice_deployment_target( \
                     uuid, name, version, ui_visibility, weight) \
-                    VALUES ('%s', '%s', '%s', '%s', %s);" % (new_aic_version['uuid'], new_aic_version['name'], new_aic_version['version'], new_aic_version['ui_visibility'], new_aic_version['weight'])
+                    VALUES " +\
+            "('%s', '%s', '%s', '%s', %s);" % (
+                new_aic_version['uuid'],
+                new_aic_version['name'],
+                new_aic_version['version'],
+                new_aic_version['ui_visibility'],
+                new_aic_version['weight'])
         DBGeneral.insert_query(queryStr)
         return new_aic_version
 
     @staticmethod
     def delete_aic_version(aic_uuid):
         DBGeneral.insert_query(
-            "DELETE FROM public.ice_deployment_target WHERE uuid='%s';" % aic_uuid)
+            "DELETE FROM public.ice_deployment_target WHERE uuid='%s';" %
+            aic_uuid)
 
     @staticmethod
     def change_aic_version_weight(new_weight, old_weight):
         DBGeneral.insert_query(
-            "UPDATE public.ice_deployment_target SET weight=%s WHERE weight=%s" % (new_weight, old_weight))
+            "UPDATE public.ice_deployment_target " +
+            "SET weight=%s " % new_weight +
+            "WHERE weight=%s" % old_weight)
 
     @staticmethod
     def change_ecomp_release_weight(new_weight, old_weight):
         DBGeneral.insert_query(
-            "UPDATE public.ice_ecomp_release SET weight=%s WHERE weight=%s" % (new_weight, old_weight))
+            "UPDATE public.ice_ecomp_release SET weight=%s WHERE weight=%s" %
+            (new_weight, old_weight))
 
     @staticmethod
     def select_aic_version_uuid(aic_version):
-        return DBGeneral.select_where("uuid", "ice_deployment_target", "version", aic_version, 1)
+        return DBGeneral.select_where(
+            "uuid", "ice_deployment_target", "version", aic_version, 1)
 
     @staticmethod
     def select_ecomp_release_uuid(ecomp_release):
-        return DBGeneral.select_where("uuid", "ice_ecomp_release", "name", ecomp_release, 1)
+        return DBGeneral.select_where(
+            "uuid", "ice_ecomp_release", "name", ecomp_release, 1)
 
     @staticmethod
     def add_admin_to_eng_team(eng_uuid):
         admin_db_id = DBGeneral.select_where(
-            'id', Constants.DBConstants.IceTables.USER_PROFILE, 'email', Constants.Users.Admin.EMAIL, 1)
-        queryStr = "INSERT INTO public.ice_engagement_engagement_team(engagement_id, iceuserprofile_id) VALUES ('%s', '%s');" % (
-            eng_uuid, admin_db_id)
+            'id',
+            Constants.DBConstants.IceTables.USER_PROFILE,
+            'email',
+            Constants.Users.Admin.EMAIL,
+            1)
+        queryStr = "INSERT INTO public.ice_engagement_engagement_team" +\
+            "(engagement_id, iceuserprofile_id) VALUES ('%s', '%s');" % (
+                eng_uuid, admin_db_id)
         logger.debug("add_admin_to_eng_team Query: %s" % queryStr)
         DBGeneral.insert_query(queryStr)
 
     @staticmethod
     def remove_engagement_from_recent(vf_uuid):
         DBGeneral.insert_query(
-            "DELETE FROM %s WHERE vf_id='%s'" % (Constants.DBConstants.IceTables.RECENT, vf_uuid))
+            "DELETE FROM %s WHERE vf_id='%s'" % (Constants.DBConstants.
+                                                 IceTables.RECENT, vf_uuid))

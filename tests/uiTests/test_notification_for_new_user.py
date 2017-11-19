@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -36,14 +35,10 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-import logging
-
-from django.conf import settings
 
 from iceci.decorator.exception_decor import exception
 from services.constants import Constants
 from services.logging_service import LoggingServiceFactory
-from services.session import session
 from services.types import API, DB, Frontend
 from tests.uiTests.test_ui_base import TestUiBase
 
@@ -82,10 +77,16 @@ class TestNotificationForNewUser(TestUiBase):
         Frontend.User.go_to_notifications()
         notificationIDs = DB.User.get_notification_id_by_email(
             user_content['email'])
-        notification_list = [user_content['full_name'] + " joined " + user_content['vfName'],
-                             user_content['el_name'] +
-                             " joined " + user_content['vfName'],
-                             user_content['pr_name'] + " joined " + user_content['vfName']]
+        notification_list = [
+            user_content['full_name'] +
+            " joined " +
+            user_content['vfName'],
+            user_content['el_name'] +
+            " joined " +
+            user_content['vfName'],
+            user_content['pr_name'] +
+            " joined " +
+            user_content['vfName']]
         Frontend.User.validate_notifications(
             notificationIDs, notification_list)
 

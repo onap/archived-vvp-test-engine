@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -41,6 +41,7 @@ from django.db import models
 import datetime
 from django.conf import settings
 
+
 class TestResults(models.Model):
     testType = models.CharField(max_length=64)
     testFeature = models.CharField(max_length=64)
@@ -48,8 +49,13 @@ class TestResults(models.Model):
     testResult = models.CharField(max_length=64)
     notes = models.TextField(null=True, blank=True)
     duration = models.CharField(max_length=64)
-    build_id = models.TextField(null=True, blank=True,default=settings.ICE_BUILD_REPORT_NUM)
-    create_time = models.DateTimeField('creation time', default=datetime.datetime.now)
+    build_id = models.TextField(
+        null=True,
+        blank=True,
+        default=settings.ICE_BUILD_REPORT_NUM)
+    create_time = models.DateTimeField(
+        'creation time', default=datetime.datetime.now)
+
     class Meta:
         db_table = "ice_test_results"
         verbose_name_plural = 'Tests Results'

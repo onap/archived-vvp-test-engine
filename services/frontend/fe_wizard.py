@@ -61,7 +61,9 @@ class FEWizard:
         try:
             logger.debug("Tab Add Virtual Functions")
             Wait.text_by_css(
-                Constants.Dashboard.Wizard.Title.CSS, Constants.Dashboard.Wizard.AddVF.Title.TEXT, wait_for_page=True)
+                Constants.Dashboard.Wizard.Title.CSS,
+                Constants.Dashboard.Wizard.AddVF.Title.TEXT,
+                wait_for_page=True)
             vfName = "newVF" + Helper.rand_string("randomString")
             vfVersion = "newVFVersion" + \
                 Helper.rand_string(
@@ -70,9 +72,11 @@ class FEWizard:
             Enter.text_by_name("VFversion", vfVersion, wait_for_page=True)
             FEWizard.date_picker_wizard()
             Select(session.ice_driver.find_element_by_id(
-                Constants.Dashboard.Wizard.AddVF.AIC_Version.TEXT)).select_by_visible_text("AIC 3.5")
+                Constants.Dashboard.Wizard.AddVF.AIC_Version.TEXT
+            )).select_by_visible_text("AIC 3.5")
             Select(session.ice_driver.find_element_by_id(
-                Constants.Dashboard.Wizard.AddVF.ECOMP_Release.TEXT)).select_by_visible_text("Unknown")
+                Constants.Dashboard.Wizard.AddVF.ECOMP_Release.TEXT
+            )).select_by_visible_text("Unknown")
             session.E2Edate = FEWizard.get_lab_entry_date()
             Click.css(Constants.SubmitButton.CSS, wait_for_page=True)
             Wait.page_has_loaded()
@@ -80,7 +84,8 @@ class FEWizard:
             return vfName
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
-            errorMsg = "Failed to add a Virtual Function via modal window. Exception " + \
+            errorMsg = "Failed to add a Virtual Function via modal window. " +\
+                "Exception " +\
                 str(e)
             raise Exception(errorMsg)
 
@@ -93,8 +98,10 @@ class FEWizard:
     @staticmethod
     def add_vendor_contact():
         logger.debug("Tab Add Vendor Contact")
-        Wait.text_by_css(Constants.Dashboard.Wizard.Title.CSS,
-                         Constants.Dashboard.Wizard.AddVendorContact.Title.TEXT, wait_for_page=True)
+        Wait.text_by_css(
+            Constants.Dashboard.Wizard.Title.CSS,
+            Constants.Dashboard.Wizard.AddVendorContact.Title.TEXT,
+            wait_for_page=True)
         Select(session.ice_driver.find_element_by_name(
             "company")).select_by_visible_text("Ericsson")
         fullname = Helper.rand_string(
@@ -115,7 +122,10 @@ class FEWizard:
         logger.debug(
             "Tab Add " + ServiceProvider.MainServiceProvider + " Sponsor")
         Wait.text_by_css(
-            Constants.Dashboard.Wizard.Title.CSS, "Add " + ServiceProvider.MainServiceProvider + " Sponsor")
+            Constants.Dashboard.Wizard.Title.CSS,
+            "Add " +
+            ServiceProvider.MainServiceProvider +
+            " Sponsor")
         fullname = Helper.rand_string(
             "randomString") + Helper.rand_string("randomString")
         Enter.text_by_name("fullname", fullname)
@@ -127,19 +137,21 @@ class FEWizard:
         Enter.text_by_name("phone", phone)
         Click.css(Constants.SubmitButton.CSS)
         Wait.name_to_dissappear("Add AT&T Sponsor")
-        sponsor = {"company": ServiceProvider.MainServiceProvider, "full_name": fullname,
-                   "email": email, "phone": phone}
+        sponsor = {"company": ServiceProvider.MainServiceProvider,
+                   "full_name": fullname, "email": email, "phone": phone}
         return sponsor
 
     @staticmethod
     def invite_team_members(email):
         try:
             logger.debug("Tab Invite Team Members")
-            Wait.text_by_name(Constants.Dashboard.Wizard.InviteTeamMembers.Title.NAME,
-                              Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
+            Wait.text_by_name(
+                Constants.Dashboard.Wizard.InviteTeamMembers.Title.NAME,
+                Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
             Enter.text_by_name("email", email)
             Wait.text_by_css(
-                Constants.SubmitButton.CSS, Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
+                Constants.SubmitButton.CSS,
+                Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
             Click.css(Constants.SubmitButton.CSS)
             Wait.name_to_dissappear(
                 Constants.Dashboard.Wizard.InviteTeamMembers.Title.NAME)
@@ -162,12 +174,15 @@ class FEWizard:
 
             # Check that the submit button exists.
             Wait.text_by_css(
-                Constants.SubmitButton.CSS, Constants.Dashboard.Wizard.AddSSHKey.Title.TEXT)
+                Constants.SubmitButton.CSS,
+                Constants.Dashboard.Wizard.AddSSHKey.Title.TEXT)
 
             Click.css(Constants.SubmitButton.CSS)  # Click on submit button.
             if is_negative:
                 Wait.text_by_id(
-                    Constants.Toast.ID, Constants.Dashboard.Avatar.Account.SSHKey.UpdateFailed.TEXT)
+                    Constants.Toast.ID,
+                    Constants.Dashboard.Avatar.Account
+                    .SSHKey.UpdateFailed.TEXT)
             else:
                 Wait.name_to_dissappear(
                     Constants.Dashboard.Wizard.AddSSHKey.Title.NAME)
@@ -175,7 +190,8 @@ class FEWizard:
             return sshKey
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
-            errorMsg = "Failed to add an SSH Key in the modal window. Exception=" + \
+            errorMsg = "Failed to add an SSH Key in " +\
+                "the modal window. Exception=" + \
                 str(e)
             raise Exception(errorMsg)
 
@@ -183,12 +199,15 @@ class FEWizard:
     def invite_team_members_modal(email, wait_modal_to_disappear=True):
         try:
             Click.id(
-                Constants.Dashboard.Overview.TeamMember.ID, wait_for_page=True)
-            Wait.text_by_css(Constants.Dashboard.Wizard.Title.CSS,
-                             Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
+                Constants.Dashboard.Overview.TeamMember.ID,
+                wait_for_page=True)
+            Wait.text_by_css(
+                Constants.Dashboard.Wizard.Title.CSS,
+                Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
             Enter.text_by_name("email", email)
             Wait.text_by_css(
-                Constants.SubmitButton.CSS, Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
+                Constants.SubmitButton.CSS,
+                Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
             Click.css(".inviteMembers-form button.btn.btn-primary", True)
             if wait_modal_to_disappear:
                 Wait.modal_to_dissappear()
@@ -201,8 +220,14 @@ class FEWizard:
     @staticmethod
     def date_picker_add_ns(count):
         try:
-            session.ice_driver.execute_script("var el = angular.element(document.querySelector('.addNextSteps')); el.scope().vm.nextSteps[" + str(
-                count) + "].duedate = new Date('" + str(datetime.today().isoformat()) + "')")
+            session.ice_driver.execute_script(
+                "var el = angular.element(document.querySelector" +
+                "('.addNextSteps')); el.scope().vm.nextSteps[" +
+                str(count) +
+                "].duedate = new Date('" +
+                str(
+                    datetime.today().isoformat()) +
+                "')")
             Click.css("div.modal-content", wait_for_page=True)
         except Exception as e:
             errorMsg = "Failed to select date with datePicker."

@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -36,7 +36,6 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-import logging
 import traceback
 
 from services.logging_service import LoggingServiceFactory
@@ -48,7 +47,7 @@ logger = LoggingServiceFactory.get_logger()
 
 def exception():
     """
-    A decorator that wraps the passed in function and logs 
+    A decorator that wraps the passed in function and logs
     exceptions should one occur
 
     @param logger: The logging object
@@ -59,7 +58,7 @@ def exception():
         def wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
-            except:
+            except BaseException:
                 err = "There was an exception in %s" % func.__name__
                 logger.error(err)
                 session.errorCounter += 1

@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -50,13 +50,14 @@ from services.logging_service import LoggingServiceFactory
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class APIUser:
 
     @staticmethod
     # Update account API - only adds new SSH key!
     def update_account(user_content):
         r1 = None
-        token = APIUser.login_user(user_content['email']) 
+        token = APIUser.login_user(user_content['email'])
         user_content['session_token'] = 'token ' + token
         sshKey = Helper.generate_sshpub_key()
         putURL = settings.ICE_EM_URL + '/v1/engmgr/users/account'
@@ -82,16 +83,20 @@ class APIUser:
                 putURL, json=put_data, headers=headers, verify=False)
             Helper.internal_assert(r1.status_code, 200)
             logger.debug(
-                "SSH Key was added successfully to user " + user_content['full_name'])
+                "SSH Key was added successfully to user " +
+                user_content['full_name'])
             if not APIBridge.is_gitlab_ready(user_content):
                 raise
             return sshKey
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error("Failed to add public SSH key to user.")
             else:
-                logger.error("PUT request failed to add SSH key to user, see response >>> %s %s \n %s" % (
-                    r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "PUT request failed to add SSH key to user, see " +
+                    "response >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -125,12 +130,15 @@ class APIUser:
             if not APIBridge.is_gitlab_ready(user_content):
                 raise
             return True
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error("Failed to add public SSH key to user.")
             else:
-                logger.error("PUT request failed to add SSH key to user, see response >>> %s %s \n %s" % (
-                    r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "PUT request failed to add SSH key to user, " +
+                    "see response >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -168,7 +176,7 @@ class APIUser:
             logger.debug(str(r.status_code) + " " + r.reason)
             decoded_response = r.json()
             return decoded_response['token']
-        except:
+        except BaseException:
             logger.debug("Failed to login.")
             raise
 
@@ -195,12 +203,14 @@ class APIUser:
             if not APIBridge.is_gitlab_ready(user_content):
                 raise
             return sshKey
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error("Failed to add public SSH key.")
             else:
                 logger.error(
-                    "POST request failed to add SSH key to user, see response >>> %s %s" % (r1.status_code, r1.reason))
+                    "POST request failed to add SSH key to user, " +
+                    "see response >>> %s %s" %
+                    (r1.status_code, r1.reason))
             raise
 
     @staticmethod
@@ -214,11 +224,11 @@ class APIUser:
             data = {
                 "company": company,
                 "full_name": Helper.rand_string("randomString"),
-                "email": Helper.rand_string("randomString") + "@" + email_domain,
+                "email": Helper.rand_string("randomString") +
+                "@" + email_domain,
                 "phone_number": Constants.Default.Phone.TEXT,
                 "password": Constants.Default.Password.TEXT,
-                "regular_email_updates": "True"
-            }
+                "regular_email_updates": "True"}
 
             return data
         # If failed - count the failure and add the error to list of errors.
@@ -237,10 +247,19 @@ class APIUser:
             return True
         else:
             raise Exception(
-                "Failed to activate user >>> %s %s" % (r1.status_code, r1.reason))
+                "Failed to activate user >>> %s %s" %
+                (r1.status_code, r1.reason))
 
     @staticmethod
-    def signup_invited_user(company, invited_email, invite_token, invite_url, user_content, is_contact_user="false", activate=False, wait_for_gitlab=True):
+    def signup_invited_user(
+            company,
+            invited_email,
+            invite_token,
+            invite_url,
+            user_content,
+            is_contact_user="false",
+            activate=False,
+            wait_for_gitlab=True):
         r1 = None
         postURL = settings.ICE_EM_URL + '/v1/engmgr/signup'
         logger.debug("Post signup URL: " + postURL)
@@ -279,12 +298,15 @@ class APIUser:
                 if not APIBridge.is_gitlab_ready(user_content):
                     raise
             return post_data
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error("Failed to sign up the invited team member.")
             else:
-                logger.error("POST request failed to sign up the invited team member, see response >>> %s %s \n %s" % (
-                    r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "POST request failed to sign up the invited " +
+                    "team member, see response >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
     @staticmethod

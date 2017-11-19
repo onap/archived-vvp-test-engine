@@ -43,7 +43,6 @@ import time
 from django.conf import settings
 import requests
 
-from services.api.api_gitlab import APIGitLab
 from services.api.api_user import APIUser
 from services.constants import Constants, ServiceProvider
 from services.database.db_general import DBGeneral
@@ -67,7 +66,7 @@ class APIVirtualFunction:
         headers['Authorization'] = user_content['session_token']
         data = dict()  # Create JSON data for post request.
         files_list = list()
-        if type(files) is list:
+        if isinstance(files, list):
             for file in files:
                 files_list.append(file)
         else:
@@ -85,13 +84,16 @@ class APIVirtualFunction:
             logger.debug("Next step was added to the engagement!")
             ns_uuid = r1.json()
             return ns_uuid[0]['uuid']
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error(
                     "Failed to add next step to VF " + user_content['vfName'])
             else:
-                logger.error("Failed to add next step to VF " + user_content[
-                             'vfName'] + ", see response >>> %s %s.\nContent: %s" % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error("Failed to add next step to VF " +
+                             user_content['vfName'] +
+                             ", see response >>> %s %s.\nContent: %s" %
+                             (r1.status_code, r1.reason, str(
+                                 r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -104,12 +106,15 @@ class APIVirtualFunction:
         headers = dict()  # Create header for post request.
         headers['Content-type'] = 'application/json'
         headers['Authorization'] = 'token ' + token
-        jdata = [{"virtual_function": Helper.rand_string("randomString"),
-                  "version": Helper.rand_string("randomString") + Helper.rand_string("randomNumber"),
-                  "target_lab_entry_date": time.strftime("%Y-%m-%d"),
-                  "target_aic_uuid": targetVersion,
-                  "ecomp_release": ecompRelease,
-                  "is_service_provider_internal": False}]
+        jdata = [
+            {
+                "virtual_function": Helper.rand_string("randomString"),
+                "version": Helper.rand_string("randomString") +
+                Helper.rand_string("randomNumber"),
+                "target_lab_entry_date": time.strftime("%Y-%m-%d"),
+                "target_aic_uuid": targetVersion,
+                "ecomp_release": ecompRelease,
+                "is_service_provider_internal": False}]
         try:
             r1 = requests.post(
                 postUrl, json=jdata, headers=headers, verify=False)
@@ -117,12 +122,14 @@ class APIVirtualFunction:
             logger.debug("Virtual Function created successfully!")
             content = r1.content[1:-1]
             return content
-        except:
+        except BaseException:
             if r1 is None:
                 logger.debug("Failed to create VF >>> request failed!")
             else:
                 logger.debug(
-                    "Failed to create VF >>> %s %s \n %s" % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                    "Failed to create VF >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -140,13 +147,15 @@ class APIVirtualFunction:
             logger.debug("Retrieved the Engagement successfully!")
             content = r1.content
             return json.loads(content)
-        except:
+        except BaseException:
             if r1 is None:
                 logger.debug(
                     "Failed to Retrieve the Engagement >>> request failed!")
             else:
                 logger.debug(
-                    "Failed to Retrieve the Engagement >>> %s %s \n %s" % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                    "Failed to Retrieve the Engagement >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -168,18 +177,25 @@ class APIVirtualFunction:
                 postURL, json=list_data, headers=headers, verify=False)
             Helper.internal_assert_boolean(r1.status_code, 200)
             logger.debug("Invite sent successfully to email " + data['email'])
-            invite_token = DBGeneral.select_where_and("invitation_token", "ice_invitation", "email", data[
-                                                      'email'], "engagement_uuid", user_content['engagement_uuid'], 1)
-            invite_url = settings.ICE_PORTAL_URL + "/#/signUp?invitation=" + invite_token + \
-                "&email=" + data['email']
+            invite_token = DBGeneral.select_where_and(
+                "invitation_token",
+                "ice_invitation",
+                "email",
+                data['email'],
+                "engagement_uuid",
+                user_content['engagement_uuid'],
+                1)
+            invite_url = settings.ICE_PORTAL_URL + "/#/signUp?invitation=" + \
+                invite_token + "&email=" + data['email']
             logger.debug("Invitation URL is: " + invite_url)
             return data['email'], invite_token, invite_url
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error("Failed to invite team member.")
             else:
                 logger.error(
-                    "POST request failed to invite team member, see response >>> %s %s" % (r1.status_code, r1.reason))
+                    "POST request failed to invite team member, " +
+                    "see response >>> %s %s" % (r1.status_code, r1.reason))
             raise
 
     @staticmethod
@@ -202,21 +218,30 @@ class APIVirtualFunction:
                 postURL, json=data, headers=headers, verify=False)
             Helper.internal_assert_boolean(r1.status_code, 200)
             logger.debug("Invite sent successfully to email " + data['email'])
-            invite_token = DBGeneral.select_where_and("invitation_token", "ice_invitation", "email", data[
-                                                      'email'], "engagement_uuid", user_content['engagement_uuid'], 1)
-            invite_url = settings.ICE_PORTAL_URL + "/#/signUp?invitation=" + invite_token + \
-                "&email=" + data['email'] + "&full_name=" + data['full_name'] + \
-                "&phone_number=" + \
-                data['phone_number'] + "&company=" + \
+            invite_token = DBGeneral.select_where_and(
+                "invitation_token",
+                "ice_invitation",
+                "email",
+                data['email'],
+                "engagement_uuid",
+                user_content['engagement_uuid'],
+                1)
+            invite_url = settings.ICE_PORTAL_URL + "/#/signUp?invitation=" +\
+                invite_token + "&email=" + data['email'] +\
+                "&full_name=" + data['full_name'] + \
+                "&phone_number=" + data['phone_number'] + "&company=" + \
                 data['company'] + "&is_contact_user=true"
             logger.debug("Invitation URL is: " + invite_url)
             return data['email'], invite_token, invite_url
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error("Failed to invite vendor contact.")
             else:
-                logger.error("POST request failed to invite vendor contact, see response >>> %s %s \n %s" % (
-                    r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "POST request failed to invite vendor contact, " +
+                    "see response >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -239,12 +264,16 @@ class APIVirtualFunction:
                 postURL, json=data, headers=headers, verify=False)
             Helper.internal_assert_boolean(r1.status_code, 202)
             logger.debug("Next step was edited successfully!")
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error("Failed to edit next step uuid: " + ns_uuid)
             else:
-                logger.error("Failed to edit next step uuid: " + ns_uuid +
-                             ", see response >>> %s %s" % (r1.status_code, r1.reason))
+                logger.error(
+                    "Failed to edit next step uuid: " +
+                    ns_uuid +
+                    ", see response >>> %s %s" %
+                    (r1.status_code,
+                     r1.reason))
             raise
 
     @staticmethod
@@ -259,7 +288,8 @@ class APIVirtualFunction:
             return r1.content
         else:
             raise Exception(
-                "Failed to activate user >>> %s %s" % (r1.status_code, r1.reason))
+                "Failed to activate user >>> %s %s" %
+                (r1.status_code, r1.reason))
             return False
 
     @staticmethod
@@ -314,15 +344,19 @@ class APIVirtualFunction:
                 putUrl, headers=headers, verify=False)
             Helper.internal_assert(r1.status_code, 202)
             logger.debug(
-                "Engagement stage was successfully changed to " + str(requested_stage) + "!")
+                "Engagement stage was successfully changed to " +
+                str(requested_stage) +
+                "!")
             content = r1.content[1:-1]
             return content
-        except:
+        except BaseException:
             if r1 is None:
                 logger.debug("Failed to set eng stage >>> request failed!")
             else:
                 logger.debug(
-                    "Failed to set eng stage >>> %s %s \n %s" % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                    "Failed to set eng stage >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
     @staticmethod
@@ -338,7 +372,7 @@ class APIVirtualFunction:
             r1 = requests.put(putURL, headers=headers, verify=False)
             Helper.internal_assert_boolean(r1.status_code, 200)
             logger.debug("AIC version has changed!")
-        except:
+        except BaseException:
             if r1 is None:
                 msg = "Failed to edit AIC version"
             else:
@@ -359,10 +393,11 @@ class APIVirtualFunction:
             r1 = requests.put(putURL, headers=headers, verify=False)
             Helper.internal_assert_boolean(r1.status_code, 200)
             logger.debug("AIC version has changed!")
-        except:
+        except BaseException:
             if r1 is None:
                 msg = "Failed to update ECOMP release"
             else:
-                msg = "Failed to update ECOMP release, see response >>> %s %s" % (
-                    r1.status_code, r1.reason)
+                msg = "Failed to update ECOMP release," +\
+                    " see response >>> %s %s" % (
+                        r1.status_code, r1.reason)
             raise msg

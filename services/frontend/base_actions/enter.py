@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -45,85 +45,117 @@ from services.session import session
 
 
 logger = LoggingServiceFactory.get_logger()
+
+
 class Enter:
-    
+
     @staticmethod
     def text_by_name(attr_name_value, typed_text, wait_for_page=False):
-        try:  # Send keys to element in UI, by name locator (e.g. type something in text box).
+        # Send keys to element in UI, by name locator (e.g. type something in
+        # text box).
+        try:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.name(attr_name_value)
             session.ice_driver.find_element_by_name(attr_name_value).clear()
-            session.ice_driver.find_element_by_name(attr_name_value).send_keys(typed_text[:-1])
+            session.ice_driver.find_element_by_name(
+                attr_name_value).send_keys(typed_text[:-1])
             time.sleep(session.wait_until_time_pause)
-            session.ice_driver.find_element_by_name(attr_name_value).send_keys(typed_text[-1:])
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
-            errorMsg = "Failed to type " + typed_text + " in text box" 
+            session.ice_driver.find_element_by_name(
+                attr_name_value).send_keys(typed_text[-1:])
+        # If failed - count the failure and add the error to list of errors.
+        except Exception as e:
+            errorMsg = "Failed to type " + typed_text + " in text box"
             raise Exception(errorMsg, e)
-    
+
     @staticmethod
     def text_by_xpath(attr_xpath_value, typed_text, wait_for_page=False):
-        try:  # Send keys to element in UI, by name locator (e.g. type something in text box).
+        # Send keys to element in UI, by name locator (e.g. type something in
+        # text box).
+        try:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.xpath(attr_xpath_value)
             session.ice_driver.find_element_by_xpath(attr_xpath_value).clear()
-            session.ice_driver.find_element_by_xpath(attr_xpath_value).send_keys(typed_text[:-1])
+            session.ice_driver.find_element_by_xpath(
+                attr_xpath_value).send_keys(typed_text[:-1])
             time.sleep(session.wait_until_time_pause)
-            session.ice_driver.find_element_by_xpath(attr_xpath_value).send_keys(typed_text[-1:])
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
-            errorMsg = "Failed to type " + typed_text + " in text box" 
+            session.ice_driver.find_element_by_xpath(
+                attr_xpath_value).send_keys(typed_text[-1:])
+        # If failed - count the failure and add the error to list of errors.
+        except Exception:
+            errorMsg = "Failed to type " + typed_text + " in text box"
             raise Exception(errorMsg, attr_xpath_value)
-    
+
     @staticmethod
     def text_by_id(attr_id_value, typed_text, wait_for_page=False):
-        try:  # Send keys to element in UI, by ID locator (e.g. type something in text box).
+        # Send keys to element in UI, by ID locator (e.g. type something in
+        # text box).
+        try:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.id(attr_id_value)
             session.ice_driver.find_element_by_id(attr_id_value).clear()
-            session.ice_driver.find_element_by_id(attr_id_value).send_keys(typed_text[:-1])
+            session.ice_driver.find_element_by_id(
+                attr_id_value).send_keys(typed_text[:-1])
             time.sleep(session.wait_until_time_pause)
-            session.ice_driver.find_element_by_id(attr_id_value).send_keys(typed_text[-1:])
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
-            errorMsg = "Failed to type " + typed_text + " in text box" 
+            session.ice_driver.find_element_by_id(
+                attr_id_value).send_keys(typed_text[-1:])
+        # If failed - count the failure and add the error to list of errors.
+        except Exception:
+            errorMsg = "Failed to type " + typed_text + " in text box"
             raise Exception(errorMsg, attr_id_value)
-    
+
     @staticmethod
     def clear(attr_id_value):
         try:
             Wait.id(attr_id_value)
             session.ice_driver.find_element_by_id(attr_id_value).clear()
-        except Exception as e:
-            errorMsg = "Failed to clear text box" 
+        except Exception:
+            errorMsg = "Failed to clear text box"
             raise Exception(errorMsg, attr_id_value)
-    
+
     @staticmethod
     def text_by_css(attr_css_value, typed_text, wait_for_page=False):
-        try:  # Send keys to element in UI, by CSS locator (e.g. type something in text box).
+        # Send keys to element in UI, by CSS locator (e.g. type something in
+        # text box).
+        try:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.css(attr_css_value)
-            session.ice_driver.find_element_by_css_selector(attr_css_value).clear()
-            session.ice_driver.find_element_by_css_selector(attr_css_value).send_keys(typed_text[:-1])
+            session.ice_driver.find_element_by_css_selector(
+                attr_css_value).clear()
+            session.ice_driver.find_element_by_css_selector(
+                attr_css_value).send_keys(typed_text[:-1])
             time.sleep(session.wait_until_time_pause)
-            session.ice_driver.find_element_by_css_selector(attr_css_value).send_keys(typed_text[-1:])
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
-            errorMsg = "Failed to type " + typed_text + " in text box" 
+            session.ice_driver.find_element_by_css_selector(
+                attr_css_value).send_keys(typed_text[-1:])
+        # If failed - count the failure and add the error to list of errors.
+        except Exception:
+            errorMsg = "Failed to type " + typed_text + " in text box"
             raise Exception(errorMsg, attr_css_value)
-    
+
     @staticmethod
-    def text_by_link_text(attr_link_text_value, typed_text, wait_for_page=False):
-        try:  # Send keys to element in UI, by name locator (e.g. type something in text box).
+    def text_by_link_text(
+            attr_link_text_value,
+            typed_text,
+            wait_for_page=False):
+        # Send keys to element in UI, by name locator (e.g. type something in
+        # text box).
+        try:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.link_text(attr_link_text_value)
-            session.ice_driver.find_element_by_link_text(attr_link_text_value).clear()
-            session.ice_driver.find_element_by_link_text(attr_link_text_value).send_keys(typed_text[:-1])
+            session.ice_driver.find_element_by_link_text(
+                attr_link_text_value).clear()
+            session.ice_driver.find_element_by_link_text(
+                attr_link_text_value).send_keys(typed_text[:-1])
             time.sleep(session.wait_until_time_pause)
-            session.ice_driver.find_element_by_link_text(attr_link_text_value).send_keys(typed_text[-1:])
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
-            errorMsg = "Failed to type " + typed_text + " in text box" 
+            session.ice_driver.find_element_by_link_text(
+                attr_link_text_value).send_keys(typed_text[-1:])
+        # If failed - count the failure and add the error to list of errors.
+        except Exception:
+            errorMsg = "Failed to type " + typed_text + " in text box"
             raise Exception(errorMsg, attr_link_text_value)
 
     @staticmethod
@@ -132,8 +164,10 @@ class Enter:
             if wait_for_page:
                 Wait.page_has_loaded()
             session.ice_driver.execute_script(
-                "var element = angular.element(document.querySelector('" + selector + "')); element.scope()." +
-                property_name + " = new Date('" + str(datetime.today().isoformat()) + "')")
+                "var element = angular.element(document." +
+                "querySelector('" + selector + "')); element.scope()." +
+                property_name + " = new Date('" +
+                str(datetime.today().isoformat()) + "')")
         except Exception as e:
             errorMsg = "Failed to select date with datePicker."
             raise Exception(errorMsg, str(e))

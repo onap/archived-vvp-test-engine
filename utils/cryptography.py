@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -43,6 +43,7 @@ from services.logging_service import LoggingServiceFactory
 
 
 logger = LoggingServiceFactory.get_logger()
+
 
 class CryptographyText(object):
 

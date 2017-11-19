@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -73,7 +72,8 @@ class TestDashboardFeature(TestUiBase):
 
     @exception()
     def test_validate_filtering_by_stage_validated(self):
-        query = "UPDATE ice_engagement SET engagement_stage='Validated' WHERE engagement_manual_id ='" + \
+        query = "UPDATE ice_engagement SET engagement_stage='Validated'" \
+                " WHERE engagement_manual_id ='" + \
             str(self.user_content['engagement_manual_id']) + "';"
         DB.General.update_by_query(query)
         Frontend.User.login(

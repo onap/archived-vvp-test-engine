@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -40,6 +40,7 @@ from services.constants import Constants
 from services.database.db_cms import DBCMS
 from services.frontend.base_actions.click import Click
 from services.frontend.base_actions.enter import Enter
+from services.frontend.base_actions.get import Get
 from services.frontend.base_actions.wait import Wait
 from services.frontend.fe_dashboard import FEDashboard
 from services.frontend.fe_general import FEGeneral
@@ -50,10 +51,12 @@ from services.session import session
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class FECms:
 
     @staticmethod
-    def validate_5_last_announcement_displayed(listOfTitleAnDescriptions, user_content, last_title):
+    def validate_5_last_announcement_displayed(
+            listOfTitleAnDescriptions, user_content, last_title):
         last_description = listOfTitleAnDescriptions[
             len(listOfTitleAnDescriptions) - 1][1]
         Wait.text_by_id(Constants.Toast.CMS_ID, last_title + ".")
@@ -65,11 +68,19 @@ class FECms:
         FEUser.logout()
         # Validate Announcement TOAST not displayed
         FEUser.login(user_content['email'], Constants.Default.Password.TEXT)
-        session.run_negative(lambda: Wait.text_by_id(Constants.Cms.Toast_title_id, last_title),
-                             "Last Announcement displayed in News & Announcements sections %s" % last_title)
+        session.run_negative(
+            lambda: Wait.text_by_id(
+                Constants.Cms.Toast_title_id,
+                last_title),
+            "Last Announcement displayed in News & Announcements sections %s" %
+            last_title)
 
     @staticmethod
-    def validate_grandchild_page(parent_title, child_title, grand_child_title, description):
+    def validate_grandchild_page(
+            parent_title,
+            child_title,
+            grand_child_title,
+            description):
         Click.id(Constants.Cms.Documentation)
         Click.id(parent_title)
         Click.id(child_title)
@@ -99,7 +110,10 @@ class FECms:
         FEDashboard.open_documentation(title)
         Wait.text_by_id(title, title)
         logger.debug("Search Documentation by title")
-        Enter.text_by_id(Constants.Cms.SearchDocumentation, title, wait_for_page=True)
+        Enter.text_by_id(
+            Constants.Cms.SearchDocumentation,
+            title,
+            wait_for_page=True)
         Wait.text_by_id(title, title)
         Click.id(title, wait_for_page=True)
         Wait.text_by_id(title, title)
@@ -110,23 +124,33 @@ class FECms:
         FEDashboard.open_documentation(title)
         Wait.text_by_id(title, title)
         logger.debug("Search Documentation by content")
-        Enter.text_by_id(Constants.Cms.SearchDocumentation, content, wait_for_page=True)
+        Enter.text_by_id(
+            Constants.Cms.SearchDocumentation,
+            content,
+            wait_for_page=True)
         Wait.text_by_id(title, title)
         Click.id(title, wait_for_page=True)
         Wait.text_by_css(Constants.Cms.DocumentationPageContent, content)
         logger.debug("Documentation found (searched by content)")
 
     @staticmethod
-    def validate_expired_post_Announcement(title, description):
-        Wait.text_by_id(Constants.Toast.CMS_ID, title + ".")
+    def validate_expired_post_Announcement(email, title, description):
+        title2 = Constants.Toast.TEXT + title + "."
+        Wait.text_by_id(
+            Constants.Toast.CMS_ID,  title2, True)
         FEDashboard.open_announcement()
         Wait.text_by_id(Constants.Cms.Toast_title_id, title)
         Wait.text_by_id(Constants.Cms.Toast_description, description)
         DBCMS.update_X_days_back_post(title, xdays=3)
         Click.id(Constants.Cms.Test_addDT_close_modal_button)
-        FEGeneral.refresh()
-        session.run_negative(lambda: Wait.text_by_id(
-            Constants.Toast.CMS_ID, title + "."), "Announcement toast not disappear after 2 days %s" % title)
+        FEUser.logout()
+        FEUser.login(email, Constants.Default.Password.TEXT)
+        session.run_negative(
+            lambda: Wait.text_by_id(
+                Constants.Toast.CMS_ID,
+                title2),
+            "Announcement toast not disappear after 2 days %s" %
+            title)
 
     @staticmethod
     def validate_page(title, description):
@@ -138,8 +162,8 @@ class FECms:
 
     @staticmethod
     def validate_FAQ(description):
-        Wait.text_by_id(Constants.Cms.Tooltip_title, "Did you know?")
-        Wait.text_by_id(Constants.Cms.Tooltip_description, description)
+        Wait.text_by_id(Constants.Cms.Tooltip_title, "Did you know?", True)
+        Wait.text_by_id(Constants.Cms.Tooltip_description, description, True)
 
     @staticmethod
     def validate_news(title, description):

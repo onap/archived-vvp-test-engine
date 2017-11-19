@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -37,13 +36,11 @@
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 '''
- Created on Sep 19, 2016
- @author: Tomer Cohen
- 
  Purpose: Test SSH Public Key validation, positive and negative.
  Steps:
      - Create user and activate the user account.
-     - Modal window: add VF, add vendor contact, invite team member, add a valid SSH key.
+     - Modal window: add VF, add vendor contact, invite team member,
+      add a valid SSH key.
      - Go to account page.
      - Clear SSH key text-box and add an invalid SSH key.
      - Verify error message.
@@ -73,7 +70,9 @@ class TestSSHKey(TestUiBase):
 
     def setUp(self):
         super(TestSSHKey, self).setUp()
-        Frontend.User.login(self.user_content['email'], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content['email'],
+            Constants.Default.Password.TEXT)
 
     @exception()
     def test_ssh_key_valid(self):

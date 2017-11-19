@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -48,22 +47,31 @@ from services.logging_service import LoggingServiceFactory
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class DBGeneral:
 
     @staticmethod
     # desigredDB: Use 'default' for CI General and 'em_db' for EM General
     # (according to settings.DATABASES).
     def return_db_native_connection(desigredDB):
-        dbConnectionStr = "dbname='" + str(settings.SINGLETONE_DB[desigredDB]['NAME']) + \
+        dbConnectionStr = "dbname='" + str(
+            settings.SINGLETONE_DB[desigredDB]['NAME']) + \
             "' user='" + str(settings.SINGLETONE_DB[desigredDB]['USER']) + \
             "' host='" + str(settings.SINGLETONE_DB[desigredDB]['HOST']) + \
-            "' password='" + str(settings.SINGLETONE_DB[desigredDB]['PASSWORD']) + \
+            "' password='" + str(
+                settings.SINGLETONE_DB[desigredDB]['PASSWORD']) + \
             "' port='" + \
             str(settings.SINGLETONE_DB[desigredDB]['PORT']) + "'"
         return dbConnectionStr
 
     @staticmethod
-    def insert_results(testType, testFeature, testResult, testName, testDuration, notes=" "):
+    def insert_results(
+            testType,
+            testFeature,
+            testResult,
+            testName,
+            testDuration,
+            notes=" "):
         try:
             if settings.DATABASE_TYPE == 'sqlite':
                 dbfile = str(settings.DATABASES['default']['TEST_NAME'])
@@ -80,13 +88,20 @@ class DBGeneral:
             raise Exception(errorMsg)
         try:  # Create INSERT query.
             if settings.DATABASE_TYPE == 'sqlite':
-                query_str = 'INSERT INTO ice_test_results (testType, testFeature, testResult, testName, notes,'\
-                            'create_time, build_id, duration) VALUES (?, ?, ?, ?, ?, ?, ?, ?);'
+                query_str = 'INSERT INTO ice_test_results ' +\
+                    '(testType, testFeature, testResult, testName, notes,'\
+                            'create_time, build_id, duration) VALUES ' +\
+                            '(?, ?, ?, ?, ?, ?, ?, ?);'
             else:
-                query_str = 'INSERT INTO ice_test_results ("testType", "testFeature", "testResult", "testName", notes,'\
-                            'create_time, build_id, duration) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);'
-            cur.execute(query_str, (testType, testFeature, testResult, testName, notes, str(datetime.now()),
-                                    settings.ICE_BUILD_REPORT_NUM, testDuration))
+                query_str = 'INSERT INTO ice_test_results ("testType", ' +\
+                    '"testFeature", "testResult", "testName", notes,'\
+                            'create_time, build_id, duration) VALUES ' +\
+                            '(%s, %s, %s, %s, %s, %s, %s, %s);'
+            cur.execute(query_str, (testType, testFeature, testResult,
+                                    testName, notes,
+                                    str(datetime.now()),
+                                    settings.ICE_BUILD_REPORT_NUM,
+                                    testDuration))
             dbConn.commit()
             logger.debug("Test result in DB - " + testResult)
         except Exception as e:
@@ -123,7 +138,7 @@ class DBGeneral:
             dbConn.close()
             logger.debug("Query result: " + str(result))
             return result
-        except:
+        except BaseException:
             raise Exception("Couldn't fetch answer using the given query.")
 
     @staticmethod
@@ -182,7 +197,7 @@ class DBGeneral:
             logger.debug("Query result: " + str(result))
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "select_where_email FAILED "
             raise Exception(errorMsg, "select_where_email")
             raise
@@ -213,13 +228,19 @@ class DBGeneral:
             raise Exception(errorMsg, "select_from")
 
     @staticmethod
-    def select_where(queryColumnName, queryTableName, whereParametrType, whereParametrValue, fetchNum):
+    def select_where(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            fetchNum):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             cur = dbConn.cursor()
             queryStr = "select %s from %s Where %s = '%s';" % (
-                queryColumnName, queryTableName, whereParametrType, whereParametrValue)
+                queryColumnName, queryTableName, whereParametrType,
+                whereParametrValue)
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             if (fetchNum == 0):
@@ -234,17 +255,24 @@ class DBGeneral:
             logger.debug("Query result: " + str(result))
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "select_where FAILED "
             raise Exception(errorMsg, "select_where")
 
     @staticmethod
-    def select_where_order_by_desc(queryColumnName, queryTableName, whereParametrType, whereParametrValue, order_by):
+    def select_where_order_by_desc(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            order_by):
         dbConn = psycopg2.connect(
             DBGeneral.return_db_native_connection('em_db'))
         cur = dbConn.cursor()
-        queryStr = "select %s from %s Where %s = '%s' order by %s desc limit 1;" \
-                   % (queryColumnName, queryTableName, whereParametrType, whereParametrValue, order_by)
+        queryStr = \
+            "select %s from %s " % (queryColumnName, queryTableName,) +\
+            "Where %s = '%s' " % (whereParametrType, whereParametrValue) +\
+            "order by %s desc limit 1;" % order_by
         logger.debug("Query : " + queryStr)
         cur.execute(queryStr)
         result = str(cur.fetchall())
@@ -274,14 +302,22 @@ class DBGeneral:
         return result
 
     @staticmethod
-    def select_where_not_and_order_by_desc(queryColumnName, queryTableName, whereParametrType,
-                                           whereParametrValue, parametrTypeAnd, parametrAnd, order_by):
+    def select_where_not_and_order_by_desc(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            parametrTypeAnd,
+            parametrAnd,
+            order_by):
         dbConn = psycopg2.connect(
             DBGeneral.return_db_native_connection('em_db'))
         cur = dbConn.cursor()
-        queryStr = "select %s from %s Where %s = '%s' and %s != '%s' order by %s desc limit 1;" \
-                   % (queryColumnName, queryTableName, whereParametrType, whereParametrValue,
-                      parametrTypeAnd, parametrAnd, order_by)
+        queryStr = \
+            "select %s from %s " % (queryColumnName, queryTableName) +\
+            "Where %s = '%s' " % (whereParametrType, whereParametrValue) +\
+            "and %s != '%s' " % (parametrTypeAnd, parametrAnd) +\
+            "order by %s desc limit 1;" % order_by
         logger.debug("Query : " + queryStr)
         cur.execute(queryStr)
         result = str(cur.fetchall())
@@ -290,15 +326,22 @@ class DBGeneral:
         return result
 
     @staticmethod
-    def select_where_and(queryColumnName, queryTableName, whereParametrType, whereParametrValue,
-                         parametrTypeAnd, parametrAnd, fetchNum):
+    def select_where_and(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            parametrTypeAnd,
+            parametrAnd,
+            fetchNum):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
             queryStr = "select %s from %s Where %s = '%s' and %s = '%s';" % (
-                queryColumnName, queryTableName, whereParametrType, whereParametrValue, parametrTypeAnd, parametrAnd)
+                queryColumnName, queryTableName, whereParametrType,
+                whereParametrValue, parametrTypeAnd, parametrAnd)
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             if (fetchNum == 0):
@@ -314,19 +357,27 @@ class DBGeneral:
             logger.debug("Query result: " + str(result))
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "select_where_and FAILED "
             raise Exception(errorMsg, "select_where_and")
 
     @staticmethod
-    def select_where_is_bigger(queryColumnName, queryTableName, whereParametrType, whereParametrValue, parametrTypeAnd, parametrAnd, fetchNum):
+    def select_where_is_bigger(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            parametrTypeAnd,
+            parametrAnd,
+            fetchNum):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
             queryStr = "select %s from %s Where %s = '%s' and %s > %s;" % (
-                queryColumnName, queryTableName, whereParametrType, whereParametrValue, parametrTypeAnd, parametrAnd)
+                queryColumnName, queryTableName, whereParametrType,
+                whereParametrValue, parametrTypeAnd, parametrAnd)
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             if (fetchNum == 0):
@@ -340,19 +391,25 @@ class DBGeneral:
             dbConn.close()
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "select_where_is_bigger FAILED "
             raise Exception(errorMsg, "select_where_is_bigger")
 
     @staticmethod
-    def update_where(queryTableName, setParametrType, setparametrValue, whereParametrType, whereParametrValue):
+    def update_where(
+            queryTableName,
+            setParametrType,
+            setparametrValue,
+            whereParametrType,
+            whereParametrValue):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
             queryStr = "UPDATE %s SET %s  = '%s' Where  %s = '%s';" % (
-                queryTableName, setParametrType, setparametrValue, whereParametrType, whereParametrValue)
+                queryTableName, setParametrType, setparametrValue,
+                whereParametrType, whereParametrValue)
             cur.execute(queryStr)
             dbConn.commit()
             logger.debug("Query : " + queryStr)
@@ -376,25 +433,37 @@ class DBGeneral:
             dbConn.commit()
             dbConn.close()
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "Could not Update User"
             raise Exception(errorMsg, "Update")
 
     @staticmethod
-    def update_where_and(queryTableName, setParametrType, parametrValue, changeToValue, whereParametrType, setParametrType2, setParametrValue2, whereParametrType2, whereParametrValue2):
+    def update_where_and(
+            queryTableName,
+            setParametrType,
+            parametrValue,
+            changeToValue,
+            whereParametrType,
+            setParametrType2,
+            setParametrValue2,
+            whereParametrType2,
+            whereParametrValue2):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
-            queryStr = "UPDATE %s SET %s  = '%s', %s  = '%s' Where  %s = '%s' and %s = '%s';" % (
-                queryTableName, setParametrType, changeToValue, setParametrType2, setParametrValue2, whereParametrType, parametrValue, whereParametrType2, whereParametrValue2)
+            queryStr = "UPDATE %s SET " % queryTableName +\
+                "%s  = '%s', " % (setParametrType, changeToValue) +\
+                "%s  = '%s' Where  " % (setParametrType2, setParametrValue2) +\
+                "%s = '%s' " % (whereParametrType, parametrValue) +\
+                "and %s = '%s';" % (whereParametrType2, whereParametrValue2)
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             dbConn.commit()
             dbConn.close()
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "Could not Update User"
             raise Exception(errorMsg, "Update")
 

@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -38,7 +37,6 @@
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 from iceci.decorator.exception_decor import exception
 from services.constants import Constants
-from services.frontend.base_actions.wait import Wait
 from services.logging_service import LoggingServiceFactory
 from services.types import API, Frontend, DB
 from tests.uiTests.test_ui_base import TestUiBase
@@ -54,11 +52,14 @@ class TestUserProfileSettings(TestUiBase):
     def setUpClass(cls):
         super(TestUserProfileSettings, cls).setUpClass()
 
-        cls.user_content = API.VirtualFunction.create_engagement(wait_for_gitlab=False)
+        cls.user_content = API.VirtualFunction.create_engagement(
+            wait_for_gitlab=False)
 
     def setUp(self):
         super(TestUserProfileSettings, self).setUp()
-        Frontend.User.login(self.user_content['email'], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content['email'],
+            Constants.Default.Password.TEXT)
 
     @exception()
     def test_user_profile_settings_page_exists(self):
@@ -68,8 +69,10 @@ class TestUserProfileSettings(TestUiBase):
     def test_user_profile_checkboxes(self):
         Frontend.User.go_to_user_profile_settings()
         Frontend.User.check_user_profile_settings_checkboxes()
-        DB.User.validate_user_profile_settings_in_db(self.user_content['email'], False)
+        DB.User.validate_user_profile_settings_in_db(
+            self.user_content['email'], False)
         Frontend.General.refresh()
         Frontend.User.validate_user_profile_settings_checkboxes(False)
         Frontend.User.check_user_profile_settings_checkboxes()
-        DB.User.validate_user_profile_settings_in_db(self.user_content['email'], True)
+        DB.User.validate_user_profile_settings_in_db(
+            self.user_content['email'], True)

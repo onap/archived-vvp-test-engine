@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -36,12 +36,8 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-from asyncio.tasks import wait
-
-from selenium.webdriver.support.select import Select
 
 from services.api.api_user import APIUser
-from services.api.api_virtual_function import APIVirtualFunction
 from services.constants import Constants, ServiceProvider
 from services.database.db_general import DBGeneral
 from services.database.db_user import DBUser
@@ -59,6 +55,7 @@ from services.session import session
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class FEInvite:
 
     @staticmethod
@@ -69,14 +66,21 @@ class FEInvite:
         Click.id(vf_left_nav_id)
         FEWizard.invite_team_members_modal(user_content[1]['email'])
     #         self.sleep(1)   # TODO need to wait until modal window is closed.
-        invitation_token = DBUser.select_invitation_token("invitation_token", "ice_invitation", "engagement_uuid",
-                                                          user_content[0]['engagement_uuid'], user_content[1]['email'], 1)
+        invitation_token = DBUser.select_invitation_token(
+            "invitation_token",
+            "ice_invitation",
+            "engagement_uuid",
+            user_content[0]['engagement_uuid'],
+            user_content[1]['email'],
+            1)
         inviterURL = Constants.Default.InviteURL.Login.TEXT + invitation_token
         FEGeneral.re_open(inviterURL)
     #    Login with 2nd user    #
         title_id = "title-id-" + engName
         FEUser.login(
-            user_content[1]['email'], Constants.Default.Password.TEXT, title_id)
+            user_content[1]['email'],
+            Constants.Default.Password.TEXT,
+            title_id)
         Click.id(vf_left_nav_id)
         actualVfName = Get.by_id(vf_left_nav_id)
         Helper.internal_assert(engName, actualVfName)
@@ -103,17 +107,23 @@ class FEInvite:
         Click.id(vf_left_nav_id)
         Click.id(Constants.Dashboard.Overview.TeamMember.ID)
         Wait.text_by_css(Constants.Dashboard.Wizard.Title.CSS,
-                         Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
+                         Constants.Dashboard.Wizard.InviteTeamMembers.
+                         Title.TEXT)
         Enter.text_by_name("email", user_content[1]['email'])
-        Wait.text_by_css(Constants.SubmitButton.CSS,
-                         Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
+        Wait.text_by_css(
+            Constants.SubmitButton.CSS,
+            Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
         Click.css(Constants.SubmitButton.CSS)
         Wait.id(Constants.Toast.ID)
         Helper.internal_assert(
             Get.by_id(Constants.Toast.ID), "Invite couldn't be created")
 
     @staticmethod
-    def invite_x_users_from_tm(list_of_invite_emails, countofUser, countOfem, num):
+    def invite_x_users_from_tm(
+            list_of_invite_emails,
+            countofUser,
+            countOfem,
+            num):
         Enter.text_by_name(
             "email", list_of_invite_emails[countofUser], wait_for_page=True)
         for _ in range(num):
@@ -121,13 +131,14 @@ class FEInvite:
                 session.run_negative(
                     lambda: Click.css("span.add-icon"), "css appears")
                 break
-            except:  # button exists
+            except BaseException:  # button exists
                 pass
             countofUser += 1
 #             Click.css("span.add-icon")
             Wait.xpath("//fieldset[" + str(countOfem) + "]/div/input")
             Enter.text_by_xpath(
-                "//fieldset[" + str(countOfem) + "]/div/input", list_of_invite_emails[countofUser])
+                "//fieldset[" + str(countOfem) + "]/div/input",
+                list_of_invite_emails[countofUser])
             countOfem += 1
         Click.css(Constants.SubmitButton.CSS, wait_for_page=True)
 
@@ -160,11 +171,23 @@ class FEInvite:
         sponsor = [ServiceProvider.MainServiceProvider, 'aaaaaa', inviteEmail,
                    '3058000000']
         invitation_token = DBUser.select_invitation_token(
-            "invitation_token", "ice_invitation", "engagement_uuid", engagement_id, inviteEmail, 1)
+            "invitation_token",
+            "ice_invitation",
+            "engagement_uuid",
+            engagement_id,
+            inviteEmail,
+            1)
         signUpURLforContact = DBUser.get_contact_signup_url(
-            invitation_token, uuid, sponsor[2], sponsor[1], sponsor[3], sponsor[0])
+            invitation_token, uuid, sponsor[2], sponsor[1],
+            sponsor[3], sponsor[0])
         APIUser.signup_invited_user(
-            sponsor[0], inviteEmail, invitation_token, signUpURLforContact, user_content, True, wait_for_gitlab=False)
+            sponsor[0],
+            inviteEmail,
+            invitation_token,
+            signUpURLforContact,
+            user_content,
+            True,
+            wait_for_gitlab=False)
         activationUrl2 = DBUser.get_activation_url(sponsor[2])
         FEGeneral.re_open(activationUrl2)  # Login with 2nd user    #
         engName = engagement_manual_id + ": " + vflist[0]
@@ -175,22 +198,24 @@ class FEInvite:
             engagement_id = DBGeneral.select_where(
                 "engagement_id", "ice_vf", "name", vfName, 1)
             engagement_manual_id = DBGeneral.select_where(
-                "engagement_manual_id", "ice_engagement", "uuid", engagement_id, 1)
+                "engagement_manual_id", "ice_engagement", "uuid",
+                engagement_id, 1)
             engName = engagement_manual_id + ": " + vfName
             vf_left_nav_id = "clickable-" + engName
             Click.id(vf_left_nav_id, wait_for_page=True)
 
     @staticmethod
     def invite_x_users_and_verify_VF_appers_for_invited(user_content, engName):
-        inviteEmail = Helper.rand_string('randomString') + "@" \
-                      + ServiceProvider.email
+        inviteEmail = Helper.rand_string(
+            'randomString') + "@" + ServiceProvider.email
         vflist = FEInvite.create_x_vfs(user_content, engName, x=3)
         for vfName in vflist:
             # Fetch one AT&T user ID.
             engagement_id = DBGeneral.select_where(
                 "engagement_id", "ice_vf", "name", vfName, 1)
             engagement_manual_id = DBGeneral.select_where(
-                "engagement_manual_id", "ice_engagement", "uuid", engagement_id, 1)
+                "engagement_manual_id", "ice_engagement", "uuid",
+                engagement_id, 1)
             engName = engagement_manual_id + ": " + vfName
             vf_left_nav_id = "clickable-" + engName
             Click.id(vf_left_nav_id)

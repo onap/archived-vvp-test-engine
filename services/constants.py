@@ -40,9 +40,9 @@ from django.conf import settings
 
 
 class ServiceProvider:
-    PROGRAM_NAME = "VVP"
-    MainServiceProvider = "ServiceProvider"
-    email = "example-domain.com"
+    PROGRAM_NAME = settings.PROGRAM_NAME
+    MainServiceProvider = settings.SERVICE_PROVIDER
+    email = settings.SERVICE_PROVIDER_DOMAIN
 
 
 class Constants:
@@ -134,6 +134,7 @@ class Constants:
         ID = "toast-successfully-message"
         CMS_ID = "announcement-successfully-message"
         CSS = "html.ng-scope"
+        TEXT = "Important announcement: "
 
     class Cms:
         Toast_title_id = "toast-title-id"
@@ -258,7 +259,8 @@ class Constants:
                 TEXT = "Please fill CAPTCHA!"
 
             class NotMainVendor:
-                TEXT = "Email address should be with service provider domain for signees that their company =" \
+                TEXT = "Email address should be with service provider " +\
+                    "domain for signees that their company =" \
                        + ServiceProvider.MainServiceProvider
 
         class HaveAccount:
@@ -273,7 +275,8 @@ class Constants:
 
         class SubTitle:
             CSS = "h2.ng-binding"
-            TEXT = "Please follow the instructions below to activate your account."
+            TEXT = "Please follow the instructions below to " +\
+                "activate your account."
 
         class Toast:
             TEXT = "Please activate your account first"
@@ -283,7 +286,8 @@ class Constants:
         class Toast:
 
             class Success:
-                TEXT = "An email with detailed instructions on how to reset your password was sent to your Email."
+                TEXT = "An email with detailed instructions on how " +\
+                    "to reset your password was sent to your Email."
 
         class Title:
             CSS = "h1.ng-binding"
@@ -291,7 +295,8 @@ class Constants:
 
         class SubTitle:
             CSS = "h2.ng-binding"
-            TEXT = "Please follow the instructions below to reset your password"
+            TEXT = "Please follow the instructions below to reset " +\
+                "your password"
 
         class Button:
             TEXT = "Send Instructions"
@@ -307,7 +312,8 @@ class Constants:
 
         class SubTitle:
             CSS = "h2.ng-binding"
-            TEXT = "Please follow the instructions below to update your password"
+            TEXT = "Please follow the instructions below to" +\
+                " update your password"
 
         class Password:
             NAME = "password"
@@ -490,7 +496,6 @@ class Constants:
                     NAME = "ssh_key"
 
                     class UpdateFailed:
-                        #                         TEXT = "Something went wrong while trying to update user account"
                         TEXT = "Updating SSH Key failed due to invalid key."
 
                 class Update:
@@ -584,7 +589,8 @@ class Constants:
                     TEXT = "Statistics"
 
                 class FilterDropdown:
-                    CSS = "#statistics-header > .search-filters > .search-filter-stage"
+                    CSS = "#statistics-header > .search-filters" +\
+                        " > .search-filter-stage"
 
                 class ValidationsNumber:
                     ID = "id-validations-num"
@@ -751,7 +757,8 @@ class Constants:
                         TEXT = "Remove user from engagement team: %s"
 
                     class Message:
-                        TEXT = "Are you sure you would like to remove the user out of the team members?"
+                        TEXT = "Are you sure you would like to remove " +\
+                            "the user out of the team members?"
 
             class NextSteps:
 

@@ -1,4 +1,3 @@
-
 # ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
@@ -63,7 +62,8 @@ class TestLeftNavPanel(TestUiBase):
         cls.user_content = API.VirtualFunction.create_engagement(
             wait_for_gitlab=False)
         cls.eng_title = "%s: %s" % (
-            cls.user_content['engagement_manual_id'], cls.user_content['vfName'])
+            cls.user_content['engagement_manual_id'],
+            cls.user_content['vfName'])
         cls.left_panel_eng_id = "clickable-%s" % (cls.eng_title)
 
     def setUp(self):
@@ -78,7 +78,11 @@ class TestLeftNavPanel(TestUiBase):
         Click.id(self.left_panel_eng_id)
         Wait.id("title-id-" + self.eng_title)
         Helper.internal_assert(
-            self.user_content['engagement_manual_id'] + ":", Get.by_id("title-id-" + self.eng_title))
+            self.user_content['engagement_manual_id'] +
+            ":",
+            Get.by_id(
+                "title-id-" +
+                self.eng_title))
         Click.id(Constants.Dashboard.Overview.Star.ID, wait_for_page=True)
         Wait.id("title-id-" + self.eng_title)
         Click.id(Constants.Dashboard.Overview.Star.ID, wait_for_page=True)
@@ -86,11 +90,15 @@ class TestLeftNavPanel(TestUiBase):
         Helper.internal_assert(
             self.eng_title, Get.by_id(self.left_panel_eng_id))
         Enter.text_by_xpath(
-            "//input[@type='text']", self.user_content['engagement_manual_id'], wait_for_page=True)
+            "//input[@type='text']",
+            self.user_content['engagement_manual_id'],
+            wait_for_page=True)
         Wait.text_by_css(
-            Constants.Dashboard.LeftPanel.SearchBox.Results.CSS, self.eng_title)
+            Constants.Dashboard.LeftPanel.SearchBox.Results.CSS,
+            self.eng_title)
         Click.css(
-            Constants.Dashboard.LeftPanel.SearchBox.Results.CSS, wait_for_page=True)
+            Constants.Dashboard.LeftPanel.SearchBox.Results.CSS,
+            wait_for_page=True)
 
     @exception()
     def test_search_bar(self):
@@ -99,25 +107,28 @@ class TestLeftNavPanel(TestUiBase):
             'engagement_manual_id'] + ": " + self.user_content['vfName']
         try:
             Enter.text_by_id(
-                Constants.Dashboard.LeftPanel.SearchBox.ID, self.user_content['vfName'])
+                Constants.Dashboard.LeftPanel.SearchBox.ID,
+                self.user_content['vfName'])
             Wait.css(Constants.Dashboard.LeftPanel.SearchBox.Results.CSS)
             Click.css(Constants.Dashboard.LeftPanel.SearchBox.Results.CSS)
             Wait.text_by_id(
                 Constants.Dashboard.Overview.Title.ID, vfFullName)
-        except:
+        except BaseException:
             errorMsg = "Failed to search by VF name."
             raise Exception(errorMsg)
 
         try:
-            Enter.text_by_id(Constants.Dashboard.LeftPanel.SearchBox.ID, self.user_content[
-                             'engagement_manual_id'])
-            Enter.text_by_id(Constants.Dashboard.LeftPanel.SearchBox.ID, self.user_content[
-                             'engagement_manual_id'])
+            Enter.text_by_id(
+                Constants.Dashboard.LeftPanel.SearchBox.ID,
+                self.user_content['engagement_manual_id'])
+            Enter.text_by_id(
+                Constants.Dashboard.LeftPanel.SearchBox.ID,
+                self.user_content['engagement_manual_id'])
             Wait.css(Constants.Dashboard.LeftPanel.SearchBox.Results.CSS)
             Click.css(Constants.Dashboard.LeftPanel.SearchBox.Results.CSS)
             Wait.text_by_id(
                 Constants.Dashboard.Overview.Title.ID, vfFullName)
-        except:
+        except BaseException:
             errorMsg = "Failed to search by Engagement Manual ID."
             raise Exception(errorMsg)
         Frontend.Overview.click_on_vf(self.user_content)
@@ -130,13 +141,17 @@ class TestLeftNavPanel(TestUiBase):
         extRefID = Helper.rand_string("randomNumber")
         Enter.text_by_name("name", vfcName)
         Enter.text_by_name("extRefID", extRefID, wait_for_page=True)
-        Select(session.ice_driver.find_element_by_id(Constants.Dashboard.DetailedView.VFC.Choose_Company.ID)).select_by_visible_text(
-            self.user_content['vendor'])
+        Select(session.ice_driver.find_element_by_id(
+            Constants.Dashboard.DetailedView.VFC.Choose_Company.ID)).\
+            select_by_visible_text(self.user_content['vendor'])
         Click.id(
-            Constants.Dashboard.DetailedView.VFC.Save_button.ID, wait_for_page=True)
+            Constants.Dashboard.DetailedView.VFC.Save_button.ID,
+            wait_for_page=True)
         try:
             Enter.text_by_id(
-                Constants.Dashboard.LeftPanel.SearchBox.ID, vfcName, wait_for_page=True)
+                Constants.Dashboard.LeftPanel.SearchBox.ID,
+                vfcName,
+                wait_for_page=True)
             Click.id(
                 "search-" + self.user_content['vfName'], wait_for_page=True)
             Wait.id("clickable-" + vfFullName, wait_for_page=True)
@@ -150,7 +165,7 @@ class TestLeftNavPanel(TestUiBase):
         myVfName = self.user_content[
             'engagement_manual_id'] + ": " + self.user_content['vfName']
         actualVfNameid = "clickable-" + myVfName
-        actualVfName = Get.by_id(actualVfNameid, True)
+        actualVfName = Get.by_id(actualVfNameid)
         Helper.internal_assert(myVfName, actualVfName)
         Click.id(actualVfNameid)
         uuid = DB.General.select_where_email(
@@ -175,9 +190,10 @@ class TestLeftNavPanel(TestUiBase):
         Wait.text_by_id(self.left_panel_eng_id, self.eng_title)
         DB.VirtualFunction.remove_engagement_from_recent(
             self.user_content['vf_uuid'])
-        Frontend.General.refresh()
+        Frontend.General.refresh() 
         Frontend.Dashboard.statuses_search_vf(
-            self.user_content['engagement_manual_id'], self.user_content['vfName'])
+            self.user_content['engagement_manual_id'],
+            self.user_content['vfName'])
         Wait.text_by_id(self.left_panel_eng_id, self.eng_title)
 
     @exception()
@@ -187,7 +203,9 @@ class TestLeftNavPanel(TestUiBase):
         Frontend.User.relogin(
             user_content['email'], Constants.Default.Password.TEXT)
         Frontend.Dashboard.search_in_left_searchbox_by_param(
-            user_content['engagement_manual_id'], user_content['vfName'], user_content['email'])
+            user_content['engagement_manual_id'],
+            user_content['vfName'],
+            user_content['email'])
 
     @exception()
     def test_search_by_username(self):
@@ -196,4 +214,6 @@ class TestLeftNavPanel(TestUiBase):
         Frontend.User.relogin(
             user_content['email'], Constants.Default.Password.TEXT)
         Frontend.Dashboard.search_in_left_searchbox_by_param(
-            user_content['engagement_manual_id'], user_content['vfName'], user_content['full_name'])
+            user_content['engagement_manual_id'],
+            user_content['vfName'],
+            user_content['full_name'])

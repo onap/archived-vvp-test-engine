@@ -53,7 +53,9 @@ from services.frontend.fe_user import FEUser
 from services.frontend.fe_wizard import FEWizard
 from services.helper import Helper
 from services.logging_service import LoggingServiceFactory
-from tests.uiTests.test_ui_base import *
+from services.database.db_general import DBGeneral
+from services.constants import Constants
+from services.session import session
 
 
 logger = LoggingServiceFactory.get_logger()
@@ -86,8 +88,9 @@ class FEChecklist:
             engagement_id = DBVirtualFunction.select_eng_uuid(vfName)
             engLeadEmail = DBUser.select_el_email(vfName)
             logger.debug("EL email: " + engLeadEmail)
-            engagement_manual_id = DBGeneral.select_where("engagement_manual_id", "ice_engagement", "uuid",
-                                                          engagement_id, 1)
+            engagement_manual_id = DBGeneral.select_where(
+                "engagement_manual_id", "ice_engagement", "uuid",
+                engagement_id, 1)
             #    Click on all default next steps
             myVfName = engagement_manual_id + ": " + vfName
             actualVfNameid = "clickable-" + myVfName
@@ -117,8 +120,13 @@ class FEChecklist:
                 engagement_id, vfName, actualVfName, engagement_manual_id)
             checklistUuid = DBGeneral.select_where(
                 "uuid", "ice_checklist", "name", checklistName, 1)
-            newObjWithChecklist = [checklistUuid, engLeadEmail, engagement_manual_id, actualVfNameid, myVfName,
-                                   checklistName]
+            newObjWithChecklist = [
+                checklistUuid,
+                engLeadEmail,
+                engagement_manual_id,
+                actualVfNameid,
+                myVfName,
+                checklistName]
             return newObjWithChecklist
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
@@ -126,7 +134,11 @@ class FEChecklist:
             raise Exception(errorMsg, "create_new_checklist")
 
     @staticmethod
-    def create_checklist(engagement_id, vfName, actualVfName, engagement_manual_id):
+    def create_checklist(
+            engagement_id,
+            vfName,
+            actualVfName,
+            engagement_manual_id):
         try:
             checklistName = Helper.rand_string("randomString")
             Wait.id("checklist-plus-" + engagement_id, wait_for_page=True)
@@ -140,12 +152,18 @@ class FEChecklist:
                 "checkListName", checklistName, wait_for_page=True)
             Wait.xpath("//select")
 
-            Select(session.ice_driver.find_element_by_id(Constants.Template.Subtitle.SelectTemplateTitle.TEXT)
-                   ).select_by_visible_text(Constants.Template.Heat.TEXT)
+            Select(
+                session.ice_driver.find_element_by_id(
+                    Constants.Template.Subtitle.SelectTemplateTitle.TEXT
+                )).select_by_visible_text(
+                Constants.Template.Heat.TEXT)
             Click.id(Constants.Template.Heat.TEXT, wait_for_page=True)
 #             Click.css("option.ng-binding.ng-scope")
             Helper.internal_assert(
-                "Associate Files", Get.by_id("associated-files-title", wait_for_page=True))
+                "Associate Files",
+                Get.by_id(
+                    "associated-files-title",
+                    wait_for_page=True))
             Click.xpath("//multiselect/div/button", wait_for_page=True)
             Click.link_text("file0", wait_for_page=True)
             Click.link_text("file1")
@@ -202,7 +220,7 @@ class FEChecklist:
         Click.xpath("(//button[@type='button'])[11]")
         try:
             Click.xpath("//div[3]/multiselect/div/ul/li/a")
-        except:
+        except BaseException:
             Click.link_text("Homer Simpson")
         Click.css("div.modal-content")
         count = 0
@@ -219,7 +237,8 @@ class FEChecklist:
         Click.css("div.modal-content")
         Click.xpath("(//button[@type='button'])[23]")
         Click.css(
-            "div.btn-group.open > ul.dropdown-menu > li.ng-scope > a.ng-binding")
+            "div.btn-group.open > ul.dropdown-menu > " +
+            "li.ng-scope > a.ng-binding")
         Click.link_text("Add Another Next Step")
         Click.xpath("(//button[@type='button'])[25]")
         FEWizard.date_picker_add_ns(count)
@@ -243,7 +262,7 @@ class FEChecklist:
         Click.xpath("(//button[@type='button'])[11]")
         try:
             Click.xpath("//div[3]/multiselect/div/ul/li/a")
-        except:
+        except BaseException:
             Wait.link_text("Homer Simpson")
             Click.link_text("Homer Simpson")
         Wait.css("div.modal-content")
@@ -263,7 +282,8 @@ class FEChecklist:
         Click.css("div.modal-content")
         Click.xpath("(//button[@type='button'])[23]")
         Click.css(
-            "div.btn-group.open > ul.dropdown-menu > li.ng-scope > a.ng-binding")
+            "div.btn-group.open > ul.dropdown-menu > " +
+            "li.ng-scope > a.ng-binding")
         Click.link_text("Add Another Next Step")
         Wait.xpath("(//button[@type='button'])[25]")
         Click.xpath("(//button[@type='button'])[25]")
@@ -273,7 +293,6 @@ class FEChecklist:
         Click.xpath("//div[4]/div/span")
         Wait.id("btn-submit")
         Wait.text_by_id("btn-submit", "Submit Next Steps")
-#         Helper.internal_assert("Submit Next Steps", Get.by_id("btn-submit"))
         Click.id("btn-submit")
 
     @staticmethod
@@ -294,38 +313,42 @@ class FEChecklist:
                     Helper.internal_assert(
                         "Numeric parameters", Get.by_xpath("//li[3]/span[2]"))
                     if settings.DATABASE_TYPE == 'local':
-                        Helper.internal_assert("Section 2: External References",
-                                               Get.by_xpath("//li[2]/h2"))
-                    # //li[2]/ul/li/span[2]   #//ul[@id='line-item-list']/li[2]/ul/li/span[2]
+                        Helper.internal_assert(
+                            "Section 2: External References",
+                            Get.by_xpath("//li[2]/h2"))
                     Helper.internal_assert(
-                        "Normal references", Get.by_xpath("//li[2]/ul/li/span[2]"))
+                        "Normal references",
+                        Get.by_xpath("//li[2]/ul/li/span[2]"))
                     Helper.internal_assert(
                         "VF image", Get.by_xpath("//li[2]/ul/li[2]/span[2]"))
-            except:
+            except BaseException:
                 if settings.DATABASE_TYPE == 'local':
                     Wait.text_by_css(
                         "h2.ng-binding", "Section 1: External References")
                     try:
                         Helper.internal_assert(
-                            "Normal references", Get.by_css("span.col-md-9.ng-binding"))
-                    except:
+                            "Normal references", Get.by_css(
+                                "span.col-md-9.ng-binding"))
+                    except BaseException:
                         if "VF image" in Get.by_xpath("//li[2]/span[2]"):
                             logger.debug("All Ok")
                     if settings.DATABASE_TYPE == 'local':
                         Helper.internal_assert(
-                            "Section 2: Parameter Specification", Get.by_xpath("//li[2]/h2"))
+                            "Section 2: Parameter Specification",
+                            Get.by_xpath("//li[2]/h2"))
             try:
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
                         "1.1 - Parameters", Get.by_xpath("//header/h2"))
-            except:
+            except BaseException:
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
                         "1.1 - Normal References", Get.by_xpath("//header/h2"))
             if settings.DATABASE_TYPE == 'local':
                 elementTxt = Get.by_id("line-item-description")
                 Helper.internal_assert(
-                    "Numeric parameters should include range and/or allowed values.", elementTxt)
+                    "Numeric parameters should include " +
+                    "range and/or allowed values.", elementTxt)
             Helper.internal_assert("Audit Logs", Get.by_css("h3.col-md-12"))
             localLogText = "local log"
             Enter.text_by_id("new-audit-log-text", localLogText)
@@ -333,63 +356,72 @@ class FEChecklist:
                 "Add Log Entry", Get.by_id("submit-new-audit-lop-text"))
             Click.id("submit-new-audit-lop-text")
             vfName = newObj[0]
-            engLeadFullName = DBUser.get_el_name(vfName)
+            DBUser.get_el_name(vfName)
             Helper.internal_assert(localLogText, Get.by_css(
                 Constants.Dashboard.Checklist.AuditLog.LastLocalAuditLog.CSS))
             try:
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
                         "Parameters", Get.by_xpath("//li[2]/ul/li/span[2]"))
-            except:
+            except BaseException:
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Numeric parameters", Get.by_xpath("//li[2]/ul/li/span[2]"))
+                        "Numeric parameters",
+                        Get.by_xpath("//li[2]/ul/li/span[2]"))
 
-# if Wait.css(Constants.Dashboard.Checklist.LineItem.Deny.CSS) or
-# Wait.css(Constants.Dashboard.Checklist.LineItem.Approve.CSS):
-            session.run_negative(lambda: Wait.css(Constants.Dashboard.Checklist.LineItem.Deny.CSS) or Wait.css(
-                Constants.Dashboard.Checklist.LineItem.Approve.CSS), "Buttons displayed for Admin it's NOT work")
-#                 logger.debug("Buttons displayed for Admin it's NOT work")
-#             else:
-#                 print("Buttons not displayed for Admin it's work")
+            session.run_negative(
+                lambda: Wait.css(
+                    Constants.Dashboard.Checklist.LineItem.Deny.CSS
+                ) or Wait.css(
+                    Constants.Dashboard.Checklist.LineItem.Approve.CSS),
+                "Buttons displayed for Admin it's NOT work")
             if state == "APPROVAL":
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Audit Log (6)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (6)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
                 else:
                     Helper.internal_assert(
-                        "Audit Log (7)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (7)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
             if state == "HANDOFF":
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Audit Log (8)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (8)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
                 else:
                     Helper.internal_assert(
-                        "Audit Log (9)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (9)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
             Click.id(Constants.Dashboard.Checklist.AuditLog.ID)
             Wait.text_by_xpath("//span[2]", checklistName)
-            engLeadFullName = DBUser.select_el_email(vfName)
+            DBUser.select_el_email(vfName)
             Enter.text_by_xpath("//textarea", "zdfgsdyh")
             Click.css(Constants.SubmitButton.CSS)
             Wait.modal_to_dissappear()
             if state == "APPROVAL":
                 if settings.DATABASE_TYPE == 'local':
                     Wait.text_by_id(
-                        Constants.Dashboard.Checklist.AuditLog.ID, "Audit Log (7)")
+                        Constants.Dashboard.Checklist.AuditLog.ID,
+                        "Audit Log (7)")
                 else:
                     Wait.text_by_id(
-                        Constants.Dashboard.Checklist.AuditLog.ID, "Audit Log (8)")
+                        Constants.Dashboard.Checklist.AuditLog.ID,
+                        "Audit Log (8)")
             if state == "HANDOFF":
                 if settings.DATABASE_TYPE == 'local':
                     Wait.text_by_id(
-                        Constants.Dashboard.Checklist.AuditLog.ID, "Audit Log (9)")
+                        Constants.Dashboard.Checklist.AuditLog.ID,
+                        "Audit Log (9)")
                 else:
                     Wait.text_by_id(
-                        Constants.Dashboard.Checklist.AuditLog.ID, "Audit Log (10)")
+                        Constants.Dashboard.Checklist.AuditLog.ID,
+                        "Audit Log (10)")
             if state == "APPROVAL":
                 Wait.text_by_xpath("//button[3]", "Add Next Steps")
-                Wait.text_by_id(Constants.Dashboard.Checklist.Reject.ID,
-                                Constants.Dashboard.Checklist.Reject.Modal.Button.TEXT)
+                Wait.text_by_id(
+                    Constants.Dashboard.Checklist.Reject.ID,
+                    Constants.Dashboard.Checklist.Reject.Modal.Button.TEXT)
                 Wait.text_by_xpath(
                     "//div[@id='state-actions']/button", "Approve")
             if state == "HANDOFF":
@@ -399,9 +431,10 @@ class FEChecklist:
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             logger.error(
-                state + " state  FAILED CONNECT TO STAGING MANUAL AND VERIFY WHY! ")
-            errorMsg = "approval_state_actions_and_validations FAILED  because : " + \
-                str(e)
+                state +
+                " state  FAILED CONNECT TO STAGING MANUAL AND VERIFY WHY! ")
+            errorMsg = "approval_state_actions_and_validations " +\
+                "FAILED  because : " + str(e)
             raise Exception(errorMsg, "approval_state_actions_and_validations")
 
     @staticmethod
@@ -414,7 +447,8 @@ class FEChecklist:
             try:
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Section 1: Parameter Specification", Get.by_css("h2.ng-binding"))
+                        "Section 1: Parameter Specification",
+                        Get.by_css("h2.ng-binding"))
                     Helper.internal_assert(
                         "Parameters", Get.by_css("span.col-md-9.ng-binding"))
                     Helper.internal_assert(
@@ -423,33 +457,38 @@ class FEChecklist:
                         "Numeric parameters", Get.by_xpath("//li[3]/span[2]"))
                     if settings.DATABASE_TYPE == 'local':
                         Helper.internal_assert(
-                            "Section 2: External References", Get.by_xpath("//li[2]/h2"))
+                            "Section 2: External References",
+                            Get.by_xpath("//li[2]/h2"))
                     Helper.internal_assert(
                         "Normal references", Get.by_name("Normal references"))
                     Helper.internal_assert(
                         "VF image", Get.by_name("Normal references"))
-            except:
+            except BaseException:
                 try:
                     Helper.internal_assert(
-                        "Section 1: External References", Get.by_css("h2.ng-binding"))
-                except:
+                        "Section 1: External References",
+                        Get.by_css("h2.ng-binding"))
+                except BaseException:
                     Helper.internal_assert(
-                        "Section 1: Scaling Considerations", Get.by_css("h2.ng-binding"))
+                        "Section 1: Scaling Considerations",
+                        Get.by_css("h2.ng-binding"))
                 try:
                     Helper.internal_assert(
-                        "Normal references", Get.by_css("span.col-md-9.ng-binding"))
-                except:
+                        "Normal references",
+                        Get.by_css("span.col-md-9.ng-binding"))
+                except BaseException:
                     if "VF image" in Get.by_xpath("//li[2]/span[2]"):
                         logger.debug("All Ok")
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Section 2: Parameter Specification", Get.by_xpath("//li[2]/h2"))
+                        "Section 2: Parameter Specification",
+                        Get.by_xpath("//li[2]/h2"))
                 Click.name("VF image")
                 Click.name("Normal references")
                 try:
                     Helper.internal_assert(
                         "1.1 - Parameters", Get.by_xpath("//header/h2"))
-                except:
+                except BaseException:
                     text = Get.by_name("Normal references")
                     Helper.internal_assert("Normal references", text)
             Helper.internal_assert("Audit Logs", Get.by_css("h3.col-md-12"))
@@ -461,16 +500,18 @@ class FEChecklist:
             #    Validate Local AuditLog
             engLeadFullName = DBUser.get_el_name(vfName)
             Helper.internal_assert(
-                engLeadFullName, Get.by_xpath("//ul[@id='audit-log-list']/li/h4"))
+                engLeadFullName,
+                Get.by_xpath("//ul[@id='audit-log-list']/li/h4"))
             Helper.internal_assert(localLogText, Get.by_css(
                 Constants.Dashboard.Checklist.AuditLog.LastLocalAuditLog.CSS))
             if settings.DATABASE_TYPE == 'local':
                 try:
                     Helper.internal_assert(
                         "Parameters", Get.by_xpath("//li[2]/ul/li/span[2]"))
-                except:
+                except BaseException:
                     Helper.internal_assert(
-                        "Numeric parameters", Get.by_xpath("//li[2]/ul/li/span[2]"))
+                        "Numeric parameters",
+                        Get.by_xpath("//li[2]/ul/li/span[2]"))
                 Click.name("Normal references")
                 Wait.css(Constants.Dashboard.Checklist.LineItem.Deny.CSS)
                 Wait.css(Constants.Dashboard.Checklist.LineItem.Approve.CSS)
@@ -486,31 +527,37 @@ class FEChecklist:
             print("click on V button approve of decision in state = " + state)
             try:
                 Wait.css("li.not-relevant-btn")
-            except:
+            except BaseException:
                 Wait.xpath("//aside/header/ul/li")
             if state == "review":
                 Wait.id("edit-checklist")
             if state == "PEER":
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Audit Log (4)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (4)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
                 else:
                     Helper.internal_assert(
-                        "Audit Log (5)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (5)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
             if state == "review":
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Audit Log (2)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (2)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
                 else:
                     Helper.internal_assert(
-                        "Audit Log (3)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (3)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
             if state == "APPROVAL":
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Audit Log (8)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (8)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
                 else:
                     Helper.internal_assert(
-                        "Audit Log (9)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (9)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
             Click.id(
                 Constants.Dashboard.Checklist.AuditLog.ID, wait_for_page=True)
             Wait.text_by_xpath("//span[2]", checklistName)
@@ -520,32 +567,39 @@ class FEChecklist:
             if state == "review":
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Audit Log (3)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (3)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
                 else:
                     Helper.internal_assert(
-                        "Audit Log (4)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (4)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
             if state == "PEER":
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Audit Log (5)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (5)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
                 else:
                     Helper.internal_assert(
-                        "Audit Log (6)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (6)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
             if state == "APPROVAL":
                 if settings.DATABASE_TYPE == 'local':
                     Helper.internal_assert(
-                        "Audit Log (9)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (9)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
                 else:
                     Helper.internal_assert(
-                        "Audit Log (10)", Get.by_id(Constants.Dashboard.Checklist.AuditLog.ID))
+                        "Audit Log (10)", Get.by_id(
+                            Constants.Dashboard.Checklist.AuditLog.ID))
             #    Validate Buttons
             if settings.DATABASE_TYPE != 'local':
                 FEGeneral.refresh()
                 engagement_id = DBVirtualFunction.select_eng_uuid(vfName)
                 engLeadEmail = DBUser.select_el_email(vfName)
                 logger.debug("EL email: " + engLeadEmail)
-                engagement_manual_id = DBGeneral.select_where("engagement_manual_id", "ice_engagement",
-                                                              "uuid", engagement_id, 1)
+                engagement_manual_id = DBGeneral.select_where(
+                    "engagement_manual_id", "ice_engagement", "uuid",
+                    engagement_id, 1)
                 #    Click on all default next steps
                 myVfName = engagement_manual_id + ": " + vfName
                 actualVfNameid = "clickable-" + myVfName
@@ -553,18 +607,21 @@ class FEChecklist:
                 Click.id("checklist-" + checklistUuid)
             Helper.internal_assert(
                 "Add Next Steps", Get.by_xpath("//button[3]"))
-            Wait.text_by_id(Constants.Dashboard.Checklist.Reject.ID,
-                            Constants.Dashboard.Checklist.Reject.Modal.Button.TEXT, wait_for_page=True)
+            Wait.text_by_id(
+                Constants.Dashboard.Checklist.Reject.ID,
+                Constants.Dashboard.Checklist.Reject.Modal.Button.TEXT,
+                wait_for_page=True)
             Helper.internal_assert(
                 "Approve", Get.by_xpath("//div[@id='state-actions']/button"))
             logger.debug("ALL VALIDATION PASS FOR STATE: " + state)
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
-            errorMsg = "review_state_actions_and_validations FAILED because: " + \
-                str(e)
+            errorMsg = "review_state_actions_and_validations " +\
+                "FAILED because: " + str(e)
             raise Exception(errorMsg, "review_state_actions_and_validations")
             logger.error(
-                state + " state FAILED CONNECT TO STAGING MANUAL AND VERIFY WHY!")
+                state +
+                " state FAILED CONNECT TO STAGING MANUAL AND VERIFY WHY!")
             raise
 
     @staticmethod
@@ -574,9 +631,12 @@ class FEChecklist:
                 Constants.Dashboard.Checklist.Reject.ID, wait_for_page=True)
             if rejectMsg:
                 Enter.text_by_name(
-                    Constants.Dashboard.Checklist.Reject.Modal.Comment.NAME, rejectMsg, wait_for_page=True)
+                    Constants.Dashboard.Checklist.Reject.Modal.Comment.NAME,
+                    rejectMsg,
+                    wait_for_page=True)
             Click.id(
-                Constants.Dashboard.Checklist.Reject.Modal.Button.ID, wait_for_page=True)
+                Constants.Dashboard.Checklist.Reject.Modal.Button.ID,
+                wait_for_page=True)
         except Exception as e:
             errorMsg = "Failed to reject checklist."
             raise Exception(errorMsg, e)
@@ -588,7 +648,9 @@ class FEChecklist:
             Enter.text_by_id("new-audit-log-text", log_txt, wait_for_page=True)
             Click.id("submit-new-audit-lop-text")
             Wait.text_by_css(
-                Constants.Dashboard.Checklist.AuditLog.LastLocalAuditLog.CSS, log_txt, wait_for_page=True)
+                Constants.Dashboard.Checklist.AuditLog.LastLocalAuditLog.CSS,
+                log_txt,
+                wait_for_page=True)
             return log_txt
         except Exception as e:
             errorMsg = "Failed to add audit log to line item."
@@ -599,12 +661,20 @@ class FEChecklist:
         FEOverview.click_on_vf(user_content)
         if checklist_uuid is None:
             checklist_uuid = DBGeneral.select_where_not_and_order_by_desc(
-                'uuid', Constants.DBConstants.IceTables.CHECKLIST, 'name', checklistName, 'state', Constants.ChecklistStates.Archive.TEXT, 'create_time')[0]
+                'uuid',
+                Constants.DBConstants.IceTables.CHECKLIST,
+                'name',
+                checklistName,
+                'state',
+                Constants.ChecklistStates.Archive.TEXT,
+                'create_time')[0]
         Click.id("checklist-" + checklist_uuid, True)
 
     @staticmethod
     def validate_reject_is_enabled():
-        return Wait.id(Constants.Dashboard.Checklist.Reject.ID, wait_for_page=True)
+        return Wait.id(
+            Constants.Dashboard.Checklist.Reject.ID,
+            wait_for_page=True)
 
     @staticmethod
     def cl_to_next_stage(actualVfNameid):
@@ -619,7 +689,8 @@ class FEChecklist:
             'engagement_manual_id'] + ": " + user_content['vfName']
         if settings.DATABASE_TYPE != 'local':
             Enter.text_by_id(
-                Constants.Dashboard.LeftPanel.SearchBox.ID, user_content['vfName'])
+                Constants.Dashboard.LeftPanel.SearchBox.ID,
+                user_content['vfName'])
             Click.css(Constants.Dashboard.LeftPanel.SearchBox.Results.CSS)
             Wait.text_by_id(
                 Constants.Dashboard.Overview.Title.ID, vfFullName)
@@ -627,9 +698,12 @@ class FEChecklist:
     @staticmethod
     def search_by_manual_id(manual_id):
         Enter.text_by_id(
-            Constants.Dashboard.LeftPanel.SearchBox.ID, manual_id, wait_for_page=True)
+            Constants.Dashboard.LeftPanel.SearchBox.ID,
+            manual_id,
+            wait_for_page=True)
         Click.css(
-            Constants.Dashboard.LeftPanel.SearchBox.Results.CSS, wait_for_page=True)
+            Constants.Dashboard.LeftPanel.SearchBox.Results.CSS,
+            wait_for_page=True)
         Wait.id(Constants.Dashboard.Overview.Title.ID)
 
     @staticmethod
@@ -638,16 +712,23 @@ class FEChecklist:
         vfName = newObj[0]
         engLeadFullName = DBUser.get_el_name(vfName)
         Enter.text_by_name(
-            Constants.Dashboard.Checklist.Reject.Modal.Comment.NAME, "Reject state By :" + engLeadFullName)
+            Constants.Dashboard.Checklist.Reject.Modal.Comment.NAME,
+            "Reject state By :" + engLeadFullName)
         Helper.internal_assert(
-            "Checklist: " + checklistName, Get.by_css("span.state-title.ng-binding"))
+            "Checklist: " + checklistName,
+            Get.by_css("span.state-title.ng-binding"))
         Wait.text_by_id(Constants.Dashboard.Checklist.Reject.Modal.Button.ID,
                         Constants.Dashboard.Checklist.Reject.Modal.Button.TEXT)
         Click.id(Constants.Dashboard.Checklist.Reject.Modal.Button.ID)
         Wait.modal_to_dissappear()
 
     @staticmethod
-    def add_nsteps(checklistUuid, actualVfNameid, myVfName, checklistName, newFileNames):
+    def add_nsteps(
+            checklistUuid,
+            actualVfNameid,
+            myVfName,
+            checklistName,
+            newFileNames):
         Click.id(actualVfNameid, wait_for_page=True)
         checklistUuid = DBChecklist.select_where_cl_not_archive(
             "uuid", "ice_checklist", "name", newFileNames[0], 1)
@@ -661,30 +742,46 @@ class FEChecklist:
             Helper.internal_assert(myVfName, actualVfName)
 
     @staticmethod
-    def validate_multi_eng(user_content, checklist_content, newEL_content, actualVfNameid):
+    def validate_multi_eng(
+            user_content,
+            checklist_content,
+            newEL_content,
+            actualVfNameid):
         query = "UPDATE ice_user_profile SET role_id=2 WHERE email = '" + \
             str(newEL_content['email']) + "';"
         DBGeneral.update_by_query(query)
         FEWizard.invite_team_members_modal(newEL_content['email'])
         # Fetch one AT&T user ID.
         enguuid = DBGeneral.select_where(
-            "uuid", "ice_engagement", "engagement_manual_id", user_content['engagement_manual_id'], 1)
+            "uuid",
+            "ice_engagement",
+            "engagement_manual_id",
+            user_content['engagement_manual_id'],
+            1)
         invitation_token = DBUser.select_invitation_token(
-            "invitation_token", "ice_invitation", "engagement_uuid", enguuid, newEL_content['email'], 1)
+            "invitation_token",
+            "ice_invitation",
+            "engagement_uuid",
+            enguuid,
+            newEL_content['email'],
+            1)
         URL = Constants.Default.InviteURL.Login.TEXT + invitation_token
         FEGeneral.re_open(URL)
-        FEUser.login(newEL_content[
-                     'email'], Constants.Default.Password.TEXT, expected_element=actualVfNameid)
+        FEUser.login(
+            newEL_content['email'],
+            Constants.Default.Password.TEXT,
+            expected_element=actualVfNameid)
         Click.id(actualVfNameid, wait_for_page=True)
         count = None
         try:
             session.ice_driver.find_element_by_id(
                 "checklist-" + checklist_content['uuid'])
             count += 1
-        except:
+        except BaseException:
             logger.debug(
-                "check list not visible for EL invited : " + str(newEL_content['email']))
-        assertTrue(count == None)
+                "check list not visible for EL invited : " +
+                str(newEL_content['email']))
+        assertTrue(count is None)
         query = "UPDATE ice_user_profile SET role_id=1 WHERE email = '" + \
             str(newEL_content['email']) + "';"
         DBGeneral.update_by_query(query)
@@ -710,11 +807,12 @@ class FEChecklist:
     @staticmethod
     def validate_audit_log(log_txt):
         audit_log_list_text = Get.by_id(
-            Constants.Dashboard.Checklist.AuditLog.AuditLogList.ID, wait_for_page=True)
+            Constants.Dashboard.Checklist.AuditLog.AuditLogList.ID,
+            wait_for_page=True)
         try:
             log_txt in audit_log_list_text
             logger.debug("validate_audit_log PASS")
-        except Exception as e:
+        except Exception:
             errorMsg = "Failed in validate_audit_log"
             raise Exception(errorMsg)
 
@@ -748,7 +846,9 @@ class FEChecklist:
             Constants.Dashboard.Checklist.JenkinsLog.Modal.Title.TEXT, True)
         log = Get.by_id(
             Constants.Dashboard.Checklist.JenkinsLog.Modal.Body.ID, True)
-        Helper.assertTrue(Constants.Dashboard.Checklist.JenkinsLog.Modal.Body.TEXT_SAMPLE in log,
-                          "Jenkins log could not be viewed.")
+        Helper.assertTrue(
+            Constants.Dashboard.Checklist.JenkinsLog.Modal.Body.
+            TEXT_SAMPLE in log,
+            "Jenkins log could not be viewed.")
         Click.id(Constants.Dashboard.Modal.CLOSE_BUTTON_ID)
         return log

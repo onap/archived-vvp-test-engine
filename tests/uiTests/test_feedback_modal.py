@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -53,14 +52,16 @@ class TestFeedbackModal(TestUiBase):
     def setUpClass(cls):
         super(TestFeedbackModal, cls).setUpClass()
 
-        cls.user_content = API.VirtualFunction.create_engagement(wait_for_gitlab=False)
+        cls.user_content = API.VirtualFunction.create_engagement(
+            wait_for_gitlab=False)
 
-    
     @exception()
     def test_add_feedback(self):
-        Frontend.User.login(self.user_content['email'], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content['email'],
+            Constants.Default.Password.TEXT)
         Frontend.User.click_on_avatar()
         Frontend.User.click_on_feedback()
         description = Frontend.User.add_feedback()
-        Frontend.User.validate_feedback(description, self.user_content['email']) 
-
+        Frontend.User.validate_feedback(
+            description, self.user_content['email'])

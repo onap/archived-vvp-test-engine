@@ -1,4 +1,3 @@
-
 # ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
@@ -36,9 +35,8 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-'''
-Created on 16 Nov 2016
-'''
+
+
 from django.conf import settings
 
 from iceci.decorator.exception_decor import exception
@@ -65,4 +63,6 @@ class TestChecklistSignal(TestSignalBase):
             cl_content = API.Checklist.create_checklist(user_content)
             API.GitLab.git_push_commit(user_content)
             DB.Checklist.state_changed(
-                "uuid", cl_content['uuid'], Constants.ChecklistStates.Archive.TEXT)
+                "uuid",
+                cl_content['uuid'],
+                Constants.ChecklistStates.Archive.TEXT)

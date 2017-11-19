@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -39,10 +39,13 @@
 from django.conf.urls import url
 from . import views
 
-urlpatterns = [
-    url(r'^testresults/?$', views.testResult_list),
-    url(r'^testresults/(?P<param>.*)$', views.testResult_detail),
-    url(r'^testresultstomail/(?P<param>.*)$', views.testResult_list_to_mail),
-    url(r'^testresultstohtml/(?P<param>.*)$', views.testResult_list_to_html_file),
-    url(r'^testresultstr/(?P<param>.*)$', views.testResultStr)
-]
+urlpatterns = [url(r'^testresults/?$',
+                   views.testResult_list),
+               url(r'^testresults/(?P<param>.*)$',
+                   views.testResult_detail),
+               url(r'^testresultstomail/(?P<param>.*)$',
+                   views.testResult_list_to_mail),
+               url(r'^testresultstohtml/(?P<param>.*)$',
+                   views.testResult_list_to_html_file),
+               url(r'^testresultstr/(?P<param>.*)$',
+                   views.testResultStr)]

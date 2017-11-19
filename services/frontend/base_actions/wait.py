@@ -58,12 +58,12 @@ class Wait:
         try:  # Wait 4 seconds for element and compare to expected result.
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(
+                session.ice_driver, session.wait_until_retires).until(
                 expected_conditions.text_to_be_present_in_element(
-                    (By.XPATH, xpath), text)
-            )
+                    (By.XPATH, xpath), text))
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except Exception:
             error_msg = "Text - " + text + " not found in xPath " + xpath
             raise Exception(error_msg, xpath)
 
@@ -72,12 +72,12 @@ class Wait:
         try:  # Wait 4 seconds for element and compare to expected result.
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(
+                session.ice_driver, session.wait_until_retires).until(
                 expected_conditions.text_to_be_present_in_element(
-                    (By.ID, element_id), text)
-            )
+                    (By.ID, element_id), text))
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except Exception:
             error_msg = "Text - " + text + " not found in ID " + element_id
             raise Exception(error_msg, element_id)
 
@@ -86,10 +86,10 @@ class Wait:
         try:  # Wait 4 seconds for element and compare to expected result.
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(
+                session.ice_driver, session.wait_until_retires).until(
                 expected_conditions.text_to_be_present_in_element(
-                    (By.CSS_SELECTOR, css), text)
-            )
+                    (By.CSS_SELECTOR, css), text))
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             error_msg = "Text - " + text + " not found in CSS - " + css
@@ -100,10 +100,10 @@ class Wait:
         try:  # Wait 4 seconds for element and compare to expected result.
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(
+                session.ice_driver, session.wait_until_retires).until(
                 expected_conditions.text_to_be_present_in_element(
-                    (By.NAME, name), text)
-            )
+                    (By.NAME, name), text))
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             error_msg = "Text - " + text + " not found by NAME - " + name
@@ -114,7 +114,8 @@ class Wait:
         try:  # Wait 4 seconds for element and compare to expected result.
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(session.ice_driver,
+                          session.wait_until_retires).until(
                 expected_conditions.visibility_of_element_located(
                     (By.ID, element_id))
             )
@@ -128,10 +129,10 @@ class Wait:
         try:  # Wait 4 seconds for element and compare to expected result.
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(
+                session.ice_driver, session.wait_until_retires).until(
                 expected_conditions.visibility_of_element_located(
-                    (By.CSS_SELECTOR, element_css))
-            )
+                    (By.CSS_SELECTOR, element_css)))
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             error_msg = "Didn't find CSS Selector " + element_css
@@ -142,7 +143,8 @@ class Wait:
         try:  # Wait 4 seconds for element and compare to expected result.
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_implicit_time).until(
+            WebDriverWait(session.ice_driver,
+                          session.wait_until_implicit_time).until(
                 expected_conditions.visibility_of_element_located(
                     (By.CSS_SELECTOR, element_css))
             )
@@ -157,10 +159,10 @@ class Wait:
         try:
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(
+                session.ice_driver, session.wait_until_retires).until(
                 expected_conditions.visibility_of_element_located(
-                    (By.LINK_TEXT, link_inner_text))
-            )
+                    (By.LINK_TEXT, link_inner_text)))
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             error_msg = "Didn't find LINK TEXT " + link_inner_text
@@ -171,10 +173,10 @@ class Wait:
         try:
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(
+                session.ice_driver, session.wait_until_retires).until(
                 expected_conditions.visibility_of_element_located(
-                    (By.NAME, element_name))
-            )
+                    (By.NAME, element_name)))
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             error_msg = "Didn't find NAME " + element_name
@@ -185,10 +187,10 @@ class Wait:
         try:
             if wait_for_page:
                 Wait.page_has_loaded()
-            WebDriverWait(session.ice_driver, session.wait_until_retires).until(
+            WebDriverWait(
+                session.ice_driver, session.wait_until_retires).until(
                 expected_conditions.visibility_of_element_located(
-                    (By.XPATH, element_xpath))
-            )
+                    (By.XPATH, element_xpath)))
         # If failed - count the failure and add the error to list of errors.
         except Exception as e:
             error_msg = "Didn't find XPath " + element_xpath
@@ -199,14 +201,17 @@ class Wait:
         for _ in range(Constants.FEConstants.RETRIES_NUMBER):
             try:
                 httpRequests = session.ice_driver.execute_script(
-                    'return window.angular ? window.angular.element("body").injector().get("$http").pendingRequests.length : 1;')
+                    'return window.angular ? window.angular.element("body").' +
+                    'injector().get("$http").pendingRequests.length : 1;')
                 if(str(httpRequests) == "0"):
                     time.sleep(session.wait_until_time_pause)
                     return
                 logger.debug(
-                    "Checking if {} page is loaded. ".format(session.ice_driver.current_url))
+                    "Checking if {} page is loaded. ".format(
+                        session.ice_driver.current_url))
                 time.sleep(session.wait_until_time_pause)
             except Exception as exception:
+                time.sleep(session.wait_until_time_pause)
                 continue
 
         raise Exception("Page loading took too much time")
@@ -266,7 +271,10 @@ class Wait:
             return True
         else:
             raise Exception(
-                "id_to_dissappear " + id_element + " num of retries = " + str(i))
+                "id_to_dissappear " +
+                id_element +
+                " num of retries = " +
+                str(i))
 
     @staticmethod
     def name_to_dissappear(name_element, wait_for_page=False):
@@ -292,7 +300,10 @@ class Wait:
             return True
         else:
             raise Exception(
-                "name_to_dissappear " + name_element + " num of retries = " + str(i))
+                "name_to_dissappear " +
+                name_element +
+                " num of retries = " +
+                str(i))
 
     @staticmethod
     def css_to_dissappear(css_element):
@@ -316,3 +327,8 @@ class Wait:
             return True
         else:
             raise Exception("css_to_dissappear" + css_element)
+
+    @staticmethod
+    def bucket_to_create(bucket_id):
+        logger.debug("Waiting for %s bucket to be created" % bucket_id)
+        time.sleep(session.positive_timeout)

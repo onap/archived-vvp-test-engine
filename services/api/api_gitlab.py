@@ -36,7 +36,6 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-import logging
 import os
 import subprocess
 import sys
@@ -63,7 +62,7 @@ class APIGitLab:
     def display_output(p):
         while True:
             out = p.stderr.read(1)
-            if out == b'' and p.poll() != None:
+            if out == b'' and p.poll() is not None:
                 break
             if out != '':
                 sys.stdout.write(str(out.decode()))
@@ -81,31 +80,42 @@ class APIGitLab:
         try:
             r1 = requests.get(getURL, headers=headers, verify=False)
             counter = 0
-            while r1.status_code == 404 or r1.content == b'[]' and counter <= Constants.GitLabConstants.RETRIES_NUMBER:
+            while r1.status_code == 404 or r1.content == b'[]' and \
+                counter <= Constants.\
+                    GitLabConstants.RETRIES_NUMBER:
                 time.sleep(session.wait_until_time_pause)
                 r1 = requests.get(getURL, headers=headers, verify=False)
                 logger.debug(
-                    "trying to get the git project, yet to succeed (try #%s)" % counter)
+                    "trying to get the git project, " +
+                    "yet to succeed (try #%s)" % counter)
                 counter += 1
+            Helper.internal_assert(r1.status_code, 200)
             if r1.content == b'[]':
                 logger.error("Got an empty list as a response.")
                 raise
             logger.debug("Project exists on APIGitLab!")
             content = r1.json()  # Change it from list to dict.
             return content
-        except:
+        except BaseException:
             if r1 is None:
                 logger.error("Failed to get project from APIGitLab.")
             else:
-                logger.error("Failed to get project from APIGitLab, see response >>> %s %s \n %s"
-                             % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "Failed to get project from APIGitLab, " +
+                    "see response >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
-    def are_all_list_users_registered_as_project_members(self, users_emails_list, project_path_with_namespace):
+    def are_all_list_users_registered_as_project_members(
+            self, users_emails_list, project_path_with_namespace):
         for email in users_emails_list:
-            if not self.validate_git_project_members(project_path_with_namespace, email):
+            if not self.validate_git_project_members(
+                    project_path_with_namespace, email):
                 raise Exception(
-                    "Couldn't find the invited users: " + email + " in GitLab.")
+                    "Couldn't find the invited users: " +
+                    email +
+                    " in GitLab.")
             logger.debug(
                 "Invited user: " + email + " found in GitLab.")
 
@@ -121,7 +131,9 @@ class APIGitLab:
             headers['Content-type'] = 'application/json'
             headers['PRIVATE-TOKEN'] = settings.GITLAB_TOKEN
             counter = 0
-            while (r1 is None or r1.content == b'[]' or r1.status_code != 200) and counter <= Constants.GitLabConstants.RETRIES_NUMBER:
+            while (r1 is None or r1.content == b'[]' or r1.status_code !=
+                   200) and counter <= Constants.GitLabConstants.\
+                    RETRIES_NUMBER:
                 logger.debug(
                     "try to get git project members (try #%s)" % counter)
                 time.sleep(session.wait_until_time_pause)
@@ -130,8 +142,11 @@ class APIGitLab:
                     counter += 1
                 except Exception as e:
                     if counter >= Constants.GitLabConstants.RETRIES_NUMBER:
-                        logger.error("Failed to get project's team members from APIGitLab, see response  >>> %s %s \n %s %s"
-                                     % (r1.status_code, r1.reason, str(r1.content, 'utf-8'), e.message))
+                        logger.error(
+                            "Failed to get project's team members from " +
+                            "APIGitLab, see response  >>> %s %s \n %s %s" %
+                            (r1.status_code, r1.reason, str(
+                                r1.content, 'utf-8'), e.message))
                         return False
             if r1.content == b'[]':
                 logger.error("Got an empty list as a response.")
@@ -144,7 +159,8 @@ class APIGitLab:
         return True
 
     @staticmethod
-    def negative_validate_git_project_member(path_with_namespace, user_email, git_user_id):
+    def negative_validate_git_project_member(
+            path_with_namespace, user_email, git_user_id):
         if settings.DATABASE_TYPE != 'local':
             r1 = None
             headers = dict()
@@ -154,7 +170,9 @@ class APIGitLab:
             headers['Content-type'] = 'application/json'
             headers['PRIVATE-TOKEN'] = settings.GITLAB_TOKEN
             counter = 0
-            while r1 is None or str.encode(user_email) not in r1.content and counter <= Constants.GitLabConstants.RETRIES_NUMBER:
+            while r1 is None or str.encode(
+                    user_email) not in r1.content and counter <= Constants.\
+                    GitLabConstants.RETRIES_NUMBER:
                 logger.debug(
                     "try to get git project members (try #%s)" % counter)
                 time.sleep(session.wait_until_time_pause)
@@ -163,8 +181,11 @@ class APIGitLab:
                     counter += 1
                 except Exception as e:
                     if counter >= Constants.GitLabConstants.RETRIES_NUMBER:
-                        logger.error("Failed to get project's team members from APIGitLab, see response  >>> %s %s \n %s %s"
-                                     % (r1.status_code, r1.reason, str(r1.content, 'utf-8'), e.message))
+                        logger.error(
+                            "Failed to get project's team members from " +
+                            "APIGitLab, see response  >>> %s %s \n %s %s" %
+                            (r1.status_code, r1.reason, str(
+                                r1.content, 'utf-8'), e.message))
                         return False
 
             if r1.content == b'[]':
@@ -193,7 +214,9 @@ class APIGitLab:
                 counter = 0
                 while r1.content == b'[]' and counter <= 60:
                     logger.info(
-                        "Will try to get gitlab user until will be response... #%s" % counter)
+                        "Will try to get gitlab user until " +
+                        "will be response... #%s" %
+                        counter)
                     time.sleep(session.wait_until_time_pause_long)
                     r1 = requests.get(getURL, headers=headers, verify=False)
                     Helper.internal_assert(r1.status_code, 200)
@@ -207,12 +230,15 @@ class APIGitLab:
                              (r1.status_code, r1.reason, r1.content))
                 content = r1.json()
                 return content[0]
-            except:
+            except BaseException:
                 if r1 is None:
                     logger.error("Failed to get user from APIGitLab.")
                 else:
-                    logger.error("Failed to get user from APIGitLab, see response >>> %s %s \n %s"
-                                 % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                    logger.error(
+                        "Failed to get user from APIGitLab, see response " +
+                        ">>> %s %s \n %s" %
+                        (r1.status_code, r1.reason, str(
+                            r1.content, 'utf-8')))
                     raise
 
     @staticmethod
@@ -235,19 +261,24 @@ class APIGitLab:
             content = r1.json()  # Change it from list to dict.
             gitPubKey = content[0]['key']
             return gitPubKey
-        except:
+        except BaseException:
             if r1 is None:
-                logger.error("Failed to get user's public key from APIGitLab.")
+                logger.error("Failed to get user's public key " +
+                             "from APIGitLab.")
             else:
-                logger.error("Failed to get user's public key from APIGitLab, see response >>> %s %s \n %s"
-                             % (r1.status_code, r1.reason, str(r1.content, 'utf-8')))
+                logger.error(
+                    "Failed to get user's public key from APIGitLab, " +
+                    "see response >>> %s %s \n %s" %
+                    (r1.status_code, r1.reason, str(
+                        r1.content, 'utf-8')))
             raise
 
     @staticmethod
     def git_clone_push(user_content):
         if settings.DATABASE_TYPE != 'local':
             logger.debug(
-                "About to push files into project's repository on the local folder(not over origin).")
+                "About to push files into project's repository on the " +
+                "local folder(not over origin).")
             try:
                 user_content['session_token'] = "token " + \
                     APIBridge.login_user(Constants.Users.Admin.EMAIL)
@@ -267,7 +298,8 @@ class APIGitLab:
 
                 counter = 0
                 git_user_pub_key = None
-                while user_pub_key != git_user_pub_key and counter < Constants.GitLabConstants.RETRIES_NUMBER:
+                while user_pub_key != git_user_pub_key and counter < \
+                        Constants.GitLabConstants.RETRIES_NUMBER:
                     try:
                         git_user_pub_key = APIGitLab.get_git_user_ssh_key(
                             git_user['id'])
@@ -279,17 +311,20 @@ class APIGitLab:
 
                 # Check that the SSH key was added to user on APIGitLab.
                 if user_pub_key != git_user_pub_key:
-                    raise Exception("The SSH Key received does not equal to the"
-                                    " one provided! The key from"
-                                    "APIGitLab:\n %s  ==<>== %s"
-                                    % (git_user_pub_key, user_pub_key))
+                    raise Exception(
+                        "The SSH Key received does not equal to the"
+                        " one provided! The key from"
+                        "APIGitLab:\n %s  ==<>== %s" %
+                        (git_user_pub_key, user_pub_key))
 
                 gitRepoURL = "git@gitlab:%s/%s.git" % (
-                    user_content['engagement_manual_id'], user_content['vfName'])
+                    user_content['engagement_manual_id'],
+                    user_content['vfName'])
                 logger.debug("Clone repo from: " + gitRepoURL)
                 APIGitLab.is_gitlab_ready(user_content)
                 cmd = 'cd ' + repo_dir + \
-                    '; git config --global user.email \"' + Constants.Users.Admin.EMAIL + \
+                    '; git config --global user.email \"' + Constants.\
+                    Users.Admin.EMAIL + \
                     '\"; git config --global user.name \"' + \
                     Constants.Users.Admin.FULLNAME + '\";'
                 # Commit all changes.
@@ -358,9 +393,11 @@ class APIGitLab:
                     "All edited files were commited and pushed to APIGitLab.")
             except Exception as e:
                 logger.error(
-                    "_-_-_-_-_- Unexpected error in git_push_commit : " + str(e))
+                    "_-_-_-_-_- Unexpected error in git_push_commit : " +
+                    str(e))
                 raise Exception(
-                    "Something went wrong on git_push_commit function, please check logs.")
+                    "Something went wrong on git_push_commit " +
+                    "function, please check logs.")
 
     @staticmethod
     def is_gitlab_ready(user_content):

@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -54,20 +53,29 @@ class TestAdminSection(TestUiBase):
     def setUpClass(cls):
         super(TestAdminSection, cls).setUpClass()
 
-        cls.user_content = API.VirtualFunction.create_engagement(wait_for_gitlab=False)
+        cls.user_content = API.VirtualFunction.create_engagement(
+            wait_for_gitlab=False)
 
     @exception()
     def test_admin_page(self):
-        Frontend.User.login(Constants.Users.Admin.EMAIL, Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            Constants.Users.Admin.EMAIL,
+            Constants.Default.Password.TEXT)
         Frontend.User.go_to_account()
         Frontend.User.go_to_admin()
-    
+
     @exception()
     def test_negative_admin_page(self):
-        users_email_list = [self.user_content['email'], self.user_content['pr_email'], self.user_content['el_email'],
-                            Constants.Users.AdminRO.EMAIL]
+        users_email_list = [
+            self.user_content['email'],
+            self.user_content['pr_email'],
+            self.user_content['el_email'],
+            Constants.Users.AdminRO.EMAIL]
         for user_email in users_email_list:
             Frontend.User.relogin(user_email, Constants.Default.Password.TEXT)
             Frontend.User.click_on_avatar()
-            session.run_negative(lambda: Frontend.User.click_on_admin(), "Negative test failed at"
-                                                                         " click_on_admin with user %s" % user_email)
+            session.run_negative(
+                lambda: Frontend.User.click_on_admin(),
+                "Negative test failed at"
+                " click_on_admin with user %s" %
+                user_email)

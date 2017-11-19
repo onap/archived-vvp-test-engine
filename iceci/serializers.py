@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -39,25 +39,44 @@
 from rest_framework import serializers
 from .models import TestResults
 
+
 class TestResultsModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = TestResults
-        fields = ('testType', 'testFeature', 'testName', 'testResult', 'notes', 'create_time',)
+        fields = (
+            'testType',
+            'testFeature',
+            'testName',
+            'testResult',
+            'notes',
+            'create_time',
+        )
+
 
 class TestResultsSerializer(serializers.Serializer):
     class Meta:
         model = TestResults
-        fields = ('testType', 'testFeature', 'testName', 'testResult', 'notes', 'create_time',)
-    
+        fields = (
+            'testType',
+            'testFeature',
+            'testName',
+            'testResult',
+            'notes',
+            'create_time',
+        )
+
     def create(self, validated_data):
         return TestResults(**validated_data)
- 
+
     def update(self, instance, validated_data):
         instance.testType = validated_data.get('testType', instance.testType)
-        instance.testFeature = validated_data.get('testFeature', instance.testFeature)
+        instance.testFeature = validated_data.get(
+            'testFeature', instance.testFeature)
         instance.testName = validated_data.get('testName', instance.testName)
-        instance.testResult = validated_data.get('testResult', instance.testResult)
+        instance.testResult = validated_data.get(
+            'testResult', instance.testResult)
         instance.notes = validated_data.get('notes', instance.notes)
         instance.duration = validated_data.get('duration', instance.duration)
-        instance.create_time = validated_data.get('create_time', instance.create_time)
+        instance.create_time = validated_data.get(
+            'create_time', instance.create_time)
         return instance

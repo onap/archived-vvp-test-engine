@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -53,64 +52,103 @@ class TestRemoveUserFromEng(TestUiBase):
     def setUpClass(cls):
         super(TestRemoveUserFromEng, cls).setUpClass()
 
-        cls.user_content = API.VirtualFunction.create_engagement(wait_for_gitlab=False)
-    
+        cls.user_content = API.VirtualFunction.create_engagement(
+            wait_for_gitlab=False)
+
     @exception()
     def test_remove_user_with_admin(self):
-        second_user_email, invite_token, invite_url = API.VirtualFunction.invite_team_member(self.user_content)
-        invited_user = API.User.signup_invited_user(ServiceProvider.MainServiceProvider, second_user_email, invite_token, invite_url,
-                                                    self.user_content)
-        Frontend.User.login(Constants.Users.Admin.EMAIL, Constants.Default.Password.TEXT)
-        Frontend.Dashboard.statuses_search_vf(self.user_content['engagement_manual_id'], self.user_content['vfName'])
+        second_user_email, invite_token, invite_url = \
+            API.VirtualFunction.invite_team_member(
+                self.user_content)
+        invited_user = API.User.signup_invited_user(
+            ServiceProvider.MainServiceProvider,
+            second_user_email,
+            invite_token,
+            invite_url,
+            self.user_content)
+        Frontend.User.login(
+            Constants.Users.Admin.EMAIL,
+            Constants.Default.Password.TEXT)
+        Frontend.Dashboard.statuses_search_vf(
+            self.user_content['engagement_manual_id'],
+            self.user_content['vfName'])
         Frontend.Overview.remove_user_from_eng_team(invited_user["full_name"])
-    
-    
+
     @exception()
     def test_remove_user_with_reviewer(self):
-        second_user_email, invite_token, invite_url = API.VirtualFunction.invite_team_member(self.user_content)
-        invited_user = API.User.signup_invited_user(ServiceProvider.MainServiceProvider, second_user_email, invite_token, invite_url,
-                                                    self.user_content)
-        Frontend.User.login(self.user_content['el_email'], Constants.Default.Password.TEXT)
+        second_user_email, invite_token, invite_url = \
+            API.VirtualFunction.invite_team_member(
+                self.user_content)
+        invited_user = API.User.signup_invited_user(
+            ServiceProvider.MainServiceProvider,
+            second_user_email,
+            invite_token,
+            invite_url,
+            self.user_content)
+        Frontend.User.login(
+            self.user_content['el_email'],
+            Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(self.user_content)
         Frontend.Overview.remove_user_from_eng_team(invited_user["full_name"])
-    
-    
+
     @exception()
     def test_remove_user_with_peer_reviewer(self):
-        second_user_email, invite_token, invite_url = API.VirtualFunction.invite_team_member(self.user_content)
-        invited_user = API.User.signup_invited_user(ServiceProvider.MainServiceProvider, second_user_email, invite_token, invite_url,
-                                                    self.user_content)
-        Frontend.User.login(self.user_content['pr_email'], Constants.Default.Password.TEXT)
+        second_user_email, invite_token, invite_url = \
+            API.VirtualFunction.invite_team_member(
+                self.user_content)
+        invited_user = API.User.signup_invited_user(
+            ServiceProvider.MainServiceProvider,
+            second_user_email,
+            invite_token,
+            invite_url,
+            self.user_content)
+        Frontend.User.login(
+            self.user_content['pr_email'],
+            Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(self.user_content)
         Frontend.Overview.remove_user_from_eng_team(invited_user["full_name"])
-    
-    
+
     @exception()
     def test_negative_remove_reviewer_from_eng(self):
-        Frontend.User.login(self.user_content["pr_email"], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content["pr_email"],
+            Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(self.user_content)
-        Frontend.Overview.remove_user_from_eng_team(self.user_content["el_name"], True)
-        
-    
+        Frontend.Overview.remove_user_from_eng_team(
+            self.user_content["el_name"], True)
+
     @exception()
     def test_negative_remove_peer_reviewer_from_eng(self):
-        Frontend.User.login(self.user_content['el_email'], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content['el_email'],
+            Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(self.user_content)
-        Frontend.Overview.remove_user_from_eng_team(self.user_content["pr_name"], True)
-        
-    
+        Frontend.Overview.remove_user_from_eng_team(
+            self.user_content["pr_name"], True)
+
     @exception()
     def test_negative_remove_creator_from_eng(self):
-        Frontend.User.login(self.user_content['el_email'], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content['el_email'],
+            Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(self.user_content)
-        Frontend.Overview.remove_user_from_eng_team(self.user_content["full_name"], True)
-        
-    
+        Frontend.Overview.remove_user_from_eng_team(
+            self.user_content["full_name"], True)
+
     @exception()
     def test_negative_remove_contact_user_from_eng(self):
-        second_user_email, invite_token, invite_url = API.VirtualFunction.add_contact(self.user_content)
-        invited_user = API.User.signup_invited_user(ServiceProvider.MainServiceProvider, second_user_email, invite_token, invite_url,
-                                                    self.user_content, "true", True)
+        second_user_email, invite_token, invite_url = \
+            API.VirtualFunction.add_contact(
+                self.user_content)
+        invited_user = API.User.signup_invited_user(
+            ServiceProvider.MainServiceProvider,
+            second_user_email,
+            invite_token,
+            invite_url,
+            self.user_content,
+            "true",
+            True)
         Frontend.User.login(second_user_email, Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(self.user_content)
-        Frontend.Overview.remove_user_from_eng_team(invited_user["full_name"], True)
+        Frontend.Overview.remove_user_from_eng_team(
+            invited_user["full_name"], True)

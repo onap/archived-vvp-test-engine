@@ -1,4 +1,3 @@
-
 # ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
@@ -36,14 +35,9 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-from asyncio.tasks import sleep
-import time
-
 from wheel.signatures import assertTrue
 
 from iceci.decorator.exception_decor import exception
-from services.api.api_bridge import APIBridge
-from services.api.api_gitlab import APIGitLab
 from services.constants import Constants
 from services.frontend.base_actions.get import Get
 from services.helper import Helper
@@ -69,7 +63,8 @@ class TestChecklistValidations(TestUiBase):
     def setUpClass(cls):
         super(TestChecklistValidations, cls).setUpClass()
 
-        cls.user_content_api = API.User.create_new_user_content_login_with_api()
+        cls.user_content_api = \
+            API.User.create_new_user_content_login_with_api()
         cls.user_content = API.VirtualFunction.create_engagement()
 
     @exception()
@@ -89,7 +84,9 @@ class TestChecklistValidations(TestUiBase):
         Frontend.Overview.click_on_vf(self.user_content)
         Frontend.Overview.complete_defaults_nextsteps(engagement_id)
         Frontend.User.relogin(
-            engLeadEmail, Constants.Default.Password.TEXT, engagement_manual_id)
+            engLeadEmail,
+            Constants.Default.Password.TEXT,
+            engagement_manual_id)
         Frontend.Overview.click_on_vf(self.user_content)
         actualVfName = Get.by_id(actualVfNameid)
         checklistName = Frontend.Checklist.create_checklist(
@@ -110,7 +107,9 @@ class TestChecklistValidations(TestUiBase):
         DB.Checklist.update_decisions(checklistUuid, checklistName)
 
         Frontend.User.relogin(
-            engLeadEmail, Constants.Default.Password.TEXT, engagement_manual_id)
+            engLeadEmail,
+            Constants.Default.Password.TEXT,
+            engagement_manual_id)
         Frontend.Checklist.click_on_checklist(user_content, checklistName)
         Frontend.Checklist.validate_reject_is_enabled()
         Frontend.Checklist.review_state_actions_and_validations(
@@ -159,7 +158,9 @@ class TestChecklistValidations(TestUiBase):
             "uuid", checklistUuid, Constants.ChecklistStates.Review.TEXT)
         DB.Checklist.update_decisions(checklistUuid, checklistName)
         Frontend.User.relogin(
-            engLeadEmail, Constants.Default.Password.TEXT, engagement_manual_id)
+            engLeadEmail,
+            Constants.Default.Password.TEXT,
+            engagement_manual_id)
         Frontend.Checklist.click_on_checklist(user_content, checklistName)
         Frontend.Checklist.validate_reject_is_enabled()
         Frontend.Checklist.review_state_actions_and_validations(
@@ -193,7 +194,9 @@ class TestChecklistValidations(TestUiBase):
         DB.Checklist.update_decisions(checklistUuid, checklistName)
 
         Frontend.User.relogin(
-            engLeadEmail, Constants.Default.Password.TEXT, engagement_manual_id)
+            engLeadEmail,
+            Constants.Default.Password.TEXT,
+            engagement_manual_id)
         Frontend.Checklist.click_on_checklist(user_content, checklistName)
         Frontend.Checklist.validate_reject_is_enabled()
 
@@ -202,7 +205,11 @@ class TestChecklistValidations(TestUiBase):
         DB.Checklist.update_checklist_to_review_state(newFileNames[0])
         Frontend.General.refresh()
         Frontend.Checklist.add_nsteps(
-            checklistUuid, actualVfNameid, myVfName, checklistName, newFileNames)
+            checklistUuid,
+            actualVfNameid,
+            myVfName,
+            checklistName,
+            newFileNames)
 
     @exception()
     def test_multi_el(self):
@@ -220,7 +227,10 @@ class TestChecklistValidations(TestUiBase):
             self.user_content_api['el_email'], Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(self.user_content_api)
         Frontend.Checklist.validate_multi_eng(
-            self.user_content_api, checklist_content, newEL_content, actualVfNameid)
+            self.user_content_api,
+            checklist_content,
+            newEL_content,
+            actualVfNameid)
 
     @exception()
     def test_create_checklist_without_files(self):
@@ -243,15 +253,18 @@ class TestChecklistValidations(TestUiBase):
             self.user_content_api, cl_content['name'], recent_checklist_uuid)
         Frontend.Checklist.reject("Reject checklist on review state.")
         DB.Checklist.state_changed(
-            "uuid", recent_checklist_uuid, Constants.ChecklistStates.Archive.TEXT)
+            "uuid", recent_checklist_uuid,
+            Constants.ChecklistStates.Archive.TEXT)
 
     @exception()
     def test_clone_decision_auditlogs(self):
         cl_content = API.Checklist.create_checklist(self.user_content_api)
         DB.Checklist.state_changed(
             "name", cl_content['name'], Constants.ChecklistStates.Review.TEXT)
-        Frontend.User.login(self.user_content_api['el_email'], Constants.Default.Password.TEXT,
-                            self.user_content_api['engagement_manual_id'])
+        Frontend.User.login(
+            self.user_content_api['el_email'],
+            Constants.Default.Password.TEXT,
+            self.user_content_api['engagement_manual_id'])
         recent_checklist_uuid = DB.Checklist.get_recent_checklist_uuid(
             cl_content['name'])[0]
         Frontend.Checklist.click_on_checklist(
@@ -260,7 +273,9 @@ class TestChecklistValidations(TestUiBase):
         Frontend.Checklist.reject(
             'Reject checklist as part of test_clone_decision_auditlogs test')
         DB.Checklist.state_changed(
-            "uuid", recent_checklist_uuid, Constants.ChecklistStates.Archive.TEXT)
+            "uuid",
+            recent_checklist_uuid,
+            Constants.ChecklistStates.Archive.TEXT)
         recent_checklist_uuid = DB.Checklist.get_recent_checklist_uuid(
             cl_content['name'])[0]
         Frontend.Checklist.click_on_checklist(
@@ -273,8 +288,10 @@ class TestChecklistValidations(TestUiBase):
             self.user_content_api)
         DB.Checklist.state_changed(
             "name", cl_content['name'], Constants.ChecklistStates.Review.TEXT)
-        Frontend.User.login(self.user_content_api['el_email'], Constants.Default.Password.TEXT,
-                            self.user_content_api['engagement_manual_id'])
+        Frontend.User.login(
+            self.user_content_api['el_email'],
+            Constants.Default.Password.TEXT,
+            self.user_content_api['engagement_manual_id'])
         Frontend.Checklist.click_on_checklist(
             self.user_content_api, cl_content['name'], cl_content['uuid'])
         Frontend.Checklist.get_jenkins_log()
@@ -285,8 +302,10 @@ class TestChecklistValidations(TestUiBase):
             self.user_content_api)
         DB.Checklist.state_changed(
             "name", cl_content['name'], Constants.ChecklistStates.Review.TEXT)
-        Frontend.User.login(self.user_content_api['el_email'], Constants.Default.Password.TEXT,
-                            self.user_content_api['engagement_manual_id'])
+        Frontend.User.login(
+            self.user_content_api['el_email'],
+            Constants.Default.Password.TEXT,
+            self.user_content_api['engagement_manual_id'])
         cl_content['uuid'] = DB.Checklist.get_recent_checklist_uuid(
             cl_content['name'])[0]
         Frontend.Checklist.click_on_checklist(

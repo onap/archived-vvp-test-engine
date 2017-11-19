@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -58,7 +58,8 @@ class SessionSingletone():
     def __init__(self):
         self.wait_until_retires = self.positive_wait_until_retires
         self.wait_until_time_pause = self.positive_wait_until_time_pause
-        self.wait_until_time_pause_long = self.positive_wait_until_time_pause_long
+        self.wait_until_time_pause_long = \
+            self.positive_wait_until_time_pause_long
         self.wait_until_implicit_time = self.positive_wait_until_implicit_time
         self.test = '123'
         self.ice_driver = None
@@ -94,7 +95,7 @@ class SessionSingletone():
         self.start_negative()
         try:
             run_me()  # click.css
-        except:
+        except BaseException:
             # will run if click does NOT succeed
             self.errorCounter = 0
             self.errorList = ""
@@ -102,5 +103,6 @@ class SessionSingletone():
             # will run if click SUCCEED
             raise Exception(error_msg)
         self.end_negative()
+
 
 session = SessionSingletone()

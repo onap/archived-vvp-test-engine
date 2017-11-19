@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -36,7 +36,7 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-##################################################################################################
+##########################################################################
 '''
 Created on Apr 20, 2016
 
@@ -50,7 +50,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 
-from services.constants import Constants, ServiceProvider
+from services.constants import ServiceProvider
 from services.logging_service import LoggingServiceFactory
 
 
@@ -60,45 +60,57 @@ param = "1"
 logger = LoggingServiceFactory.get_logger()
 
 
-def sendMail(param,email, data, mail_body, mail_subject, mail_from=admin_mail_from):
+def sendMail(param, email, data, mail_body, mail_subject,
+             mail_from=admin_mail_from):
     logger.debug("about to send mail to " + email)
-    
+
     try:
         html_msg = mail_body.substitute(data)
         mail_subject = mail_subject.substitute(data)
         send_mail(mail_subject, '', ServiceProvider.PROGRAM_NAME
                   + "-CI Report Test Team <" + mail_from + ">",
-                  settings.ICE_CONTACT_EMAILS , fail_silently=False,
+                  settings.ICE_CONTACT_EMAILS, fail_silently=False,
                   html_message=html_msg)
-        logger.debug("Looks like email delivery to "+email+" has succeeded")
+        logger.debug(
+            "Looks like email delivery to " +
+            email +
+            " has succeeded")
     except Exception:
         traceback.print_exc()
         raise
 
+
 ##########################
 # For Contact Request    #
 ##########################
-lastBuild= param
+lastBuild = param
 dt = timezone.now().strftime("%Y-%m-%d %H:%M:%S")
-#envIP = str(socket.gethostbyname(socket.gethostname()))
+# envIP = str(socket.gethostbyname(socket.gethostname()))
 envIP = str(socket.gethostname())
-testsResults_mail_subject = Template("""CI Testing results """+ str(dt))
+testsResults_mail_subject = Template("""CI Testing results """ + str(dt))
 testsResults_mail_to = settings.ICE_CONTACT_EMAILS
-testsResults_mail_body = Template("""
+testsResults_mail_body = Template(
+    """
 <html>
     <head>
         <title>CI Test Report</title>
         <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
     </head>
-    <body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; color: rgb(0, 0, 0); font-size: 14px; font-family: Calibri, sans-serif;">
+    <body style="word-wrap: break-word; -webkit-nbsp-mode: space; """ +
+    """-webkit-line-break: after-white-space; color: rgb(0, 0, 0); """ +
+    """font-size: 14px; font-family: Calibri, sans-serif;">
         <a href="http://172.20.31.59:9090/">Jenkins Link for Build</a>
-        <h3>Environment name : """+ settings.ICE_CI_ENVIRONMENT_NAME + """</h3> 
-        <h3>Environment IP : """ + envIP + """</h3> 
+        <h3>Environment name : """ +
+    settings.ICE_CI_ENVIRONMENT_NAME +
+    """</h3>
+        <h3>Environment IP : """ +
+    envIP +
+    """</h3>
         <h2>Tests summary</h2>
-        
+
         <table id="versions" style="border:1px solid black">
             <tr>
-                <th scope="col"  class="sortable column-testVersion"> 
+                <th scope="col"  class="sortable column-testVersion">
                    <div class="text"><a href="#">Last Build Version</a></div>
                    <div class="clear"></div>
                 </th>
@@ -107,10 +119,10 @@ testsResults_mail_body = Template("""
                 $paramData
             </tbody>
         </table>
-        
+
         <table id="statistics" style="border:1px solid black">
             <tr>
-                <th scope="col"  class="sortable column-testTotal"> 
+                <th scope="col"  class="sortable column-testTotal">
                    <div class="text"><a href="#">Total</a></div>
                    <div class="clear"></div>
                 </th>
@@ -131,7 +143,7 @@ testsResults_mail_body = Template("""
                 $statisticData
             </tbody>
         </table>
-            
+
         <table id="result_list" style="border:1px solid blue">
             <tr>
                 <th scope="col"  class="sortable column-testType">
@@ -167,9 +179,8 @@ testsResults_mail_body = Template("""
                 $allData
             </tbody>
         </table>
-        
+
     </body>
 </html>
 
 """)
-

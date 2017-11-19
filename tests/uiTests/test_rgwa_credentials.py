@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -45,6 +44,7 @@ from utils.cryptography import CryptographyText
 
 
 logger = LoggingServiceFactory.get_logger()
+
 
 class TestRGWACredentials(TestUiBase):
     user_content = None

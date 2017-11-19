@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -36,11 +36,15 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
+
+
 class APIBridge:
 
     """
-    This class helps to use functions inside classes with circular import (dependencies).
-    Use this class only when there is circular import in one of the API services.
+    This class helps to use functions inside
+    classes with circular import (dependencies).
+    Use this class only when there is circular
+    import in one of the API services.
     """
 
     @staticmethod
@@ -63,7 +67,8 @@ class APIBridge:
 
     @staticmethod
     def create_engagement(wait_for_gitlab=True):
-        """create_engagement: Originally can be found under APIVirtualFunction class."""
+        """create_engagement: Originally can be found under
+        APIVirtualFunction class."""
         from services.api.api_virtual_function import APIVirtualFunction
         return APIVirtualFunction.create_engagement(wait_for_gitlab)
 

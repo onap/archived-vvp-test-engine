@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -54,11 +53,13 @@ class TestDetailedView(TestUiBase):
     '''
     Name: test_detailed_view
     Steps:
-        Create new User via SignUp request-->Login with This One--> build "activationUrl"-->
+        Create new User via SignUp request-->Login with This One-->
+         build "activationUrl"-->
         Validation of successful activate-->
-        close Wizard --> Logout-->login-->Open Wizard--> fill all fields in all Tab's(4)-->
+        close Wizard --> Logout-->login-->Open Wizard--> fill all fields
+         in all Tab's(4)-->
         build inviteURL from email--> reopen browser with inviteURL-->
-        Validate fields filled's in SignUp form 
+        Validate fields filled's in SignUp form
     '''
 
     user_content = None
@@ -73,8 +74,9 @@ class TestDetailedView(TestUiBase):
     def test_detailed_view(self):
         Frontend.User.login(
             self.user_content['el_email'], Constants.Default.Password.TEXT)
-        Frontend.DetailedView.search_vf_and_go_to_detailed_view(self.user_content['engagement_manual_id'],
-                                                                self.user_content['vfName'])
+        Frontend.DetailedView.search_vf_and_go_to_detailed_view(
+            self.user_content['engagement_manual_id'],
+            self.user_content['vfName'])
         Frontend.DetailedView.validate_all_titles_on_dv_form()
         logger.debug("Add Deployment Target")
         Frontend.DetailedView.add_deployment_target(self.user_content)
@@ -87,7 +89,8 @@ class TestDetailedView(TestUiBase):
         Frontend.User.login(
             self.user_content['email'], Constants.Default.Password.TEXT)
         Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-            self.user_content['engagement_manual_id'], self.user_content['vfName'])
+            self.user_content['engagement_manual_id'],
+            self.user_content['vfName'])
         Frontend.DetailedView.update_aic_version()
         Frontend.DetailedView.validate_aic_version()
 
@@ -96,12 +99,14 @@ class TestDetailedView(TestUiBase):
         Frontend.User.login(
             self.user_content['email'], Constants.Default.Password.TEXT)
         Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-            self.user_content['engagement_manual_id'], self.user_content['vfName'])
+            self.user_content['engagement_manual_id'],
+            self.user_content['vfName'])
         newVFVersionName = Frontend.DetailedView.update_vf_version()
         Frontend.DetailedView.validate_vf_version(newVFVersionName)
 
     '''
-    Add new ECOMP release to DB, go to detailed view and change ECOMP release and AIC version.
+    Add new ECOMP release to DB, go to detailed view and change
+    ECOMP release and AIC version.
     Verify changes are saved and presented in UI.
     '''
     @exception()
@@ -113,7 +118,8 @@ class TestDetailedView(TestUiBase):
             Frontend.User.login(
                 self.user_content['email'], Constants.Default.Password.TEXT)
             Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-                self.user_content['engagement_manual_id'], self.user_content['vfName'])
+                self.user_content['engagement_manual_id'],
+                self.user_content['vfName'])
             Frontend.DetailedView.update_ecomp_release(EcompName)
             Frontend.DetailedView.validate_ecomp_version()
         finally:
@@ -143,7 +149,8 @@ class TestDetailedView(TestUiBase):
         Frontend.User.login(Constants.Users.Admin.EMAIL,
                             Constants.Default.Password.TEXT)
         Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-            self.user_content['engagement_manual_id'], self.user_content['vfName'])
+            self.user_content['engagement_manual_id'],
+            self.user_content['vfName'])
         date = Frontend.DetailedView.update_target_lab_entry()
         Frontend.DetailedView.validate_target_lab_entry(date)
 
@@ -152,7 +159,8 @@ class TestDetailedView(TestUiBase):
         Frontend.User.login(
             self.user_content['email'], Constants.Default.Password.TEXT)
         Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-            self.user_content['engagement_manual_id'], self.user_content['vfName'])
+            self.user_content['engagement_manual_id'],
+            self.user_content['vfName'])
         date = Frontend.DetailedView.update_target_lab_entry()
         Frontend.DetailedView.validate_target_lab_entry(date)
 
@@ -164,11 +172,15 @@ class TestDetailedView(TestUiBase):
             new_aic_version = DB.VirtualFunction.insert_aic_version()
             Frontend.User.login(
                 self.user_content['el_email'], Constants.Default.Password.TEXT)
-            Frontend.DetailedView.search_vf_and_go_to_detailed_view(self.user_content['engagement_manual_id'],
-                                                                    self.user_content['vfName'])
+            Frontend.DetailedView.search_vf_and_go_to_detailed_view(
+                self.user_content['engagement_manual_id'],
+                self.user_content['vfName'])
             Frontend.DetailedView.click_on_update_aic_version()
-            Helper.internal_assert(Frontend.General.get_meta_order_of_element(
-                Constants.Dashboard.DetailedView.AIC.Dropdown.UniversalVersion.ID % new_aic_version['version']), 0)
+            Helper.internal_assert(
+                Frontend.General.
+                get_meta_order_of_element(Constants.Dashboard.DetailedView.AIC.
+                                          Dropdown.UniversalVersion.ID %
+                                          new_aic_version['version']), 0)
         finally:
             if new_aic_version:
                 DB.VirtualFunction.delete_aic_version(new_aic_version['uuid'])
@@ -186,10 +198,14 @@ class TestDetailedView(TestUiBase):
             Frontend.User.login(
                 self.user_content['el_email'], Constants.Default.Password.TEXT)
             Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-                self.user_content['engagement_manual_id'], self.user_content['vfName'])
+                self.user_content['engagement_manual_id'],
+                self.user_content['vfName'])
             Frontend.DetailedView.click_on_update_ecomp_release()
-            Helper.internal_assert(Frontend.General.get_meta_order_of_element(
-                Constants.Dashboard.DetailedView.ECOMP.Dropdown.UniversalRelease.ID % new_ecomp_release['name']), 0)
+            Helper.internal_assert(
+                Frontend.General.get_meta_order_of_element(
+                    Constants.Dashboard.DetailedView.ECOMP.Dropdown.
+                    UniversalRelease.ID %
+                    new_ecomp_release['name']), 0)
         finally:
             if new_ecomp_release:
                 DB.VirtualFunction.delete_ecomp_release(
@@ -204,10 +220,14 @@ class TestDetailedView(TestUiBase):
             Frontend.User.login(
                 self.user_content['el_email'], Constants.Default.Password.TEXT)
             Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-                self.user_content['engagement_manual_id'], self.user_content['vfName'])
+                self.user_content['engagement_manual_id'],
+                self.user_content['vfName'])
             Frontend.DetailedView.click_on_update_aic_version()
-            session.run_negative(lambda: Frontend.General.get_meta_order_of_element(
-                Constants.Dashboard.DetailedView.AIC.Dropdown.UniversalVersion.ID % new_aic_version['version']),
+            session.run_negative(
+                lambda: Frontend.General.get_meta_order_of_element(
+                    Constants.Dashboard.DetailedView.AIC.Dropdown.
+                    UniversalVersion.ID %
+                    new_aic_version['version']),
                 "New AIC version was found in dropdown.")
         finally:
             if new_aic_version:
@@ -218,16 +238,25 @@ class TestDetailedView(TestUiBase):
         new_ecomp_release = None
         try:
             new_ecomp_release = {
-                "uuid": uuid.uuid4(), "name": Helper.rand_string(), "ui_visibility": "FALSE"}
+                "uuid": uuid.uuid4(),
+                "name": Helper.rand_string(),
+                "ui_visibility": "FALSE"}
             DB.VirtualFunction.insert_ecomp_release(
-                new_ecomp_release['uuid'], new_ecomp_release['name'], new_ecomp_release['ui_visibility'])
+                new_ecomp_release['uuid'],
+                new_ecomp_release['name'],
+                new_ecomp_release['ui_visibility'])
             Frontend.User.login(
                 self.user_content['el_email'], Constants.Default.Password.TEXT)
             Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-                self.user_content['engagement_manual_id'], self.user_content['vfName'])
+                self.user_content['engagement_manual_id'],
+                self.user_content['vfName'])
             Frontend.DetailedView.click_on_update_ecomp_release()
-            session.run_negative(lambda: Frontend.General.get_meta_order_of_element(
-                Constants.Dashboard.DetailedView.ECOMP.Dropdown.UniversalRelease.ID % new_ecomp_release['name']), "New ECOMP release was found in dropdown.")
+            session.run_negative(
+                lambda: Frontend.General.get_meta_order_of_element(
+                    Constants.Dashboard.DetailedView.ECOMP.Dropdown.
+                    UniversalRelease.ID %
+                    new_ecomp_release['name']),
+                "New ECOMP release was found in dropdown.")
         finally:
             if new_ecomp_release:
                 DB.VirtualFunction.delete_ecomp_release(
@@ -243,11 +272,14 @@ class TestDetailedView(TestUiBase):
             self.user_content['session_token'] = "token " + \
                 API.User.login_user(self.user_content['el_email'])
             API.VirtualFunction.update_aic_version(
-                self.user_content['engagement_uuid'], new_aic_version['uuid'], self.user_content['session_token'])
+                self.user_content['engagement_uuid'],
+                new_aic_version['uuid'],
+                self.user_content['session_token'])
             Frontend.User.login(
                 self.user_content['el_email'], Constants.Default.Password.TEXT)
             Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-                self.user_content['engagement_manual_id'], self.user_content['vfName'])
+                self.user_content['engagement_manual_id'],
+                self.user_content['vfName'])
             Frontend.DetailedView.compare_aic_selected_version(
                 new_aic_version['version'])
             Frontend.DetailedView.click_on_update_aic_version()
@@ -256,7 +288,9 @@ class TestDetailedView(TestUiBase):
         finally:
             if old_aic_version_uuid:
                 API.VirtualFunction.update_aic_version(
-                    self.user_content['engagement_uuid'], old_aic_version_uuid, self.user_content['session_token'])
+                    self.user_content['engagement_uuid'],
+                    old_aic_version_uuid,
+                    self.user_content['session_token'])
                 if new_aic_version:
                     DB.VirtualFunction.delete_aic_version(
                         new_aic_version['uuid'])
@@ -265,28 +299,40 @@ class TestDetailedView(TestUiBase):
     def test_retire_selected_ecomp_release(self):
         old_ecomp_release_uuid = new_ecomp_release = None
         try:
-            old_ecomp_release_uuid = DB.VirtualFunction.select_ecomp_release_uuid(
-                self.user_content['ecomp_release'])
-            new_ecomp_release = {"uuid": str(
-                uuid.uuid4()), "name": Helper.rand_string(), "ui_visibility": "FALSE"}
+            old_ecomp_release_uuid = \
+                DB.VirtualFunction.select_ecomp_release_uuid(
+                    self.user_content['ecomp_release'])
+            new_ecomp_release = {
+                "uuid": str(
+                    uuid.uuid4()),
+                "name": Helper.rand_string(),
+                "ui_visibility": "FALSE"}
             DB.VirtualFunction.insert_ecomp_release(
-                new_ecomp_release['uuid'], new_ecomp_release['name'], new_ecomp_release['ui_visibility'])
+                new_ecomp_release['uuid'],
+                new_ecomp_release['name'],
+                new_ecomp_release['ui_visibility'])
             self.user_content['session_token'] = "token " + \
                 API.User.login_user(self.user_content['el_email'])
             API.VirtualFunction.update_ecomp_release(
-                self.user_content['engagement_uuid'], new_ecomp_release['uuid'], self.user_content['session_token'])
+                self.user_content['engagement_uuid'],
+                new_ecomp_release['uuid'],
+                self.user_content['session_token'])
             Frontend.User.login(
                 self.user_content['el_email'], Constants.Default.Password.TEXT)
             Frontend.DetailedView.search_vf_and_go_to_detailed_view(
-                self.user_content['engagement_manual_id'], self.user_content['vfName'])
+                self.user_content['engagement_manual_id'],
+                self.user_content['vfName'])
             Frontend.DetailedView.compare_selected_ecomp_release(
                 new_ecomp_release['name'])
             Frontend.DetailedView.click_on_update_ecomp_release()
-            Frontend.DetailedView.validate_deprecated_ecomp_release_in_dropdown(
-                new_ecomp_release['name'])
+            Frontend.DetailedView.\
+                validate_deprecated_ecomp_release_in_dropdown(
+                    new_ecomp_release['name'])
         finally:
             if self.user_content and old_ecomp_release_uuid:
                 API.VirtualFunction.update_ecomp_release(
-                    self.user_content['engagement_uuid'], old_ecomp_release_uuid, self.user_content['session_token'])
+                    self.user_content['engagement_uuid'],
+                    old_ecomp_release_uuid,
+                    self.user_content['session_token'])
                 DB.VirtualFunction.delete_ecomp_release(
                     new_ecomp_release['uuid'], new_ecomp_release['name'])

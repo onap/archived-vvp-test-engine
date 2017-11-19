@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -36,16 +36,21 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
+
+
 class DBBridge:
 
     """
-    This class helps to use functions inside classes with circular import (dependencies).
-    Use this class only when there is circular import in one of the DB services.
+    This class helps to use functions inside classes
+    with circular import (dependencies).
+    Use this class only when there is circular
+    import in one of the DB services.
     """
 
     @staticmethod
     def select_personal_next_step(user_email):
-        """select_personal_next_step: Originally can be found under DBUser class."""
+        """select_personal_next_step: Originally """ +\
+            """can be found under DBUser class."""
         from services.database.db_user import DBUser
         return DBUser.select_personal_next_step(user_email)
 

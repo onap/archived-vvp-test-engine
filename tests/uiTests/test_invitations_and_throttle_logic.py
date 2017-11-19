@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -71,14 +70,25 @@ class TestInvitationsLogic(TestUiBase):
         Click.id(vf_left_nav_id)
         Frontend.Wizard.invite_team_members_modal(user_content[1]['email'])
         enguuid = DB.General.select_where(
-            "uuid", "ice_engagement", "engagement_manual_id", user_content[0]['engagement_manual_id'], 1)
+            "uuid",
+            "ice_engagement",
+            "engagement_manual_id",
+            user_content[0]['engagement_manual_id'],
+            1)
         invitation_token = DB.User.select_invitation_token(
-            "invitation_token", "ice_invitation", "engagement_uuid", enguuid, user_content[1]['email'], 1)
+            "invitation_token",
+            "ice_invitation",
+            "engagement_uuid",
+            enguuid,
+            user_content[1]['email'],
+            1)
         inviterURL = Constants.Default.InviteURL.Login.TEXT + invitation_token
         Frontend.General.re_open(inviterURL)
         title_id = "title-id-" + engName
         Frontend.User.login(
-            user_content[1]['email'], Constants.Default.Password.TEXT, title_id)
+            user_content[1]['email'],
+            Constants.Default.Password.TEXT,
+            title_id)
         vf_left_nav_id = "clickable-" + engName
         Click.id(vf_left_nav_id)
         actualVfName = Get.by_id(vf_left_nav_id)
@@ -93,18 +103,22 @@ class TestInvitationsLogic(TestUiBase):
         Click.id(vf_left_nav_id)
         Click.id(Constants.Dashboard.Overview.TeamMember.ID)
         Wait.text_by_css(Constants.Dashboard.Wizard.Title.CSS,
-                         Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
+                         Constants.Dashboard.Wizard.InviteTeamMembers.
+                         Title.TEXT)
         Enter.text_by_name("email", user_content[1]['email'])
-        Wait.text_by_css(Constants.SubmitButton.CSS,
-                         Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
+        Wait.text_by_css(
+            Constants.SubmitButton.CSS,
+            Constants.Dashboard.Wizard.InviteTeamMembers.Button.TEXT)
         Click.css(Constants.SubmitButton.CSS)
         Wait.id(Constants.Toast.ID)
         Helper.internal_assert(
             Get.by_id(Constants.Toast.ID), "Invite couldn't be created")
 
     '''
-     If there are 5 invitations for a specific email in the last 24 hours for a particular standard user
-     and/or email do not send an email. Note: ELs and admins do not have a limit for how many invitations 
+     If there are 5 invitations for a specific email in the last 24
+      hours for a particular standard user
+     and/or email do not send an email. Note: ELs and admins do not
+      have a limit for how many invitations
      they can get per 24 hours.
     '''
     @exception()
@@ -126,8 +140,8 @@ class TestInvitationsLogic(TestUiBase):
         Frontend.Invite.invite_and_validate_limit(user_content, vf_left_nav_id)
 
     '''
-    If there are more than 25 invitations for an invited_by_user_uuid 
-    corresponding to an normal standard users and read only admins, 
+    If there are more than 25 invitations for an invited_by_user_uuid
+    corresponding to an normal standard users and read only admins,
     do not send the invite.
     '''
     @exception()
@@ -155,7 +169,8 @@ class TestInvitationsLogic(TestUiBase):
         Click.id(
             Constants.Dashboard.Overview.TeamMember.ID, wait_for_page=True)
         Wait.text_by_css(Constants.Dashboard.Wizard.Title.CSS,
-                         Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
+                         Constants.Dashboard.Wizard.InviteTeamMembers.
+                         Title.TEXT)
         Frontend.Invite.invite_x_users_from_tm(
             list_of_invite_emails, countofUser2, countOfem2, 9)
         countOfem3 = 2
@@ -163,7 +178,8 @@ class TestInvitationsLogic(TestUiBase):
         Click.id(
             Constants.Dashboard.Overview.TeamMember.ID, wait_for_page=True)
         Wait.text_by_css(Constants.Dashboard.Wizard.Title.CSS,
-                         Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
+                         Constants.Dashboard.Wizard.InviteTeamMembers.
+                         Title.TEXT)
         Frontend.Invite.invite_x_users_from_tm(
             list_of_invite_emails, countofUser3, countOfem3, 5)
         Wait.text_by_id(Constants.Toast.ID,

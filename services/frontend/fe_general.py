@@ -39,7 +39,6 @@
 import json
 import time
 
-from django.conf import settings
 from selenium.webdriver.support.select import Select
 
 from services.constants import Constants
@@ -87,7 +86,7 @@ class FEGeneral(Helper):
             session.ice_driver.get(reopen_url)
             session.ice_driver.maximize_window()
             Wait.page_has_loaded()
-        except Exception as e:
+        except Exception:
             errorMsg = "Could not reopen requested page"
             raise Exception(errorMsg, reopen_url)
 
@@ -97,7 +96,7 @@ class FEGeneral(Helper):
             # Open FireFox with requested URL.
             session.ice_driver.get(url)
             session.ice_driver.maximize_window()
-        except:
+        except BaseException:
             errorMsg = "Could not reopen requested page"
             raise Exception(errorMsg, url)
             logger.debug("Moving to next test case")
@@ -139,7 +138,9 @@ class FEGeneral(Helper):
     def go_to_signup_from_login():
         Click.link_text(Constants.Login.Signup.LINK_TEXT, wait_for_page=True)
         Wait.text_by_css(
-            Constants.Signup.Title.CSS, Constants.Signup.Title.TEXT, wait_for_page=True)
+            Constants.Signup.Title.CSS,
+            Constants.Signup.Title.TEXT,
+            wait_for_page=True)
 
     @staticmethod
     def form_enter_name(name):
@@ -213,7 +214,8 @@ class FEGeneral(Helper):
     def send_reset_password(email):
         FEGeneral.go_to_reset_password_from_login()
         Wait.text_by_css(
-            Constants.ResetPassword.Title.CSS, Constants.ResetPassword.Title.TEXT)
+            Constants.ResetPassword.Title.CSS,
+            Constants.ResetPassword.Title.TEXT)
         Enter.text_by_name(Constants.ResetPassword.Email.NAME, email)
         Wait.text_by_css(
             Constants.SubmitButton.CSS, Constants.ResetPassword.Button.TEXT)
@@ -275,4 +277,5 @@ class FEGeneral(Helper):
                 Helper.assertTrue(
                     False, "%s does not exist over the client's side" % item)
         logger.debug(
-            "verify_existing_files_in_list succeeded, All vf repo files are available for choosing.")
+            "verify_existing_files_in_list succeeded, " +
+            "All vf repo files are available for choosing.")

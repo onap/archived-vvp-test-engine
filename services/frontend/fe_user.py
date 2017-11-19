@@ -59,7 +59,11 @@ logger = LoggingServiceFactory.get_logger()
 class FEUser:
 
     @staticmethod
-    def login(email, password, expected_element=Constants.Dashboard.Statuses.Title.ID, element_type="id"):
+    def login(
+            email,
+            password,
+            expected_element=Constants.Dashboard.Statuses.Title.ID,
+            element_type="id"):
         try:
             logger.debug("Verifying and Insert Login page elements:")
             logger.debug("Insert Email " + email)
@@ -81,7 +85,11 @@ class FEUser:
             raise Exception(errorMsg, e)
 
     @staticmethod
-    def relogin(email, password, expected_element=Constants.Dashboard.Statuses.Title.ID, element_type="id"):
+    def relogin(
+            email,
+            password,
+            expected_element=Constants.Dashboard.Statuses.Title.ID,
+            element_type="id"):
         FEGeneral.re_open(Constants.Default.LoginURL.TEXT)
         FEUser.login(email, password, expected_element, element_type)
 
@@ -91,7 +99,11 @@ class FEUser:
         Click.link_text(Constants.Dashboard.Avatar.Logout.LINK_TEXT)
 
     @staticmethod
-    def activate_and_login(email, password, expected_element=Constants.Dashboard.Statuses.Title.ID, element_type="id"):
+    def activate_and_login(
+            email,
+            password,
+            expected_element=Constants.Dashboard.Statuses.Title.ID,
+            element_type="id"):
         activationUrl = DBUser.get_activation_url(email)
         FEGeneral.re_open(activationUrl)
         FEUser.login(email, password, expected_element, element_type)
@@ -124,7 +136,7 @@ class FEUser:
             accountObj = [randomName, phone, password]
             return accountObj
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "Failed in update accaunt ."
             raise Exception(errorMsg)
             raise
@@ -169,15 +181,18 @@ class FEUser:
     def click_on_feedback():
         Click.id(Constants.Dashboard.Feedback.ID, wait_for_page=True)
         Wait.id(
-            Constants.Dashboard.Feedback.FeedbackModal.SAVE_BTN_ID, wait_for_page=True)
+            Constants.Dashboard.Feedback.FeedbackModal.SAVE_BTN_ID,
+            wait_for_page=True)
 
     @staticmethod
     def validate_feedback(description, user_email):
-        query = "SELECT user_id FROM ice_feedback where description = '{desc}'".format(
-            desc=description)
+        query = "SELECT user_id FROM ice_feedback where " +\
+            "description = '{desc}'".format(
+                desc=description)
         feedback_user_uuid = DBGeneral.select_query(query)
-        query = "SELECT id FROM ice_user_profile  where email = '{email}'".format(
-            email=user_email)
+        query = "SELECT id FROM ice_user_profile  where " +\
+            "email = '{email}'".format(
+                email=user_email)
         user_uuid = DBGeneral.select_query(query)
         Helper.internal_assert(user_uuid, feedback_user_uuid)
 
@@ -187,7 +202,8 @@ class FEUser:
         description = Helper.rand_string("randomString")
         Enter.text_by_css("textarea[name=\"description\"]", description)
         Click.id(
-            Constants.Dashboard.Feedback.FeedbackModal.SAVE_BTN_ID,  wait_for_page=True)
+            Constants.Dashboard.Feedback.FeedbackModal.SAVE_BTN_ID,
+            wait_for_page=True)
         Wait.text_by_id(Constants.Toast.ID,
                         "Feedback was sent successfully.", wait_for_page=True)
         return description
@@ -206,9 +222,12 @@ class FEUser:
     def click_on_notifications():
         try:
             Click.link_text(
-                Constants.Dashboard.Avatar.Notifications.LINK_TEXT, wait_for_page=True)
-            Wait.text_by_id(Constants.Dashboard.Avatar.Notifications.Title.ID,
-                            Constants.Dashboard.Avatar.Notifications.Title.TEXT, wait_for_page=True)
+                Constants.Dashboard.Avatar.Notifications.LINK_TEXT,
+                wait_for_page=True)
+            Wait.text_by_id(
+                Constants.Dashboard.Avatar.Notifications.Title.ID,
+                Constants.Dashboard.Avatar.Notifications.Title.TEXT,
+                wait_for_page=True)
         except Exception as e:
             errorMsg = "Failed to click_on on Admin."
             raise Exception(errorMsg, e)
@@ -231,21 +250,28 @@ class FEUser:
             logger.error(
                 "APIUser should not have assigned next steps at first login.")
             raise
-        if (Get.by_id("next-steps-list") != "No next steps are assigned to you."):
+        if (Get.by_id("next-steps-list") !=
+                "No next steps are assigned to you."):
             logger.error(
-                "No assigned next steps and text 'No next steps are assigned to you.' was not found.")
+                "No assigned next steps and text 'No next steps are " +
+                "assigned to you.' was not found.")
             raise
         token = "token " + APIUser.login_user(user_content['el_email'])
         user_content['session_token'] = token
         logger.debug(
-            "Adding new next step (via api) and assigning it to user " + user_content['full_name'])
+            "Adding new next step (via api) and assigning it to user " +
+            user_content['full_name'])
         APIVirtualFunction.add_next_step(user_content)
         logger.debug(
-            "Refresh page and look for changes in assigned next steps section:")
+            "Refresh page and look for changes in assigned " +
+            "next steps section:")
         FEGeneral.refresh()
         logger.debug("    > Check if number has changed in 'Assigned To You'")
-        Wait.text_by_id(
-            "next-steps-header", "Assigned To You (1)", wait_for_page=True)
+        FEUser.logout()
+        FEUser.login(
+            user_content['email'], Constants.Default.Password.TEXT)
+        text = Get.by_id("next-steps-header", True)
+        Helper.internal_assert(text, "Assigned To You (1)")
 
     @staticmethod
     def set_ssh_key_from_account(key, is_negative=False):
@@ -254,23 +280,29 @@ class FEUser:
         Click.css(Constants.SubmitButton.CSS)
         if is_negative:
             Wait.text_by_id(
-                Constants.Toast.ID, Constants.Dashboard.Avatar.Account.SSHKey.UpdateFailed.TEXT)
+                Constants.Toast.ID,
+                Constants.Dashboard.Avatar.Account.SSHKey.UpdateFailed.TEXT)
         else:
             Wait.text_by_id(
-                Constants.Toast.ID, Constants.Dashboard.Avatar.Account.Update.Success.TEXT)
+                Constants.Toast.ID,
+                Constants.Dashboard.Avatar.Account.Update.Success.TEXT)
 
     @staticmethod
     def reset_password():
         Wait.text_by_css(
-            Constants.UpdatePassword.Title.CSS, Constants.UpdatePassword.Title.TEXT)
+            Constants.UpdatePassword.Title.CSS,
+            Constants.UpdatePassword.Title.TEXT)
         Wait.text_by_css(
-            Constants.UpdatePassword.SubTitle.CSS, Constants.UpdatePassword.SubTitle.TEXT)
+            Constants.UpdatePassword.SubTitle.CSS,
+            Constants.UpdatePassword.SubTitle.TEXT)
         Wait.text_by_css(
             Constants.SubmitButton.CSS, Constants.UpdatePassword.Button.TEXT)
         Enter.text_by_name(
-            Constants.UpdatePassword.Password.NAME, Constants.Default.Password.NewPass.TEXT)
+            Constants.UpdatePassword.Password.NAME,
+            Constants.Default.Password.NewPass.TEXT)
         Enter.text_by_name(
-            Constants.UpdatePassword.ConfirmPassword.NAME, Constants.Default.Password.NewPass.TEXT)
+            Constants.UpdatePassword.ConfirmPassword.NAME,
+            Constants.Default.Password.NewPass.TEXT)
         Click.css(Constants.SubmitButton.CSS)
         Wait.text_by_id(
             Constants.Toast.ID, Constants.UpdatePassword.Toast.TEXT)
@@ -279,8 +311,8 @@ class FEUser:
     def delete_notification(notificationID):
         if isinstance(notificationID, tuple):
             notificationID = notificationID[0]
-        delete_button = Constants.Dashboard.Avatar.Notifications.DeleteNotification.ID + \
-            notificationID
+        delete_button = Constants.Dashboard.Avatar.Notifications.\
+            DeleteNotification.ID + notificationID
         # Click on delete button.
         Click.id(delete_button, wait_for_page=True)
         Wait.id_to_dissappear(delete_button)
@@ -292,7 +324,8 @@ class FEUser:
             if isinstance(notifID, tuple):
                 notifID = notifID[0]
             ui_list.append(str(Get.by_id(
-                Constants.Dashboard.Avatar.Notifications.NotificationColumn.ID + notifID)))
+                Constants.Dashboard.Avatar.Notifications.
+                NotificationColumn.ID + notifID)))
         for activity in notification_list:
             if not any(activity in s for s in ui_list):
                 raise AssertionError(
@@ -313,8 +346,9 @@ class FEUser:
     def open_invite_team_member_form(vf_left_nav_id):
         Click.id(vf_left_nav_id)
         Click.id(Constants.Dashboard.Overview.TeamMember.ID)
-        Wait.text_by_name(Constants.Dashboard.Wizard.InviteTeamMembers.Title.NAME,
-                          Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
+        Wait.text_by_name(
+            Constants.Dashboard.Wizard.InviteTeamMembers.Title.NAME,
+            Constants.Dashboard.Wizard.InviteTeamMembers.Title.TEXT)
 
     @staticmethod
     def invite_single_user_to_team(email):
@@ -325,49 +359,64 @@ class FEUser:
     def go_to_user_profile_settings():
         FEUser.go_to_account()
         Click.id(
-            Constants.Dashboard.Avatar.Account.UserProfileSettings.ID, wait_for_page=True)
-        Wait.text_by_id(Constants.Dashboard.Avatar.Account.UserProfileSettings.TitleID,
-                        Constants.Dashboard.Avatar.Account.UserProfileSettings.TitleText, wait_for_page=True)
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.ID,
+            wait_for_page=True)
+        Wait.text_by_id(
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.TitleID,
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.TitleText,
+            wait_for_page=True)
 
     @staticmethod
     def check_user_profile_settings_checkboxes():
         Click.id(
-            Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveEmailsID, wait_for_page=True)
+            Constants.Dashboard.Avatar.Account.
+            UserProfileSettings.ReceiveEmailsID,
+            wait_for_page=True)
         Click.id(
-            Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveEmailEveryTimeID, wait_for_page=True)
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.
+            ReceiveEmailEveryTimeID,
+            wait_for_page=True)
         Click.id(
-            Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveDigestEmailID, wait_for_page=True)
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.
+            ReceiveDigestEmailID,
+            wait_for_page=True)
         Click.id(
-            Constants.Dashboard.Avatar.Account.UserProfileSettings.UpdateButtonID, wait_for_page=True)
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.
+            UpdateButtonID,
+            wait_for_page=True)
 
     @staticmethod
     def validate_user_profile_settings_checkboxes(checked):
         Wait.page_has_loaded()
         receive_emails = Get.is_selected_by_id(
-            Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveEmailsID, True)
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.
+            ReceiveEmailsID, True)
         Helper.internal_assert(receive_emails, checked)
-        receive_notifications = \
-            Get.is_selected_by_id(
-                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveNotificationsID, True)
-        receive_email_every_time = \
-            Get.is_selected_by_id(
-                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveEmailEveryTimeID, True)
+        Get.is_selected_by_id(
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.
+            ReceiveNotificationsID, True)
+        receive_email_every_time = Get.is_selected_by_id(
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.
+            ReceiveEmailEveryTimeID, True)
         Helper.internal_assert(receive_email_every_time, checked)
-        receive_digest_email = \
-            Get.is_selected_by_id(
-                Constants.Dashboard.Avatar.Account.UserProfileSettings.ReceiveDigestEmailID, True)
+        receive_digest_email = Get.is_selected_by_id(
+            Constants.Dashboard.Avatar.Account.UserProfileSettings.
+            ReceiveDigestEmailID, True)
         Helper.internal_assert(receive_digest_email, not checked)
 
     @staticmethod
     def compare_notifications_count_for_user(expected_count):
         Wait.text_by_id(
-            Constants.Dashboard.Avatar.Notifications.Count.ID, expected_count, True)
+            Constants.Dashboard.Avatar.Notifications.Count.ID,
+            expected_count,
+            True)
 
     @staticmethod
     def check_notification_number_is_not_presented():
         FEGeneral.refresh()
         Wait.id_to_dissappear(
-            Constants.Dashboard.Avatar.Notifications.Count.ID, wait_for_page=True)
+            Constants.Dashboard.Avatar.Notifications.Count.ID,
+            wait_for_page=True)
 
     @staticmethod
     def validate_account_details(full_name, phone_number, ssh_key):
@@ -375,8 +424,8 @@ class FEUser:
             Constants.Dashboard.Avatar.Account.FullName.NAME))
         Helper.internal_assert(phone_number, Get.value_by_name(
             Constants.Dashboard.Avatar.Account.Phone.NAME))
-        Helper.internal_assert(
-            ssh_key, Get.value_by_name(Constants.Dashboard.Avatar.Account.SSHKey.NAME))
+        Helper.internal_assert(ssh_key, Get.value_by_name(
+            Constants.Dashboard.Avatar.Account.SSHKey.NAME))
 
     @staticmethod
     def check_rgwa_access_key(my_key):
@@ -387,14 +436,16 @@ class FEUser:
     def check_rgwa_access_secret(my_secret):
         Click.id(Constants.Dashboard.Avatar.Account.RGWA.Secret.BUTTON_ID)
         Wait.text_by_id(
-            Constants.Dashboard.Avatar.Account.RGWA.Secret.SECRET_ID, my_secret)
+            Constants.Dashboard.Avatar.Account.RGWA.Secret.SECRET_ID,
+            my_secret)
 
     @staticmethod
     def get_rgwa_access_secret():
         Click.id(Constants.Dashboard.Avatar.Account.RGWA.Secret.BUTTON_ID,
                  wait_for_page=True)
         secret = Get.by_id(
-            Constants.Dashboard.Avatar.Account.RGWA.Secret.SECRET_ID, wait_for_page=True)
+            Constants.Dashboard.Avatar.Account.RGWA.Secret.SECRET_ID,
+            wait_for_page=True)
         return secret
 
     @staticmethod

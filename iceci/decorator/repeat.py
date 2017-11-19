@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -36,7 +36,9 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-import unittest,time
+import time
+
+
 def repeat(times):
     def repeatHelper(f):
         def callHelper(*args):
@@ -46,4 +48,3 @@ def repeat(times):
         return callHelper
     time.sleep(3)
     return repeatHelper
-

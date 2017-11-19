@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -39,6 +39,7 @@
 from services.logging_service import LoggingServiceFactory
 logger = LoggingServiceFactory.get_logger()
 
+
 def _aop(decorator):
     '''This decorator can be used to turn simple functions
     into well-behaved decorators, so long as the decorators
@@ -55,7 +56,7 @@ def _aop(decorator):
         g.__doc__ = f.__doc__
         g.__dict__.update(f.__dict__)
         return g
-    
+
     # Now a few lines needed to make _aop itself
     # be a well-behaved decorator.
     new_decorator.__name__ = decorator.__name__
@@ -66,10 +67,17 @@ def _aop(decorator):
 #
 # Sample Use:
 #
+
+
 @_aop
 def logFuncEntry(func):
     def foo(*args, **kwargs):
-        logger.debug('calling {}'.format(func.__name__)+" | "+str(args)+" | "+str(kwargs))
+        logger.debug(
+            'calling {}'.format(
+                func.__name__) +
+            " | " +
+            str(args) +
+            " | " +
+            str(kwargs))
         return func(*args, **kwargs)
     return foo
-

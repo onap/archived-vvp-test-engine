@@ -1,4 +1,3 @@
-
 # ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
@@ -59,7 +58,8 @@ class TestSanity(TestUiBase):
     def setUpClass(cls):
         super(TestSanity, cls).setUpClass()
 
-        cls.user_content_api = API.User.create_new_user_content_login_with_api()
+        cls.user_content_api = \
+            API.User.create_new_user_content_login_with_api()
         cls.user_content = API.VirtualFunction.create_engagement()
 
     @exception()
@@ -76,11 +76,14 @@ class TestSanity(TestUiBase):
         DB.Checklist.update_decisions(checklistUuid, checklistName)
 
         Frontend.User.relogin(
-            engLeadEmail, Constants.Default.Password.TEXT, engagement_manual_id)
+            engLeadEmail,
+            Constants.Default.Password.TEXT,
+            engagement_manual_id)
         Frontend.Checklist.click_on_checklist(user_content, checklistName)
         Frontend.Checklist.validate_reject_is_enabled()
         Frontend.Checklist.review_state_actions_and_validations(
-            checklistName, user_content['vfName'], Constants.ChecklistStates.Review.TEXT)
+            checklistName, user_content['vfName'],
+            Constants.ChecklistStates.Review.TEXT)
 
         Frontend.Checklist.cl_to_next_stage(actualVfNameid)
         engPreeRiviewerLeadEmail = DB.Checklist.get_pr_email(checklistUuid)
@@ -107,8 +110,11 @@ class TestSanity(TestUiBase):
     def test_admin_set_stage(self):
         user_content = API.VirtualFunction.create_engagement(
             wait_for_gitlab=False)
-        stages = [Constants.EngagementStages.INTAKE, Constants.EngagementStages.ACTIVE,
-                  Constants.EngagementStages.VALIDATED, Constants.EngagementStages.COMPLETED]
+        stages = [
+            Constants.EngagementStages.INTAKE,
+            Constants.EngagementStages.ACTIVE,
+            Constants.EngagementStages.VALIDATED,
+            Constants.EngagementStages.COMPLETED]
         Frontend.User.login(
             Constants.Users.Admin.EMAIL, Constants.Default.Password.TEXT)
         Frontend.Dashboard.statuses_search_vf(
@@ -125,9 +131,11 @@ class TestSanity(TestUiBase):
         Name:
             test_invite_new_user
         Steps:
-            Create new APIUser via SignUp request-->Login with This One--> build "activationUrl"-->
+            Create new APIUser via SignUp request-->Login with This One-->
+             build "activationUrl"-->
             Validation of successful activate-->
-            close Wizard --> Logout-->login-->Open Wizard--> fill all fields in all Tab's(4)-->
+            close Wizard --> Logout-->login-->Open Wizard-->
+             fill all fields in all Tab's(4)-->
             build inviteURL from email--> reopen browser with inviteURL-->
             Validate fields filled's in SignUp form
         """
@@ -145,7 +153,8 @@ class TestSanity(TestUiBase):
         Frontend.User.login(
             user_content['email'], Constants.Default.Password.TEXT)
         Wait.text_by_css(
-            Constants.Dashboard.LeftPanel.Title.CSS, Constants.Dashboard.LeftPanel.Title.TEXT)
+            Constants.Dashboard.LeftPanel.Title.CSS,
+            Constants.Dashboard.LeftPanel.Title.TEXT)
         logger.debug("click_on on + Dashboard")
         Click.id(Constants.Dashboard.LeftPanel.AddEngagement.ID)
         # Wizard
@@ -160,15 +169,26 @@ class TestSanity(TestUiBase):
         Frontend.General.re_open(inviterURL)
         actualInvitedEmail = Get.value_by_name("email")
         Helper.internal_assert(inviteEmail, actualInvitedEmail)
-        signUpURLforContact = DB.User.get_contact_signup_url(enguuid, uuid, vendor_contact["email"],
-                                                             vendor_contact["full_name"], vendor_contact["phone"], vendor_contact["company"])
+        signUpURLforContact = DB.User.get_contact_signup_url(
+            enguuid,
+            uuid,
+            vendor_contact["email"],
+            vendor_contact["full_name"],
+            vendor_contact["phone"],
+            vendor_contact["company"])
         Frontend.General.re_open(signUpURLforContact)
 
         actualInvitedEmail = Get.value_by_name(Constants.Signup.Email.NAME)
         Helper.internal_assert(vendor_contact["email"], actualInvitedEmail)
         Helper.internal_assert(
-            "+" + vendor_contact["phone"], Get.value_by_name(Constants.Signup.Phone.NAME))
+            "+" + vendor_contact["phone"],
+            Get.value_by_name(
+                Constants.Signup.Phone.NAME))
         Helper.internal_assert(
-            vendor_contact["full_name"], Get.value_by_name(Constants.Signup.FullName.NAME))
+            vendor_contact["full_name"],
+            Get.value_by_name(
+                Constants.Signup.FullName.NAME))
         Helper.internal_assert(
-            vendor_contact["company"], Get.value_by_name(Constants.Signup.Company.NAME))
+            vendor_contact["company"],
+            Get.value_by_name(
+                Constants.Signup.Company.NAME))

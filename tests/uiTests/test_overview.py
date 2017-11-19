@@ -53,7 +53,8 @@ class TestOverview(TestUiBase):
     @exception()
     def test_engagement_validation_details_update_when_cl_closed(self):
         user_content = API.VirtualFunction.create_engagement()
-        cl_name = Constants.Dashboard.Checklist.ChecklistDefaultNames.AIC_INSTANTIATION
+        cl_name = Constants.Dashboard.Checklist.\
+            ChecklistDefaultNames.AIC_INSTANTIATION
         DB.Checklist.state_changed(
             "name", cl_name, Constants.ChecklistStates.Review.TEXT)
         cl_uuid = DB.Checklist.get_recent_checklist_uuid(cl_name)[0]

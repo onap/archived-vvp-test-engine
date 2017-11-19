@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -46,10 +45,12 @@ from tests.uiTests.test_ui_base import TestUiBase
 
 logger = LoggingServiceFactory.get_logger()
 
+
 class TestPortalHomepage(TestUiBase):
     @exception()
     def test_homepage(self):
-        ''' Portal home page sanity, click on links, varify buttons and headlines. '''
+        ''' Portal home page sanity, click on links, varify
+         buttons and headlines. '''
         Frontend.General.re_open(settings.ICE_PORTAL_URL)
         Frontend.General.verify_home_elements()
         Frontend.General.go_to_signup_from_homepage()

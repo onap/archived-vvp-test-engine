@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -50,7 +50,9 @@ class FENextStep(object):
     def check_select_deselect_all_files():
         Click.id(Constants.Dashboard.Overview.NextSteps.Add.AssociatedFiles.ID)
         Click.link_text(
-            Constants.Dashboard.Overview.NextSteps.Add.AssociatedFiles.SELECT_ALL_FILES_NAME)
+            Constants.Dashboard.Overview.NextSteps.Add.AssociatedFiles.
+            SELECT_ALL_FILES_NAME)
         Wait.text_by_id(
             Constants.Dashboard.Overview.NextSteps.Add.AssociatedFiles.ID,
-            Constants.Dashboard.Overview.NextSteps.Add.AssociatedFiles.ALL_FILES_SELECTED)
+            Constants.Dashboard.Overview.NextSteps.Add.AssociatedFiles.
+            ALL_FILES_SELECTED)

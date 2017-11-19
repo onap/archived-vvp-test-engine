@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -88,14 +88,27 @@ class TestApiBase(TestCase, Helper):
 
     @logFuncEntry
     def results(self):
-        params = {"testType": "E2E Test", "testFeature": self.className,
-                  "testResult": "PASS", "testName": self.funcName, "duration": self.testDuration}
+        params = {
+            "testType": "E2E Test",
+            "testFeature": self.className,
+            "testResult": "PASS",
+            "testName": self.funcName,
+            "duration": self.testDuration}
         if (session.errorCounter == 0):
-            DBGeneral.insert_results(params["testType"], params["testFeature"], params[
-                                     "testResult"], params["testName"], params['duration'])
+            DBGeneral.insert_results(
+                params["testType"],
+                params["testFeature"],
+                params["testResult"],
+                params["testName"],
+                params['duration'])
         else:
             params["testResult"] = "FAIL"  # Mark test as fail.
             # Add the errors to notes column in table.
             params["notes"] = session.errorList
-            DBGeneral.insert_results(params["testType"], params["testFeature"], params[
-                                     "testResult"], params["testName"], params['duration'], params["notes"])
+            DBGeneral.insert_results(
+                params["testType"],
+                params["testFeature"],
+                params["testResult"],
+                params["testName"],
+                params['duration'],
+                params["notes"])

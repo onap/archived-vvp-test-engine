@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -55,7 +54,7 @@ class TestChecklistTemplate(TestUiBase):
         DB.Checklist.create_editing_cl_template_if_not_exist()
 
     @exception()
-    def test_save_checklist_tamplate_without_changes(self):
+    def test_save_checklist_template_without_changes(self):
         Frontend.ChecklistTemplate.basic_admin_navigation()
         Frontend.ChecklistTemplate.click_on_template_name_on_navigation(
             Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT,
@@ -63,7 +62,7 @@ class TestChecklistTemplate(TestUiBase):
         Frontend.ChecklistTemplate.save_with_no_changes()
 
     @exception()
-    def test_discard_checklist_tamplate_with_changes(self):
+    def test_discard_checklist_template_with_changes(self):
         Frontend.ChecklistTemplate.basic_admin_navigation()
         Frontend.ChecklistTemplate.click_on_template_name_on_navigation(
             Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT,
@@ -71,7 +70,7 @@ class TestChecklistTemplate(TestUiBase):
         Frontend.ChecklistTemplate.discard_checklist_after_modification()
 
     @exception()
-    def test_save_checklist_tamplate_after_edit_section_name(self):
+    def test_save_checklist_template_after_edit_section_name(self):
         Frontend.ChecklistTemplate.basic_admin_navigation()
         Frontend.ChecklistTemplate.click_on_template_name_on_navigation(
             Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT,
@@ -79,7 +78,7 @@ class TestChecklistTemplate(TestUiBase):
         Frontend.ChecklistTemplate.edit_template_and_save()
 
     @exception()
-    def test_save_checklist_tamplate_after_lineitem_delete(self):
+    def test_save_checklist_template_after_lineitem_delete(self):
         Frontend.ChecklistTemplate.basic_admin_navigation()
         Frontend.ChecklistTemplate.click_on_template_name_on_navigation(
             Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT,
@@ -87,7 +86,7 @@ class TestChecklistTemplate(TestUiBase):
         Frontend.ChecklistTemplate.del_lineitem_and_save()
 
     @exception()
-    def test_save_checklist_tamplate_after_lineitem_added(self):
+    def test_save_checklist_template_after_lineitem_added(self):
         Frontend.ChecklistTemplate.basic_admin_navigation()
         Frontend.ChecklistTemplate.click_on_template_name_on_navigation(
             Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT,
@@ -103,7 +102,7 @@ class TestChecklistTemplate(TestUiBase):
         Frontend.ChecklistTemplate.add_lineitem_and_check_db()
 
     @exception()
-    def test_save_checklist_tamplate_after_edit_lineitem(self):
+    def test_save_checklist_template_after_edit_lineitem(self):
         Frontend.ChecklistTemplate.basic_admin_navigation()
         Frontend.ChecklistTemplate.click_on_template_name_on_navigation(
             Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT,

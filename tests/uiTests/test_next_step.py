@@ -85,8 +85,10 @@ class TestNextStep(TestUiBase):
     def test_complete_next_steps(self):
         user_content = API.VirtualFunction.create_engagement(
             wait_for_gitlab=False)
-        steps_uuids = DB.VirtualFunction.return_expected_steps(user_content['engagement_uuid'],
-                                                               Constants.EngagementStages.INTAKE, user_content['email'])
+        steps_uuids = DB.VirtualFunction.return_expected_steps(
+            user_content['engagement_uuid'],
+            Constants.EngagementStages.INTAKE,
+            user_content['email'])
         Frontend.User.login(
             user_content['email'], Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(user_content)
@@ -102,18 +104,22 @@ class TestNextStep(TestUiBase):
         user_content['session_token'] = "token " + \
             API.User.login_user(user_content['el_email'])
 
-        # Create a checklist in order for the files to be viewed in the Overview. when
+        # Create a checklist in order for the
+        # files to be viewed in the Overview. when
         # we want to filter next steps by files in the Overview  - EM shows us
         # files that relate to the VF's CLs)
         API.Checklist.create_checklist(user_content)
         next_step_uuid = API.VirtualFunction.add_next_step(
-            user_content, [Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.FILE0_LINK_TEXT])
+            user_content, [
+                Constants.Dashboard.Overview.NextSteps.
+                FilterByFileDropDown.FILE0_LINK_TEXT])
         Frontend.User.login(
             user_content['el_email'], Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(user_content)
         Frontend.Overview.next_steps_filter_by_files()
-        Helper.internal_assert(Frontend.Overview.get_next_step_description(0),
-                               DB.VirtualFunction.select_next_step_description(next_step_uuid))
+        Helper.internal_assert(
+            Frontend.Overview.get_next_step_description(0),
+            DB.VirtualFunction.select_next_step_description(next_step_uuid))
 
     @exception()
     def test_filter_next_steps_by_associated_files_via_pr(self):
@@ -123,13 +129,16 @@ class TestNextStep(TestUiBase):
             API.User.login_user(user_content['el_email'])
         API.Checklist.create_checklist(user_content)
         next_step_uuid = API.VirtualFunction.add_next_step(
-            user_content, [Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.FILE0_LINK_TEXT])
+            user_content, [
+                Constants.Dashboard.Overview.NextSteps.
+                FilterByFileDropDown.FILE0_LINK_TEXT])
         Frontend.User.login(
             user_content['pr_email'], Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(user_content)
         Frontend.Overview.next_steps_filter_by_files()
-        Helper.internal_assert(Frontend.Overview.get_next_step_description(0),
-                               DB.VirtualFunction.select_next_step_description(next_step_uuid))
+        Helper.internal_assert(
+            Frontend.Overview.get_next_step_description(0),
+            DB.VirtualFunction.select_next_step_description(next_step_uuid))
 
     @exception()
     def test_delete_next_step(self):
@@ -138,8 +147,8 @@ class TestNextStep(TestUiBase):
         Frontend.User.login(
             user_content['el_email'], Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(user_content)
-        steps_uuids = DB.VirtualFunction.select_next_steps_uuids_by_stage(user_content['engagement_uuid'],
-                                                                          Constants.EngagementStages.INTAKE)
+        steps_uuids = DB.VirtualFunction.select_next_steps_uuids_by_stage(
+            user_content['engagement_uuid'], Constants.EngagementStages.INTAKE)
         for idx, step_uuid in enumerate(steps_uuids):
             Frontend.Overview.delete_next_step(step_uuid)
             logger.debug("Next step deleted! (%s of %s)" %
@@ -152,8 +161,8 @@ class TestNextStep(TestUiBase):
         Frontend.User.login(
             user_content['pr_email'], Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(user_content)
-        steps_uuids = DB.VirtualFunction.select_next_steps_uuids_by_stage(user_content['engagement_uuid'],
-                                                                          Constants.EngagementStages.INTAKE)
+        steps_uuids = DB.VirtualFunction.select_next_steps_uuids_by_stage(
+            user_content['engagement_uuid'], Constants.EngagementStages.INTAKE)
         for idx, step_uuid in enumerate(steps_uuids):
             Frontend.Overview.delete_next_step(step_uuid)
             logger.debug("Next step deleted! (%s of %s)" %
@@ -165,14 +174,17 @@ class TestNextStep(TestUiBase):
             wait_for_gitlab=False)
         user_content['session_token'] = "token " + \
             API.User.login_user(user_content['email'])
-        steps_uuids = DB.VirtualFunction.return_expected_steps(user_content['engagement_uuid'],
-                                                               Constants.EngagementStages.INTAKE, user_content['email'])
+        steps_uuids = DB.VirtualFunction.return_expected_steps(
+            user_content['engagement_uuid'],
+            Constants.EngagementStages.INTAKE,
+            user_content['email'])
         Frontend.User.login(
             user_content['email'], Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(user_content)
         Click.id(Constants.Dashboard.Overview.NextSteps.StateDropDown.ID)
         Click.link_text(
-            Constants.Dashboard.Overview.NextSteps.StateDropDown.COMPLETED_LINK_TEXT)
+            Constants.Dashboard.Overview.NextSteps.
+            StateDropDown.COMPLETED_LINK_TEXT)
         Click.id(Constants.Dashboard.Overview.NextSteps.StateDropDown.ID,
                  wait_for_page=True)
         Frontend.Overview.validate_next_steps_order(steps_uuids)
@@ -183,7 +195,9 @@ class TestNextStep(TestUiBase):
         Click.id(Constants.Dashboard.Overview.NextSteps.StateDropDown.ID,
                  wait_for_page=True)
         Click.link_text(
-            Constants.Dashboard.Overview.NextSteps.StateDropDown.COMPLETED_LINK_TEXT, wait_for_page=True)
+            Constants.Dashboard.Overview.NextSteps.
+            StateDropDown.COMPLETED_LINK_TEXT,
+            wait_for_page=True)
         Click.id(Constants.Dashboard.Overview.NextSteps.StateDropDown.ID,
                  wait_for_page=True)
         Frontend.Overview.validate_next_steps_order(
@@ -206,15 +220,16 @@ class TestNextStep(TestUiBase):
         cl_content = API.Checklist.create_checklist(user_content)
         DB.Checklist.state_changed(
             "name", cl_content['name'], Constants.ChecklistStates.Review.TEXT)
-        new_cl_uuid = DB.Checklist.get_recent_checklist_uuid(cl_content['name'])[
-            0]
+        new_cl_uuid = DB.Checklist.get_recent_checklist_uuid(
+            cl_content['name'])[0]
         API.Checklist.add_checklist_next_step(user_content, new_cl_uuid)
         Frontend.User.login(
             user_content['pr_email'], Constants.Default.Password.TEXT)
         Frontend.Overview.click_on_vf(user_content)
         Frontend.Overview.next_steps_filter_by_files()
         Frontend.Overview.validate_associated_files(
-            Constants.Dashboard.Overview.NextSteps.FilterByFileDropDown.FILE0_LINK_TEXT)
+            Constants.Dashboard.Overview.NextSteps.
+            FilterByFileDropDown.FILE0_LINK_TEXT)
 
     @exception()
     def test_all_vf_gitlab_repo_files_can_be_chosen_in_new_ns(self):
@@ -239,7 +254,7 @@ class TestNextStep(TestUiBase):
         self.user_content['session_token'] = "token " + \
             API.User.login_user(self.user_content['el_email'])
         API.GitLab.git_clone_push(self.user_content)
-        cl_content = API.Checklist.create_checklist(self.user_content)
+        API.Checklist.create_checklist(self.user_content)
         FEUser.login(self.user_content['el_email'],
                      Constants.Default.Password.TEXT)
         FEOverview.click_on_vf(self.user_content)

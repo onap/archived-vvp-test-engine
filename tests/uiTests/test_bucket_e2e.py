@@ -1,4 +1,3 @@
-
 # ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
@@ -43,6 +42,7 @@ from wheel.signatures import assertTrue
 from iceci.decorator.exception_decor import exception
 from services.constants import Constants
 from services.database.db_user import DBUser
+from services.frontend.base_actions.wait import Wait
 from services.helper import Helper
 from services.logging_service import LoggingServiceFactory
 from services.types import API
@@ -62,16 +62,17 @@ class TestBucketE2E(TestUiBase):
             user_content, Constants.EngagementStages.ACTIVE)
         bucket_id = user_content[
             'engagement_manual_id'] + "_" + user_content['vfName'].lower()
+        Wait.bucket_to_create(bucket_id)
         bucket = API.Rados.get_bucket(bucket_id)
         assertTrue(API.Rados.is_bucket_ready(bucket_id))
         assertTrue(bucket != "None")
         assertTrue(API.Rados.users_of_bucket_ready_after_created(
-            bucket_id, user_content['full_name']))
+            bucket_id, user_content['uuid']))
         # validate users added to bucket
         grants = API.Rados.get_bucket_grants(bucket_id)
         count = 0
         for g in grants:
-            if g.id == user_content['full_name']:
+            if g.id == user_content['uuid']:
                 count = +1
 
         assertTrue(count > 0)
@@ -86,6 +87,7 @@ class TestBucketE2E(TestUiBase):
         fileName = Helper.rand_string("randomString")
         bucket_id = user_content[
             'engagement_manual_id'] + "_" + user_content['vfName'].lower()
+        Wait.bucket_to_create(bucket_id)
         bucket = API.Rados.get_bucket(bucket_id)
         assertTrue(API.Rados.is_bucket_ready(bucket_id))
         key = bucket.new_key(fileName + '.dat')
@@ -134,7 +136,7 @@ class TestBucketE2E(TestUiBase):
         secret = CryptographyText.decrypt(secret_key)
         bucket_for_specific_user = API.Rados.get_bucketfor_specific_user(
             bucket_id, access_key, secret)
-        assertTrue(bucket_for_specific_user != None)
+        assertTrue(bucket_for_specific_user is not None)
         # create upload file with user
         str_content = Helper.rand_string(
             "randomString") + Helper.rand_string("randomNumber")

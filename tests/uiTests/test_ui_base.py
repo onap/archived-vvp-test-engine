@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -85,8 +84,12 @@ class TestUiBase(unittest.TestCase):
 
         self.fullClassName = __name__
         self.className = self.__class__.__name__
-        logger.debug("---------------------- TestCase - Start - Class " +
-                     self.className + " Function " + self._testMethodName + " ----------------------")
+        logger.debug(
+            "---------------------- TestCase - Start - Class " +
+            self.className +
+            " Function " +
+            self._testMethodName +
+            " ----------------------")
 
         self.ice_driver = session.get_driver()
 
@@ -111,12 +114,17 @@ class TestUiBase(unittest.TestCase):
         self.endTime = timer()
         self.testDuration = str(self.endTime - self.startTime)
         self.results()
-        if self.one_web_driver_enabled is None or not self.one_web_driver_enabled:
+        if self.one_web_driver_enabled is None \
+                or not self.one_web_driver_enabled:
             session.ice_driver.quit()
         else:
             self.go_to_web_page(Constants.Default.LoginURL.TEXT)
-        logger.debug("---------------------- TestCase - End - Class " + self.className +
-                     " Function " + self._testMethodName + " ----------------------\n")
+        logger.debug(
+            "---------------------- TestCase - End - Class " +
+            self.className +
+            " Function " +
+            self._testMethodName +
+            " ----------------------\n")
         try:
             logging.getLogger().info("BB")
         finally:
@@ -133,14 +141,27 @@ class TestUiBase(unittest.TestCase):
 
     @logFuncEntry
     def results(self):
-        params = {"testType": "E2E Test", "testFeature": self.className,
-                  "testResult": "PASS", "testName": self.funcName, "duration": self.testDuration}
+        params = {
+            "testType": "E2E Test",
+            "testFeature": self.className,
+            "testResult": "PASS",
+            "testName": self.funcName,
+            "duration": self.testDuration}
         if (session.errorCounter == 0):
-            DBGeneral.insert_results(params["testType"], params["testFeature"], params[
-                                     "testResult"], params["testName"], params['duration'])
+            DBGeneral.insert_results(
+                params["testType"],
+                params["testFeature"],
+                params["testResult"],
+                params["testName"],
+                params['duration'])
         else:
             params["testResult"] = "FAIL"  # Mark test as fail.
             # Add the errors to notes column in table.
             params["notes"] = session.errorList
-            DBGeneral.insert_results(params["testType"], params["testFeature"], params[
-                                     "testResult"], params["testName"], params['duration'], params["notes"])
+            DBGeneral.insert_results(
+                params["testType"],
+                params["testFeature"],
+                params["testResult"],
+                params["testName"],
+                params['duration'],
+                params["notes"])

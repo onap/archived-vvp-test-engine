@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -50,30 +49,40 @@ class TestValidateSignup(TestUiBase):
     def setUpClass(cls):
         super(TestValidateSignup, cls).setUpClass()
 
-        cls.user_content = API.VirtualFunction.create_engagement(wait_for_gitlab=False)
-      
+        cls.user_content = API.VirtualFunction.create_engagement(
+            wait_for_gitlab=False)
+
     @exception()
     def test_create_and_activateUser(self):
         '''Create user with rest API, login and activate.'''
         user_data = API.User.create_new_user()
-        Frontend.User.login(user_data['email'], Constants.Default.Password.TEXT, Constants.Toast.ID)
-        Frontend.General.verify_toast_message(Constants.Dashboard.ActivateMsg.Fail.TEXT)
+        Frontend.User.login(
+            user_data['email'],
+            Constants.Default.Password.TEXT,
+            Constants.Toast.ID)
+        Frontend.General.verify_toast_message(
+            Constants.Dashboard.ActivateMsg.Fail.TEXT)
         activationUrl = DB.User.get_activation_url(user_data['email'])
         Frontend.General.re_open(activationUrl)
-        Frontend.User.login(user_data['email'], Constants.Default.Password.TEXT)
-        Frontend.General.verify_toast_message(Constants.Dashboard.ActivateMsg.Success.TEXT)
-        
+        Frontend.User.login(
+            user_data['email'],
+            Constants.Default.Password.TEXT)
+        Frontend.General.verify_toast_message(
+            Constants.Dashboard.ActivateMsg.Success.TEXT)
+
     @exception()
     def test_activate_user_and_validate_account(self):
         '''Go to Account page and validate details after signup and login.'''
-        Frontend.User.login(self.user_content['email'], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content['email'],
+            Constants.Default.Password.TEXT)
         Frontend.User.go_to_account()
         Frontend.General.form_validate_company(self.user_content['vendor'])
         Frontend.General.form_validate_name(self.user_content['full_name'])
         Frontend.General.form_validate_email(self.user_content['email'])
         Frontend.General.form_validate_phone(Constants.Default.Phone.TEXT)
         Frontend.General.form_validate_ssh("")  # No SSH key.
-    
+
     @exception()
     def test_signup_page_sanity(self):
         '''
@@ -92,9 +101,13 @@ class TestValidateSignup(TestUiBase):
         Frontend.General.form_enter_name(Helper.rand_string("randomString"))
         Frontend.General.form_enter_email(Helper.rand_string("email"))
         Frontend.General.form_enter_phone(Constants.Default.Phone.TEXT)
-        Frontend.General.form_enter_password(Helper.rand_string("randomString"))
-        Frontend.General.form_check_checkbox(Constants.Signup.RegularEmail.XPATH)
-        Frontend.General.form_check_checkbox(Constants.Signup.AcceptTerms.XPATH)
+        Frontend.General.form_enter_password(
+            Helper.rand_string("randomString"))
+        Frontend.General.form_check_checkbox(
+            Constants.Signup.RegularEmail.XPATH)
+        Frontend.General.form_check_checkbox(
+            Constants.Signup.AcceptTerms.XPATH)
         Frontend.General.click_on_submit()
-        Frontend.General.verify_toast_message(Constants.Signup.Toast.Captcha.TEXT)
+        Frontend.General.verify_toast_message(
+            Constants.Signup.Toast.Captcha.TEXT)
         Frontend.General.go_to_login_from_signup()

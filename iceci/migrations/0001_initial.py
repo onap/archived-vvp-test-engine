@@ -55,15 +55,18 @@ class Migration(migrations.Migration):
             name='TestResults',
             fields=[
                 ('id', models.AutoField(
-                    auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                    auto_created=True, primary_key=True,
+                    serialize=False, verbose_name='ID')),
                 ('testType', models.CharField(max_length=64)),
                 ('testCaseName', models.CharField(max_length=64)),
                 ('testResult', models.CharField(max_length=64)),
                 ('testName', models.CharField(max_length=64)),
                 ('notes', models.TextField(
                     blank=True, max_length=1024, null=True)),
-                ('create_time', models.DateTimeField(default=datetime.datetime(
-                    2016, 6, 6, 16, 50, 59, 963000), verbose_name='creation time')),
+                ('create_time', models.DateTimeField(
+                    default=datetime.datetime(
+                        2016, 6, 6, 16, 50, 59, 963000),
+                    verbose_name='creation time')),
             ],
             options={
                 'db_table': 'ice_test_results',

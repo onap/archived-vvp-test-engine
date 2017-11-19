@@ -54,14 +54,21 @@ logger = LoggingServiceFactory.get_logger()
 class DBChecklist:
 
     @staticmethod
-    def select_where_approval_state(queryColumnName, queryTableName, whereParametrType, whereParametrValue, fetchNum):
+    def select_where_approval_state(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            fetchNum):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
-            queryStr = "select %s from %s Where %s = '%s' and state = 'approval';" % (
-                queryColumnName, queryTableName, whereParametrType, whereParametrValue)
+            queryStr = \
+                "select %s from %s " % (queryColumnName, queryTableName) +\
+                "Where %s = '%s'" % (whereParametrType, whereParametrValue) +\
+                " and state = 'approval';"
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             if (fetchNum == 0):
@@ -74,25 +81,33 @@ class DBChecklist:
                     result = result.partition('(')[-1].rpartition(',')[0]
             dbConn.close()
             logger.debug("Query result: " + str(result))
-            if result == None:
+            if result is None:
                 errorMsg = "select_where_approval_state FAILED "
                 logger.error(errorMsg)
                 raise
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "select_where_approval_state FAILED "
             raise Exception(errorMsg, "select_where_approval_state FAILED")
 
     @staticmethod
-    def select_where_pr_state(queryColumnName, queryTableName, whereParametrType, whereParametrValue, fetchNum):
+    def select_where_pr_state(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            fetchNum):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
-            queryStr = "select %s from %s Where %s = '%s' and state = 'peer_review';" % (
-                queryColumnName, queryTableName, whereParametrType, whereParametrValue)
+            queryStr = \
+                "select %s from %s " % (queryColumnName, queryTableName) +\
+                "Where %s = '%s' and " % (
+                    whereParametrType, whereParametrValue) +\
+                "state = 'peer_review';"
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             if (fetchNum == 0):
@@ -104,26 +119,33 @@ class DBChecklist:
                 elif(result.find(",)") != -1):  # formatting ints e.g id
                     result = result.partition('(')[-1].rpartition(',')[0]
             dbConn.close()
-            if result == None:
+            if result is None:
                 errorMsg = "select_where_pr_state FAILED "
                 logger.error(errorMsg)
                 raise
             logger.debug("Query result: " + str(result))
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "select_where FAILED "
             raise Exception(errorMsg, "select_where")
 
     @staticmethod
-    def select_where_cl_not_archive(queryColumnName, queryTableName, whereParametrType, whereParametrValue, fetchNum):
+    def select_where_cl_not_archive(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            fetchNum):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
-            queryStr = "select %s from %s Where %s = '%s' and state != 'archive';" % (
-                queryColumnName, queryTableName, whereParametrType, whereParametrValue)
+            queryStr = \
+                "select %s from %s " % (queryColumnName, queryTableName) +\
+                "Where %s = '%s'" % (whereParametrType, whereParametrValue) +\
+                "and state != 'archive';"
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             if (fetchNum == 0):
@@ -138,19 +160,25 @@ class DBChecklist:
             logger.debug("Query result: " + str(result))
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "select_where FAILED "
             raise Exception(errorMsg, "select_where")
 
     @staticmethod
-    def select_native_where(queryColumnName, queryTableName, whereParametrType, whereParametrValue, fetchNum):
+    def select_native_where(
+            queryColumnName,
+            queryTableName,
+            whereParametrType,
+            whereParametrValue,
+            fetchNum):
         try:
             dbConn = psycopg2.connect(
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
             queryStr = "select %s from %s Where %s = '%s';" % (
-                queryColumnName, queryTableName, whereParametrType, whereParametrValue)
+                queryColumnName, queryTableName, whereParametrType,
+                whereParametrValue)
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             if (fetchNum == 0):
@@ -165,7 +193,7 @@ class DBChecklist:
             logger.debug("Query result: " + str(result))
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "select_where FAILED "
             raise Exception(errorMsg, "select_where")
 
@@ -176,14 +204,15 @@ class DBChecklist:
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
-            queryStr = "UPDATE ice_checklist SET state='review' Where name= '%s' and state= 'pending';" % (
-                queryTableName)
+            queryStr = "UPDATE ice_checklist SET state='review' Where " +\
+                "name= '%s' and state= 'pending';" % (
+                    queryTableName)
             logger.debug("Query : " + queryStr)
             cur.execute(queryStr)
             dbConn.commit()
             dbConn.close()
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "Could not Update User"
             raise Exception(errorMsg, "Update")
 
@@ -194,8 +223,10 @@ class DBChecklist:
                 DBGeneral.return_db_native_connection('em_db'))
             dbConn = dbConn
             cur = dbConn.cursor()
-            queryStr = "UPDATE ice_checklist_decision SET review_value='approved' , peer_review_value='approved'  Where checklist_id = '%s';" % (
-                whereParametrValue)
+            queryStr = "UPDATE ice_checklist_decision SET " +\
+                "review_value='approved' , peer_review_value='approved'  " +\
+                "Where checklist_id = '%s';" % (
+                    whereParametrValue)
             logger.debug(queryStr)
             cur.execute(queryStr)
             dbConn.commit()
@@ -226,7 +257,7 @@ class DBChecklist:
                     break
             return result
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "is_archive FAILED "
             raise Exception(errorMsg, "is_archive")
 
@@ -248,14 +279,15 @@ class DBChecklist:
     @staticmethod
     def get_admin_email(checklistUuid):
         try:
+            # Fetch one AT&T user ID.
             owner_id = DBChecklist.select_where_approval_state(
-                "owner_id", "ice_checklist", "uuid", checklistUuid, 1)  # Fetch one AT&T user ID.
+                "owner_id", "ice_checklist", "uuid", checklistUuid, 1)
             engLeadEmail = DBGeneral.select_where(
                 "email", "ice_user_profile", "id", owner_id, 1)
             logger.debug("get_admin_email = " + engLeadEmail)
             return engLeadEmail
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "get_admin_email FAILED "
             raise Exception(errorMsg, "get_admin_email")
 
@@ -270,7 +302,7 @@ class DBChecklist:
             logger.debug("getPreeReviewerEngLeadEmail = " + engLeadEmail)
             return engLeadEmail
         # If failed - count the failure and add the error to list of errors.
-        except:
+        except BaseException:
             errorMsg = "get_admin_email FAILED "
             raise Exception(errorMsg, "get_owner_email")
 
@@ -279,83 +311,181 @@ class DBChecklist:
         checklistTempid = DBGeneral.select_where(
             "template_id", "ice_checklist", "name", checklistName, 1)
         checklistLineItems = DBGeneral.select_where_and(
-            "uuid", "ice_checklist_line_item", "line_type", "auto", "template_id", checklistTempid, 0)
+            "uuid",
+            "ice_checklist_line_item",
+            "line_type",
+            "auto",
+            "template_id",
+            checklistTempid,
+            0)
         for lineItem in checklistLineItems:
             setParametrType2 = "peer_review_value"
             setParametrValue2 = "approved"
             whereParametrType2 = "lineitem_id"
             whereParametrValue2 = lineItem
-            DBGeneral.update_where_and("ice_checklist_decision", "review_value", checklistUuid, "approved",
-                                       "checklist_id", setParametrType2, setParametrValue2, whereParametrType2, whereParametrValue2)
+            DBGeneral.update_where_and(
+                "ice_checklist_decision",
+                "review_value",
+                checklistUuid,
+                "approved",
+                "checklist_id",
+                setParametrType2,
+                setParametrValue2,
+                whereParametrType2,
+                whereParametrValue2)
 
     @staticmethod
     def checkChecklistIsUpdated():
-        query = "select uuid from ice_checklist_section where template_id in (select template_id from ice_checklist_template where name='{template_name}') and name='{section_name}'".format(
-            template_name=Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT, section_name=Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT)
+        query = "select uuid from ice_checklist_section where template_id " +\
+            "in (select template_id from ice_checklist_template where " +\
+            "name='{template_name}') and name='{section_name}'".format(
+                template_name=Constants.Dashboard.LeftPanel.
+                EditChecklistTemplate.HEAT, section_name=Constants.
+                Dashboard.LeftPanel.EditChecklistTemplate.HEAT)
         return DBGeneral.select_query(query)
 
     @staticmethod
     def fetchEngByVfName(vfName):
         # Fetch one AT&T user ID.
-        return DBGeneral.select_where("engagement_id", "ice_vf", "name", vfName, 1)
+        return DBGeneral.select_where(
+            "engagement_id", "ice_vf", "name", vfName, 1)
 
     @staticmethod
     def fetchEngManIdByEngUuid(engagement_id):
-        return DBGeneral.select_where("engagement_manual_id", "ice_engagement", "uuid", engagement_id, 1)
+        return DBGeneral.select_where(
+            "engagement_manual_id",
+            "ice_engagement",
+            "uuid",
+            engagement_id,
+            1)
 
     @staticmethod
     def fetchChecklistByName(checklistName):
-        query = "select uuid from ice_checklist where name='{cl_name}'".format(
-            cl_name=checklistName)
+        query = "select uuid from ice_checklist where " +\
+            "name='{cl_name}'".format(
+                cl_name=checklistName)
         return DBGeneral.select_query(query)
 
     @staticmethod
     def create_default_heat_teampleate():
-        template_query = "INSERT INTO public.ice_checklist_template(uuid, name, category, version, create_time)"\
+        template_query = "INSERT INTO public.ice_checklist_template(uuid, " +\
+            "name, category, version, create_time)"\
             "VALUES ('%s', '%s', '%s', '%s', '%s');" % (
-                str(uuid4()), 'Editing Heat', 'first category', '1', timezone.now())
+                str(uuid4()), 'Editing Heat', 'first category', '1',
+                timezone.now())
         DBGeneral.insert_query(template_query)
         template_id = DBGeneral.select_query(
-            "SELECT uuid FROM public.ice_checklist_template where name = 'Editing Heat'")
+            "SELECT uuid FROM public.ice_checklist_template where " +
+            "name = 'Editing Heat'")
         # SECTIONS
-        section1_query = "INSERT INTO public.ice_checklist_section(uuid, name, weight, description, validation_instructions, create_time, template_id) "\
-            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s');" % (str(uuid4()), 'External References',
-                                                                   '1', 'section descripyion', 'valid instructions', timezone.now(), template_id)
+        section1_query = "INSERT INTO public.ice_checklist_section(uuid, " +\
+            "name, weight, description, validation_instructions, " +\
+            "create_time, template_id) "\
+            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s');" % (
+                str(uuid4()), 'External References',
+                '1', 'section descripyion', 'valid instructions',
+                timezone.now(), template_id)
         DBGeneral.insert_query(section1_query)
         section1_id = DBGeneral.select_query(
-            ("""SELECT uuid FROM public.ice_checklist_section where name = 'External References' and template_id = '{s}'""").format(s=template_id))
-        section2_query = "INSERT INTO public.ice_checklist_section(uuid, name, weight, description, validation_instructions, create_time, template_id) "\
-            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s');" % (str(uuid4()), 'Parameter Specification',
-                                                                   '2', 'section descripyion', 'valid instructions', timezone.now(), template_id)
+            ("""SELECT uuid FROM public.ice_checklist_section """ +
+             """where name = 'External References' """ +
+             """and template_id = '{s}'""").format(
+                s=template_id))
+        section2_query = "INSERT INTO public.ice_checklist_section(uuid, " +\
+            "name, weight, description, validation_instructions, " +\
+            "create_time, template_id) "\
+            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s');" % (
+                str(uuid4()), 'Parameter Specification',
+                '2', 'section descripyion', 'valid instructions',
+                timezone.now(), template_id)
         DBGeneral.insert_query(section2_query)
         section2_id = DBGeneral.select_query(
-            ("""SELECT uuid FROM public.ice_checklist_section where name = 'Parameter Specification' and template_id = '{s}'""").format(s=template_id))
+            ("""SELECT uuid FROM public.ice_checklist_section """ +
+             """where name = """ +
+             """'Parameter Specification' and template_id = '{s}'""").format(
+                s=template_id))
         # Line items
-        line_item1 = "INSERT INTO public.ice_checklist_line_item(uuid, name, weight, description, line_type, validation_instructions,create_time,section_id, template_id) "\
-            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s');" % (str(uuid4()), 'Normal references', '1', 'Numeric parameters should include range and/or allowed values.', 'manual',
-                                                                               'Here are some useful tips for how to validate this item in the most awesome way:<br><br><ul><li>Here is my awesome tip 1</li><li>Here is my awesome tip 2</li><li>Here is my awesome tip 3</li></ul>', timezone.now(), section1_id, template_id)
+        line_item1 = \
+            "INSERT INTO public.ice_checklist_line_item(uuid, " +\
+            "name, weight, description, line_type, validation_instructions," +\
+            "create_time,section_id, template_id) "\
+            "VALUES ('%s', '%s', " % (str(uuid4()), 'Normal references') +\
+            "'%s', " % '1' +\
+            "'%s'," % 'Numeric parameters should include ' +\
+            'range and/or allowed values.' +\
+            " '%s'," % 'manual', +\
+            "'%s'" % 'Here are some useful tips ' +\
+            'for how to validate this item ' +\
+            'in the most awesome way:<br><br><ul><li>Here is my ' +\
+            'awesome tip 1</li><li>Here is my awesome tip 2</li><li>' +\
+            'Here is my awesome tip 3</li></ul>' +\
+            ", '%s'" % timezone.now() +\
+            ", '%s'," % section1_id +\
+            " '%s');" % template_id
         DBGeneral.insert_query(line_item1)
-        line_item2 = "INSERT INTO public.ice_checklist_line_item(uuid, name, weight, description, line_type, validation_instructions,create_time, section_id, template_id) "\
-            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s');" % (str(uuid4()), 'String parameters', '2', 'Numeric parameters should include range and/or allowed values.', 'auto',
-                                                                               'Here are some useful tips for how to validate this item in the most awesome way:<br><br><ul><li>Here is my awesome tip 1</li><li>Here is my awesome tip 2</li><li>Here is my awesome tip 3</li></ul>', timezone.now(), section2_id, template_id)
+        line_item2 = "INSERT INTO public.ice_checklist_line_item(uuid, " +\
+            "name, weight, description, line_type, validation_instructions," +\
+            "create_time, section_id, template_id) "\
+            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s');" % (
+                str(uuid4()), 'String parameters', '2',
+                'Numeric parameters should include range ' +
+                'and/or allowed values.', 'auto',
+                'Here are some useful tips for how to validate this item ' +
+                'in the most awesome way:<br><br><ul><li>Here is my ' +
+                'awesome tip 1</li><li>Here is my awesome tip 2</li><li>' +
+                'Here is my awesome tip 3</li></ul>', timezone.now(),
+                section2_id, template_id)
         DBGeneral.insert_query(line_item2)
-        line_item3 = "INSERT INTO public.ice_checklist_line_item(uuid, name, weight, description, line_type, validation_instructions,create_time,section_id, template_id) "\
-            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s');" % (str(uuid4()), 'Numeric parameters', '3', 'Numeric parameters should include range and/or allowed values.', 'manual',
-                                                                               'Here are some useful tips for how to validate this item in the most awesome way:<br><br><ul><li>Here is my awesome tip 1</li><li>Here is my awesome tip 2</li><li>Here is my awesome tip 3</li></ul>', timezone.now(), section2_id, template_id)
+        line_item3 = "INSERT INTO public.ice_checklist_line_item(uuid, " +\
+            "name, weight, description, line_type, validation_instructions," +\
+            "create_time,section_id, template_id) "\
+            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', " +\
+            "'%s', '%s', '%s');" % (
+                str(uuid4()), 'Numeric parameters', '3',
+                'Numeric parameters should include range and/or ' +
+                'allowed values.', 'manual',
+                'Here are some useful tips for how to validate this item ' +
+                'in the most awesome way:<br><br><ul><li>Here is my ' +
+                'awesome tip 1</li><li>Here is my awesome tip 2</li><li>' +
+                'Here is my awesome tip 3</li></ul>', timezone.now(),
+                section2_id, template_id)
         DBGeneral.insert_query(line_item3)
-        line_item4 = "INSERT INTO public.ice_checklist_line_item(uuid, name, weight, description, line_type, validation_instructions,create_time, section_id, template_id) "\
-            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s');" % (str(uuid4()), 'VF image', '2', 'Numeric parameters should include range and/or allowed values.', 'auto',
-                                                                               'Here are some useful tips for how to validate this item in the most awesome way:<br><br><ul><li>Here is my awesome tip 1</li><li>Here is my awesome tip 2</li><li>Here is my awesome tip 3</li></ul>', timezone.now(), section1_id, template_id)
+        line_item4 = "INSERT INTO public.ice_checklist_line_item(uuid, " +\
+            "name, weight, description, line_type, " +\
+            "validation_instructions,create_time, section_id, " +\
+            "template_id) "\
+            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', " +\
+            "'%s', '%s');" % (
+                str(uuid4()), 'VF image', '2',
+                'Numeric parameters should include range and/or ' +
+                'allowed values.', 'auto',
+                'Here are some useful tips for how to validate this ' +
+                'item in the most awesome way:<br><br><ul><li>Here is ' +
+                'my awesome tip 1</li><li>Here is my awesome tip 2' +
+                '</li><li>Here is my awesome tip 3</li></ul>',
+                timezone.now(), section1_id, template_id)
         DBGeneral.insert_query(line_item4)
-        line_item5 = "INSERT INTO public.ice_checklist_line_item(uuid, name, weight, description, line_type, validation_instructions,create_time,section_id, template_id) "\
-            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s');" % (str(uuid4()), 'Parameters', '1', 'Numeric parameters should include range and/or allowed values.', 'auto',
-                                                                               'Here are some useful tips for how to validate this item in the most awesome way:<br><br><ul><li>Here is my awesome tip 1</li><li>Here is my awesome tip 2</li><li>Here is my awesome tip 3</li></ul>', timezone.now(), section2_id, template_id)
+        line_item5 = "INSERT INTO public.ice_checklist_line_item(uuid, " +\
+            "name, weight, description, line_type, validation_instructions," +\
+            "create_time,section_id, template_id) "\
+            "VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s'," +\
+            " '%s', '%s');" % (str(
+                uuid4()), 'Parameters', '1',
+                'Numeric parameters should include range ' +
+                'and/or allowed values.', 'auto',
+                'Here are some useful tips for how to validate this item ' +
+                'in the most awesome way:<br><br><ul><li>Here is my awesome ' +
+                'tip 1</li><li>Here is my awesome tip 2</li><li>Here is my ' +
+                'awesome tip 3</li></ul>', timezone.now(), section2_id,
+                template_id)
         DBGeneral.insert_query(line_item5)
 
     @staticmethod
     def create_editing_cl_template_if_not_exist():
-        template_id = DBGeneral.select_query(("""SELECT uuid FROM public.ice_checklist_template where name = '{s}'""").format(
-            s=Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT))
+        template_id = DBGeneral.select_query(
+            ("""SELECT uuid FROM public.ice_checklist_template """ +
+             """where name = '{s}'""").format(
+                s=Constants.Dashboard.LeftPanel.EditChecklistTemplate.HEAT))
         if template_id == 'None':
             DBChecklist.create_default_heat_teampleate()
             session.createTemplatecount = True
@@ -366,10 +496,14 @@ class DBChecklist:
             "state", Constants.DBConstants.IceTables.CHECKLIST,
             identify_field, field_value, "create_time")[0]
         counter = 0
-        while get_state != expected_state and counter <= Constants.DBConstants.RETRIES_NUMBER:
+        while get_state != expected_state and \
+                counter <= Constants.DBConstants.RETRIES_NUMBER:
             time.sleep(session.wait_until_time_pause_long)
-            logger.debug("Checklist state not changed yet , expecting state: %s, current result: %s (attempt %s of %s)" % (
-                expected_state, get_state, counter, Constants.DBConstants.RETRIES_NUMBER))
+            logger.debug(
+                "Checklist state not changed yet ," +
+                "expecting state: %s, current result: %s (attempt %s of %s)" %
+                (expected_state, get_state, counter,
+                 Constants.DBConstants.RETRIES_NUMBER))
             counter += 1
             get_state = DBGeneral.select_where_order_by_desc(
                 "state", Constants.DBConstants.IceTables.CHECKLIST,
@@ -380,7 +514,9 @@ class DBChecklist:
                          expected_state + ", and was verified over the DB")
             return expected_state
         raise Exception(
-            "Expected checklist state never arrived " + expected_state, get_state)
+            "Expected checklist state never arrived " +
+            expected_state,
+            get_state)
 
     @staticmethod
     def get_recent_checklist_uuid(name):

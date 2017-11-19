@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -54,24 +53,33 @@ class TestResetPassword(TestUiBase):
     def setUpClass(cls):
         super(TestResetPassword, cls).setUpClass()
 
-        cls.user_content = API.VirtualFunction.create_engagement(wait_for_gitlab=False)
-    
+        cls.user_content = API.VirtualFunction.create_engagement(
+            wait_for_gitlab=False)
+
     @exception()
     def test_reset_password(self):
         Frontend.General.send_reset_password(self.user_content['email'])
         DB.User.set_new_temp_password(self.user_content['email'])
         resetPasswURL = Helper.get_reset_passw_url(self.user_content['email'])
         Frontend.General.re_open(resetPasswURL)
-        Frontend.User.login(self.user_content['email'], Constants.Default.Password.TEXT,
-                            Constants.UpdatePassword.Title.CSS, "css")
-        logger.debug("\nReset URL: %s \nTemp Password: %s \nUser Email: %s" % (resetPasswURL,
-                                                        Constants.Default.Password.TEXT, self.user_content['email']))
+        Frontend.User.login(
+            self.user_content['email'],
+            Constants.Default.Password.TEXT,
+            Constants.UpdatePassword.Title.CSS,
+            "css")
+        logger.debug("\nReset URL: %s \nTemp Password: %s \nUser Email: %s" % (
+            resetPasswURL, Constants.Default.Password.TEXT,
+            self.user_content['email']))
         Frontend.User.reset_password()
         logger.debug("Logout and verify new password works")
         Frontend.User.logout()
         logger.debug("Login with updated password")
-        Frontend.User.login(self.user_content['email'], Constants.Default.Password.NewPass.TEXT)
+        Frontend.User.login(
+            self.user_content['email'],
+            Constants.Default.Password.NewPass.TEXT)
         Frontend.User.logout()
         logger.debug("Logout and change password back to 'iceusers'")
         DB.User.set_password_to_default(self.user_content['email'])
-        Frontend.User.login(self.user_content['email'], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content['email'],
+            Constants.Default.Password.TEXT)

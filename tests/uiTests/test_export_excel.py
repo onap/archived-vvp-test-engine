@@ -1,5 +1,4 @@
- 
-# ============LICENSE_START========================================== 
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -55,14 +54,18 @@ class TestFeatureExportToExcel(TestUiBase):
     def setUpClass(cls):
         super(TestFeatureExportToExcel, cls).setUpClass()
 
-        cls.user_content = API.VirtualFunction.create_engagement(wait_for_gitlab=False)
+        cls.user_content = API.VirtualFunction.create_engagement(
+            wait_for_gitlab=False)
 
     @exception()
     def test_validate_export_to_csv(self):
-        Frontend.User.login(self.user_content['email'], Constants.Default.Password.TEXT)
+        Frontend.User.login(
+            self.user_content['email'],
+            Constants.Default.Password.TEXT)
         Frontend.User.click_on_export_excel(self.user_content)
         try:
-            token = "token " + API.Bridge.login_user(self.user_content['email'])
+            token = "token " + \
+                API.Bridge.login_user(self.user_content['email'])
             content = API.VirtualFunction.get_export_dasboard_excel(token)
             if not content:
                 raise Exception("content is empty.")

@@ -1,5 +1,5 @@
- 
-# ============LICENSE_START========================================== 
+
+# ============LICENSE_START==========================================
 # org.onap.vvp/test-engine
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -51,7 +51,8 @@ class Click:
                 Wait.page_has_loaded()
             Wait.id(element_id)
             session.ice_driver.find_element_by_id(element_id).click()
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
+        # If failed - count the failure and add the error to list of errors.
+        except Exception as e:
             errorMsg = "Failed to click_on on ID " + element_id
             raise Exception(errorMsg, e)
 
@@ -62,18 +63,21 @@ class Click:
                 Wait.page_has_loaded()
             Wait.name(element_name)
             session.ice_driver.find_element_by_name(element_name).click()
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
+        # If failed - count the failure and add the error to list of errors.
+        except Exception as e:
             errorMsg = "Failed to click_on on ID " + element_name
             raise Exception(errorMsg, e)
-        
+
     @staticmethod
     def link_text(link_inner_text, wait_for_page=False):
         try:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.link_text(link_inner_text)
-            session.ice_driver.find_element_by_link_text(link_inner_text).click()
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
+            session.ice_driver.find_element_by_link_text(
+                link_inner_text).click()
+        # If failed - count the failure and add the error to list of errors.
+        except Exception as e:
             errorMsg = "Failed to click_on on LINK TEXT " + link_inner_text
             raise Exception(errorMsg, e)
 
@@ -83,8 +87,10 @@ class Click:
             if wait_for_page:
                 Wait.page_has_loaded()
             Wait.css(element_css)
-            session.ice_driver.find_element_by_css_selector(element_css).click()
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
+            session.ice_driver.find_element_by_css_selector(
+                element_css).click()
+        # If failed - count the failure and add the error to list of errors.
+        except Exception as e:
             errorMsg = "Failed to click_on on CSS Selector " + element_css
             raise Exception(errorMsg, e)
 
@@ -95,7 +101,8 @@ class Click:
                 Wait.page_has_loaded()
             Wait.xpath(element_xpath)
             session.ice_driver.find_element_by_xpath(element_xpath).click()
-        except Exception as e:  # If failed - count the failure and add the error to list of errors.
+        # If failed - count the failure and add the error to list of errors.
+        except Exception as e:
             errorMsg = "Failed to click_on on XPATH " + element_xpath
             raise Exception(errorMsg, e)
 
@@ -104,5 +111,10 @@ class Click:
         ns = session.ice_driver.find_element_by_id("step-description-1")
         ActionChains(session.ice_driver).move_to_element(ns).perform()
         Wait.css(source_css)
-        source_element = session.ice_driver.find_element_by_css_selector(source_css)
-        ActionChains(session.ice_driver).drag_and_drop_by_offset(source_element, xoffset, yoffset).perform()
+        source_element = session.ice_driver.find_element_by_css_selector(
+            source_css)
+        ActionChains(
+            session.ice_driver).drag_and_drop_by_offset(
+            source_element,
+            xoffset,
+            yoffset).perform()
