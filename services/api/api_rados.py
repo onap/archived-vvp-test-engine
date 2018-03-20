@@ -82,7 +82,7 @@ class APIRados:
             logger.error("Bucket not found. Retry #%s" % counter+1)
             time.sleep(session.wait_until_time_pause_long)
         else:
-            raise TimeoutError("Max retries exceeded, failing test...")
+            raise Exception("Max retries exceeded, failing test...")
         grants = bucket.list_grants()
         return grants
 
@@ -97,7 +97,7 @@ class APIRados:
                     counter+1, Constants.RGWAConstants.BUCKET_RETRIES_NUMBER))
             time.sleep(session.wait_until_time_pause_long)
         else:
-            raise TimeoutError("Max retries exceeded, failing test...")
+            raise Exception("Max retries exceeded, failing test...")
         logger.debug("bucket are ready to continue!")
         return True
 

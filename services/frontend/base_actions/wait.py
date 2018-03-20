@@ -150,8 +150,8 @@ class Wait:
             )
             return True
         # If failed - count the failure and add the error to list of errors.
-        except Exception as e:
-            error_msg = "Didn't find CSS Selector " + element_css
+        except Exception:
+            # error_msg = "Didn't find CSS Selector " + element_css
             return False
 
     @staticmethod
@@ -210,7 +210,7 @@ class Wait:
                     "Checking if {} page is loaded. ".format(
                         session.ice_driver.current_url))
                 time.sleep(session.wait_until_time_pause)
-            except Exception as exception:
+            except Exception:
                 time.sleep(session.wait_until_time_pause)
                 continue
 

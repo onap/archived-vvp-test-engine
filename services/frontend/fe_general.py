@@ -121,7 +121,7 @@ class FEGeneral(Helper):
                 Wait.page_has_loaded()
                 success = True
                 break
-            except:
+            except Exception:
                 i += 1
                 time.sleep(1)
                 pass

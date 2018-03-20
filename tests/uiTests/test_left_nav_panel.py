@@ -190,7 +190,7 @@ class TestLeftNavPanel(TestUiBase):
         Wait.text_by_id(self.left_panel_eng_id, self.eng_title)
         DB.VirtualFunction.remove_engagement_from_recent(
             self.user_content['vf_uuid'])
-        Frontend.General.refresh() 
+        Frontend.General.refresh()
         Frontend.Dashboard.statuses_search_vf(
             self.user_content['engagement_manual_id'],
             self.user_content['vfName'])
