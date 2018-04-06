@@ -60,7 +60,7 @@ RUN apk add --no-cache \
     git==2.8.6-r0 \
     gtk+3.0 \
     libxcomposite \
-    openssh=7.2_p2-r4 \
+    openssh=7.2_p2-r5 \
     py-psycopg2 \
     py-setuptools \
     sqlite \
