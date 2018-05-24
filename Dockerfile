@@ -65,8 +65,8 @@ RUN apk add --no-cache \
     py-setuptools \
     sqlite \
     ttf-freefont \
-    uwsgi \
-    uwsgi-python \
+#    uwsgi \
+#    uwsgi-python \
     wget \
     xvfb \
     && :
@@ -78,7 +78,8 @@ WORKDIR /app
 RUN ln -s -f /opt/configmaps/settings/__init__.py /app/web/settings/__init__.py
 
 RUN pip install --upgrade setuptools && \
-    pip install uwsgi && \
+#    pip install uwsgi && \
+    pip install gunicorn && \
     pip install -r requirements.txt
 
 RUN apk del \
@@ -91,4 +92,4 @@ RUN apk del \
     && :
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
-CMD ["/usr/local/bin/uwsgi", "--ini", "/app/web/settings/uwsgi.ini"]
+CMD ["/usr/local/bin/gunicorn", "-c", "/opt/configmaps/settings/gunicorn.ini" , "web.wsgi:application"]
