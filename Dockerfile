@@ -55,12 +55,12 @@ RUN apk add --no-cache \
     ca-certificates \
     dbus \
     dbus-glib \
-    firefox-esr==45.6.0-r0 \
+    firefox-esr==52.8.0-r0 \
     fontconfig \
-    git==2.8.6-r0 \
+    git==2.15.0-r1\
     gtk+3.0 \
     libxcomposite \
-    openssh=7.2_p2-r5 \
+    openssh=7.5_p1-r8 \
     py-psycopg2 \
     py-setuptools \
     sqlite \
