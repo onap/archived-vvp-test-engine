@@ -57,7 +57,7 @@ RUN apk add --no-cache \
     dbus-glib \
     firefox-esr==52.8.0-r0 \
     fontconfig \
-    git==2.15.0-r1\
+    git==2.15.2-r0\
     gtk+3.0 \
     libxcomposite \
     openssh=7.5_p1-r8 \
