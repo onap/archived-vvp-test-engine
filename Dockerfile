@@ -55,18 +55,16 @@ RUN apk add --no-cache \
     ca-certificates \
     dbus \
     dbus-glib \
-    firefox-esr==52.8.0-r0 \
+    firefox-esr \
     fontconfig \
-    git==2.15.2-r0\
+    git \
     gtk+3.0 \
     libxcomposite \
-    openssh=7.5_p1-r8 \
+    openssh \
     py-psycopg2 \
     py-setuptools \
     sqlite \
     ttf-freefont \
-#    uwsgi \
-#    uwsgi-python \
     wget \
     xvfb \
     && :
