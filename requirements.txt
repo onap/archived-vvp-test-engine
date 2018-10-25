@@ -37,8 +37,8 @@
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 Django==1.10.6
-djangorestframework
-djangorestframework-jwt
+djangorestframework==3.8.2
+djangorestframework-jwt==1.11.0
 gitpython
 openpyxl
 psycopg2
