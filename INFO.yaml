@@ -21,6 +21,8 @@ meetings:
       channel: 'n/a'
       repeats: 'weekly'
       time: '15:00 UTC'
+repositories:
+    - 'vvp/test-engine'
 committers:
     - <<: *onap_releng_ptl
     - name: 'steven stark'
