@@ -21,6 +21,12 @@ meetings:
       channel: 'n/a'
       repeats: 'weekly'
       time: '15:00 UTC'
+mailing_list:
+    type: 'groups.io'
+    url: 'lists.onap.org'
+    tag: '<[sub-project_name]>'
+repositories:
+    - 'vvp/test-engine'
 committers:
     - <<: *onap_releng_ptl
     - name: 'steven stark'
