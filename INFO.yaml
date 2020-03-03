@@ -1,6 +1,7 @@
 ---
 project: 'vvp-test-engine'
 project_creation_date: '2017-10-01'
+project_category: ''
 lifecycle_state: 'Incubation'
 project_lead: &onap_releng_ptl
     name: 'Steven Stark'
@@ -21,6 +22,13 @@ meetings:
       channel: 'n/a'
       repeats: 'weekly'
       time: '15:00 UTC'
+mailing_list:
+    type: 'groups.io'
+    url: 'lists.onap.org'
+    tag: '<[sub-project_name>'
+realtime_discussion: ''
+repositories:
+    - 'vvp/test-engine'
 committers:
     - <<: *onap_releng_ptl
     - name: 'steven stark'
