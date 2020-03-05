@@ -1,0 +1,56 @@
+onap_client:
+  sdc:
+    SDC_BE_ENDPOINT: https://sdc-be:8443
+    SDC_FE_ENDPOINT: https://sdc-fe:9443
+    SDC_HC_ENDPOINT: https://sdc-fe:9443
+    SDC_BE_ONBOARD_ENDPOINT: https://sdc-onboarding-be:8445
+    SDC_DESIGNER_USER_ID: cs0008
+    SDC_TESTER_USER_ID: jm0007
+    SDC_OPS_USER_ID: op0001
+    SDC_GOVERNOR_USER_ID: gv0001
+    SDC_DESIGNER_PASSWORD: demo123456!
+    GLOBAL_SDC_USERNAME: beep
+    GLOBAL_SDC_PASSWORD: boop
+    SDC_CONSUMER_CATALOG_PATH: /sdc/v1/catalog
+    SDC_SCREEN_PATH: /sdc2/rest/v1/screen
+    SDC_HEALTH_CHECK_PATH: /sdc1/rest/healthCheck
+    SDC_CATALOG_SERVICES_PATH: /sdc2/rest/v1/catalog/services
+    SDC_VENDOR_SOFTWARE_PRODUCT_PATH: /onboarding-api/v1.0/vendor-software-products
+    SDC_CATALOG_RESOURCES_PATH: /sdc2/rest/v1/catalog/resources
+    SDC_VENDOR_LICENSE_MODEL_PATH: /onboarding-api/v1.0/vendor-license-models
+    SDC_VENDOR_ITEMS_PATH: /onboarding-api/v1.0/items
+    SDC_FE_CATALOG_RESOURCES_PATH: /sdc1/feProxy/rest/v1/catalog/resources
+    ABSTRACT_NODE_PREFIX: abstract_
+    SERVICE_DISTRIBUTION:
+      - "request_service_certification"
+      - "start_service_certification"
+      - "finish_service_certification"
+      - "approve_service_certification"
+    POLL_INTERVAL: 30
+  aai:
+    AAI_BE_ENDPOINT: https://aai:8443
+    AAI_BUSINESS_PATH: /aai/v16/business
+    AAI_CLOUD_INFRASTRUCTURE_PATH: /aai/v16/cloud-infrastructure
+    AAI_HEALTH_CHECK_PATH: /aai/util/echo
+    AAI_USERNAME: AAI
+    AAI_PASSWORD: AAI
+  sdnc:
+    SDNC_ENDPOINT: https://sdnc:8443
+    SDNC_OPERATIONS_PATH: /restconf/operations
+    SDNC_CONFIG_PATH: /restconf/config
+    SDNC_USERNAME: admin
+    SDNC_PASSWORD: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+  vid:
+    VID_ENDPOINT: https://vid:8443
+    VID_MAINTENANCE_PATH: /vid/maintenance
+    VID_HEALTH_CHECK_PATH: /vid/healthCheck
+    VID_USERNAME: VID
+    VID_PASSWORD: VID
+  so:
+    SO_ENDPOINT: http://so:8080
+    SO_HEALTH_CHECK_PATH: /globalhealthcheck
+    SO_USERNAME: bpel
+    SO_PASSWORD: password1$
+    SO_SERVICE_INSTANCE_PATH: /onap/so/infra/serviceInstantiation/v7/serviceInstances
+    SO_ORCHESTRATION_PATH: /onap/so/infra/orchestrationRequests/v7
+  LOG_LEVEL: INFO

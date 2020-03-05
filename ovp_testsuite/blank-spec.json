@@ -1,0 +1,100 @@
+{
+  "parameters": {
+    "vendor_name": "",
+    "software_product_name": "",
+    "file_path": "",
+    "vnf_name": "",
+    "service_name": "",
+    "service_instance_name": "",
+    "vnf_instance_name": "",
+    "tenant_name": "",
+    "cloud_owner": "",
+    "cloud_region": "",
+    "api_type": "",
+    "service_type": "",
+    "customer_name": "",
+    "project_name": "",
+    "platform": "",
+    "owning_entity_name": "",
+    "line_of_business": ""
+  },
+  "spec": [
+    {
+      "type": "LICENSE_MODEL",
+      "resource_spec": {
+        "vendor_name": "{{vendor_name}}",
+        "license_agreement_name": "{{vendor_name}}"
+      }
+    },
+    {
+      "type": "VSP",
+      "resource_spec": {
+        "software_product_name": "{{software_product_name}}",
+        "license_model_name": "{{vendor_name}}",
+        "vendor_name": "{{vendor_name}}",
+        "file_path": "{{file_path}}",
+        "category": "Application L4+",
+        "sub_category": "Web Server",
+        "description": "New VSP"
+      }
+    },
+    {
+      "type": "VNF",
+      "resource_spec": {
+        "vnf_name": "{{vnf_name}}",
+        "software_product_name": "{{software_product_name}}"
+      }
+    },
+    {
+      "type": "SERVICE",
+      "resource_spec": {
+        "service_name": "{{service_name}}",
+        "instantiation_type": "A-la-carte",
+        "contact_id": "cs0008",
+        "category_name": "Network L4+",
+        "tag": "automation",
+        "project_code": "123457",
+        "environment_context": "General_Revenue-Bearing",
+        "ecomp_generated_naming": "false",
+        "description": "Brand New Service",
+        "service_type": "abcd",
+        "service_role": "1234",
+        "resources": [{
+          "resource_name": "{{vnf_name}}",
+          "catalog_resource_name": "{{vnf_name}}",
+          "origin_type": "VF"
+        }],
+        "wait_for_distribution": true
+      }
+    },
+    {
+      "type": "SERVICE_INSTANCE",
+      "resource_spec": {
+        "service_instance_name": "{{service_instance_name}}",
+        "model_name": "{{service_name}}",
+        "tenant_name": "{{tenant_name}}",
+        "cloud_owner": "{{cloud_owner}}",
+        "cloud_region": "{{cloud_region}}",
+        "api_type": "{{api_type}}",
+        "service_type": "{{service_type}}",
+        "customer_name": "{{customer_name}}",
+        "project_name": "{{project_name}}",
+        "owning_entity_name": "{{owning_entity_name}}"
+      }
+    },
+    {
+      "type": "VNF_INSTANCE",
+      "resource_spec": {
+        "vnf_instance_name": "{{vnf_instance_name}}",
+        "service_instance_name": "{{service_instance_name}}",
+        "model_name": "{{vnf_name}}",
+        "tenant_name": "{{tenant_name}}",
+        "cloud_owner": "{{cloud_owner}}",
+        "cloud_region": "{{cloud_region}}",
+        "api_type": "{{api_type}}",
+        "platform": "{{platform}}",
+        "line_of_business": "{{line_of_business}}"
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+[
+    {
+      "type": "component_Instances",
+      "uniqueIds": [
+        {% for id in instance_ids %}
+          "{{id}}"
+          {% if loop.index < loop.length %}
+          ,
+          {% endif %}
+        {% endfor %}
+      ]
+    }
+]

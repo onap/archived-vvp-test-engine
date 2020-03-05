@@ -1,0 +1,6 @@
+jinja2
+PyYaml
+requests
+PTable
+simplejson
+prettytable

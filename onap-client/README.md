@@ -1,0 +1,388 @@
+
+# ONAP-Client
+
+## License
+
+Copyright 2020 AT&T Intellectual Property. All rights reserved.
+
+This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+
+Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+
+## About
+
+ONAP Client is an api-client for interacting with various ONAP applications. 
+
+There are three interfaces for using the client.
+- cli
+- spec-engine
+- programmatically
+
+More details regarding usage is given below.
+
+## Installation
+
+Either use pip or setup.py to install.
+
+```
+$ cd /path/to/onap-client
+$ pip install -r requirements.txt
+$ pip install . --upgrade
+```
+
+### Config File
+
+After installation, you need to create a configuration file for your ONAP installation. Use the file ``etc/config.example.yaml`` from this repo as a starter config file, and replace the values with those specific to your environment.
+
+The config file needs to be located at ``/etc/onap_client/config.yaml``. If you don't have permissions to move it there, or you have multiple ONAP environments to interact with, you can also set the environment variable ``OC_CONFIG`` to the full-path of your config file.
+
+
+## Usage
+
+### CLI
+
+Use ``onap-client [options]`` to interact with the command-line client. The command-line options that are ONAP applications are created dynamically, and we'll talk about those first. Use ``--help`` to show more details about what options are available.
+
+```
+(stark_env3) CAML01SS820F:onap-client stark$ onap-client --help
++-------------+-------------------------------------------+---------------------+---------------------+
+| name        | description                               | required parameters | optional parameters |
++-------------+-------------------------------------------+---------------------+---------------------+
+| aai         | Various actions available for aai         | --help              |                     |
+|             |                                           |                     |                     |
+| sdc         | Various actions available for sdc         | --help              |                     |
+|             |                                           |                     |                     |
+| sdnc        | Various actions available for sdnc        | --help              |                     |
+|             |                                           |                     |                     |
+| so          | Various actions available for so          | --help              |                     |
+|             |                                           |                     |                     |
+| vid         | Various actions available for vid         | --help              |                     |
+|             |                                           |                     |                     |
+| spec-engine | Various actions available for spec-engine | --help              |                     |
+|             |                                           |                     |                     |
+| utility     | Various actions available for utility     | --help              |                     |
+|             |                                           |                     |                     |
++-------------+-------------------------------------------+---------------------+---------------------+
+```
+
+To view all of the options available for SDC, use ``onap-client sdc --help``
+
+```
+(stark_env3) CAML01SS820F:onap-client stark$ onap-client sdc --help
++---------------+---------------------------------------------+---------------------+---------------------+
+| name          | description                                 | required parameters | optional parameters |
++---------------+---------------------------------------------+---------------------+---------------------+
+| health-check  | Queries SDC health check endpoint           |                     | --keys, --search    |
+|               |                                             |                     |                     |
+| license_model | Various actions available for license_model | --help              |                     |
+|               |                                             |                     |                     |
+| service       | Various actions available for service       | --help              |                     |
+|               |                                             |                     |                     |
+| vnf           | Various actions available for vnf           | --help              |                     |
+|               |                                             |                     |                     |
+| vsp           | Various actions available for vsp           | --help              |                     |
+|               |                                             |                     |                     |
++---------------+---------------------------------------------+---------------------+---------------------+
+```
+
+From here, you can invoke the SDC health check, or view the other options available for SDC.
+
+```
+(stark_env3) CAML01SS820F:onap-client stark$ onap-client sdc license-model --help
++-------------------------------------+----------------------------------------------------------------------------------------+---------------------------------+---------------------+
+| name                                | description                                                                            | required parameters             | optional parameters |
++-------------------------------------+----------------------------------------------------------------------------------------+---------------------------------+---------------------+
+| add-license-model                   | creates a license model in the SDC catalog                                             | --vendor-name                   | --keys, --search    |
+|                                     |                                                                                        |                                 |                     |
+| add-key-group                       | Adds a key group to a license model                                                    | --license-start-date            | --keys, --search    |
+|                                     |                                                                                        | --license-end-date              |                     |
+|                                     |                                                                                        | --key-group-name                |                     |
+|                                     |                                                                                        | --license-model-id              |                     |
+|                                     |                                                                                        | --license-model-version-id      |                     |
+|                                     |                                                                                        |                                 |                     |
+| add-entitlement-pool                | Adds an entitlement pool to a license model                                            | --license-start-date            | --keys, --search    |
+|                                     |                                                                                        | --license-end-date              |                     |
+|                                     |                                                                                        | --entitlement-pool-name         |                     |
+|                                     |                                                                                        | --license-model-id              |                     |
+|                                     |                                                                                        | --license-model-version-id      |                     |
+|                                     |                                                                                        |                                 |                     |
+| add-feature-group                   | Adds an feature group to a license model                                               | --feature-group-name            | --keys, --search    |
+|                                     |                                                                                        | --key-group-id                  |                     |
+|                                     |                                                                                        | --entitlement-pool-id           |                     |
+|                                     |                                                                                        | --manufacturer-reference-number |                     |
+|                                     |                                                                                        | --license-model-id              |                     |
+|                                     |                                                                                        | --license-model-version-id      |                     |
+|                                     |                                                                                        |                                 |                     |
+| add-license-agreement               | Adds an license agreement to a license model                                           | --feature-group-id              | --keys, --search    |
+|                                     |                                                                                        | --license-agreement-name        |                     |
+|                                     |                                                                                        | --license-model-id              |                     |
+|                                     |                                                                                        | --license-model-version-id      |                     |
+|                                     |                                                                                        |                                 |                     |
+| submit-license-model                | Submits a license model                                                                | --action                        | --keys, --search    |
+|                                     |                                                                                        | --license-model-id              |                     |
+|                                     |                                                                                        | --license-model-version-id      |                     |
+|                                     |                                                                                        |                                 |                     |
+| get-license-model                   | Returns a license model                                                                | --license-model-id              | --keys, --search    |
+|                                     |                                                                                        | --license-model-version-id      |                     |
+|                                     |                                                                                        |                                 |                     |
+| get-license-model-version-attribute | Returns an attribute for a license model (license-agreements, features-groups, etc...) | --license-model-id              | --keys, --search    |
+|                                     |                                                                                        | --license-model-version-id      |                     |
+|                                     |                                                                                        | --attribute                     |                     |
+|                                     |                                                                                        |                                 |                     |
+| get-license-model-versions          | Returns the version list for a license model                                           | --license-model-id              | --keys, --search    |
+|                                     |                                                                                        |                                 |                     |
+| get-license-models                  | Returns the full list of license models from SDC                                       |                                 | --keys, --search    |
+|                                     |                                                                                        |                                 |                     |
++-------------------------------------+----------------------------------------------------------------------------------------+---------------------------------+---------------------+
+```
+
+From here, there are a lot of different actions available for license-model. To invoke one, just pass the action name as well as all the required parameters.
+
+```
+(stark_env3) CAML01SS820F:onap-client stark$ onap-client sdc license-model add-license-model --vendor-name "thisisatestvendor123"
+
+2020-03-02 12:29:37,848 {
+    "method": "POST",
+    "auth": "***********",
+    "url": "https://vvp-onap-elalto.westus2.cloudapp.azure.com:30600/onboarding-api/v1.0/vendor-license-models",
+    "headers": {
+        "Accept": "application/json",
+...
+...
+```
+
+### Utility CLI
+
+The utility CLI is more handcrafted than the other cli options. A developer has to mark a function in the codebase as a ``utility`` function for it to show up as available from the cli.
+
+These functions are more for quality of life activities. For example, to retrieve the tosca model for a service from SDC, you have to: 
+- query SDC for a list of all services
+- find the service ID for the service you're looking for
+- query SDC for the tosca model for that service ID
+
+That can be cumbersome, especially if there are a lot of services created. Instead, there's a utility function for it:
+
+```
+(stark_env3) CAML01SS820F:onap-client stark$ onap-client utility --help
++--------------------------+-----------------------------------------------+----------------+
+| name                     | description                                   | parameters     |
++--------------------------+-----------------------------------------------+----------------+
+| --help                   |                                               |                |
+|                          |                                               |                |
+| get-service              | Queries SDC for the TOSCA model for a service | <service_name> |
+|                          |                                               |                |
+| get-service-distribution | None                                          | <service_name> |
+|                          |                                               |                |
+| get-service-id           | None                                          | <service_name> |
+|                          |                                               |                |
+| poll-distribution        | None                                          | <service_name> |
+|                          |                                               |                |
+| get-vnf                  | Queries SDC for the TOSCA model for a VNF     | <vnf_name>     |
+|                          |                                               |                |
+| get-vsp                  | None                                          | <vsp_name>     |
+|                          |                                               |                |
++--------------------------+-----------------------------------------------+----------------+
+
+(stark_env3) CAML01SS820F:onap-client stark$ onap-client utility get-service "testservice"
+``` 
+
+### Spec-Engine CLI
+
+The spec engine CLI is a simple templating engine that you can feed JSON files into in order to interact with various ONAP components. The structure of the JSON files is:
+
+Must be a JSON Dictionary
+
+- optional key: ``parameters``
+    - Value is key-pairs dictionary that is used prior to interacting with ONAP. The spec-engine uses a simple string-replace operation performed over the rest of the input JSON file.
+
+- required key: ``spec``
+    * Value is a list of dictionaries that have the various specs for creating and interacting with objects in ONAP.
+    * requires two keys:
+        - ``type``: value must be an available ``spec`` type (see below for how to find available spec types)
+        - ``resource_spec``: key/value dict with input properties and values (see below for how to find required and optional properties)
+
+To view the available ``spec`` types, use the cli.
+
+```
+(stark_env3) CAML01SS820F:onap-client stark$ onap-client spec-engine --list-spec-resources
+VNF_INSTANCE
+SERVICE_INSTANCE
+MODULE_INSTANCE
+PRELOAD
+VSP
+VNF
+SERVICE
+LICENSE_MODEL
+```
+
+View the required and optional properties:
+
+```
+(stark_env3) CAML01SS820F:onap-client stark$ onap-client spec-engine --show-resource-spec SERVICE_INSTANCE
+{
+    "service_instance_name": {
+        "type": "<class 'str'>",
+        "required": false,
+        "default": "SI_9cde"
+    },
+    "requestor_id": {
+        "type": "<class 'str'>",
+        "required": false,
+        "default": "cs0008"
+    },
+    "model_name": {
+        "type": "<class 'str'>",
+        "required": true
+    },
+    "model_version": {
+        "type": "<class 'str'>",
+        "required": false,
+        "default": "1.0"
+    },
+    "tenant_id": {
+        "type": "<class 'str'>",
+        "required": true
+    },
+    "cloud_owner": {
+        "type": "<class 'str'>",
+        "required": true
+    },
+    "cloud_region": {
+        "type": "<class 'str'>",
+        "required": true
+    },
+    "api_type": {
+        "type": "<class 'str'>",
+        "required": false,
+        "default": "GR_API"
+    },
+    "service_type": {
+        "type": "<class 'str'>",
+        "required": true
+    },
+    "customer_name": {
+        "type": "<class 'str'>",
+        "required": true
+    },
+    "project_name": {
+        "type": "<class 'str'>",
+        "required": true
+    },
+    "owning_entity_name": {
+        "type": "<class 'str'>",
+        "required": true
+    }
+}
+```
+
+Here is a complete example spec:
+
+```
+{
+  "parameters": {
+    "vendor_name": "exampleVendor_0228_3",
+    "service_name": "exampleService_0228_3",
+    "software_product_name": "exampleVSP_0228_3",
+    "vnf_name": "exampleVNF_0228_3",
+    "si_name": "exampleSI_0228_3",
+    "vnf_instance_name": "exampleSI_VNF_0228_3",
+    "base_instance_name": "exampleSI_VNF_0228_3_base",
+    "heat_zip_path": "/Users/stark/Documents/example/heat/example.zip",
+    "base_heat_template_name": "base_example.yaml",
+    "base_preload_path": "/Users/stark/Documents/example/base_preload.json"
+  },
+  "spec": [
+    {
+      "type": "LICENSE_MODEL",
+      "resource_spec": {
+        "vendor_name": "{{vendor_name}}",
+        "license_agreement_name": "{{vendor_name}}"
+      }
+    },
+    {
+      "type": "VSP",
+      "resource_spec": {
+        "software_product_name": "{{software_product_name}}",
+        "license_model_name": "{{vendor_name}}",
+        "vendor_name": "{{vendor_name}}",
+        "file_path": "{{heat_zip_path}}",
+        "category": "Application L4+",
+        "sub_category": "Web Server",
+        "description": "My New VSP"
+      }
+    },
+    {
+      "type": "VNF",
+      "resource_spec": {
+        "vnf_name": "{{vnf_name}}",
+        "software_product_name": "{{software_product_name}}"
+      }
+    },
+    {
+      "type": "SERVICE",
+      "resource_spec": {
+        "service_name": "{{service_name}}",
+        "instantiation_type": "A-la-carte",
+        "contact_id": "ss820f",
+        "category_name": "Network L4+",
+        "tag": "automation",
+        "project_code": "123457",
+        "environment_context": "General_Revenue-Bearing",
+        "ecomp_generated_naming": "false",
+        "description": "Brand New Service",
+        "service_type": "abcd",
+        "service_role": "1234",
+        "resources": [{
+          "resource_name": "{{vnf_name}}",
+          "catalog_resource_name": "{{vnf_name}}",
+          "origin_type": "VF"
+        }],
+        "wait_for_distribution": true
+      }
+    },
+    {
+      "type": "SERVICE_INSTANCE",
+      "resource_spec": {
+        "service_instance_name": "{{si_name}}",
+        "model_name": "exampleService_0228_3",
+        "tenant_id": "a996e4d2cfb14937acbcb4c7d8b0b781",
+        "cloud_owner": "ONAPOWNER",
+        "cloud_region": "ONAPREGION",
+        "api_type": "GR_API",
+        "service_type": "ONAPSERVICE",
+        "customer_name": "ONAPCUSTOMER",
+        "project_name": "testproject",
+        "owning_entity_name": "testentity"
+      }
+    },
+    {
+      "type": "VNF_INSTANCE",
+      "resource_spec": {
+        "vnf_instance_name": "{{vnf_instance_name}}",
+        "service_instance_name": "{{si_name}}",
+        "model_name": "{{vnf_name}}",
+        "tenant_id": "a996e4d2cfb14937acbcb4c7d8b0b781",
+        "cloud_owner": "ONAPOWNER",
+        "cloud_region": "ONAPREGION",
+        "api_type": "GR_API",
+        "platform": "testplatform",
+        "line_of_business": "testlob"
+      }
+    },
+    {
+      "type": "MODULE_INSTANCE",
+      "resource_spec": {
+        "module_instance_name": "{{base_instance_name}}",
+        "heat_template_name": "{{base_heat_template_name}}",
+        "preload_path": "{{base_preload_path}}",
+        "vnf_instance_name": "{{vnf_instance_name}}",
+        "service_instance_name": "{{si_name}}",
+        "tenant_id": "a996e4d2cfb14937acbcb4c7d8b0b781",
+        "cloud_owner": "ONAPOWNER",
+        "cloud_region": "ONAPREGION",
+        "api_type": "GR_API"
+      }
+    }
+  ]
+}
+```
