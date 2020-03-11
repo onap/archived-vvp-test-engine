@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.onap.oparent</groupId>
+    <artifactId>oparent</artifactId>
+    <version>2.1.0</version>
+  </parent>
+
+  <groupId>org.onap.vvp.test-engine</groupId>
+  <artifactId>test-engine</artifactId>
+  <packaging>pom</packaging>
+  <version>6.0.0</version>
+  <name>vvp-test-engine</name>
+
+  <properties>
+        <!--nexus-->
+        <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
+        <sitePath>/content/sites/site/org/onap/vvp/${project.artifactId}/${project.version}</sitePath>
+        <!--maven-->
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
+        <!--sonar-->
+        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+        <sonar.sources>.</sonar.sources>
+        <sonar.python.coverage.reportPaths>onap-client/coverage.xml</sonar.python.coverage.reportPaths>
+        <sonar.language>py</sonar.language>
+        <sonar.pluginName>python</sonar.pluginName>
+        <sonar.inclusions>onap-client/**.py</sonar.inclusions>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <configuration>
+              <executable>${session.executionRootDirectory}/mvn-phase-script.sh</executable>
+            </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.2.1</version>
+          <executions>
+            <execution>
+              <id>test script</id>
+              <phase>test</phase>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <configuration>
+                <arguments>
+                  <argument>__</argument>
+                  <argument>test</argument>
+                </arguments>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+    </plugins>
+  </build>
+</project>
