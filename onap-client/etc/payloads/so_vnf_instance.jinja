@@ -1,0 +1,48 @@
+{
+  "requestDetails": {
+    "requestInfo": {
+      "instanceName": "{{vnf_instance_name}}",
+      "source": "VID",
+      "suppressRollback": false,
+      "requestorId": "{{requestor_id}}",
+      "productFamilyId": "1234"
+    },
+    "modelInfo": {
+      "modelType": "vnf",
+      "modelInvariantId": "{{model_invariant_id}}",
+      "modelVersionId": "{{model_version_id}}",
+      "modelName": "{{model_name}}",
+      "modelVersion": "{{model_version}}",
+      "modelCustomizationId": "{{model_customization_id}}",
+      "modelCustomizationName": "{{model_name}} 0"
+    },
+    "requestParameters": {
+      "userParams": [],
+      "aLaCarte": true,
+      "testApi": "{{api_type}}"
+    },
+    "cloudConfiguration": {
+      "tenantId": "{{tenant_id}}",
+      "cloudOwner": "{{cloud_owner}}",
+      "lcpCloudRegionId": "{{cloud_region}}"
+    },
+    "lineOfBusiness": {
+      "lineOfBusinessName": "{{line_of_business}}"
+    },
+    "platform": {
+      "platformName": "{{platform}}"
+    },
+    "relatedInstanceList": [{
+      "relatedInstance": {
+        "instanceId": "{{service_instance_id}}",
+        "modelInfo": {
+          "modelType": "service",
+          "modelName": "{{service_model_name}}",
+          "modelInvariantId": "{{service_model_invariant_id}}",
+          "modelVersion": "{{service_model_version}}",
+          "modelVersionId": "{{service_model_version_id}}"
+        }
+      }
+    }]
+  }
+}

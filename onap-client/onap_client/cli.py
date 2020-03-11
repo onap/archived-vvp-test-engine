@@ -1,0 +1,215 @@
+# -*- coding: utf8 -*-
+# ============LICENSE_START=======================================================
+# org.onap.vvp/validation-scripts
+# ===================================================================
+# Copyright © 2020 AT&T Intellectual Property. All rights reserved.
+# ===================================================================
+#
+# Unless otherwise specified, all software contained herein is licensed
+# under the Apache License, Version 2.0 (the "License");
+# you may not use this software except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#             http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+#
+# Unless otherwise specified, all documentation contained herein is licensed
+# under the Creative Commons License, Attribution 4.0 Intl. (the "License");
+# you may not use this documentation except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#             https://creativecommons.org/licenses/by/4.0/
+#
+# Unless required by applicable law or agreed to in writing, documentation
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# ============LICENSE_END============================================
+
+import json
+
+from prettytable import PrettyTable
+from onap_client.client.clients import Client
+from onap_client.client.catalog import Catalog
+from onap_client.engine import spec_cli
+from onap_client.util import utility_cli
+
+
+def main(*args):
+    cli_arguments = list(args)
+    request_arguments = {}
+    search_key = None
+    keys = None
+
+    oc = Client()
+
+    if len(args) > 0 and args[0] == "spec-engine":
+        # use engine cli instead
+        spec_cli(cli_arguments[1:])
+    elif len(args) > 0 and args[0] == "utility":
+        # use engine cli instead
+        utility_cli(oc, cli_arguments[1:])
+    elif len(args) == 0 or args[0] == "--help":
+        print(help(oc, extra_clients=["spec-engine", "utility"]))
+    else:
+        while cli_arguments:
+            arg = cli_arguments.pop(0)
+            if arg == "--help":
+                print(help(oc))
+                return
+            elif arg == "--search":
+                search_key = cli_arguments.pop(0)
+                continue
+            elif arg == "--keys":
+                keys = True
+                continue
+
+            if is_argument(arg):
+                arg = convert_to_underscores(arg)
+                arg = sanitize_argument(arg)
+                try:
+                    value = get_value(cli_arguments.pop(0))
+                    if is_argument(value):
+                        print(
+                            "No Value passed for argument: {}. Try --help".format(arg)
+                        )
+                        return
+                except IndexError:
+                    print("No Value passed for argument: {}. Try --help".format(arg))
+                    return
+                request_arguments[arg] = value
+            else:
+                arg = convert_to_underscores(arg)
+                oc = getattr(oc, arg, None)
+                if not oc:
+                    print("Invalid Argument: {}. Try --help".format(arg))
+                    return
+
+        if isinstance(oc, Catalog.CallHandle):
+            data = oc(**request_arguments)
+
+            output_data = data.response_data
+
+            if isinstance(output_data, dict):
+                if keys:
+                    print("\n".join(x for x in output_data.keys()))
+                elif search_key:
+                    print(output_data.get(search_key))
+                else:
+                    print(json.dumps(output_data, indent=4))
+            else:
+                print(output_data)
+        else:
+            print("Command Invalid: {}. Try --help".format(args))
+
+
+def is_argument(argument):
+    return argument.startswith("--")
+
+
+def sanitize_argument(argument):
+    return argument.replace("__", "")
+
+
+def convert_to_underscores(argument):
+    return argument.replace("-", "_")
+
+
+def parameterize(argument):
+    return "--{}".format(argument.replace("_", "-"))
+
+
+def get_value(value):
+    if value in ["True", "true"]:
+        return True
+    elif value in ["False", "false"]:
+        return False
+
+    return value
+
+
+def help(client, extra_clients=[]):
+    namespaces = []
+    actions = []
+
+    if isinstance(client, Catalog):
+
+        for attr, item in client.__dict__.items():
+            if isinstance(item, Catalog):
+                namespaces.append(attr)
+
+        for item_name, catalog_item in client.catalog_items.items():
+            actions.append(get_catalog_item_data(catalog_item))
+
+    elif isinstance(client, Catalog.CallHandle):
+        actions.append(get_catalog_item_data(client.resource))
+
+    data = {"clients": namespaces, "actions": actions}
+    data["clients"].extend(extra_clients)
+
+    return help_table(data)
+
+
+def help_table(data):
+    x = PrettyTable()
+
+    x.field_names = [
+        "name",
+        "description",
+        "required parameters",
+        "optional parameters",
+    ]
+    x.align["name"] = "l"
+    x.align["description"] = "l"
+    x.align["required parameters"] = "l"
+    x.align["optional parameters"] = "l"
+
+    for item in data.get("actions"):
+        name = item.get("name").lower().replace("_", "-")
+        description = item.get("description")
+        parameters = []
+        for param in item.get("parameters"):
+            if isinstance(param, str):
+                parameters.append(parameterize(param))
+            elif isinstance(param, list):
+                for param2 in param:
+                    parameters.append(parameterize(param2))
+        x.add_row([name, description, "\n".join(parameters), "--keys, --search"])
+        x.add_row(["", "", "", ""])
+
+    for item in data.get("clients"):
+        name = item
+        description = "Various actions available for {}".format(name)
+        parameters = ["--help"]
+        x.add_row([name, description, "\n".join(parameters), ""])
+        x.add_row(["", "", "", ""])
+
+    return x
+
+
+def get_catalog_item_data(catalog_item):
+    item = {}
+    item["parameters"] = []
+    item["name"] = catalog_item.catalog_resource_name.lower()
+    item["parameters"].extend(x for x in catalog_item.file_parameters)
+    item["parameters"].extend(
+        x for x in catalog_item.payload_parameters if x not in item["parameters"]
+    )
+    item["parameters"].extend(
+        x for x in catalog_item.uri_parameters if x not in item["parameters"]
+    )
+    item["parameters"] += (
+        [catalog_item.payload_path] if catalog_item.payload_path else []
+    )
+    item["description"] = catalog_item.description
+
+    return item
