@@ -1,0 +1,70 @@
+{
+    "input": {
+        "request-information": {
+            "request-id": "robot12",
+            "order-version": "1",
+            "notification-url": "openecomp.org",
+            "order-number": "1",
+            "request-action": "PreloadVfModuleRequest"
+        },
+        "sdnc-request-header": {
+            "svc-request-id": "robot12",
+            "svc-notification-url": "http://openecomp.org:8080/adapters/rest/SDNCNotify",
+            "svc-action": "reserve"
+        },
+        "preload-vf-module-topology-information": {
+            "vnf-topology-identifier-structure": {
+                "vnf-name": "",
+                "vnf-type": ""
+            },
+            "vnf-resource-assignments": {
+                "availability-zones": {
+                    "availability-zone": []
+                },
+                "vnf-networks": {}
+            },
+            "vf-module-topology": {
+                "vf-module-topology-identifier": {
+                    "vf-module-type": "",
+                    "vf-module-name": ""
+                },
+                "vf-module-parameters": {
+                    "param": [
+                        {
+                            "name": "vlb_private_net_id",
+                            "value": "zdfw1lb01_private"
+                        },
+                        {
+                            "name": "vlb_private_net_cidr",
+                            "value": "192.168.10.0/24"
+                        },
+                        {
+                            "name": "vlb_0_int_pktgen_private_port_0_mac",
+                            "value": "fa:16:3e:00:01:10"
+                        },
+                        {
+                            "name": "pktgen_private_net_id",
+                            "value": "zdfw1pktgen01_private"
+                        },
+                        {
+                            "name": "pktgen_private_net_cidr",
+                            "value": "192.168.9.0/24"
+                        },
+                        {
+                            "name": "vpg_0_int_pktgen_private_port_0_mac",
+                            "value": "fa:16:3e:00:01:20"
+                        },
+                        {
+                            "name": "key_name",
+                            "value": "vlb_key"
+                        },
+                        {
+                            "name": "pub_key",
+                            "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCimjj/DSIHCeC60kimJqw4QFxge/YjfnrXx76tVvm6iNfPGbwu/LzOzS0xDQSw8lcmM71Ys09OBSw9+6HqpBsKL+hDZxWYAyY/qfl0fXWirKoIZbUy6xYHDJEv9z0sMa3NG3d2jRVkANKx9rrpcM2p5GeLalyGTEibNI2ZHQL9L2qjKfHrchi3oQvkMYzj38lzUc6+Sawp/kx2iLgFKQDkRbSSNRUCiB+rmK1ZBIt0XzIogEfQCSDOQVFm4vqtga1QJOtoJzmad1oP6m9YpqPOi7DZxRt373xAdOHRmQJKk9iQhwBaNm8wHTYKUfoKh+chDeVgA/1JECIhgxcqjKUf stark@DUMMYCOMP"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

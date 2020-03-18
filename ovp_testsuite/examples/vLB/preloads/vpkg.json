@@ -1,0 +1,106 @@
+{
+    "input": {
+        "request-information": {
+            "request-id": "robot12",
+            "order-version": "1",
+            "notification-url": "openecomp.org",
+            "order-number": "1",
+            "request-action": "PreloadVfModuleRequest"
+        },
+        "sdnc-request-header": {
+            "svc-request-id": "robot12",
+            "svc-notification-url": "http://openecomp.org:8080/adapters/rest/SDNCNotify",
+            "svc-action": "reserve"
+        },
+        "preload-vf-module-topology-information": {
+            "vnf-topology-identifier-structure": {
+                "vnf-name": "",
+                "vnf-type": ""
+            },
+            "vnf-resource-assignments": {
+                "availability-zones": {
+                    "availability-zone": []
+                },
+                "vnf-networks": {}
+            },
+            "vf-module-topology": {
+                "vf-module-topology-identifier": {
+                    "vf-module-type": "",
+                    "vf-module-name": ""
+                },
+                "vf-module-parameters": {
+                    "param": [
+                        {
+                            "name": "vpg_image_name",
+                            "value": "xenial-server-cloudimg-amd64-disk1"
+                        },
+                        {
+                            "name": "vpg_flavor_name",
+                            "value": "m1.medium"
+                        },
+                        {
+                            "name": "vpg_name_0",
+                            "value": "starkvpg01"
+                        },
+                        {
+                            "name": "vlb_int_pktgen_private_ip_0",
+                            "value": "192.168.9.111"
+                        },
+                        {
+                            "name": "pktgen_private_net_cidr",
+                            "value": "192.168.9.0/24"
+                        },
+                        {
+                            "name": "vpg_int_pktgen_private_ip_0",
+                            "value": "192.168.9.110"
+                        },
+                        {
+                            "name": "vpg_onap_private_ip_0",
+                            "value": "192.168.100.20"
+                        },
+                        {
+                            "name": "onap_private_net_id",
+                            "value": "private"
+                        },
+                        {
+                            "name": "onap_private_subnet_id",
+                            "value": "private-subnet"
+                        },
+                        {
+                            "name": "onap_private_net_cidr",
+                            "value": "192.168.100.0/26"
+                        },
+                        {
+                            "name": "public_net_id",
+                            "value": "public"
+                        },
+                        {
+                            "name": "nb_api_version",
+                            "value": "1.2.0"
+                        },
+                        {
+                            "name": "install_script_version",
+                            "value": "1.6.0-SNAPSHOT"
+                        },
+                        {
+                            "name": "demo_artifacts_version",
+                            "value": "1.6.0-SNAPSHOT"
+                        },
+                        {
+                            "name": "cloud_env",
+                            "value": "openstack"
+                        },
+                        {
+                            "name": "sec_group",
+                            "value": "default"
+                        },
+                        {
+                            "name": "nexus_artifact_repo",
+                            "value": "https://nexus.onap.org"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
