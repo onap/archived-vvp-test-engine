@@ -1,0 +1,37 @@
+{
+     "vnf_name": "vLB_Test_VNF",
+     "description": "Some Description",
+     "modules": [
+        {
+         "filename": "base_template.yaml",
+         "isBase": "true",
+         "preload": "base_template_preload.json"
+        },
+        {
+         "filename": "vpkg.yaml",
+         "isBase": "false",
+         "preload": "vpkg.json"
+        },
+        {
+         "filename": "vlb.yaml",
+         "isBase": "false",
+         "preload": "vlb.json"
+        },
+        {
+         "filename": "vdns.yaml",
+         "isBase": "false",
+         "preload": "vdns_preload.json"
+        }
+     ],
+     "api_type": "gr_api",  
+     "customer": "ONAPCUSTOMER",
+     "service_type": "ONAPSERVICE",
+     "tenant_name": "onap_project",
+     "region_id": "ONAPREGION",
+     "cloud_owner": "ONAPOWNER",
+     "project_name": "testproject",
+     "owning_entity": "testentity",
+     "platform": "testplatform",
+     "line_of_business": "testlob",
+     "os_password": "supersecret"
+}

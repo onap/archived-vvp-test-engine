@@ -1,3 +1,4 @@
+#!/bin/bash
 # -*- coding: utf8 -*-
 # ============LICENSE_START=======================================================
 # org.onap.vvp/validation-scripts
@@ -35,31 +36,68 @@
 #
 # ============LICENSE_END============================================
 
-import setuptools
-import os
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+NAMESPACE=$1
+PODNAME=$2
+CONFIGMAP=$3
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+cat  <<EOF | kubectl -n $NAMESPACE create -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: $PODNAME
+spec:
+  containers:
+  - name: $PODNAME
+    image: python:3.7-alpine
+    volumeMounts:
+    - name: $CONFIGMAP
+      mountPath: /etc/onap_client
+    command: ["/bin/sh"]
+    args:
+      - -c
+      - apk update && \
+        apk add bash && \
+        apk add git && \
+        apk add gcc && \
+        apk add python3-dev && \
+        apk add musl-dev && \
+        apk add libffi-dev && \
+        apk add openssl-dev && \
+        apk add libxml2-dev && \
+        apk add libxml2 && \
+        apk add libxslt-dev && \
+        apk add tk && \
+        sh -c 'pip install virtualenv; while true; do sleep 60; done;'
+  restartPolicy: Never
+  volumes:
+    - name: $CONFIGMAP
+      configMap:
+        name: $CONFIGMAP
+        defaultMode: 0755
+EOF
 
-datafiles = [("onap_client", ["etc/config.example.yaml"])]
-for file in os.listdir("etc/payloads"):
-    datafiles.append(("onap_client/payloads", ["etc/payloads/{}".format(file)]))
+podstatus=""
+COUNTER=0
 
-setuptools.setup(
-    name="onap-client",
-    version="0.2.0",
-    author="Steven Stark",
-    author_email="steven.stark@att.com",
-    description="Python API wrapper for ONAP applications",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires=">=3.6",
-    scripts=["bin/onap-client"],
-    data_files=datafiles,
-)
+while [ "$podstatus" != "Error" ] && [ "$podstatus" != "Running" ] && [ $COUNTER -lt 60 ]; do
+  podstatus=`kubectl -n $NAMESPACE get pods | grep $PODNAME | head -1 | awk '{print $3}'`
+  echo "$PODNAME is $podstatus"
+  COUNTER=$((COUNTER +1))
+  if [ "$podstatus" = "Running" ]; then
+    break
+  fi
+  sleep 30
+done
+
+if [ "$podstatus" = "Error" ]; then
+  echo "failed creating pod to execute test, exiting..."
+  exit 1
+fi
+
+kubectl -n $NAMESPACE cp "$DIR/../onap-client" "$PODNAME:/tmp/onap_client"
+kubectl exec -n $NAMESPACE $PODNAME -- sh -c "cd /tmp/onap_client; pip install -r requirements.txt; pip install . --upgrade"
+if [ $? -ne 0 ]; then
+  echo "Failed to create pod, exiting..."
+  exit 1
+fi

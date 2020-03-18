@@ -1,3 +1,4 @@
+#!/bin/bash
 # -*- coding: utf8 -*-
 # ============LICENSE_START=======================================================
 # org.onap.vvp/validation-scripts
@@ -34,32 +35,23 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
+set -x
 
-import setuptools
-import os
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+NAMESPACE=$1
+PODNAME=$2
+OUTPUT_DIR=$3
+BUILD_TAG=$4
 
-datafiles = [("onap_client", ["etc/config.example.yaml"])]
-for file in os.listdir("etc/payloads"):
-    datafiles.append(("onap_client/payloads", ["etc/payloads/{}".format(file)]))
+kubectl -n $NAMESPACE cp $DIR/blank-spec.json $PODNAME:/tmp/blank-spec.json
+kubectl -n $NAMESPACE cp $DIR/model-and-distribute.py $PODNAME:/tmp/modeling.py
 
-setuptools.setup(
-    name="onap-client",
-    version="0.2.0",
-    author="Steven Stark",
-    author_email="steven.stark@att.com",
-    description="Python API wrapper for ONAP applications",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires=">=3.6",
-    scripts=["bin/onap-client"],
-    data_files=datafiles,
-)
+exec > >(tee -i $OUTPUT_DIR/log.txt)
+exec 2>&1
+
+kubectl -n $NAMESPACE exec $PODNAME -- sh -c "python /tmp/modeling.py --vnf-folder /tmp/$BUILD_TAG --spec /tmp/blank-spec.json --build-tag $BUILD_TAG"
+if [ $? -ne 0 ]; then
+  echo "Failed during modeling/instantiation, exiting..."
+  exit 1
+fi

@@ -1,3 +1,4 @@
+#!/bin/bash
 # -*- coding: utf8 -*-
 # ============LICENSE_START=======================================================
 # org.onap.vvp/validation-scripts
@@ -34,32 +35,21 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
+set -x
 
-import setuptools
-import os
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+NAMESPACE=$1
+PODNAME=$2
+OUTPUT_DIR=$3
+BUILD_TAG=$4
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+kubectl -n $NAMESPACE cp $DIR/stack-validation.py $PODNAME:/tmp/stack-validation.py
 
-datafiles = [("onap_client", ["etc/config.example.yaml"])]
-for file in os.listdir("etc/payloads"):
-    datafiles.append(("onap_client/payloads", ["etc/payloads/{}".format(file)]))
+kubectl -n $NAMESPACE exec $PODNAME -- sh -c "python /tmp/stack-validation.py --vnf-manifest /tmp/$BUILD_TAG/vnf-details.json --vnf-name $BUILD_TAG  --vnf-deployment-details /tmp/vnf-deployment-details-$BUILD_TAG.json"
+if [ $? -ne 0 ]; then
+  kubectl -n $NAMESPACE cp $PODNAME:tmp/stack-validation.json "$OUTPUT_DIR/stack-validation.json"
+  echo "Stack validation failed, exiting..."
+  exit 1
+fi
 
-setuptools.setup(
-    name="onap-client",
-    version="0.2.0",
-    author="Steven Stark",
-    author_email="steven.stark@att.com",
-    description="Python API wrapper for ONAP applications",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires=">=3.6",
-    scripts=["bin/onap-client"],
-    data_files=datafiles,
-)
+kubectl -n $NAMESPACE cp $PODNAME:tmp/stack-validation.json "$OUTPUT_DIR/stack-validation.json"

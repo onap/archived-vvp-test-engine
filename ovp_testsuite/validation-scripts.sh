@@ -1,3 +1,4 @@
+#!/bin/bash
 # -*- coding: utf8 -*-
 # ============LICENSE_START=======================================================
 # org.onap.vvp/validation-scripts
@@ -34,32 +35,20 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
+set -x
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+NAMESPACE=$1
+PODNAME=$2
+OUTPUT_DIR=$3
+BUILD_TAG=$4
 
-import setuptools
-import os
+kubectl -n $NAMESPACE cp $DIR/validation-scripts.py $PODNAME:/tmp/validation-scripts.py
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+kubectl -n $NAMESPACE exec $PODNAME -- sh -c "python /tmp/validation-scripts.py --template-directory /tmp/$BUILD_TAG/templates --output-directory /tmp/vvp-output --build-directory /tmp/vvp_env"
+if [ $? -ne 0 ]; then
+  echo "Validation Scripts failed, exiting..."
+  kubectl -n $NAMESPACE cp $PODNAME:tmp/vvp-output/report.json "$OUTPUT_DIR/report.json"
+  exit 1
+fi
 
-datafiles = [("onap_client", ["etc/config.example.yaml"])]
-for file in os.listdir("etc/payloads"):
-    datafiles.append(("onap_client/payloads", ["etc/payloads/{}".format(file)]))
-
-setuptools.setup(
-    name="onap-client",
-    version="0.2.0",
-    author="Steven Stark",
-    author_email="steven.stark@att.com",
-    description="Python API wrapper for ONAP applications",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires=">=3.6",
-    scripts=["bin/onap-client"],
-    data_files=datafiles,
-)
+kubectl -n $NAMESPACE cp $PODNAME:tmp/vvp-output/report.json "$OUTPUT_DIR/report.json"

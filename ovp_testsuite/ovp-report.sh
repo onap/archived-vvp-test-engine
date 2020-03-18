@@ -1,3 +1,4 @@
+#!/bin/bash
 # -*- coding: utf8 -*-
 # ============LICENSE_START=======================================================
 # org.onap.vvp/validation-scripts
@@ -34,32 +35,38 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
+set -x
 
-import setuptools
-import os
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+NAMESPACE=$1
+PODNAME=$2
+OUTPUT_DIR=$3
+BUILD_TAG=$4
+START_TIME=$5
+VALIDATION_SCRIPTS=$6
+MODEL_AND_DISTRIBUTE=$7
+STACK_VALIDATION=$8
 
-datafiles = [("onap_client", ["etc/config.example.yaml"])]
-for file in os.listdir("etc/payloads"):
-    datafiles.append(("onap_client/payloads", ["etc/payloads/{}".format(file)]))
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
+TEMPLATE_DIRECTORY=/tmp/$BUILD_TAG/templates
 
-setuptools.setup(
-    name="onap-client",
-    version="0.2.0",
-    author="Steven Stark",
-    author_email="steven.stark@att.com",
-    description="Python API wrapper for ONAP applications",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires=">=3.6",
-    scripts=["bin/onap-client"],
-    data_files=datafiles,
-)
+ARG_LIST="--template-directory $TEMPLATE_DIRECTORY --start-time $START_TIME --test-date '$DATE'"
+
+if [ ! -z "$VALIDATION_SCRIPTS" ]; then
+  ARG_LIST="$ARG_LIST --validation-scripts $VALIDATION_SCRIPTS"
+fi
+
+if [ ! -z "$MODEL_AND_DISTRIBUTE" ]; then
+  ARG_LIST="$ARG_LIST --model-and-distribute $MODEL_AND_DISTRIBUTE"
+fi
+
+if [ ! -z "$STACK_VALIDATION" ]; then
+  ARG_LIST="$ARG_LIST --stack-validation $STACK_VALIDATION"
+fi
+
+kubectl -n $NAMESPACE cp $DIR/ovp-report.py $PODNAME:/tmp/ovp-report.py
+
+kubectl -n $NAMESPACE exec $PODNAME -- sh -c "python /tmp/ovp-report.py $ARG_LIST"
+
+kubectl -n $NAMESPACE cp $PODNAME:tmp/results.json "$OUTPUT_DIR/results.json"
