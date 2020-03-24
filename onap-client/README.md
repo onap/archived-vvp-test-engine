@@ -10,7 +10,8 @@ Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
 
 ## About
 
-ONAP Client is an api-client for interacting with various ONAP applications. 
+
+ONAP Client is an api-client written in python for interacting with various ONAP applications. 
 
 There are three interfaces for using the client.
 - cli
@@ -19,7 +20,9 @@ There are three interfaces for using the client.
 
 More details regarding usage is given below.
 
+
 ## Installation
+
 
 Either use pip or setup.py to install.
 
@@ -31,14 +34,22 @@ $ pip install . --upgrade
 
 ### Config File
 
+
 After installation, you need to create a configuration file for your ONAP installation. Use the file ``etc/config.example.yaml`` from this repo as a starter config file, and replace the values with those specific to your environment.
 
 The config file needs to be located at ``/etc/onap_client/config.yaml``. If you don't have permissions to move it there, or you have multiple ONAP environments to interact with, you can also set the environment variable ``OC_CONFIG`` to the full-path of your config file.
 
 
+```
+$ export OC_CONFIG=/path/to/config.yaml
+```
+
+
 ## Usage
 
+
 ### CLI
+
 
 Use ``onap-client [options]`` to interact with the command-line client. The command-line options that are ONAP applications are created dynamically, and all follow the same pattern. Use ``--help`` to show more details about what options are available.
 
@@ -84,7 +95,9 @@ $ onap-client sdc --help
 +---------------+---------------------------------------------+---------------------+---------------------+
 ```
 
+
 From here, you can invoke the SDC health check, or view the other options available for SDC.
+
 
 ```
 $ onap-client sdc license-model --help
@@ -99,40 +112,9 @@ $ onap-client sdc license-model --help
 |                                     |                                                                                        | --license-model-id              |                     |
 |                                     |                                                                                        | --license-model-version-id      |                     |
 |                                     |                                                                                        |                                 |                     |
-| add-entitlement-pool                | Adds an entitlement pool to a license model                                            | --license-start-date            | --keys, --search    |
-|                                     |                                                                                        | --license-end-date              |                     |
-|                                     |                                                                                        | --entitlement-pool-name         |                     |
-|                                     |                                                                                        | --license-model-id              |                     |
-|                                     |                                                                                        | --license-model-version-id      |                     |
-|                                     |                                                                                        |                                 |                     |
-| add-feature-group                   | Adds an feature group to a license model                                               | --feature-group-name            | --keys, --search    |
-|                                     |                                                                                        | --key-group-id                  |                     |
-|                                     |                                                                                        | --entitlement-pool-id           |                     |
-|                                     |                                                                                        | --manufacturer-reference-number |                     |
-|                                     |                                                                                        | --license-model-id              |                     |
-|                                     |                                                                                        | --license-model-version-id      |                     |
-|                                     |                                                                                        |                                 |                     |
-| add-license-agreement               | Adds an license agreement to a license model                                           | --feature-group-id              | --keys, --search    |
-|                                     |                                                                                        | --license-agreement-name        |                     |
-|                                     |                                                                                        | --license-model-id              |                     |
-|                                     |                                                                                        | --license-model-version-id      |                     |
-|                                     |                                                                                        |                                 |                     |
-| submit-license-model                | Submits a license model                                                                | --action                        | --keys, --search    |
-|                                     |                                                                                        | --license-model-id              |                     |
-|                                     |                                                                                        | --license-model-version-id      |                     |
-|                                     |                                                                                        |                                 |                     |
-| get-license-model                   | Returns a license model                                                                | --license-model-id              | --keys, --search    |
-|                                     |                                                                                        | --license-model-version-id      |                     |
-|                                     |                                                                                        |                                 |                     |
-| get-license-model-version-attribute | Returns an attribute for a license model (license-agreements, features-groups, etc...) | --license-model-id              | --keys, --search    |
-|                                     |                                                                                        | --license-model-version-id      |                     |
-|                                     |                                                                                        | --attribute                     |                     |
-|                                     |                                                                                        |                                 |                     |
-| get-license-model-versions          | Returns the version list for a license model                                           | --license-model-id              | --keys, --search    |
-|                                     |                                                                                        |                                 |                     |
-| get-license-models                  | Returns the full list of license models from SDC                                       |                                 | --keys, --search    |
-|                                     |                                                                                        |                                 |                     |
-+-------------------------------------+----------------------------------------------------------------------------------------+---------------------------------+---------------------+
+...
+...
+...
 ```
 
 From here, there are a lot of different actions available for license-model. To invoke one, just pass the action name as well as all the required parameters.
@@ -150,7 +132,9 @@ $ onap-client sdc license-model add-license-model --vendor-name "thisisatestvend
 ...
 ```
 
+
 ### Python
+
 
 To use the onap-client in a script, create an instance of the Client class:
 
@@ -161,9 +145,9 @@ c = Client()
 
 ```
 
-Each request follows the same pattern as using the cli. You can check the required parameters by using the cli with the ``--help`` flag. A request will return a ``RequestHandler`` object.
+Each request follows the same pattern as using the cli, and parameters are passed as ``**kwargs``. You can check the required parameters by using the cli with the ``--help`` flag. Each request will return a ``RequestHandler`` object.
 
-To create a license model in the same way as shown above:
+For example, to create a license model in the same way as shown above:
 
 ```
 from onap_client.client.clients import Client
@@ -174,10 +158,11 @@ license_model = c.sdc.license_model.add_license_model(vendor_name="MyNewVendor")
 
 status = license_model.status_code
 raw_api_response = license_model.response_data
-
 ```
 
+
 ### Utility CLI
+
 
 The utility CLI is more handcrafted than the other cli options. A developer has to mark a function in the codebase as a ``utility`` function for it to show up as available from the cli.
 
@@ -187,6 +172,14 @@ These functions are more for quality of life activities. For example, to retriev
 - query SDC for the tosca model for that service ID
 
 That can be cumbersome, especially if there are a lot of services created. Instead, there's a utility function for it:
+
+```
+$ onap-client utility get-service "testservice"
+```
+
+
+#### View all available utility functions
+
 
 ```
 $ onap-client utility --help
@@ -208,13 +201,49 @@ $ onap-client utility --help
 | get-vsp                  | None                                          | <vsp_name>     |
 |                          |                                               |                |
 +--------------------------+-----------------------------------------------+----------------+
-
-$ onap-client utility get-service "testservice"
 ``` 
 
 ### Spec-Engine CLI
 
-The spec engine CLI is a simple templating engine that you can feed JSON files into in order to interact with various ONAP components. The structure of the JSON files is:
+
+The spec engine CLI is a simple templating engine that you can feed JSON files into in order to interact with ONAP applications. A JSON spec file will have various ONAP resource definitions, and by loading the file into the engine it will create the resources in ONAP. For a simple comparison, think of it like writing a heat-template, but for ONAP.
+
+
+```
+$ onap-client spec-engine --help
+usage: onap-client [-h] [--load-spec LOAD_SPEC]
+                   [--validate-spec VALIDATE_SPEC]
+                   [--show-resource-spec SHOW_RESOURCE_SPEC]
+                   [--list-spec-resources]
+
+Spec Engine CLI
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --load-spec LOAD_SPEC
+                        Load a local spec file into the ONAP client spec
+                        engine.
+  --validate-spec VALIDATE_SPEC
+                        Validates a local spec file for the spec engine.
+  --show-resource-spec SHOW_RESOURCE_SPEC
+                        Show spec for a given resource.
+  --list-spec-resources
+                        List available spec resources.
+```
+
+
+#### Loading a spec.json file
+
+
+```
+$ onap-client spec-engine --load-spec 
+```
+
+
+#### Creating a spec file
+
+
+The structure of a JSON spec file is:
 
 Must be a JSON Dictionary
 
@@ -227,7 +256,9 @@ Must be a JSON Dictionary
         - ``type``: value must be an available ``spec`` type (see below for how to find available spec types)
         - ``resource_spec``: key/value dict with input properties and values (see below for how to find required and optional properties)
 
-To view the available ``spec`` types, use the cli.
+
+#### View the available ``spec`` types
+
 
 ```
 $ onap-client spec-engine --list-spec-resources
@@ -241,7 +272,9 @@ SERVICE
 LICENSE_MODEL
 ```
 
-View the required and optional properties:
+
+#### View the required and optional properties for a spec type:
+
 
 ```
 $ onap-client spec-engine --show-resource-spec SERVICE_INSTANCE
@@ -301,7 +334,12 @@ $ onap-client spec-engine --show-resource-spec SERVICE_INSTANCE
 }
 ```
 
+
+#### Example spec
+
+
 Here is a complete example spec to create a service model for a VNF:
+
 
 ```
 {
