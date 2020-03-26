@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "360aa753_ae14ab28",
+        "filename": "onap-client/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 3999
+      },
+      "writtenOn": "2020-03-26T23:08:37Z",
+      "side": 1,
+      "message": "Did you intend to delete all these other commands?",
+      "revId": "12cc192cdc9720d2202a72bc1af1f6b7d04db4d3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a837240d_21c1a168",
+        "filename": "ovp_testsuite/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3999
+      },
+      "writtenOn": "2020-03-26T23:08:37Z",
+      "side": 1,
+      "message": "gr_api only now",
+      "revId": "12cc192cdc9720d2202a72bc1af1f6b7d04db4d3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f377a73_d96a46fc",
+        "filename": "ovp_testsuite/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 3999
+      },
+      "writtenOn": "2020-03-26T23:08:37Z",
+      "side": 1,
+      "message": "I\u0027ll approve this, but should we just drop api_type if only 1 API type is supported?",
+      "revId": "12cc192cdc9720d2202a72bc1af1f6b7d04db4d3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2e163ac_48a43179",
+        "filename": "ovp_testsuite/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 3999
+      },
+      "writtenOn": "2020-03-26T23:08:37Z",
+      "side": 1,
+      "message": "I don\u0027t understand the content from 153-170.  Is it something the user is supposed to enter or is it the output of the script?",
+      "revId": "12cc192cdc9720d2202a72bc1af1f6b7d04db4d3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
