@@ -95,6 +95,32 @@ CATALOG_RESOURCES = {
             sdc_properties.GLOBAL_SDC_PASSWORD,
         ),
     },
+    "UPDATE_SOFTWARE_PRODUCT": {
+        "verb": "POST",
+        "description": "Updates a VSP to a new version",
+        "uri": partial(
+            "{endpoint}{service_path}/{software_product_id}/versions/{software_product_version_id}".format,
+            endpoint=sdc_properties.SDC_BE_ONBOARD_ENDPOINT,
+            service_path=sdc_properties.SDC_VENDOR_ITEMS_PATH,
+        ),
+        "payload": "{}/software_product_update.jinja".format(PAYLOADS_DIR),
+        "payload-parameters": [
+            "description",
+        ],
+        "uri-parameters": ["software_product_id", "software_product_version_id"],
+        "success_code": 200,
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
+            "X-TransactionId": str(uuid.uuid4()),
+            "X-FromAppId": application_id,
+        },
+        "auth": (
+            sdc_properties.GLOBAL_SDC_USERNAME,
+            sdc_properties.GLOBAL_SDC_PASSWORD,
+        ),
+    },
     "UPLOAD_HEAT_PACKAGE": {
         "verb": "POST",
         "description": "Uploads a heat zip to a VSP",

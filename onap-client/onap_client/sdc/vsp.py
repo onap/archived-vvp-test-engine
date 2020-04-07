@@ -70,6 +70,7 @@ class VSP(Resource):
             "required": False,
             "default": [],
         },
+        "allow_update": {"type": bool, "required": False, "default": False},
     }
 
     def __init__(
@@ -83,6 +84,7 @@ class VSP(Resource):
         category,
         sub_category,
         contributers=[],
+        allow_update=False,
     ):
 
         vsp_input = {}
@@ -110,6 +112,7 @@ class VSP(Resource):
         vsp_input["category"] = category.lower()
         vsp_input["sub_category"] = sub_category.lower()
         vsp_input["contributers"] = contributers
+        vsp_input["allow_update"] = allow_update
 
         super().__init__(vsp_input)
 
@@ -117,8 +120,11 @@ class VSP(Resource):
         """Creates a vsp object in SDC"""
         vsp = None
 
-        if get_vsp_id(kwargs.get("software_product_name")) is None:
+        existing = get_vsp(kwargs.get("software_product_name"))
+        if not existing:
             vsp = create_vsp(kwargs)
+        elif kwargs.get("allow_update"):
+            vsp = update_vsp(existing, kwargs)
         else:
             raise ResourceAlreadyExistsException(
                 "VSP resource {} already exists".format(
@@ -141,6 +147,28 @@ class VSP(Resource):
 
         vsp = vsp_client.get_software_product(**self.attributes)
         self.attributes["tosca"] = vsp.response_data
+
+
+def update_vsp(existing_vsp, vsp_input):
+    existing_vsp_id = existing_vsp.get("id")
+    existing_vsp_version_id = existing_vsp.get("version")
+
+    vsp_client.update_software_product(
+        software_product_id=existing_vsp_id,
+        software_product_version_id=existing_vsp_version_id,
+        description=vsp_input.get("description", "New VSP Version")
+    ).response_data
+
+    vsp_input["software_product_id"] = existing_vsp_id
+    vsp_input["software_product_version_id"] = get_vsp_version_id(existing_vsp_id)
+
+    vsp_client.upload_heat_package(**vsp_input)
+    vsp_client.validate_software_product(**vsp_input)
+
+    vsp = vsp_client.get_software_product(**vsp_input)
+    vsp_input["tosca"] = vsp.response_data
+
+    return vsp_input
 
 
 def create_vsp(vsp_input):
@@ -180,7 +208,7 @@ def get_vsp_id(vsp_name):
     return None
 
 
-def get_vsp_version_id(vsp_id):
+def get_vsp_version_id(vsp_id, search_key="id"):
     """GETs vsp model version UUID from SDC
 
     :vsp_id: uuid of vsp model in SDC
@@ -194,7 +222,7 @@ def get_vsp_version_id(vsp_id):
     for version in results:
         if version.get("creationTime", 0) > creation_time:
             creation_time = version.get("creationTime")
-            vsp_version_id = version.get("id")
+            vsp_version_id = version.get(search_key)
 
     return vsp_version_id
 
@@ -209,5 +237,7 @@ def get_vsp_model(vsp_id, vsp_version_id):
 def get_vsp(vsp_name):
     """Queries SDC for the tosca model for a VSP"""
     vsp_id = get_vsp_id(vsp_name)
+    if vsp_id is None:
+        return None
     vsp_version_id = get_vsp_version_id(vsp_id)
     return get_vsp_model(vsp_id, vsp_version_id)

@@ -70,7 +70,7 @@ def show_resource_spec(resource_name):
     list_spec_resources()
 
 
-def load_spec(input_spec, validate_only=False):
+def load_spec(input_spec, validate_only=False, submit=True):
     try:
         with open(input_spec, "r") as f:
             jdata = json.loads(f.read())
@@ -79,7 +79,7 @@ def load_spec(input_spec, validate_only=False):
         raise
 
     engine = SpecEngine()
-    return engine.load_spec(jdata, validate_only=validate_only)
+    return engine.load_spec(jdata, validate_only=validate_only, distribute=submit)
 
 
 def spec_cli(args):
@@ -102,6 +102,10 @@ def spec_cli(args):
     )
 
     parser.add_argument(
+        "--no-submit", action="store_false", required=False, default=True, help="Dont execute submit() for each resource in spec."
+    )
+
+    parser.add_argument(
         "--list-spec-resources",
         action="store_true",
         required=False,
@@ -117,7 +121,7 @@ def spec_cli(args):
     elif arguments.validate_spec:
         print(json.dumps(load_spec(arguments.validate_spec, validate_only=True), indent=4))
     elif arguments.load_spec:
-        load_spec(arguments.load_spec)
+        load_spec(arguments.load_spec, submit=arguments.no_submit)
 
 
 class SpecEngine:

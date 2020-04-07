@@ -98,6 +98,29 @@ CATALOG_RESOURCES = {
             sdc_properties.GLOBAL_SDC_PASSWORD,
         ),
     },
+    "CHECKOUT_CATALOG_SERVICE": {
+        "verb": "POST",
+        "description": "Creates a new version of a Service in the SDC catalog",
+        "uri": partial(
+            "{endpoint}{service_path}/{catalog_service_id}/lifecycleState/CHECKOUT".format,
+            endpoint=sdc_properties.SDC_BE_ENDPOINT,
+            service_path=sdc_properties.SDC_CATALOG_SERVICES_PATH,
+        ),
+        "uri-parameters": ["catalog_service_id"],
+        "success_code": 200,
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
+            "X-TransactionId": str(uuid.uuid4()),
+            "X-FromAppId": application_id,
+        },
+        "return_data": {"catalog_service_id": ("uniqueId",)},
+        "auth": (
+            sdc_properties.GLOBAL_SDC_USERNAME,
+            sdc_properties.GLOBAL_SDC_PASSWORD,
+        ),
+    },
     "ADD_RESOURCE_INSTANCE": {
         "verb": "POST",
         "description": "Attaches a Resource to a Service",
@@ -125,6 +148,32 @@ CATALOG_RESOURCES = {
             "X-FromAppId": application_id,
         },
         "return_data": {"catalog_resource_instance_id": ("uniqueId",)},
+        "auth": (
+            sdc_properties.GLOBAL_SDC_USERNAME,
+            sdc_properties.GLOBAL_SDC_PASSWORD,
+        ),
+    },
+    "UPDATE_RESOURCE_VERSION": {
+        "verb": "POST",
+        "description": "Updates a component version in a service",
+        "uri": partial(
+            "{endpoint}{service_path}/{catalog_service_id}/resourceInstance/{component_name}/changeVersion".format,
+            endpoint=sdc_properties.SDC_BE_ENDPOINT,
+            service_path=sdc_properties.SDC_CATALOG_SERVICES_PATH,
+        ),
+        "uri-parameters": ["catalog_service_id", "component_name"],
+        "payload": "{}/update_resource_instance.jinja".format(PAYLOADS_DIR),
+        "payload-parameters": [
+            "component_id",
+        ],
+        "success_code": 200,
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
+            "X-TransactionId": str(uuid.uuid4()),
+            "X-FromAppId": application_id,
+        },
         "auth": (
             sdc_properties.GLOBAL_SDC_USERNAME,
             sdc_properties.GLOBAL_SDC_PASSWORD,
@@ -261,11 +310,12 @@ CATALOG_RESOURCES = {
         ),
         "uri-parameters": ["catalog_service_id"],
         "success_code": 200,
+        "header-parameters": ["X-TransactionId"],
         "headers": {
             "Accept": "application/json",
             "Content-Type": "application/json",
             "USER_ID": sdc_properties.SDC_OPS_USER_ID,
-            "X-TransactionId": str(uuid.uuid4()),
+            # "X-TransactionId": str(uuid.uuid4()),
             "X-FromAppId": application_id,
         },
         "auth": (

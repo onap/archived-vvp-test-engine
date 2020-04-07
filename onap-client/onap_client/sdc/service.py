@@ -47,6 +47,7 @@ from onap_client.util import utility
 import time
 import json
 import random
+import uuid
 
 service_client = SDCClient().sdc.service
 sdc_properties = sdc.SDC_PROPERTIES
@@ -115,6 +116,7 @@ class Service(Resource):
                 "properties": {"type": dict, "required": False, "default": {}},
             },
         },
+        "allow_update": {"type": bool, "required": False, "default": False},
         "wait_for_distribution": {"type": bool, "required": False, "default": False},
     }
 
@@ -134,6 +136,7 @@ class Service(Resource):
         naming_policy,
         resources=[],
         wait_for_distribution=False,
+        allow_update=False,
     ):
         service_input = {}
 
@@ -158,6 +161,7 @@ class Service(Resource):
         service_input["naming_policy"] = naming_policy
         service_input["resources"] = resources
         service_input["wait_for_distribution"] = wait_for_distribution
+        service_input["allow_update"] = allow_update
 
         super().__init__(service_input)
 
@@ -165,8 +169,11 @@ class Service(Resource):
         """Creates a service object in SDC"""
         service = None
 
-        if get_service_id(service_input.get("service_name")) is None:
+        existing = get_service_id(service_input.get("service_name"))
+        if existing is None:
             service = create_service(service_input)
+        elif service_input.get("allow_update"):
+            service = update_service(existing, service_input)
         else:
             raise exceptions.ResourceAlreadyExistsException(
                 "Service resource {} already exists".format(
@@ -237,8 +244,8 @@ class Service(Resource):
             service_client.approve_service_certification(
                 **self.attributes, user_remarks="approved"
             )
-
-        service_client.distribute_sdc_service(**self.attributes)
+        headers = {"X-TransactionId": str(uuid.uuid4())}
+        service_client.distribute_sdc_service(**self.attributes, **headers)
 
         if self.wait_for_distribution:
             poll_distribution(self.service_name)
@@ -256,20 +263,29 @@ class Service(Resource):
 
         """
         milli_timestamp = int(time.time() * 1000)
+        component_instances = self.tosca.get("componentInstances", [])
+        existing = False
+        if component_instances:
+            for component in component_instances:
+                if component.get("componentName") == catalog_resource_name:
+                    existing = True
+                    resource_instance = self.update_resource_instance_version(component)
+                    break
 
-        resource_instance = service_client.add_resource_instance(
-            **self.attributes,
-            posX=random.randrange(150, 550),  # nosec
-            posY=random.randrange(150, 450),  # nosec
-            milli_timestamp=milli_timestamp,
-            catalog_resource_id=catalog_resource_id,
-            catalog_resource_name=catalog_resource_name,
-            originType=origin_type,
-        )
+        if not existing:
+            resource_instance = service_client.add_resource_instance(
+                **self.attributes,
+                posX=random.randrange(150, 550),  # nosec
+                posY=random.randrange(150, 450),  # nosec
+                milli_timestamp=milli_timestamp,
+                catalog_resource_id=catalog_resource_id,
+                catalog_resource_name=catalog_resource_name,
+                originType=origin_type,
+            ).response_data
 
         response = {
-            "id": resource_instance.catalog_resource_instance_id,
-            "tosca": resource_instance.response_data,
+            "id": resource_instance.get("uniqueId"),
+            "tosca": resource_instance,
         }
         self.attributes[catalog_resource_name] = response
 
@@ -324,6 +340,35 @@ class Service(Resource):
         self.tosca = service_client.get_sdc_service(
             catalog_service_id=self.catalog_service_id
         ).response_data
+
+    def update_resource_instance_version(self, component):
+        resource_name = component.get("componentName")
+        resource_unique_id = component.get("uniqueId")
+        resource_id = component.get("componentUid")
+
+        vf_id = get_vnf_id(resource_name)
+
+        if vf_id != resource_id:
+            return service_client.update_resource_version(
+                catalog_service_id=self.catalog_service_id,
+                component_name=resource_unique_id,
+                component_id=vf_id
+            ).response_data
+        else:
+            return component
+
+
+def update_service(existing_service_id, service_input):
+    kwargs = service_input
+
+    service = service_client.checkout_catalog_service(catalog_service_id=existing_service_id).response_data
+
+    new_service_id = service.get("uniqueId")
+
+    kwargs["catalog_service_id"] = new_service_id
+    kwargs["tosca"] = service_client.get_sdc_service(catalog_service_id=new_service_id).response_data
+
+    return kwargs
 
 
 def create_service(service_input):

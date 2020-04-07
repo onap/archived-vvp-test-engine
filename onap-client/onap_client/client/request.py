@@ -96,6 +96,7 @@ class Request:
             self.kwargs["headers"] = request_object.headers
 
         if request_object.payload:
+            logger.info(self.kwargs.get("data"))
             self.kwargs["data"] = request_object.payload
 
         if request_object.files:
@@ -107,6 +108,7 @@ class Request:
 
         try:
             logger.info(json.dumps(debug_request, indent=4))
+            # logger.info(debug_request)
         except TypeError:
             logger.info(debug_request)
 
