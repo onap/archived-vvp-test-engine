@@ -299,13 +299,18 @@ class VNF(Resource):
 
     def policy_exists(self, policy_name):
         """Checking the tosca model for a VF to see if a resource
-        has already been added"""
+        has already been added
+
+        The policy name in the tosca model is all lowercase,
+        and if there are dashes in the VNF name they are
+        removed in the policy name.
+        """
 
         policies = self.tosca.get("policies", {})
 
         for p_name, policy in policies.items():
             tosca_policy_name = policy.get("name").lower()
-            if tosca_policy_name.find("{}..{}".format(self.vnf_name.lower(), policy_name.lower())) != -1:
+            if tosca_policy_name.find("{}..{}".format(self.vnf_name.lower().replace("-", ""), policy_name.lower())) != -1:
                 return True
 
         return False
