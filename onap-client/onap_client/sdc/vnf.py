@@ -506,7 +506,14 @@ class VNF(Resource):
 
 
 def update_vnf(catalog_resource_id, vnf_input):
-    vnf = vnf_client.checkout_catalog_resource(catalog_resource_id=catalog_resource_id).response_data
+    existing_vnf = vnf_client.get_catalog_resource(
+        catalog_resource_id=catalog_resource_id
+    ).response_data
+
+    if existing_vnf.get("lifecycleState") != "NOT_CERTIFIED_CHECKOUT":
+        vnf = vnf_client.checkout_catalog_resource(catalog_resource_id=catalog_resource_id).response_data
+    else:
+        vnf = vnf_client.get_catalog_resource_metadata(catalog_resource_id=catalog_resource_id).response_data.get("metadata", {})
 
     new_vnf_metadata = vnf_client.get_catalog_resource_metadata(catalog_resource_id=vnf.get("uniqueId")).response_data.get("metadata", {})
 
@@ -622,7 +629,11 @@ def get_vnf(vnf_name):
 def get_vnf_id(vnf_name):
     response = vnf_client.get_resources()
     results = response.response_data.get("resources", [])
+    catalog_resource = {}
+    update_time = -1
     for vnf in results:
-        if vnf.get("name") == vnf_name:
-            return vnf["uniqueId"]
-    return None
+        if vnf.get("name") == vnf_name and vnf.get("lastUpdateDate") > update_time:
+            update_time = vnf.get("lastUpdateDate")
+            catalog_resource = vnf
+
+    return catalog_resource.get("uniqueId")

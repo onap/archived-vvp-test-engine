@@ -264,24 +264,24 @@ class Service(Resource):
         """
         milli_timestamp = int(time.time() * 1000)
         component_instances = self.tosca.get("componentInstances", [])
-        existing = False
         if component_instances:
             for component in component_instances:
                 if component.get("componentName") == catalog_resource_name:
-                    existing = True
-                    resource_instance = self.update_resource_instance_version(component)
+                    service_client.delete_resource_from_service(
+                        catalog_service_id=self.catalog_service_id,
+                        resource_instance_id=component.get("uniqueId")
+                    )
                     break
 
-        if not existing:
-            resource_instance = service_client.add_resource_instance(
-                **self.attributes,
-                posX=random.randrange(150, 550),  # nosec
-                posY=random.randrange(150, 450),  # nosec
-                milli_timestamp=milli_timestamp,
-                catalog_resource_id=catalog_resource_id,
-                catalog_resource_name=catalog_resource_name,
-                originType=origin_type,
-            ).response_data
+        resource_instance = service_client.add_resource_instance(
+            **self.attributes,
+            posX=random.randrange(150, 550),  # nosec
+            posY=random.randrange(150, 450),  # nosec
+            milli_timestamp=milli_timestamp,
+            catalog_resource_id=catalog_resource_id,
+            catalog_resource_name=catalog_resource_name,
+            originType=origin_type,
+        ).response_data
 
         response = {
             "id": resource_instance.get("uniqueId"),
@@ -341,27 +341,18 @@ class Service(Resource):
             catalog_service_id=self.catalog_service_id
         ).response_data
 
-    def update_resource_instance_version(self, component):
-        resource_name = component.get("componentName")
-        resource_unique_id = component.get("uniqueId")
-        resource_id = component.get("componentUid")
-
-        vf_id = get_vnf_id(resource_name)
-
-        if vf_id != resource_id:
-            return service_client.update_resource_version(
-                catalog_service_id=self.catalog_service_id,
-                component_name=resource_unique_id,
-                component_id=vf_id
-            ).response_data
-        else:
-            return component
-
 
 def update_service(existing_service_id, service_input):
     kwargs = service_input
 
-    service = service_client.checkout_catalog_service(catalog_service_id=existing_service_id).response_data
+    existing_service = service_client.get_sdc_service(
+        catalog_service_id=existing_service_id
+    ).response_data
+
+    if existing_service.get("lifecycleState") != "NOT_CERTIFIED_CHECKOUT":
+        service = service_client.checkout_catalog_service(catalog_service_id=existing_service_id).response_data
+    else:
+        service = existing_service
 
     new_service_id = service.get("uniqueId")
 
@@ -401,10 +392,14 @@ def get_service_id(service_name):
     """Queries SDC for the uniqueId of a service model"""
     response = service_client.get_services()
     results = response.response_data.get("services", [])
+    update_time = -1
+    catalog_service = {}
     for service in results:
-        if service.get("name") == service_name:
-            return service["uniqueId"]
-    return None
+        if service.get("name") == service_name and service.get("lastUpdateDate") > update_time:
+            update_time = service.get("lastUpdateDate")
+            catalog_service = service
+
+    return catalog_service.get("uniqueId")
 
 
 def get_service_uuid(service_name):
