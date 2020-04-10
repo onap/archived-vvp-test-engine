@@ -153,11 +153,12 @@ def update_vsp(existing_vsp, vsp_input):
     existing_vsp_id = existing_vsp.get("id")
     existing_vsp_version_id = existing_vsp.get("version")
 
-    vsp_client.update_software_product(
-        software_product_id=existing_vsp_id,
-        software_product_version_id=existing_vsp_version_id,
-        description=vsp_input.get("description", "New VSP Version")
-    ).response_data
+    if get_vsp_version_id(existing_vsp_id, search_key="status") == "Certified":
+        vsp_client.update_software_product(
+            software_product_id=existing_vsp_id,
+            software_product_version_id=existing_vsp_version_id,
+            description=vsp_input.get("description", "New VSP Version")
+        )
 
     vsp_input["software_product_id"] = existing_vsp_id
     vsp_input["software_product_version_id"] = get_vsp_version_id(existing_vsp_id)
