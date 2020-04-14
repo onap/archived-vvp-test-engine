@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fe7413b_4b4fd8cf",
+        "filename": "onap-client/onap_client/sdc/vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 3999
+      },
+      "writtenOn": "2020-04-14T14:54:17Z",
+      "side": 1,
+      "message": "This works, but you can also just use ``in`` if you don\u0027t need the index of the position.",
+      "revId": "71a1fd0d98c99692a25f9087ad5edfbd7cf00800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
