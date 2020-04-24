@@ -40,12 +40,6 @@ import logging as logger
 import os
 import yaml
 
-PATH = "{}/onap_client".format(distutils.sysconfig.PREFIX)
-PAYLOADS_DIR = "{}/payloads".format(PATH)
-APPLICATION_ID = "robot-ete"
-CONFIG_ENV = os.environ.get("OC_CONFIG")
-CONFIG_FILE = CONFIG_ENV or "/etc/onap_client/config.yaml"
-
 
 class Config:
     class ConfigClient:
@@ -69,15 +63,18 @@ class Config:
             return None
 
     def load(self, *keys):
+        config_data = {}
+
         if self.config_file and self.config_file != "NONE":
             try:
                 with open(self.config_file, "r") as f:
                     config_data = yaml.safe_load(f)
             except FileNotFoundError:
                 logger.warn(
-                    "Config file {} not found, using default".format(self.config_file)
+                    "Config file {} not found, using default.".format(self.config_file)
                 )
-        else:
+
+        if not config_data:
             with open("{}/config.example.yaml".format(PATH), "r") as f:
                 config_data = yaml.safe_load(f)
 
@@ -93,6 +90,11 @@ def load_config(config_file, *config_args):
     return config
 
 
+PATH = "{}/onap_client".format(distutils.sysconfig.PREFIX)
+PAYLOADS_DIR = "{}/payloads".format(PATH)
+APPLICATION_ID = "robot-ete"
+CONFIG_ENV = os.environ.get("OC_CONFIG")
+CONFIG_FILE = CONFIG_ENV or "/etc/onap_client/config.yaml"
 APP_CONFIG = load_config(CONFIG_FILE, "onap_client")
 LOG = logger
 log_level = getattr(LOG, APP_CONFIG.LOG_LEVEL.upper())
