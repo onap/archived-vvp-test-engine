@@ -48,7 +48,7 @@ from zipfile import ZipFile
 OUTPUT_DATA = {
     "vnf_checksum": "",
     "build_tag": str(uuid.uuid4()),
-    "version": "2019.12",
+    "version": "2020.r1",
     "test_date": "",
     "duration": "",
     "vnf_type": "heat",
