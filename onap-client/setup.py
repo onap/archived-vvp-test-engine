@@ -47,7 +47,7 @@ for file in os.listdir("etc/payloads"):
 
 setuptools.setup(
     name="onap-client",
-    version="0.5.1",
+    version="0.5.2",
     author="Steven Stark",
     author_email="steven.stark@att.com",
     description="Python API wrapper for ONAP applications",
@@ -56,9 +56,10 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
+    license='Apache License, Version 2.0',
     python_requires=">=3.6",
     scripts=["bin/onap-client"],
     data_files=datafiles,
