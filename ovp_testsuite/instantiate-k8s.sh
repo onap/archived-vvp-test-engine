@@ -43,6 +43,10 @@ OUTPUT_DIR=/tmp/OVP-$RANDOM_STRING
 PODNAME="ovp-test"
 CONFIGMAP="ovp-test-suite-vol"
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  OUTPUT_DIR=/private/tmp/OVP-$RANDOM_STRING
+fi
+
 function tar_output() {
   OUTPUT=$1
   set +x 
