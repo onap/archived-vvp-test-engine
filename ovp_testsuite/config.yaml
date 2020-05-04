@@ -5,9 +5,9 @@ onap_client:
     SDC_HC_ENDPOINT: https://sdc-fe:9443
     SDC_BE_ONBOARD_ENDPOINT: https://sdc-onboarding-be:8445
     SDC_DESIGNER_USER_ID: cs0008
-    SDC_TESTER_USER_ID: jm0007
-    SDC_OPS_USER_ID: op0001
-    SDC_GOVERNOR_USER_ID: gv0001
+    SDC_TESTER_USER_ID: cs0008
+    SDC_OPS_USER_ID: cs0008
+    SDC_GOVERNOR_USER_ID: cs0008
     SDC_DESIGNER_PASSWORD: demo123456!
     GLOBAL_SDC_USERNAME: beep
     GLOBAL_SDC_PASSWORD: boop
@@ -22,10 +22,7 @@ onap_client:
     SDC_FE_CATALOG_RESOURCES_PATH: /sdc1/feProxy/rest/v1/catalog/resources
     ABSTRACT_NODE_PREFIX: abstract_
     SERVICE_DISTRIBUTION:
-      - "request_service_certification"
-      - "start_service_certification"
-      - "finish_service_certification"
-      - "approve_service_certification"
+      - finish_service_certification
     POLL_INTERVAL: 30
   aai:
     AAI_BE_ENDPOINT: https://aai:8443
