@@ -37,7 +37,7 @@
 
 from functools import partial
 from os.path import dirname, abspath
-
+from onap_client.resource import Resource
 from onap_client.client.clients import Client
 
 TEST_URI = "http://this.is.a.test.com"
@@ -52,6 +52,42 @@ class TestClient(Client):
     @property
     def catalog_resources(self):
         return CATALOG_RESOURCES
+
+
+class TestResource(Resource):
+    resource_name = "TEST_RESOURCE"
+    spec = {
+        "test1": {"type": str, "required": True},
+        "test2": {
+            "type": list,
+            "list_item": dict,
+            "required": False,
+            "default": [],
+            "nested": {
+                "test2_nested": {"type": str, "required": True},
+                "test2_nesteddict": {"type": dict, "required": True, "default": {}},
+            },
+        },
+    }
+
+    def __init__(self, test1, test2):
+        instance_input = {}
+
+        instance_input["test1"] = test1
+        instance_input["test2"] = test2
+
+        super().__init__(instance_input)
+
+    def _create(self, instance_input):
+        print("creating test instance {}".format(instance_input))
+
+        return instance_input
+
+    def _post_create(self):
+        print("post create for test instance")
+
+    def _submit(self):
+        print("submit for test instance")
 
 
 CATALOG_RESOURCES = {

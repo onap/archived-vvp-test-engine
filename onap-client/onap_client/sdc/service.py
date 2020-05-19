@@ -38,9 +38,8 @@
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
 from onap_client import exceptions
-from onap_client.client.clients import Client as SDCClient
+from onap_client.client.clients import Client
 from onap_client.sdc.vnf import get_vnf_id
-from onap_client import sdc
 from onap_client.sdc import SDC_PROPERTIES
 from onap_client.util import utility
 
@@ -48,9 +47,6 @@ import time
 import json
 import random
 import uuid
-
-service_client = SDCClient().sdc.service
-sdc_properties = sdc.SDC_PROPERTIES
 
 
 def normalize_category_icon(category_name):
@@ -138,6 +134,8 @@ class Service(Resource):
         wait_for_distribution=False,
         allow_update=False,
     ):
+        self.oc = Client()
+
         service_input = {}
 
         category_name_lower = category_name.lower()
@@ -208,15 +206,15 @@ class Service(Resource):
 
     def _submit(self):
         """Submits the service in SDC and distributes the model"""
-        DISTRIBUTION_STEPS = sdc_properties.SERVICE_DISTRIBUTION or []
+        DISTRIBUTION_STEPS = SDC_PROPERTIES.SERVICE_DISTRIBUTION or []
 
-        service_client.checkin_service(**self.attributes, user_remarks="checking in")
+        self.oc.sdc.service.checkin_service(**self.attributes, user_remarks="checking in")
 
         if (
             not DISTRIBUTION_STEPS
             or "request_service_certification" in DISTRIBUTION_STEPS
         ):
-            service_client.request_service_certification(
+            self.oc.sdc.service.request_service_certification(
                 **self.attributes, user_remarks="requesting certification"
             )
 
@@ -224,7 +222,7 @@ class Service(Resource):
             not DISTRIBUTION_STEPS
             or "start_service_certification" in DISTRIBUTION_STEPS
         ):
-            service_client.start_service_certification(
+            self.oc.sdc.service.start_service_certification(
                 **self.attributes, user_remarks="certifying"
             )
 
@@ -232,7 +230,7 @@ class Service(Resource):
             not DISTRIBUTION_STEPS
             or "finish_service_certification" in DISTRIBUTION_STEPS
         ):
-            catalog_service = service_client.finish_service_certification(
+            catalog_service = self.oc.sdc.service.finish_service_certification(
                 **self.attributes, user_remarks="certified"
             )
             self.attributes["catalog_service_id"] = catalog_service.catalog_service_id
@@ -241,11 +239,11 @@ class Service(Resource):
             not DISTRIBUTION_STEPS
             or "approve_service_certification" in DISTRIBUTION_STEPS
         ):
-            service_client.approve_service_certification(
+            self.oc.sdc.service.approve_service_certification(
                 **self.attributes, user_remarks="approved"
             )
         headers = {"X-TransactionId": str(uuid.uuid4())}
-        service_client.distribute_sdc_service(**self.attributes, **headers)
+        self.oc.sdc.service.distribute_sdc_service(**self.attributes, **headers)
 
         if self.wait_for_distribution:
             poll_distribution(self.service_name)
@@ -267,13 +265,13 @@ class Service(Resource):
         if component_instances:
             for component in component_instances:
                 if component.get("componentName") == catalog_resource_name:
-                    service_client.delete_resource_from_service(
+                    self.oc.sdc.service.delete_resource_from_service(
                         catalog_service_id=self.catalog_service_id,
                         resource_instance_id=component.get("uniqueId")
                     )
                     break
 
-        resource_instance = service_client.add_resource_instance(
+        resource_instance = self.oc.sdc.service.add_resource_instance(
             **self.attributes,
             posX=random.randrange(150, 550),  # nosec
             posY=random.randrange(150, 450),  # nosec
@@ -318,7 +316,7 @@ class Service(Resource):
                 owner_id = prop.get("ownerId")
                 schemaType = prop.get("schemaType", "")
                 property_type = prop.get("type")
-                return service_client.add_catalog_service_property(
+                return self.oc.sdc.service.add_catalog_service_property(
                     **self.attributes,
                     unique_id=unique_id,
                     parent_unique_id=parent_unique_id,
@@ -337,27 +335,29 @@ class Service(Resource):
         )
 
     def _refresh(self):
-        self.tosca = service_client.get_sdc_service(
+        self.tosca = self.oc.sdc.service.get_sdc_service(
             catalog_service_id=self.catalog_service_id
         ).response_data
 
 
 def update_service(existing_service_id, service_input):
+    oc = Client()
+
     kwargs = service_input
 
-    existing_service = service_client.get_sdc_service(
+    existing_service = oc.sdc.service.get_sdc_service(
         catalog_service_id=existing_service_id
     ).response_data
 
     if existing_service.get("lifecycleState") != "NOT_CERTIFIED_CHECKOUT":
-        service = service_client.checkout_catalog_service(catalog_service_id=existing_service_id).response_data
+        service = oc.sdc.service.checkout_catalog_service(catalog_service_id=existing_service_id).response_data
     else:
         service = existing_service
 
     new_service_id = service.get("uniqueId")
 
     kwargs["catalog_service_id"] = new_service_id
-    kwargs["tosca"] = service_client.get_sdc_service(catalog_service_id=new_service_id).response_data
+    kwargs["tosca"] = oc.sdc.service.get_sdc_service(catalog_service_id=new_service_id).response_data
 
     return kwargs
 
@@ -369,9 +369,11 @@ def create_service(service_input):
 
     :return: dictionary of updated values for created service
     """
+    oc = Client()
+
     kwargs = service_input
 
-    service = service_client.add_catalog_service(**kwargs)
+    service = oc.sdc.service.add_catalog_service(**kwargs)
 
     kwargs["catalog_service_id"] = service.catalog_service_id
     kwargs["tosca"] = service.response_data
@@ -382,7 +384,9 @@ def create_service(service_input):
 @utility
 def get_service(service_name):
     """Queries SDC for the TOSCA model for a service"""
-    return service_client.get_sdc_service(
+    oc = Client()
+
+    return oc.sdc.service.get_sdc_service(
         catalog_service_id=get_service_id(service_name)
     ).response_data
 
@@ -390,7 +394,9 @@ def get_service(service_name):
 @utility
 def get_service_id(service_name):
     """Queries SDC for the uniqueId of a service model"""
-    response = service_client.get_services()
+    oc = Client()
+
+    response = oc.sdc.service.get_services()
     results = response.response_data.get("services", [])
     update_time = -1
     catalog_service = {}
@@ -407,10 +413,12 @@ def get_service_uuid(service_name):
 
 
 def get_service_distribution(service_name):
+    oc = Client()
+
     distribution_id = get_distribution_id(service_name)
 
     if distribution_id:
-        return service_client.get_service_distribution_details(
+        return oc.sdc.service.get_service_distribution_details(
             distribution_id=distribution_id
         ).response_data
 
@@ -418,7 +426,9 @@ def get_service_distribution(service_name):
 
 
 def get_distribution_id(service_name):
-    distribution = service_client.get_service_distribution(
+    oc = Client()
+
+    distribution = oc.sdc.service.get_service_distribution(
         distribution_service_id=get_service_uuid(service_name)
     ).response_data
     if distribution:

@@ -72,6 +72,8 @@ CATALOG_RESOURCES = {
             "vnf_name",
             "vendor_name",
             "resource_type",
+            "categories",
+            "contact_id",
         ],
         "success_code": 201,
         "headers": {
