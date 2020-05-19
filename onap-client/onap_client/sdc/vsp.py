@@ -37,12 +37,10 @@
 
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
-from onap_client.client.clients import Client as SDCClient
+from onap_client.client.clients import Client
 from onap_client import sdc
 from onap_client.util import utility
 from onap_client.exceptions import ResourceAlreadyExistsException
-
-vsp_client = SDCClient().sdc.vsp
 
 
 class VSP(Resource):
@@ -86,7 +84,7 @@ class VSP(Resource):
         contributers=[],
         allow_update=False,
     ):
-
+        self.oc = Client()
         vsp_input = {}
 
         license_model_id = sdc.license_model.get_license_model_id(license_model_name)
@@ -136,25 +134,27 @@ class VSP(Resource):
 
     def _post_create(self):
         for contributer in self.contributers:
-            vsp_client.add_vsp_contributer(
+            self.oc.sdc.vsp.add_vsp_contributer(
                 user_id=contributer, software_product_id=self.software_product_id
             )
 
     def _submit(self):
         """Submits the vsp in SDC"""
-        vsp_client.submit_software_product(**self.attributes, action="Submit")
-        vsp_client.package_software_product(**self.attributes, action="Create_Package")
+        self.oc.sdc.vsp.submit_software_product(**self.attributes, action="Submit")
+        self.oc.sdc.vsp.package_software_product(**self.attributes, action="Create_Package")
 
-        vsp = vsp_client.get_software_product(**self.attributes)
+        vsp = self.oc.sdc.vsp.get_software_product(**self.attributes)
         self.attributes["tosca"] = vsp.response_data
 
 
 def update_vsp(existing_vsp, vsp_input):
+    oc = Client()
+
     existing_vsp_id = existing_vsp.get("id")
     existing_vsp_version_id = existing_vsp.get("version")
 
     if get_vsp_version_id(existing_vsp_id, search_key="status") == "Certified":
-        vsp_client.update_software_product(
+        oc.sdc.vsp.update_software_product(
             software_product_id=existing_vsp_id,
             software_product_version_id=existing_vsp_version_id,
             description=vsp_input.get("description", "New VSP Version")
@@ -163,10 +163,10 @@ def update_vsp(existing_vsp, vsp_input):
     vsp_input["software_product_id"] = existing_vsp_id
     vsp_input["software_product_version_id"] = get_vsp_version_id(existing_vsp_id)
 
-    vsp_client.upload_heat_package(**vsp_input)
-    vsp_client.validate_software_product(**vsp_input)
+    oc.sdc.vsp.upload_heat_package(**vsp_input)
+    oc.sdc.vsp.validate_software_product(**vsp_input)
 
-    vsp = vsp_client.get_software_product(**vsp_input)
+    vsp = oc.sdc.vsp.get_software_product(**vsp_input)
     vsp_input["tosca"] = vsp.response_data
 
     return vsp_input
@@ -179,16 +179,18 @@ def create_vsp(vsp_input):
 
     :return: dictionary of updated values for created vsp
     """
+    oc = Client()
+
     kwargs = vsp_input
-    vsp = vsp_client.add_software_product(**kwargs)
+    vsp = oc.sdc.vsp.add_software_product(**kwargs)
 
     kwargs["software_product_id"] = vsp.software_product_id
     kwargs["software_product_version_id"] = vsp.software_product_version_id
 
-    vsp_client.upload_heat_package(**kwargs)
-    vsp_client.validate_software_product(**kwargs)
+    oc.sdc.vsp.upload_heat_package(**kwargs)
+    oc.sdc.vsp.validate_software_product(**kwargs)
 
-    vsp = vsp_client.get_software_product(**kwargs)
+    vsp = oc.sdc.vsp.get_software_product(**kwargs)
     kwargs["tosca"] = vsp.response_data
 
     return kwargs
@@ -201,7 +203,9 @@ def get_vsp_id(vsp_name):
 
     :return: id of vsp or None
     """
-    response = vsp_client.get_software_products()
+    oc = Client()
+
+    response = oc.sdc.vsp.get_software_products()
     results = response.response_data.get("results", {})
     for vsp in results:
         if vsp.get("name") == vsp_name:
@@ -216,9 +220,11 @@ def get_vsp_version_id(vsp_id, search_key="id"):
 
     :return: uuid of vsp version id or None
     """
+    oc = Client()
+
     vsp_version_id = None
     creation_time = -1
-    response = vsp_client.get_software_product_versions(software_product_id=vsp_id)
+    response = oc.sdc.vsp.get_software_product_versions(software_product_id=vsp_id)
     results = response.response_data.get("results")
     for version in results:
         if version.get("creationTime", 0) > creation_time:
@@ -229,9 +235,20 @@ def get_vsp_version_id(vsp_id, search_key="id"):
 
 
 def get_vsp_model(vsp_id, vsp_version_id):
-    return vsp_client.get_software_product(
+    oc = Client()
+
+    return oc.sdc.vsp.get_software_product(
         software_product_id=vsp_id, software_product_version_id=vsp_version_id,
     ).response_data
+
+
+def get_vsp_owner(vsp_id):
+    oc = Client()
+    vsps = oc.sdc.vsp.get_software_products().response_data.get("results", [])
+    for vsp in vsps:
+        if vsp.get("id") == vsp_id:
+            return vsp.get("owner")
+    return None
 
 
 @utility

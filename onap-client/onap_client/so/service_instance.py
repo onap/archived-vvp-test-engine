@@ -39,7 +39,7 @@ import uuid
 
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
-from onap_client.client.clients import Client as SOClient
+from onap_client.client.clients import Client
 from onap_client.so import SO_PROPERTIES
 from onap_client.exceptions import (
     SORequestStatusUnavailable,
@@ -50,15 +50,7 @@ from onap_client.exceptions import (
 )
 from onap_client import sdc
 from onap_client.util import utility
-
 from time import sleep
-
-oc = SOClient()
-so_client = oc.so
-sdc_client = oc.sdc
-aai_client = oc.aai
-sdnc_client = oc.sdnc
-vid_client = oc.vid
 
 
 class ServiceInstance(Resource):
@@ -97,6 +89,8 @@ class ServiceInstance(Resource):
         project_name,
         owning_entity_name,
     ):
+        self.oc = Client()
+
         instance_input = {}
 
         tenant_id = get_tenant_id(cloud_region, cloud_owner, tenant_name)
@@ -117,7 +111,7 @@ class ServiceInstance(Resource):
         super().__init__(instance_input)
 
     def _create(self, instance_input):
-        service_model = sdc_client.service.get_sdc_service(
+        service_model = self.oc.sdc.service.get_sdc_service(
             catalog_service_id=sdc.service.get_service_id(
                 instance_input.get("model_name")
             )
@@ -126,7 +120,7 @@ class ServiceInstance(Resource):
         instance_input["model_invariant_id"] = service_model["invariantUUID"]
         instance_input["model_version_id"] = service_model["uniqueId"]
 
-        category_parameters = vid_client.maintenance.get_category_parameters().response_data
+        category_parameters = self.oc.vid.maintenance.get_category_parameters().response_data
         for entity in category_parameters.get("categoryParameters", {}).get("owningEntity", []):
             if entity.get("name") == instance_input.get("owning_entity_name"):
                 instance_input["owning_entity_id"] = entity.get("id")
@@ -145,7 +139,9 @@ class ServiceInstance(Resource):
 def get_service_instance(instance_name):
     """Queries SDNC for a list of all service instances and returns
     The service instance that matches <instance name>"""
-    service_instances = sdnc_client.config.get_service_instances().response_data
+    oc = Client()
+
+    service_instances = oc.sdnc.config.get_service_instances().response_data
     for si in service_instances.get("services", {}).get("service", []):
         if si.get("service-data", {}).get("service-request-input", {}).get("service-instance-name") == instance_name:
             return si
@@ -154,7 +150,9 @@ def get_service_instance(instance_name):
 
 
 def get_tenant_id(cloud_region, cloud_owner, tenant_name):
-    tenants = aai_client.cloud_infrastructure.get_cloud_region_tenants(
+    oc = Client()
+
+    tenants = oc.aai.cloud_infrastructure.get_cloud_region_tenants(
         cloud_owner=cloud_owner,
         cloud_region=cloud_region
     ).response_data
@@ -167,8 +165,10 @@ def get_tenant_id(cloud_region, cloud_owner, tenant_name):
 
 
 def create_service_instance(instance_input):
+    oc = Client()
+
     headers = {"X-TransactionId": str(uuid.uuid4())}
-    service_instance = so_client.service_instantiation.create_service_instance(
+    service_instance = oc.so.service_instantiation.create_service_instance(
         **instance_input, **headers
     )
 
@@ -184,11 +184,13 @@ def create_service_instance(instance_input):
 @utility
 def poll_request(request_id):
     """Poll an SO request until completion"""
+    oc = Client()
+
     poll_interval = SO_PROPERTIES.POLL_INTERVAL or 30
     request = None
     x = 0
     while x < 30:
-        request = so_client.service_instantiation.get_request_status(
+        request = oc.so.service_instantiation.get_request_status(
             request_id=request_id
         ).response_data
         status = request.get("request", {}).get("requestStatus", {}).get("requestState")
@@ -216,12 +218,14 @@ def poll_request(request_id):
 @utility
 def delete_service_instance(service_instance_name, api_type="GR_API"):
     """Delete a Service Instance from SO"""
+    oc = Client()
+
     si = get_service_instance(service_instance_name)
     si_id = si.get("service-instance-id")
     invariant_id = si.get("service-data").get("service-information").get("onap-model-information").get("model-invariant-uuid")
     version = si.get("service-data").get("service-information").get("onap-model-information").get("model-version")
 
-    return so_client.service_instantiation.delete_service_instance(
+    return oc.so.service_instantiation.delete_service_instance(
         service_invariant_id=invariant_id,
         service_name=service_instance_name,
         service_version=version,

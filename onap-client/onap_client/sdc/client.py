@@ -78,4 +78,23 @@ CATALOG_RESOURCES = {
             sdc_properties.SDC_DESIGNER_PASSWORD,
         ),
     },
+    "GET_RESOURCE_CATEGORIES": {
+        "verb": "GET",
+        "description": "Queries SDC for resource categories",
+        "uri": partial(
+            "{endpoint}{service_path}".format,
+            endpoint=sdc_properties.SDC_BE_ENDPOINT,
+            service_path=sdc_properties.SDC_RESOURCE_CATEGORIES_PATH,
+        ),
+        "success_code": 200,
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
+        },
+        "auth": (
+            sdc_properties.GLOBAL_SDC_USERNAME,
+            sdc_properties.GLOBAL_SDC_PASSWORD,
+        ),
+    },
 }

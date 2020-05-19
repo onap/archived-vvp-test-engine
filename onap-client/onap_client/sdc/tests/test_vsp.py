@@ -43,12 +43,11 @@ from os.path import dirname, abspath
 
 THIS_DIR = dirname(abspath(__file__))
 
-license_model_client = Client().sdc.license_model
-vsp_client = Client().sdc.vsp
-
 
 @responses.activate
 def test_vsp_create():
+    oc = Client()
+
     LICENSE_MODEL_ID = "license_model_id"
     LICENSE_MODEL_VERSION_ID = "license_model_version_id"
     FEATURE_GROUP_ID = "feature_group_id"
@@ -59,49 +58,48 @@ def test_vsp_create():
     VSP_NAME = "software_product_name"
 
     mockup_catalog_item(
-        license_model_client.catalog_items["GET_LICENSE_MODELS"],
+        oc.sdc.license_model.catalog_items["GET_LICENSE_MODELS"],
         override_return_data={
             "results": [{"name": LICENSE_MODEL_NAME, "id": LICENSE_MODEL_ID}]
         },
     )
     mockup_catalog_item(
-        license_model_client.catalog_items["GET_LICENSE_MODEL_VERSIONS"],
+        oc.sdc.license_model.catalog_items["GET_LICENSE_MODEL_VERSIONS"],
         override_return_data={
             "results": [{"name": LICENSE_MODEL_NAME, "id": LICENSE_MODEL_VERSION_ID}]
         },
     )
     mockup_catalog_item(
-        license_model_client.catalog_items["GET_LICENSE_MODEL_VERSION_ATTRIBUTE"],
+        oc.sdc.license_model.catalog_items["GET_LICENSE_MODEL_VERSION_ATTRIBUTE"],
         override_return_data={
             "results": [{"name": LICENSE_MODEL_NAME, "id": FEATURE_GROUP_ID}]
         },
         override_uri_params={"attribute": "feature-groups"},
     )
     mockup_catalog_item(
-        license_model_client.catalog_items["GET_LICENSE_MODEL_VERSION_ATTRIBUTE"],
+        oc.sdc.license_model.catalog_items["GET_LICENSE_MODEL_VERSION_ATTRIBUTE"],
         override_return_data={
             "results": [{"name": LICENSE_MODEL_NAME, "id": LICENSE_AGREEMENT_ID}]
         },
         override_uri_params={"attribute": "license-agreements"},
     )
-    mockup_client(license_model_client)
 
     mockup_catalog_item(
-        vsp_client.catalog_items["GET_SOFTWARE_PRODUCTS"],
+        oc.sdc.vsp.catalog_items["GET_SOFTWARE_PRODUCTS"],
         override_return_data={"results": []},
     )
     mockup_catalog_item(
-        vsp_client.catalog_items["ADD_SOFTWARE_PRODUCT"],
+        oc.sdc.vsp.catalog_items["ADD_SOFTWARE_PRODUCT"],
         override_return_data={
             "itemId": VSP_MODEL_ID,
             "version": {"id": VSP_MODEL_VERSION_ID},
         },
     )
     mockup_catalog_item(
-        vsp_client.catalog_items["GET_SOFTWARE_PRODUCT"],
+        oc.sdc.vsp.catalog_items["GET_SOFTWARE_PRODUCT"],
         override_return_data={"name": VSP_NAME},
     )
-    mockup_client(vsp_client)
+    mockup_client(oc.sdc.vsp)
 
     vsp = sdc.vsp.VSP(
         "vendor_name",

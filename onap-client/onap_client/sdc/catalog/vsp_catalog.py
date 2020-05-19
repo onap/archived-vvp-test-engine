@@ -237,6 +237,29 @@ CATALOG_RESOURCES = {
             sdc_properties.GLOBAL_SDC_PASSWORD,
         ),
     },
+    "GET_SOFTWARE_PRODUCT_INFORMATION": {
+        "verb": "GET",
+        "description": "Gets Information for a VSP from Catalog",
+        "uri": partial(
+            "{endpoint}{service_path}/{software_product_id}/versions/{software_product_version_id}/questionnaire".format,
+            endpoint=sdc_properties.SDC_BE_ONBOARD_ENDPOINT,
+            service_path=sdc_properties.SDC_VENDOR_SOFTWARE_PRODUCT_PATH,
+        ),
+        "uri-parameters": ["software_product_id", "software_product_version_id"],
+        "success_code": 200,
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
+            "X-TransactionId": str(uuid.uuid4()),
+            "X-FromAppId": application_id,
+        },
+        "return_data": {"name": ("name",)},
+        "auth": (
+            sdc_properties.GLOBAL_SDC_USERNAME,
+            sdc_properties.GLOBAL_SDC_PASSWORD,
+        ),
+    },
     "GET_SOFTWARE_PRODUCT_VERSIONS": {
         "verb": "GET",
         "description": "Returns a list of vsp versions",

@@ -36,7 +36,8 @@
 # ============LICENSE_END============================================
 
 import responses
-from onap_client.tests.utils import mockup_client, mockup_catalog_item
+
+from onap_client.tests.utils import mockup_catalog_item
 from onap_client.client.clients import Client
 from onap_client.sdc.vnf import VNF
 from onap_client.sdc.vnf import (
@@ -44,12 +45,11 @@ from onap_client.sdc.vnf import (
     network_role_property_for_instance,
 )
 
-vnf_client = Client().sdc.vnf
-vsp_client = Client().sdc.vsp
-
 
 @responses.activate
 def test_vnf_create():
+    oc = Client()
+
     SOFTWARE_PRODUCT_NAME = "software_product_name"
     SOFTWARE_PRODUCT_ID = "software_product_id"
     SOFTWARE_PRODUCT_VERSION_ID = "software_product_version_id"
@@ -68,13 +68,13 @@ def test_vnf_create():
         "name": VNF_NAME,
     }
     mockup_catalog_item(
-        vsp_client.catalog_items["GET_SOFTWARE_PRODUCTS"],
+        oc.sdc.vsp.catalog_items["GET_SOFTWARE_PRODUCTS"],
         override_return_data={
             "results": [{"name": SOFTWARE_PRODUCT_NAME, "id": SOFTWARE_PRODUCT_ID}]
         },
     )
     mockup_catalog_item(
-        vsp_client.catalog_items["GET_SOFTWARE_PRODUCT_VERSIONS"],
+        oc.sdc.vsp.catalog_items["GET_SOFTWARE_PRODUCT_VERSIONS"],
         override_return_data={
             "results": [
                 {"name": SOFTWARE_PRODUCT_NAME, "id": SOFTWARE_PRODUCT_VERSION_ID}
@@ -83,40 +83,66 @@ def test_vnf_create():
         override_uri_params={"software_product_id": SOFTWARE_PRODUCT_ID},
     )
     mockup_catalog_item(
-        vsp_client.catalog_items["GET_SOFTWARE_PRODUCT"],
-        override_return_data={"vendorName": "vendor_name"},
+        oc.sdc.vsp.catalog_items["GET_SOFTWARE_PRODUCT"],
+        override_return_data={
+            "vendorName": "vendor_name",
+            "category": "resourceNewCategory.application l4+",
+            "subCategory": "resourceNewCategory.application l4+.web server",
+        },
         override_uri_params={
             "software_product_id": SOFTWARE_PRODUCT_ID,
             "software_product_version_id": SOFTWARE_PRODUCT_VERSION_ID,
         },
     )
     mockup_catalog_item(
-        vnf_client.catalog_items["GET_RESOURCES"],
+        oc.sdc.vnf.catalog_items["GET_RESOURCES"],
         override_return_data={"resources": []},
     )
     mockup_catalog_item(
-        vnf_client.catalog_items["ADD_CATALOG_RESOURCE"],
+        oc.sdc.vnf.catalog_items["ADD_CATALOG_RESOURCE"],
         override_return_data=return_data,
     )
     mockup_catalog_item(
-        vnf_client.catalog_items["GET_CATALOG_RESOURCE"],
-        override_return_data=return_data,
-        override_uri_params={"catalog_resource_id": CATALOG_RESOURCE_ID},
-    )
-    mockup_catalog_item(
-        vnf_client.catalog_items["CERTIFY_CATALOG_RESOURCE"],
+        oc.sdc.vnf.catalog_items["GET_CATALOG_RESOURCE"],
         override_return_data=return_data,
         override_uri_params={"catalog_resource_id": CATALOG_RESOURCE_ID},
     )
     mockup_catalog_item(
-        vnf_client.catalog_items["ADD_CATALOG_RESOURCE_PROPERTY"],
+        oc.sdc.vnf.catalog_items["CERTIFY_CATALOG_RESOURCE"],
+        override_return_data=return_data,
+        override_uri_params={"catalog_resource_id": CATALOG_RESOURCE_ID},
+    )
+    mockup_catalog_item(
+        oc.sdc.vnf.catalog_items["ADD_CATALOG_RESOURCE_PROPERTY"],
         override_uri_params={
             "catalog_resource_id": CATALOG_RESOURCE_ID,
             "catalog_resource_instance_id": "instance_id1",
         },
     )
-
-    mockup_client(vnf_client)
+    mockup_catalog_item(
+        oc.sdc.catalog_items["GET_RESOURCE_CATEGORIES"],
+        override_return_data=[
+            {
+                "name": "Application L4+",
+                "normalizedName": "application l4+",
+                "uniqueId": "resourceNewCategory.application l4+",
+                "icons": False,
+                "subcategories": [
+                    {
+                        "name": "Call Control",
+                        "normalizedName": "call control",
+                        "uniqueId": "resourceNewCategory.application l4+.call control",
+                        "icons": ["call_controll"],
+                        "groupings": False,
+                        "version": False,
+                        "ownerId": False,
+                        "empty": False,
+                        "type": False
+                    }
+                ]
+            }
+        ],
+    )
 
     vnf = VNF(
         SOFTWARE_PRODUCT_NAME,
@@ -127,7 +153,7 @@ def test_vnf_create():
 
     vnf._submit()
 
-    assert "catalog_resource_name" in vnf.tosca
+    assert "componentInstancesInputs" in vnf.tosca
 
 
 def test_instance_ids_for_property():

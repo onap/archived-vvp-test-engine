@@ -34,33 +34,16 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
+from onap_client.tests.testdata import TestResource  # noqa: F401
+from onap_client.engine import load_spec
+from os.path import dirname, abspath
 
-import setuptools
-import os
+THIS_DIR = dirname(abspath(__file__))
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
 
-datafiles = [("onap_client", ["etc/config.example.yaml"])]
-for file in os.listdir("etc/payloads"):
-    datafiles.append(("onap_client/payloads", ["etc/payloads/{}".format(file)]))
+def test_catalog_items():
+    spec_file = "{}/test-spec.json".format(THIS_DIR)
 
-setuptools.setup(
-    name="onap-client",
-    version="0.6.0",
-    author="Steven Stark",
-    author_email="steven.stark@att.com",
-    description="Python API wrapper for ONAP applications",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: Apache Software License",
-        "Operating System :: OS Independent",
-    ],
-    license='Apache License, Version 2.0',
-    python_requires=">=3.6",
-    scripts=["bin/onap-client"],
-    data_files=datafiles,
-)
+    t = load_spec(spec_file)
+
+    print(t)

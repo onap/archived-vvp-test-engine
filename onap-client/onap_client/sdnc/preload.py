@@ -39,13 +39,10 @@ import json
 import tempfile
 
 from onap_client.resource import Resource
-from onap_client.client.clients import Client as SDNCClient
+from onap_client.client.clients import Client
 from onap_client.exceptions import ServiceInstanceNotFound, VNFInstanceNotFound
 from onap_client import so
 from onap_client.config import LOG as logger
-
-oc = SDNCClient()
-sdnc_client = oc.sdnc
 
 
 class Preload(Resource):
@@ -143,10 +140,12 @@ class Preload(Resource):
 
 
 def create_preload(preload_path, api_type):
+    oc = Client()
+
     if api_type == "GR_API":
-        sdnc_client.operations.gr_api_preload(preload_path=preload_path)
+        oc.sdnc.operations.gr_api_preload(preload_path=preload_path)
     elif api_type == "VNF_API":
-        sdnc_client.operations.vnf_api_preload(preload_path=preload_path)
+        oc.sdnc.operations.vnf_api_preload(preload_path=preload_path)
 
 
 def update_preload_with_instance(

@@ -38,13 +38,13 @@
 import responses
 from onap_client.client.clients import Client
 from onap_client.sdc.license_model import LicenseModel
-from onap_client.tests.utils import mockup_client, mockup_catalog_item
-
-license_model_client = Client().sdc.license_model
+from onap_client.tests.utils import mockup_catalog_item
 
 
 @responses.activate
 def test_license_model_create():
+    oc = Client()
+
     LICENSE_MODEL_ID = "license_model_id"
     LICENSE_MODEL_VERSION_ID = "license_model_version_id"
     FEATURE_GROUP_ID = "feature_group_id"
@@ -56,7 +56,7 @@ def test_license_model_create():
     DESCRIPTION = "description"
 
     mockup_catalog_item(
-        license_model_client.catalog_items["ADD_LICENSE_MODEL"],
+        oc.sdc.license_model.catalog_items["ADD_LICENSE_MODEL"],
         override_return_data={
             "itemId": LICENSE_MODEL_ID,
             "version": {"id": LICENSE_MODEL_VERSION_ID},
@@ -64,7 +64,7 @@ def test_license_model_create():
     )
 
     mockup_catalog_item(
-        license_model_client.catalog_items["ADD_KEY_GROUP"],
+        oc.sdc.license_model.catalog_items["ADD_KEY_GROUP"],
         override_return_data={"value": KEYGROUP_ID},
         override_uri_params={
             "license_model_id": LICENSE_MODEL_ID,
@@ -73,7 +73,7 @@ def test_license_model_create():
     )
 
     mockup_catalog_item(
-        license_model_client.catalog_items["ADD_ENTITLEMENT_POOL"],
+        oc.sdc.license_model.catalog_items["ADD_ENTITLEMENT_POOL"],
         override_return_data={"value": ENTITLEMENT_POOL_ID},
         override_uri_params={
             "license_model_id": LICENSE_MODEL_ID,
@@ -82,7 +82,7 @@ def test_license_model_create():
     )
 
     mockup_catalog_item(
-        license_model_client.catalog_items["ADD_FEATURE_GROUP"],
+        oc.sdc.license_model.catalog_items["ADD_FEATURE_GROUP"],
         override_return_data={"value": FEATURE_GROUP_ID},
         override_uri_params={
             "license_model_id": LICENSE_MODEL_ID,
@@ -91,7 +91,7 @@ def test_license_model_create():
     )
 
     mockup_catalog_item(
-        license_model_client.catalog_items["ADD_LICENSE_AGREEMENT"],
+        oc.sdc.license_model.catalog_items["ADD_LICENSE_AGREEMENT"],
         override_return_data={"value": LICENSE_AGREEMENT_ID},
         override_uri_params={
             "license_model_id": LICENSE_MODEL_ID,
@@ -101,15 +101,13 @@ def test_license_model_create():
 
     return_data = {"vendorName": VENDOR_NAME, "id": ID, "description": DESCRIPTION}
     mockup_catalog_item(
-        license_model_client.catalog_items["GET_LICENSE_MODEL"],
+        oc.sdc.license_model.catalog_items["GET_LICENSE_MODEL"],
         override_return_data=return_data,
         override_uri_params={
             "license_model_id": LICENSE_MODEL_ID,
             "license_model_version_id": LICENSE_MODEL_VERSION_ID,
         },
     )
-
-    mockup_client(license_model_client)
 
     lm = LicenseModel(
         VENDOR_NAME,

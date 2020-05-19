@@ -53,6 +53,7 @@ onap_client:
     SDC_SCREEN_PATH: /sdc2/rest/v1/screen
     SDC_HEALTH_CHECK_PATH: /sdc1/rest/healthCheck
     SDC_CATALOG_SERVICES_PATH: /sdc2/rest/v1/catalog/services
+    SDC_RESOURCE_CATEGORIES_PATH: /sdc2/rest/v1/categories/resources
     SDC_VENDOR_SOFTWARE_PRODUCT_PATH: /onboarding-api/v1.0/vendor-software-products
     SDC_CATALOG_RESOURCES_PATH: /sdc2/rest/v1/catalog/resources
     SDC_VENDOR_LICENSE_MODEL_PATH: /onboarding-api/v1.0/vendor-license-models

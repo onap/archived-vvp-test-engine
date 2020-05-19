@@ -37,9 +37,7 @@
 
 from onap_client.lib import generate_dummy_string, generate_dummy_date
 from onap_client.resource import Resource
-from onap_client.client.clients import Client as SDCClient
-
-license_model_client = SDCClient().sdc.license_model
+from onap_client.client.clients import Client
 
 
 class LicenseModel(Resource):
@@ -98,6 +96,7 @@ class LicenseModel(Resource):
         license_start_date,
         license_end_date,
     ):
+        self.oc = Client()
 
         license_input = {}
         license_input["vendor_name"] = vendor_name
@@ -121,9 +120,9 @@ class LicenseModel(Resource):
     def _submit(self):
         """Submits the license model in SDC"""
 
-        license_model_client.submit_license_model(**self.attributes, action="Submit")
+        self.oc.sdc.license_model.submit_license_model(**self.attributes, action="Submit")
 
-        license_model = license_model_client.get_license_model(**self.attributes)
+        license_model = self.oc.sdc.license_model.get_license_model(**self.attributes)
         self.attributes["tosca"] = license_model.response_data
 
 
@@ -136,30 +135,32 @@ def create_license_model(license_input):
 
     :return: dictionary of updated values for created lm
     """
+    oc = Client()
+
     kwargs = license_input
-    license_model = license_model_client.add_license_model(**kwargs)
+    license_model = oc.sdc.license_model.add_license_model(**kwargs)
 
     kwargs["license_model_id"] = license_model.license_model_id
     kwargs["license_model_version_id"] = license_model.license_model_version_id
 
-    key_group = license_model_client.add_key_group(**kwargs)
+    key_group = oc.sdc.license_model.add_key_group(**kwargs)
     key_group_id = key_group.key_group_id
 
-    entitlement_pool = license_model_client.add_entitlement_pool(**kwargs)
+    entitlement_pool = oc.sdc.license_model.add_entitlement_pool(**kwargs)
     entitlement_pool_id = entitlement_pool.entitlement_pool_id
 
     kwargs["entitlement_pool_id"] = entitlement_pool_id
     kwargs["key_group_id"] = key_group_id
 
-    feature_group = license_model_client.add_feature_group(**kwargs)
+    feature_group = oc.sdc.license_model.add_feature_group(**kwargs)
     feature_group_id = feature_group.feature_group_id
 
     kwargs["feature_group_id"] = feature_group_id
 
-    license_agreement = license_model_client.add_license_agreement(**kwargs)
+    license_agreement = oc.sdc.license_model.add_license_agreement(**kwargs)
     kwargs["license_agreement_id"] = license_agreement.license_agreement_id
 
-    license_model = license_model_client.get_license_model(**kwargs)
+    license_model = oc.sdc.license_model.get_license_model(**kwargs)
     kwargs["tosca"] = license_model.response_data
 
     return kwargs
@@ -172,7 +173,9 @@ def get_license_model_id(license_model_name):
 
     :return: uuid of lm or None
     """
-    response = license_model_client.get_license_models()
+    oc = Client()
+
+    response = oc.sdc.license_model.get_license_models()
     results = response.response_data.get("results")
     for license_model in results:
         if license_model.get("name") == license_model_name:
@@ -187,9 +190,11 @@ def get_license_model_version_id(license_model_id):
 
     :return: uuid of lm version id or None
     """
+    oc = Client()
+
     license_model_version_id = None
     creation_time = -1
-    response = license_model_client.get_license_model_versions(
+    response = oc.sdc.license_model.get_license_model_versions(
         license_model_id=license_model_id
     )
     results = response.response_data.get("results")
@@ -210,7 +215,9 @@ def get_license_model_attribute(license_model_id, license_model_version_id, attr
 
     :return: uuid of attribute of license-model
     """
-    response = license_model_client.get_license_model_version_attribute(
+    oc = Client()
+
+    response = oc.sdc.license_model.get_license_model_version_attribute(
         license_model_id=license_model_id,
         license_model_version_id=license_model_version_id,
         attribute=attribute,

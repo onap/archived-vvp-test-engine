@@ -38,15 +38,13 @@
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
 from onap_client import exceptions, sdc
-from onap_client.client.clients import Client as SDCClient
+from onap_client.client.clients import Client
 from onap_client.sdc import vsp
 from onap_client.util import utility
 
 import time
 import random
 import json
-
-vnf_client = SDCClient().sdc.vnf
 
 
 class VNF(Resource):
@@ -134,15 +132,21 @@ class VNF(Resource):
         policies=[],
         allow_update=False,
     ):
+        self.oc = Client()
 
         vnf_input = {}
 
         software_product_id = vsp.get_vsp_id(software_product_name)
         software_product_version_id = vsp.get_vsp_version_id(software_product_id)
         vsp_model = vsp.get_vsp_model(software_product_id, software_product_version_id)
+        print(vsp_model)
         vsp_vendor = vsp_model.get("vendorName")
+        vsp_category = vsp_model.get("category")
+        vsp_sub_category = vsp_model.get("subCategory")
 
         vnf_input["software_product_id"] = software_product_id
+        vnf_input["vsp_category"] = vsp_category
+        vnf_input["vsp_sub_category"] = vsp_sub_category
         vnf_input["vendor_name"] = vsp_vendor
         vnf_input["vnf_name"] = vnf_name
         vnf_input["resource_type"] = resource_type
@@ -246,7 +250,7 @@ class VNF(Resource):
                     capability_name = capability.get("name")
                     capability_uid = capability.get("uniqueId")
 
-                    return vnf_client.add_resource_relationship(
+                    return self.oc.sdc.vnf.add_resource_relationship(
                         **self.attributes,
                         from_node_resource_id=from_node,
                         to_node_resource_id=to_node,
@@ -317,12 +321,12 @@ class VNF(Resource):
 
     def _submit(self):
         """Submits the vnf in SDC"""
-        certification = vnf_client.certify_catalog_resource(
+        certification = self.oc.sdc.vnf.certify_catalog_resource(
             **self.attributes, user_remarks="Ready!"
         )
         self.attributes["catalog_resource_id"] = certification.catalog_resource_id
 
-        vnf = vnf_client.get_catalog_resource(**self.attributes)
+        vnf = self.oc.sdc.vnf.get_catalog_resource(**self.attributes)
 
         self.attributes["catalog_resource_name"] = vnf.catalog_resource_name
         self.attributes["tosca"] = vnf.response_data
@@ -342,7 +346,7 @@ class VNF(Resource):
                 unique_id = item["uniqueId"]
                 parent_unique_id = item["parentUniqueId"]
                 owner_id = item["ownerId"]
-                return vnf_client.add_catalog_resource_input(
+                return self.oc.sdc.vnf.add_catalog_resource_input(
                     **self.attributes,
                     input_default_value=input_default_value,
                     input_name=input_name,
@@ -380,7 +384,7 @@ class VNF(Resource):
                 owner_id = prop.get("ownerId")
                 schemaType = prop.get("schemaType", "")
                 property_type = prop.get("type")
-                return vnf_client.add_catalog_resource_property(
+                return self.oc.sdc.vnf.add_catalog_resource_property(
                     **self.attributes,
                     unique_id=unique_id,
                     parent_unique_id=parent_unique_id,
@@ -419,7 +423,7 @@ class VNF(Resource):
                 owner_id = prop.get("ownerId")
                 schemaType = prop.get("schemaType", "")
                 property_type = prop.get("type")
-                return vnf_client.add_catalog_resource_property_non_vf(
+                return self.oc.sdc.vnf.add_catalog_resource_property_non_vf(
                     **self.attributes,
                     unique_id=unique_id,
                     parent_unique_id=parent_unique_id,
@@ -456,7 +460,7 @@ class VNF(Resource):
                 unique_id = prop.get("uniqueId")
                 property_type = prop.get("type")
                 description = prop.get("description")
-                return vnf_client.add_catalog_policy_property(
+                return self.oc.sdc.vnf.add_catalog_policy_property(
                     **self.attributes,
                     unique_id=unique_id,
                     catalog_policy_id=policy_id,
@@ -483,7 +487,7 @@ class VNF(Resource):
                 "Policy {} was not found in configuration file".format(policy_name)
             )
 
-        return vnf_client.add_catalog_resource_policy(
+        return self.oc.sdc.vnf.add_catalog_resource_policy(
             **self.attributes, catalog_policy_name=policy
         )
 
@@ -495,34 +499,36 @@ class VNF(Resource):
 
         """
 
-        return vnf_client.add_policy_to_instance(
+        return self.oc.sdc.vnf.add_policy_to_instance(
             **self.attributes, catalog_policy_id=policy_id, instance_ids=instance_ids
         )
 
     def _refresh(self):
         """GETs the VNF model from SDC and updates the VNF object"""
-        vnf = vnf_client.get_catalog_resource(**self.attributes)
+        vnf = self.oc.sdc.vnf.get_catalog_resource(**self.attributes)
         self.attributes["tosca"] = vnf.response_data
 
 
 def update_vnf(catalog_resource_id, vnf_input):
-    existing_vnf = vnf_client.get_catalog_resource(
+    oc = Client()
+
+    existing_vnf = oc.sdc.vnf.get_catalog_resource(
         catalog_resource_id=catalog_resource_id
     ).response_data
 
     if existing_vnf.get("lifecycleState") != "NOT_CERTIFIED_CHECKOUT":
-        vnf = vnf_client.checkout_catalog_resource(catalog_resource_id=catalog_resource_id).response_data
+        vnf = oc.sdc.vnf.checkout_catalog_resource(catalog_resource_id=catalog_resource_id).response_data
     else:
-        vnf = vnf_client.get_catalog_resource_metadata(catalog_resource_id=catalog_resource_id).response_data.get("metadata", {})
+        vnf = oc.sdc.vnf.get_catalog_resource_metadata(catalog_resource_id=catalog_resource_id).response_data.get("metadata", {})
 
-    new_vnf_metadata = vnf_client.get_catalog_resource_metadata(catalog_resource_id=vnf.get("uniqueId")).response_data.get("metadata", {})
+    new_vnf_metadata = oc.sdc.vnf.get_catalog_resource_metadata(catalog_resource_id=vnf.get("uniqueId")).response_data.get("metadata", {})
 
     csar_version = vsp.get_vsp_version_id(vnf.get("csarUUID"), search_key="name")
 
     vnf["csarVersion"] = csar_version
     vnf["componentMetadata"] = new_vnf_metadata
 
-    updated_vnf = vnf_client.update_catalog_resource(catalog_resource_id=vnf.get("uniqueId"), payload_data=json.dumps(vnf)).response_data
+    updated_vnf = oc.sdc.vnf.update_catalog_resource(catalog_resource_id=vnf.get("uniqueId"), payload_data=json.dumps(vnf)).response_data
 
     vnf_input["catalog_resource_id"] = updated_vnf.get("uniqueId")
     vnf_input["tosca"] = updated_vnf
@@ -537,8 +543,21 @@ def create_vnf(vnf_input):
 
     :return: dictionary of updated values for created vnf
     """
+    oc = Client()
+
     kwargs = vnf_input
-    vnf = vnf_client.add_catalog_resource(**kwargs)
+
+    category = get_resource_category(kwargs.get("vsp_category"))
+    vsp_sub_category = []
+    for subcategory in category.get("subcategories", []):
+        if subcategory.get("uniqueId") == kwargs.get("vsp_sub_category"):
+            vsp_sub_category.append(subcategory)
+            break
+
+    category["subcategories"] = vsp_sub_category
+    kwargs["contact_id"] = vsp.get_vsp_owner(kwargs.get("software_product_id"))
+
+    vnf = oc.sdc.vnf.add_catalog_resource(**kwargs, categories=[category])
 
     kwargs["catalog_resource_id"] = vnf.catalog_resource_id
     kwargs["tosca"] = vnf.response_data
@@ -599,9 +618,11 @@ def add_resource(parent_resource_id, catalog_resource_id, catalog_resource_name,
     :origin_type: specifies the origin of the attached resource
 
     """
+    oc = Client()
+
     milli_timestamp = int(time.time() * 1000)
 
-    resource_instance = vnf_client.add_resource_instance(
+    resource_instance = oc.sdc.vnf.add_resource_instance(
         catalog_resource_id=parent_resource_id,
         posX=random.randrange(150, 550),  # nosec
         posY=random.randrange(150, 450),  # nosec
@@ -621,13 +642,26 @@ def add_resource(parent_resource_id, catalog_resource_id, catalog_resource_name,
 @utility
 def get_vnf(vnf_name):
     """Queries SDC for the TOSCA model for a VNF"""
-    return vnf_client.get_catalog_resource(
+    oc = Client()
+
+    return oc.sdc.vnf.get_catalog_resource(
         catalog_resource_id=get_vnf_id(vnf_name)
     ).response_data
 
 
+def get_resource_category(category_name):
+    oc = Client()
+    resource_categories = oc.sdc.get_resource_categories().response_data
+    for category in resource_categories:
+        if category.get("uniqueId") == category_name:
+            return category
+    return None
+
+
 def get_vnf_id(vnf_name):
-    response = vnf_client.get_resources()
+    oc = Client()
+
+    response = oc.sdc.vnf.get_resources()
     results = response.response_data.get("resources", [])
     catalog_resource = {}
     update_time = -1

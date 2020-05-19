@@ -37,17 +37,14 @@
 
 import uuid
 from onap_client.resource import Resource
-from onap_client.client.clients import Client as SOClient
+from onap_client.client.clients import Client
 from onap_client.exceptions import ServiceInstanceNotFound, VNFInstanceNotFound, ModuleInstanceNotFound
 from onap_client import so
 from onap_client import sdnc
 from onap_client.util import utility
 
-oc = SOClient()
-so_client = oc.so
 
-
-class VNFInstance(Resource):
+class ModuleInstance(Resource):
     resource_name = "MODULE_INSTANCE"
     spec = {
         "module_instance_name": {"type": str, "required": True},
@@ -180,6 +177,8 @@ class VNFInstance(Resource):
 
 
 def create_module_instance(instance_input):
+    oc = Client()
+
     sdnc.preload.Preload(
         instance_input.get("preload_path"),
         instance_input.get("vnf_instance_name"),
@@ -190,7 +189,7 @@ def create_module_instance(instance_input):
     )
 
     headers = {"X-TransactionId": str(uuid.uuid4())}
-    module_instance = so_client.service_instantiation.create_module_instance(
+    module_instance = oc.so.service_instantiation.create_module_instance(
         **instance_input, **headers
     )
 
@@ -206,6 +205,8 @@ def create_module_instance(instance_input):
 @utility
 def delete_module_instance(service_instance_name, vnf_instance_name, module_instance_name, api_type="GR_API"):
     """Delete a Module Instance from SO"""
+    oc = Client()
+
     si = so.service_instance.get_service_instance(service_instance_name)
     si_id = si.get("service-instance-id")
     for vnfi in si.get("service-data", {}).get("vnfs", {}).get("vnf", []):
@@ -220,7 +221,7 @@ def delete_module_instance(service_instance_name, vnf_instance_name, module_inst
                     tenant_id = modulei.get("vf-module-data").get("vf-module-request-input").get("tenant")
                     cloud_owner = modulei.get("vf-module-data").get("vf-module-request-input").get("cloud-owner")
                     cloud_region = modulei.get("vf-module-data").get("vf-module-request-input").get("aic-cloud-region")
-                    return so_client.service_instantiation.delete_module_instance(
+                    return oc.so.service_instantiation.delete_module_instance(
                         module_invariant_id=module_invariant_id,
                         module_name=module_name,
                         module_version=module_version,
