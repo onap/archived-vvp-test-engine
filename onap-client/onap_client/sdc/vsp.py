@@ -46,6 +46,7 @@ from onap_client.exceptions import ResourceAlreadyExistsException
 class VSP(Resource):
     resource_name = "VSP"
     spec = {
+        "owner": {"type": str, "required": False, "default": ""},
         "vendor_name": {"type": str, "required": True},
         "license_model_name": {"type": str, "required": True},
         "file_path": {"type": str, "required": True},
@@ -83,6 +84,7 @@ class VSP(Resource):
         sub_category,
         contributers=[],
         allow_update=False,
+        owner="",
     ):
         self.oc = Client()
         vsp_input = {}
@@ -111,6 +113,7 @@ class VSP(Resource):
         vsp_input["sub_category"] = sub_category.lower()
         vsp_input["contributers"] = contributers
         vsp_input["allow_update"] = allow_update
+        vsp_input["owner"] = owner
 
         super().__init__(vsp_input)
 
@@ -136,6 +139,11 @@ class VSP(Resource):
         for contributer in self.contributers:
             self.oc.sdc.vsp.add_vsp_contributer(
                 user_id=contributer, software_product_id=self.software_product_id
+            )
+
+        if self.owner:
+            self.oc.sdc.vsp.modify_vsp_owner(
+                user_id=self.owner, software_product_id=self.software_product_id
             )
 
     def _submit(self):

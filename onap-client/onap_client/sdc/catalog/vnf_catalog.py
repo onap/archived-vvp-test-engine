@@ -74,6 +74,7 @@ CATALOG_RESOURCES = {
             "resource_type",
             "categories",
             "contact_id",
+            "description",
         ],
         "success_code": 201,
         "headers": {
