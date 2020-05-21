@@ -51,6 +51,7 @@ class VNF(Resource):
     resource_name = "VNF"
     spec = {
         "software_product_name": {"type": str, "required": True},
+        "description": {"type": str, "required": False, "default": "VNF"},
         "vnf_name": {
             "type": str,
             "required": False,
@@ -131,6 +132,7 @@ class VNF(Resource):
         network_roles=[],
         policies=[],
         allow_update=False,
+        description="VNF",
     ):
         self.oc = Client()
 
@@ -139,7 +141,7 @@ class VNF(Resource):
         software_product_id = vsp.get_vsp_id(software_product_name)
         software_product_version_id = vsp.get_vsp_version_id(software_product_id)
         vsp_model = vsp.get_vsp_model(software_product_id, software_product_version_id)
-        print(vsp_model)
+
         vsp_vendor = vsp_model.get("vendorName")
         vsp_category = vsp_model.get("category")
         vsp_sub_category = vsp_model.get("subCategory")
@@ -155,6 +157,7 @@ class VNF(Resource):
         vnf_input["network_roles"] = network_roles
         vnf_input["policies"] = policies
         vnf_input["allow_update"] = allow_update
+        vnf_input["description"] = description
 
         super().__init__(vnf_input)
 

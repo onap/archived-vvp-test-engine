@@ -332,4 +332,28 @@ CATALOG_RESOURCES = {
             sdc_properties.GLOBAL_SDC_PASSWORD,
         ),
     },
+    "MODIFY_VSP_OWNER": {
+        "verb": "PUT",
+        "description": "Changes the owner of a VSP",
+        "uri": partial(
+            "{endpoint}{service_path}/{software_product_id}/permissions/Owner".format,
+            endpoint=sdc_properties.SDC_BE_ONBOARD_ENDPOINT,
+            service_path=sdc_properties.SDC_VENDOR_ITEMS_PATH,
+        ),
+        "uri-parameters": ["software_product_id"],
+        "payload": "{}/add_vsp_contributer.jinja".format(PAYLOADS_DIR),
+        "payload-parameters": ["user_id"],
+        "success_code": 200,
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
+            "X-TransactionId": str(uuid.uuid4()),
+            "X-FromAppId": application_id,
+        },
+        "auth": (
+            sdc_properties.GLOBAL_SDC_USERNAME,
+            sdc_properties.GLOBAL_SDC_PASSWORD,
+        ),
+    },
 }
