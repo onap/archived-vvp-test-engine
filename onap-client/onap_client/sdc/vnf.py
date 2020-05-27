@@ -157,7 +157,7 @@ class VNF(Resource):
         vnf_input["network_roles"] = network_roles
         vnf_input["policies"] = policies
         vnf_input["allow_update"] = allow_update
-        vnf_input["description"] = description
+        vnf_input["vnf_description"] = description
 
         super().__init__(vnf_input)
 

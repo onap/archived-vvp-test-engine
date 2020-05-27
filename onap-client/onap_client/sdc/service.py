@@ -84,7 +84,7 @@ class Service(Resource):
         "contact_id": {"type": str, "required": False, "default": "cs0008"},
         "category_name": {"type": str, "required": False, "default": "Network L1-3"},
         "tag": {"type": str, "required": False, "default": "robot-ete"},
-        "project_code": {"type": str, "required": False, "default": "123456"},
+        "project_code": {"type": str, "required": False, "default": ""},
         "environment_context": {
             "type": str,
             "required": False,

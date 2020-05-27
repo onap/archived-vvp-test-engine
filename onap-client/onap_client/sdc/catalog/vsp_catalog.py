@@ -308,6 +308,28 @@ CATALOG_RESOURCES = {
             sdc_properties.GLOBAL_SDC_PASSWORD,
         ),
     },
+    "GET_VSP_PERMISSIONS": {
+        "verb": "GET",
+        "description": "Returns the permissions for a VSP.",
+        "uri": partial(
+            "{endpoint}{service_path}/{software_product_id}/permissions".format,
+            endpoint=sdc_properties.SDC_BE_ONBOARD_ENDPOINT,
+            service_path=sdc_properties.SDC_VENDOR_ITEMS_PATH,
+        ),
+        "uri-parameters": ["software_product_id"],
+        "success_code": 200,
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
+            "X-TransactionId": str(uuid.uuid4()),
+            "X-FromAppId": application_id,
+        },
+        "auth": (
+            sdc_properties.GLOBAL_SDC_USERNAME,
+            sdc_properties.GLOBAL_SDC_PASSWORD,
+        ),
+    },
     "ADD_VSP_CONTRIBUTER": {
         "verb": "PUT",
         "description": "Adds a user to a VSP as a contributer",

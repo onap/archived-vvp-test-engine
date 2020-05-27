@@ -136,15 +136,29 @@ class VSP(Resource):
         return vsp
 
     def _post_create(self):
+        vsp_permissions = self.oc.sdc.vsp.get_vsp_permissions(
+            software_product_id=self.software_product_id
+        ).response_data.get("results", [])
+        requestor_id = self.oc.sdc.vsp.catalog_resources["MODIFY_VSP_OWNER"].get("headers").get("USER_ID")
+
         for contributer in self.contributers:
-            self.oc.sdc.vsp.add_vsp_contributer(
-                user_id=contributer, software_product_id=self.software_product_id
-            )
+            if (
+                not user_exists(contributer, vsp_permissions, permission="Contributor")
+                and contributer != requestor_id
+            ):
+                self.oc.sdc.vsp.add_vsp_contributer(
+                    user_id=contributer, software_product_id=self.software_product_id
+                )
 
         if self.owner:
-            self.oc.sdc.vsp.modify_vsp_owner(
-                user_id=self.owner, software_product_id=self.software_product_id
-            )
+            requestor_id = self.oc.sdc.vsp.catalog_resources["MODIFY_VSP_OWNER"].get("headers").get("USER_ID")
+            if (
+                user_exists(requestor_id, vsp_permissions, permission="Owner")
+                and self.owner != requestor_id
+            ):
+                self.oc.sdc.vsp.modify_vsp_owner(
+                    user_id=self.owner, software_product_id=self.software_product_id
+                )
 
     def _submit(self):
         """Submits the vsp in SDC"""
@@ -267,3 +281,10 @@ def get_vsp(vsp_name):
         return None
     vsp_version_id = get_vsp_version_id(vsp_id)
     return get_vsp_model(vsp_id, vsp_version_id)
+
+
+def user_exists(contributer, vsp_permissions, permission="Contributor"):
+    for user in vsp_permissions:
+        if contributer == user.get("userId") and permission == user.get("permission"):
+            return True
+    return False
