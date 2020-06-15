@@ -195,4 +195,4 @@ def test_network_role_property_for_instance():
 
     prop = network_role_property_for_instance("oam", vnf_model, "item1id")
 
-    assert prop == "item1id.port123.oam.network_role"
+    assert "item1id.port123.oam.network_role" in prop
