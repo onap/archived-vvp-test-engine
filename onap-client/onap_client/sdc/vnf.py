@@ -273,10 +273,10 @@ class VNF(Resource):
             nrt = network_role.get("network_role_tag")
             nr = network_role.get("network_role")
             related_networks = network_role.get("related_networks")
-            instance_property = network_role_property_for_instance(
+            instance_properties = network_role_property_for_instance(
                 nrt, model, instance_id
             )
-            if instance_property:
+            for instance_property in instance_properties:
                 self.add_instance_property(instance_id, instance_property, nr)
                 if related_networks:
                     property_val = [
@@ -602,15 +602,16 @@ def network_role_property_for_instance(network_role_tag, vnf_model, instance_id)
 
     :return: network_role property ID or None
     """
+    properties = []
     instance_inputs = vnf_model.get("componentInstancesInputs", {}).get(instance_id, {})
     for prop in instance_inputs:
         if prop.get("name").endswith(
             "network_role_tag"
         ) and network_role_tag == prop.get("value"):
             network_role_property = prop.get("name").replace("_tag", "")
-            return network_role_property
+            properties.append(network_role_property)
 
-    return None
+    return properties
 
 
 def add_resource(parent_resource_id, catalog_resource_id, catalog_resource_name, origin_type="VF"):
