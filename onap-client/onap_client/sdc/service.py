@@ -43,6 +43,7 @@ from onap_client.sdc.vnf import get_vnf_id
 from onap_client.sdc import SDC_PROPERTIES
 from onap_client.util import utility
 
+import base64
 import time
 import json
 import random
@@ -474,3 +475,23 @@ def poll_distribution(service_name):
     raise exceptions.DistributionTimeout(
         "Distribution polling timed out waiting for {}".format(service_name)
     )
+
+
+@utility
+def download_csar(service_name, output_file):
+    oc = Client()
+
+    service = get_service(service_name)
+    artifact_id = service.get("toscaArtifacts", {}).get("assettoscacsar", {}).get("uniqueId")
+
+    csar_data = oc.sdc.service.get_sdc_csar(
+        catalog_service_id=service.get("uniqueId"),
+        csar_artifact_id=artifact_id
+    ).response_data
+
+    data = base64.b64decode(csar_data.get("base64Contents"))
+
+    output_file = f"{output_file}.csar" if not output_file.endswith(".csar") else output_file
+
+    with open(output_file, "wb") as f:
+        f.write(data)
