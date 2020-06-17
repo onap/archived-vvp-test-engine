@@ -495,4 +495,26 @@ CATALOG_RESOURCES = {
             sdc_properties.GLOBAL_SDC_PASSWORD,
         ),
     },
+    "GET_SDC_CSAR": {
+        "verb": "GET",
+        "description": "Returns the CSAR for a service.",
+        "uri": partial(
+            "{endpoint}{service_path}/{catalog_service_id}/artifacts/{csar_artifact_id}".format,
+            endpoint=sdc_properties.SDC_BE_ENDPOINT,
+            service_path=sdc_properties.SDC_CATALOG_SERVICES_PATH,
+        ),
+        "uri-parameters": ["catalog_service_id", "csar_artifact_id"],
+        "success_code": 200,
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
+            "X-TransactionId": str(uuid.uuid4()),
+            "X-FromAppId": application_id,
+        },
+        "auth": (
+            sdc_properties.GLOBAL_SDC_USERNAME,
+            sdc_properties.GLOBAL_SDC_PASSWORD,
+        ),
+    },
 }
