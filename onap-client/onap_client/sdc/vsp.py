@@ -141,21 +141,17 @@ class VSP(Resource):
         ).response_data.get("results", [])
         requestor_id = self.oc.sdc.vsp.catalog_resources["MODIFY_VSP_OWNER"].get("headers").get("USER_ID")
 
-        for contributer in self.contributers:
-            if (
-                not user_exists(contributer, vsp_permissions, permission="Contributor")
-                and contributer != requestor_id
-            ):
-                self.oc.sdc.vsp.add_vsp_contributer(
-                    user_id=contributer, software_product_id=self.software_product_id
-                )
+        if user_exists(requestor_id, vsp_permissions, permission="Owner"):
+            for contributer in self.contributers:
+                if (
+                    not user_exists(contributer, vsp_permissions, permission="Contributor")
+                    and contributer != requestor_id
+                ):
+                    self.oc.sdc.vsp.add_vsp_contributer(
+                        user_id=contributer, software_product_id=self.software_product_id
+                    )
 
-        if self.owner:
-            requestor_id = self.oc.sdc.vsp.catalog_resources["MODIFY_VSP_OWNER"].get("headers").get("USER_ID")
-            if (
-                user_exists(requestor_id, vsp_permissions, permission="Owner")
-                and self.owner != requestor_id
-            ):
+            if self.owner and self.owner != requestor_id:
                 self.oc.sdc.vsp.modify_vsp_owner(
                     user_id=self.owner, software_product_id=self.software_product_id
                 )
