@@ -102,15 +102,16 @@ def test_vsp_create():
     mockup_client(oc.sdc.vsp)
 
     vsp = sdc.vsp.VSP(
-        "vendor_name",
-        LICENSE_MODEL_NAME,
-        "{}/test.zip".format(THIS_DIR),
-        "application/zip",
-        VSP_NAME,
-        "description",
-        "category",
-        "sub_category",
+        vendor_name="vendor_name",
+        license_model_name=LICENSE_MODEL_NAME,
+        file_path="{}/test.zip".format(THIS_DIR),
+        file_type="application/zip",
+        software_product_name=VSP_NAME,
+        description="description",
+        category="category",
+        sub_category="sub_category",
         contributers=["test123"],
     )
+    vsp.create()
 
     assert vsp.tosca == {"name": VSP_NAME}

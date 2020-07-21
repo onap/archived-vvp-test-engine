@@ -59,37 +59,14 @@ class ModuleInstance(Resource):
         "api_type": {"type": str, "required": False, "default": "GR_API"},
     }
 
-    def __init__(
-        self,
-        module_instance_name,
-        vnf_instance_name,
-        service_instance_name,
-        requestor_id,
-        heat_template_name,
-        preload_path,
-        tenant_name,
-        cloud_owner,
-        cloud_region,
-        api_type,
-    ):
-        instance_input = {}
-
-        tenant_id = so.service_instance.get_tenant_id(cloud_region, cloud_owner, tenant_name)
-
-        instance_input["module_instance_name"] = module_instance_name
-        instance_input["vnf_instance_name"] = vnf_instance_name
-        instance_input["service_instance_name"] = service_instance_name
-        instance_input["requestor_id"] = requestor_id
-        instance_input["heat_template_name"] = heat_template_name
-        instance_input["preload_path"] = preload_path
-        instance_input["tenant_id"] = tenant_id
-        instance_input["cloud_owner"] = cloud_owner
-        instance_input["cloud_region"] = cloud_region
-        instance_input["api_type"] = api_type
-
-        super().__init__(instance_input)
-
     def _create(self, instance_input):
+        tenant_id = so.service_instance.get_tenant_id(
+            instance_input.get("cloud_region"),
+            instance_input.get("cloud_owner"),
+            instance_input.get("tenant_name")
+        )
+        instance_input["tenant_id"] = tenant_id
+
         service_instance = so.vnf_instance.get_service_instance(
             instance_input.get("service_instance_name")
         )
@@ -169,24 +146,19 @@ class ModuleInstance(Resource):
 
         return create_module_instance(instance_input)
 
-    def _post_create(self):
-        pass
-
-    def _submit(self):
-        pass
-
 
 def create_module_instance(instance_input):
     oc = Client()
 
-    sdnc.preload.Preload(
-        instance_input.get("preload_path"),
-        instance_input.get("vnf_instance_name"),
-        instance_input.get("service_instance_name"),
-        instance_input.get("module_instance_name"),
-        instance_input.get("heat_template_name"),
-        instance_input.get("api_type")
+    preload = sdnc.preload.Preload(
+        preload_path=instance_input.get("preload_path"),
+        vnf_instance_name=instance_input.get("vnf_instance_name"),
+        service_instance_name=instance_input.get("service_instance_name"),
+        module_instance_name=instance_input.get("module_instance_name"),
+        heat_template_name=instance_input.get("heat_template_name"),
+        api_type=instance_input.get("api_type")
     )
+    preload.create()
 
     headers = {"X-TransactionId": str(uuid.uuid4())}
     module_instance = oc.so.service_instantiation.create_module_instance(

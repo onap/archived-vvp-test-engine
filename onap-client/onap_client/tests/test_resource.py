@@ -34,20 +34,16 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 from onap_client.resource import Resource
-from onap_client.lib import generate_dummy_string, generate_dummy_date
 
 
 class TestResource(Resource):
-    def __init__(self, test_param):
-        test_input = {}
-
-        test_input["param1"] = test_param
-        test_input["param2"] = generate_dummy_string()
-        test_input["param3"] = generate_dummy_date()
-
-        super().__init__(test_input)
+    spec = {
+        "param1": {
+            "type": str,
+            "required": True,
+        },
+    }
 
     def _create(self, create_input):
         return create_input
@@ -62,7 +58,7 @@ class TestResource(Resource):
 def test_resource():
     test_param = "abc"
 
-    r = TestResource(test_param)
-    r.print()
+    r = TestResource(param1=test_param)
+    r.create()
 
     assert hasattr(r, "param1") and r.param1 == test_param

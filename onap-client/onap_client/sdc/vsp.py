@@ -72,64 +72,19 @@ class VSP(Resource):
         "allow_update": {"type": bool, "required": False, "default": False},
     }
 
-    def __init__(
-        self,
-        vendor_name,
-        license_model_name,
-        file_path,
-        file_type,
-        software_product_name,
-        description,
-        category,
-        sub_category,
-        contributers=[],
-        allow_update=False,
-        owner="",
-    ):
-        self.oc = Client()
-        vsp_input = {}
-
-        license_model_id = sdc.license_model.get_license_model_id(license_model_name)
-        license_model_version_id = sdc.license_model.get_license_model_version_id(
-            license_model_id
-        )
-        feature_group = sdc.license_model.get_license_model_attribute(
-            license_model_id, license_model_version_id, "feature-groups"
-        )
-        license_agreement = sdc.license_model.get_license_model_attribute(
-            license_model_id, license_model_version_id, "license-agreements"
-        )
-
-        vsp_input["software_product_name"] = software_product_name
-        vsp_input["feature_group_id"] = feature_group["id"]
-        vsp_input["license_agreement_id"] = license_agreement["id"]
-        vsp_input["vendor_name"] = vendor_name
-        vsp_input["license_model_id"] = license_model_id
-        vsp_input["license_model_version_id"] = license_model_version_id
-        vsp_input["file_path"] = file_path
-        vsp_input["file_type"] = file_type
-        vsp_input["description"] = description
-        vsp_input["category"] = category.lower()
-        vsp_input["sub_category"] = sub_category.lower()
-        vsp_input["contributers"] = contributers
-        vsp_input["allow_update"] = allow_update
-        vsp_input["owner"] = owner
-
-        super().__init__(vsp_input)
-
-    def _create(self, kwargs):
+    def _create(self, vsp_input):
         """Creates a vsp object in SDC"""
         vsp = None
 
-        existing = get_vsp(kwargs.get("software_product_name"))
+        existing = get_vsp(vsp_input.get("software_product_name"))
         if not existing:
-            vsp = create_vsp(kwargs)
-        elif kwargs.get("allow_update"):
-            vsp = update_vsp(existing, kwargs)
+            vsp = create_vsp(vsp_input)
+        elif vsp_input.get("allow_update"):
+            vsp = update_vsp(existing, vsp_input)
         else:
             raise ResourceAlreadyExistsException(
                 "VSP resource {} already exists".format(
-                    kwargs.get("software_product_name")
+                    vsp_input.get("software_product_name")
                 )
             )
 
@@ -199,19 +154,37 @@ def create_vsp(vsp_input):
     """
     oc = Client()
 
-    kwargs = vsp_input
-    vsp = oc.sdc.vsp.add_software_product(**kwargs)
+    license_model_id = sdc.license_model.get_license_model_id(vsp_input.get("license_model_name"))
 
-    kwargs["software_product_id"] = vsp.software_product_id
-    kwargs["software_product_version_id"] = vsp.software_product_version_id
+    license_model_version_id = sdc.license_model.get_license_model_version_id(
+        license_model_id
+    )
 
-    oc.sdc.vsp.upload_heat_package(**kwargs)
-    oc.sdc.vsp.validate_software_product(**kwargs)
+    feature_group = sdc.license_model.get_license_model_attribute(
+        license_model_id, license_model_version_id, "feature-groups"
+    )
 
-    vsp = oc.sdc.vsp.get_software_product(**kwargs)
-    kwargs["tosca"] = vsp.response_data
+    license_agreement = sdc.license_model.get_license_model_attribute(
+        license_model_id, license_model_version_id, "license-agreements"
+    )
 
-    return kwargs
+    vsp_input["license_model_id"] = license_model_id
+    vsp_input["license_model_version_id"] = license_model_version_id
+    vsp_input["feature_group_id"] = feature_group["id"]
+    vsp_input["license_agreement_id"] = license_agreement["id"]
+
+    vsp = oc.sdc.vsp.add_software_product(**vsp_input)
+
+    vsp_input["software_product_id"] = vsp.software_product_id
+    vsp_input["software_product_version_id"] = vsp.software_product_version_id
+
+    oc.sdc.vsp.upload_heat_package(**vsp_input)
+    oc.sdc.vsp.validate_software_product(**vsp_input)
+
+    vsp = oc.sdc.vsp.get_software_product(**vsp_input)
+    vsp_input["tosca"] = vsp.response_data
+
+    return vsp_input
 
 
 def get_vsp_id(vsp_name):

@@ -34,39 +34,61 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
-import inspect
-
-from abc import ABC, abstractmethod
-from onap_client.exceptions import InvalidSpecException
+from abc import ABC
+from onap_client.exceptions import InvalidSpecException, ResourceAlreadyExistsException, ResourceCreationFailure
+from onap_client.client.clients import Client
 
 
 class Resource(ABC):
     resource_name = "abstract"
     spec = {}
 
-    def __init__(self, input):
+    def __init__(self, **kwargs):
         self.attributes = {}
-
-        attributes = self._create(input)
-        self.resolve_attributes(attributes)
-
-        self._post_create()
+        self.oc = Client()
+        self.input_spec = self.validate(kwargs, spec=self.spec)
 
     def __getattr__(self, attr):
         return self.attributes.get(attr, None)
 
-    @abstractmethod
+    def create(self):
+        attributes = self._create(self.input_spec)
+        self.resolve_attributes(attributes)
+        self._post_create()
+
     def _create(self, input):
         pass
 
-    @abstractmethod
     def _post_create(self):
         pass
 
-    @abstractmethod
     def _submit(self):
         pass
+
+    def _on_failure(self):
+        pass
+
+    @classmethod
+    def create_from_spec(cls, spec, submit=True):
+        instance = cls(**spec)
+
+        try:
+            instance.create()
+            if submit:
+                instance._submit()
+        except ResourceAlreadyExistsException:
+            raise
+        except Exception as e:
+            instance._on_failure()
+            raise ResourceCreationFailure(
+                "Failed to create resource {}: {}".format(instance.resource_name, str(e))
+            )
+
+        return instance
+
+    def resolve_attributes(self, attributes):
+        for key, val in attributes.items():
+            self.attributes[key] = val
 
     @classmethod
     def validate(cls, input, spec=None):
@@ -79,82 +101,65 @@ class Resource(ABC):
         Returns complete spec with all attributes.
         """
         valid_spec = {}
-
-        if not isinstance(input, dict):
-            raise InvalidSpecException("input spec was not a dictionary")
-
         if not spec:
             spec = cls.spec
 
-        for k, v in input.items():
-            if not spec.get(k):
-                raise InvalidSpecException("Unknown property found: {}".format(k))
+        validate_spec_type(input)
+        validate_spec_properties(input, spec)
 
-        for k, v in spec.items():
-            property_name = k
-            property_type = v.get("type")
-            property_required = v.get("required")
-            property_default = v.get("default", default_empty_value(property_type))
-
-            input_property = validate_property(
-                input, property_name, property_required, property_default, property_type
-            )
-
-            if (
-                property_type == dict
-                and input_property != property_default
-                and v.get("nested")
-            ):
-                property_value = cls.validate(input_property, v.get("nested"))
-            elif property_type == list:
-                list_property_type = v.get("list_item")
-                list_spec = []
-                for item in input_property:
-                    if type(item) != list_property_type:
-                        raise InvalidSpecException(
-                            "list item {} not match type {}".format(
-                                item, list_property_type
-                            )
-                        )
-                    if list_property_type == str:
-                        list_spec.insert(0, item)
-                    else:
-                        list_spec.insert(0, cls.validate(item, v.get("nested", {})))
-
-                property_value = list_spec
-            else:
-                property_value = input_property
-
+        for property_name, v in spec.items():
+            property_value = cls.validate_spec_item(property_name, v, input, spec)
             valid_spec[property_name] = property_value
 
         return valid_spec
 
     @classmethod
-    def create_from_spec(cls, spec, submit=True):
-        input_args = []
+    def validate_spec_item(cls, property_name, property_item, input, spec):
+        property_type = property_item.get("type")
+        property_required = property_item.get("required")
+        property_default = property_item.get("default", default_empty_value(property_type))
 
-        arguments = inspect.getfullargspec(cls).args
-        arguments.pop(0)
+        input_property = validate_property(
+            input, property_name, property_required, property_default, property_type
+        )
 
-        for argument in arguments:
-            input_args.append(spec.get(argument))
+        if (
+            property_type == dict
+            and input_property != property_default
+            and property_item.get("nested")
+        ):
+            property_value = cls.validate(input_property, property_item.get("nested"))
+        elif property_type == list:
+            list_property_type = property_item.get("list_item")
+            list_spec = []
+            for item in input_property:
+                if type(item) != list_property_type:
+                    raise InvalidSpecException(
+                        "list item {} not match type {}".format(
+                            item, list_property_type
+                        )
+                    )
+                if list_property_type == str:
+                    list_spec.insert(0, item)
+                else:
+                    list_spec.insert(0, cls.validate(item, property_item.get("nested", {})))
 
-        instance = cls(*input_args)
+            property_value = list_spec
+        else:
+            property_value = input_property
 
-        if submit:
-            instance._submit()
+        return property_value
 
-        return instance
 
-    def resolve_attributes(self, attributes):
-        for key, val in attributes.items():
-            self.attributes[key] = val
+def validate_spec_type(input_spec):
+    if not isinstance(input_spec, dict):
+        raise InvalidSpecException("input spec was not a dictionary")
 
-    def print(self):
-        for k, v in self.attributes.items():
-            val = str(v)
-            value = val[:50] + "..." if len(val) > 50 else val
-            print("{}: {}".format(k, value))
+
+def validate_spec_properties(input_spec, spec):
+    for k, v in input_spec.items():
+        if not spec.get(k):
+            raise InvalidSpecException("Unknown property found: {}".format(k))
 
 
 def validate_property(

@@ -145,12 +145,12 @@ def test_vnf_create():
     )
 
     vnf = VNF(
-        SOFTWARE_PRODUCT_NAME,
-        VNF_NAME,
-        RESOURCE_TYPE,
+        software_product_name=SOFTWARE_PRODUCT_NAME,
+        vnf_name=VNF_NAME,
+        resource_type=RESOURCE_TYPE,
         vm_types=[{"vm_type": "red", "properties": {"nf_role": "blue"}}],
     )
-
+    vnf.create()
     vnf._submit()
 
     assert "componentInstancesInputs" in vnf.tosca

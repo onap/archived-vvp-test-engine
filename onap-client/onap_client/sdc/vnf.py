@@ -122,45 +122,6 @@ class VNF(Resource):
         "allow_update": {"type": bool, "required": False, "default": False},
     }
 
-    def __init__(
-        self,
-        software_product_name,
-        vnf_name,
-        resource_type,
-        inputs={},
-        vm_types=[],
-        network_roles=[],
-        policies=[],
-        allow_update=False,
-        description="VNF",
-    ):
-        self.oc = Client()
-
-        vnf_input = {}
-
-        software_product_id = vsp.get_vsp_id(software_product_name)
-        software_product_version_id = vsp.get_vsp_version_id(software_product_id)
-        vsp_model = vsp.get_vsp_model(software_product_id, software_product_version_id)
-
-        vsp_vendor = vsp_model.get("vendorName")
-        vsp_category = vsp_model.get("category")
-        vsp_sub_category = vsp_model.get("subCategory")
-
-        vnf_input["software_product_id"] = software_product_id
-        vnf_input["vsp_category"] = vsp_category
-        vnf_input["vsp_sub_category"] = vsp_sub_category
-        vnf_input["vendor_name"] = vsp_vendor
-        vnf_input["vnf_name"] = vnf_name
-        vnf_input["resource_type"] = resource_type
-        vnf_input["inputs"] = inputs
-        vnf_input["vm_types"] = vm_types
-        vnf_input["network_roles"] = network_roles
-        vnf_input["policies"] = policies
-        vnf_input["allow_update"] = allow_update
-        vnf_input["vnf_description"] = description
-
-        super().__init__(vnf_input)
-
     def _create(self, vnf_input):
         """Creates a vnf object in SDC"""
         vnf = None
@@ -207,6 +168,18 @@ class VNF(Resource):
 
         for k, v in inputs.items():
             self.add_input_value(k, v)
+
+    def _submit(self):
+        """Submits the vnf in SDC"""
+        certification = self.oc.sdc.vnf.certify_catalog_resource(
+            **self.attributes, user_remarks="Ready!"
+        )
+        self.attributes["catalog_resource_id"] = certification.catalog_resource_id
+
+        vnf = self.oc.sdc.vnf.get_catalog_resource(**self.attributes)
+
+        self.attributes["catalog_resource_name"] = vnf.catalog_resource_name
+        self.attributes["tosca"] = vnf.response_data
 
     def _add_instance_properties(self, instance_id, properties_dict):
         for k, v in properties_dict.items():
@@ -321,18 +294,6 @@ class VNF(Resource):
                 return True
 
         return False
-
-    def _submit(self):
-        """Submits the vnf in SDC"""
-        certification = self.oc.sdc.vnf.certify_catalog_resource(
-            **self.attributes, user_remarks="Ready!"
-        )
-        self.attributes["catalog_resource_id"] = certification.catalog_resource_id
-
-        vnf = self.oc.sdc.vnf.get_catalog_resource(**self.attributes)
-
-        self.attributes["catalog_resource_name"] = vnf.catalog_resource_name
-        self.attributes["tosca"] = vnf.response_data
 
     def add_input_value(self, input_name, input_default_value):
         """Updates an input value on a VNF
@@ -548,24 +509,36 @@ def create_vnf(vnf_input):
     """
     oc = Client()
 
-    kwargs = vnf_input
+    software_product_id = vsp.get_vsp_id(vnf_input.get("software_product_name"))
+    software_product_version_id = vsp.get_vsp_version_id(software_product_id)
+    vsp_model = vsp.get_vsp_model(software_product_id, software_product_version_id)
 
-    category = get_resource_category(kwargs.get("vsp_category"))
-    vsp_sub_category = []
+    vsp_vendor = vsp_model.get("vendorName")
+    vsp_category = vsp_model.get("category")
+    vsp_sub_category = vsp_model.get("subCategory")
+
+    vnf_input["software_product_id"] = software_product_id
+    vnf_input["vsp_category"] = vsp_category
+    vnf_input["vsp_sub_category"] = vsp_sub_category
+    vnf_input["vendor_name"] = vsp_vendor
+    vnf_input["vnf_description"] = vnf_input.get("description")
+
+    category = get_resource_category(vsp_category)
+    vsp_sub_categories = []
     for subcategory in category.get("subcategories", []):
-        if subcategory.get("uniqueId") == kwargs.get("vsp_sub_category"):
-            vsp_sub_category.append(subcategory)
+        if subcategory.get("uniqueId").lower() == vsp_sub_category.lower():
+            vsp_sub_categories.append(subcategory)
             break
 
-    category["subcategories"] = vsp_sub_category
-    kwargs["contact_id"] = vsp.get_vsp_owner(kwargs.get("software_product_id"))
+    category["subcategories"] = vsp_sub_categories
+    vnf_input["contact_id"] = vsp.get_vsp_owner(software_product_id)
 
-    vnf = oc.sdc.vnf.add_catalog_resource(**kwargs, categories=[category])
+    vnf = oc.sdc.vnf.add_catalog_resource(**vnf_input, categories=[category])
 
-    kwargs["catalog_resource_id"] = vnf.catalog_resource_id
-    kwargs["tosca"] = vnf.response_data
+    vnf_input["catalog_resource_id"] = vnf.catalog_resource_id
+    vnf_input["tosca"] = vnf.response_data
 
-    return kwargs
+    return vnf_input
 
 
 def instance_ids_for_property(vnf_model, property_name, property_value):
@@ -657,7 +630,7 @@ def get_resource_category(category_name):
     oc = Client()
     resource_categories = oc.sdc.get_resource_categories().response_data
     for category in resource_categories:
-        if category.get("uniqueId") == category_name:
+        if category.get("uniqueId").lower() == category_name.lower():
             return category
     return None
 

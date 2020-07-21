@@ -119,18 +119,19 @@ def test_service_instance():
     )
 
     si = ServiceInstance(
-        SERVICE_INSTANCE_NAME,
-        "cs0008",
-        SERVICE_MODEL_NAME,
-        "1.0",
-        TENANT_NAME,
-        CLOUD_OWNER,
-        CLOUD_REGION,
-        "GR_API",
-        "ONAPSERVICE",
-        "ONAPCUSTOMER",
-        "ONAPPROJECT",
-        OWNING_ENTITY_NAME
+        service_instance_name=SERVICE_INSTANCE_NAME,
+        requestor_id="cs0008",
+        model_name=SERVICE_MODEL_NAME,
+        model_version="1.0",
+        tenant_name=TENANT_NAME,
+        cloud_owner=CLOUD_OWNER,
+        cloud_region=CLOUD_REGION,
+        api_type="GR_API",
+        service_type="ONAPSERVICE",
+        customer_name="ONAPCUSTOMER",
+        project_name="ONAPPROJECT",
+        owning_entity_name=OWNING_ENTITY_NAME
     )
+    si.create()
 
     assert si.service_instance_name == SERVICE_INSTANCE_NAME

@@ -110,14 +110,14 @@ def test_license_model_create():
     )
 
     lm = LicenseModel(
-        VENDOR_NAME,
-        "abc123",
-        "entitlement_pool_name",
-        "key_group_name",
-        "feature_group_name",
-        "license_agreement_name",
-        "license_start_date",
-        "license_end_date",
+        vendor_name=VENDOR_NAME,
+        entitlement_pool_name="entitlement_pool_name",
+        key_group_name="key_group_name",
+        feature_group_name="feature_group_name",
+        license_agreement_name="license_agreement_name",
+        license_start_date="license_start_date",
+        license_end_date="license_end_date",
     )
+    lm.create()
 
     assert lm.tosca == return_data

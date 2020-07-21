@@ -77,37 +77,14 @@ class VNFInstance(Resource):
         "line_of_business": {"type": str, "required": True},
     }
 
-    def __init__(
-        self,
-        vnf_instance_name,
-        service_instance_name,
-        requestor_id,
-        model_name,
-        tenant_name,
-        cloud_owner,
-        cloud_region,
-        api_type,
-        platform,
-        line_of_business,
-    ):
-        instance_input = {}
-
-        tenant_id = so.service_instance.get_tenant_id(cloud_region, cloud_owner, tenant_name)
-
-        instance_input["vnf_instance_name"] = vnf_instance_name
-        instance_input["service_instance_name"] = service_instance_name
-        instance_input["requestor_id"] = requestor_id
-        instance_input["model_name"] = model_name
-        instance_input["tenant_id"] = tenant_id
-        instance_input["cloud_owner"] = cloud_owner
-        instance_input["cloud_region"] = cloud_region
-        instance_input["api_type"] = api_type
-        instance_input["platform"] = platform
-        instance_input["line_of_business"] = line_of_business
-
-        super().__init__(instance_input)
-
     def _create(self, instance_input):
+        tenant_id = so.service_instance.get_tenant_id(
+            instance_input.get("cloud_region"),
+            instance_input.get("cloud_owner"),
+            instance_input.get("tenant_name")
+        )
+        instance_input["tenant_id"] = tenant_id
+
         service_instance = get_service_instance(
             instance_input.get("service_instance_name")
         )
@@ -155,12 +132,6 @@ class VNFInstance(Resource):
         instance_input["service_instance_id"] = service_instance_id
 
         return create_vnf_instance(instance_input)
-
-    def _post_create(self):
-        pass
-
-    def _submit(self):
-        pass
 
 
 def get_vnf_model_component(service_model_name, vnf_model_name):

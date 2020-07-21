@@ -104,18 +104,15 @@ def test_vnf_create():
     )
 
     service = Service(
-        "A-la-carte",
-        SERVICE_NAME,
-        "cs0008",
-        "Network L1-3",
-        "robot",
-        "123456",
-        "General_Revenue-Bearing",
-        "true",
-        "This is a test",
-        "",
-        "",
-        "",
+        instantiation_type="A-la-carte",
+        service_name=SERVICE_NAME,
+        contact_id="cs0008",
+        category_name="Network L1-3",
+        tag="robot",
+        project_code="123456",
+        environment_context="General_Revenue-Bearing",
+        ecomp_generated_naming="true",
+        description="This is a test",
         resources=[{
             "resource_name": VNF_NAME,
             "resource_id": VNF_RESOURCE_ID,
@@ -126,7 +123,7 @@ def test_vnf_create():
         allow_update=False,
         wait_for_distribution=False
     )
-
+    service.create()
     service._submit()
 
     assert service.service_name == SERVICE_NAME

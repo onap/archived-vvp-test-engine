@@ -159,16 +159,17 @@ def test_vnf_instance():
     )
 
     vnfi = VNFInstance(
-        VNF_INSTANCE_NAME,
-        SERVICE_INSTANCE_NAME,
-        "cs0008",
-        VNF_MODEL_NAME,
-        TENANT_NAME,
-        CLOUD_OWNER,
-        CLOUD_REGION,
-        "GR_API",
-        "platform",
-        "lob"
+        vnf_instance_name=VNF_INSTANCE_NAME,
+        service_instance_name=SERVICE_INSTANCE_NAME,
+        requestor_id="cs0008",
+        model_name=VNF_MODEL_NAME,
+        tenant_name=TENANT_NAME,
+        cloud_owner=CLOUD_OWNER,
+        cloud_region=CLOUD_REGION,
+        api_type="GR_API",
+        platform="platform",
+        line_of_business="lob"
     )
+    vnfi.create()
 
     assert vnfi.vnf_instance_name == VNF_INSTANCE_NAME

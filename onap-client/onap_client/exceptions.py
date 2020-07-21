@@ -142,3 +142,7 @@ class DistributionTimeout(Exception):
 
 class TenantNotFound(Exception):
     pass
+
+
+class ResourceCreationFailure(Exception):
+    pass

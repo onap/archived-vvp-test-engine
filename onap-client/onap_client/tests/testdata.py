@@ -70,14 +70,6 @@ class TestResource(Resource):
         },
     }
 
-    def __init__(self, test1, test2):
-        instance_input = {}
-
-        instance_input["test1"] = test1
-        instance_input["test2"] = test2
-
-        super().__init__(instance_input)
-
     def _create(self, instance_input):
         print("creating test instance {}".format(instance_input))
 

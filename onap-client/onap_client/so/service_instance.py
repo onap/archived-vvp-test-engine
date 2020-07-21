@@ -74,43 +74,15 @@ class ServiceInstance(Resource):
         "owning_entity_name": {"type": str, "required": True},
     }
 
-    def __init__(
-        self,
-        service_instance_name,
-        requestor_id,
-        model_name,
-        model_version,
-        tenant_name,
-        cloud_owner,
-        cloud_region,
-        api_type,
-        service_type,
-        customer_name,
-        project_name,
-        owning_entity_name,
-    ):
-        self.oc = Client()
-
-        instance_input = {}
-
-        tenant_id = get_tenant_id(cloud_region, cloud_owner, tenant_name)
-
-        instance_input["service_instance_name"] = service_instance_name
-        instance_input["requestor_id"] = requestor_id
-        instance_input["model_name"] = model_name
-        instance_input["model_version"] = model_version
-        instance_input["tenant_id"] = tenant_id
-        instance_input["cloud_owner"] = cloud_owner
-        instance_input["cloud_region"] = cloud_region
-        instance_input["api_type"] = api_type
-        instance_input["service_type"] = service_type
-        instance_input["customer_id"] = customer_name
-        instance_input["project_name"] = project_name
-        instance_input["owning_entity_name"] = owning_entity_name
-
-        super().__init__(instance_input)
-
     def _create(self, instance_input):
+        tenant_id = get_tenant_id(
+            instance_input.get("cloud_region"),
+            instance_input.get("cloud_owner"),
+            instance_input.get("tenant_name")
+        )
+        instance_input["tenant_id"] = tenant_id
+        instance_input["customer_id"] = instance_input.get("customer_name")
+
         service_model = self.oc.sdc.service.get_sdc_service(
             catalog_service_id=sdc.service.get_service_id(
                 instance_input.get("model_name")
@@ -127,12 +99,6 @@ class ServiceInstance(Resource):
                 break
 
         return create_service_instance(instance_input)
-
-    def _post_create(self):
-        pass
-
-    def _submit(self):
-        pass
 
 
 @utility

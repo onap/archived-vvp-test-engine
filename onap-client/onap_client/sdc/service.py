@@ -117,53 +117,6 @@ class Service(Resource):
         "wait_for_distribution": {"type": bool, "required": False, "default": False},
     }
 
-    def __init__(
-        self,
-        instantiation_type,
-        service_name,
-        contact_id,
-        category_name,
-        tag,
-        project_code,
-        environment_context,
-        ecomp_generated_naming,
-        description,
-        service_type,
-        service_role,
-        naming_policy,
-        resources=[],
-        wait_for_distribution=False,
-        allow_update=False,
-    ):
-        self.oc = Client()
-
-        service_input = {}
-
-        category_name_lower = category_name.lower()
-        category_name_icon = normalize_category_icon(category_name)
-        category_id = "serviceNewCategory.{}".format(category_name_lower)
-
-        service_input["service_name"] = service_name
-        service_input["instantiation_type"] = instantiation_type
-        service_input["contact_id"] = contact_id
-        service_input["category_name"] = category_name
-        service_input["category_id"] = category_id
-        service_input["category_name_lower"] = category_name_lower
-        service_input["category_name_icon"] = category_name_icon
-        service_input["tag"] = tag
-        service_input["project_code"] = project_code
-        service_input["environment_context"] = environment_context
-        service_input["ecomp_generated_naming"] = ecomp_generated_naming
-        service_input["description"] = description
-        service_input["service_type"] = service_type
-        service_input["service_role"] = service_role
-        service_input["naming_policy"] = naming_policy
-        service_input["resources"] = resources
-        service_input["wait_for_distribution"] = wait_for_distribution
-        service_input["allow_update"] = allow_update
-
-        super().__init__(service_input)
-
     def _create(self, service_input):
         """Creates a service object in SDC"""
         service = None
@@ -372,14 +325,19 @@ def create_service(service_input):
     """
     oc = Client()
 
-    kwargs = service_input
+    category_name_lower = service_input.get("category_name").lower()
+    category_name_icon = normalize_category_icon(service_input.get("category_name"))
+    category_id = "serviceNewCategory.{}".format(category_name_lower)
+    service_input["category_id"] = category_id
+    service_input["category_name_lower"] = category_name_lower
+    service_input["category_name_icon"] = category_name_icon
 
-    service = oc.sdc.service.add_catalog_service(**kwargs)
+    service = oc.sdc.service.add_catalog_service(**service_input)
 
-    kwargs["catalog_service_id"] = service.catalog_service_id
-    kwargs["tosca"] = service.response_data
+    service_input["catalog_service_id"] = service.catalog_service_id
+    service_input["tosca"] = service.response_data
 
-    return kwargs
+    return service_input
 
 
 @utility

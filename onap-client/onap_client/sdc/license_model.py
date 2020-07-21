@@ -48,7 +48,7 @@ class LicenseModel(Resource):
             "required": False,
             "default": generate_dummy_string("test_vendor_"),
         },
-        "mfr_ref_number": {
+        "manufacturer_reference_number": {
             "type": str,
             "required": False,
             "default": generate_dummy_string("mfref"),
@@ -85,37 +85,9 @@ class LicenseModel(Resource):
         },
     }
 
-    def __init__(
-        self,
-        vendor_name,
-        mfr_ref_number,
-        entitlement_pool_name,
-        key_group_name,
-        feature_group_name,
-        license_agreement_name,
-        license_start_date,
-        license_end_date,
-    ):
-        self.oc = Client()
-
-        license_input = {}
-        license_input["vendor_name"] = vendor_name
-        license_input["manufacturer_reference_number"] = mfr_ref_number
-        license_input["entitlement_pool_name"] = entitlement_pool_name
-        license_input["key_group_name"] = key_group_name
-        license_input["feature_group_name"] = feature_group_name
-        license_input["license_agreement_name"] = license_agreement_name
-        license_input["license_start_date"] = license_start_date
-        license_input["license_end_date"] = license_end_date
-
-        super().__init__(license_input)
-
     def _create(self, license_input):
         """Creates a license model object in SDC"""
         return create_license_model(license_input)
-
-    def _post_create(self):
-        pass
 
     def _submit(self):
         """Submits the license model in SDC"""

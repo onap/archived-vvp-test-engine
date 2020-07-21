@@ -56,26 +56,6 @@ class Preload(Resource):
         "heat_template_name": {"type": str, "required": True},
     }
 
-    def __init__(
-        self,
-        preload_path,
-        vnf_instance_name,
-        service_instance_name,
-        module_instance_name,
-        heat_template_name,
-        api_type,
-    ):
-        instance_input = {}
-
-        instance_input["preload_path"] = preload_path
-        instance_input["vnf_instance_name"] = vnf_instance_name
-        instance_input["service_instance_name"] = service_instance_name
-        instance_input["module_instance_name"] = module_instance_name
-        instance_input["heat_template_name"] = heat_template_name
-        instance_input["api_type"] = api_type
-
-        super().__init__(instance_input)
-
     def _create(self, instance_input):
         service_instance = so.vnf_instance.get_service_instance(
             instance_input.get("service_instance_name")
@@ -131,12 +111,6 @@ class Preload(Resource):
         create_preload(preload_path, instance_input.get("api_type"))
 
         return instance_input
-
-    def _post_create(self):
-        pass
-
-    def _submit(self):
-        pass
 
 
 def create_preload(preload_path, api_type):

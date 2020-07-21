@@ -212,16 +212,17 @@ def test_module_instance():
     )
 
     mi = ModuleInstance(
-        MODULE_INSTANCE_NAME,
-        VNF_INSTANCE_NAME,
-        SERVICE_INSTANCE_NAME,
-        "cs0008",
-        HEAT_TEMPLATE_NAME,
-        "{}/base_preload.json".format(THIS_DIR),
-        TENANT_NAME,
-        CLOUD_OWNER,
-        CLOUD_REGION,
-        "GR_API"
+        module_instance_name=MODULE_INSTANCE_NAME,
+        vnf_instance_name=VNF_INSTANCE_NAME,
+        service_instance_name=SERVICE_INSTANCE_NAME,
+        requestor_id="cs0008",
+        heat_template_name=HEAT_TEMPLATE_NAME,
+        preload_path="{}/base_preload.json".format(THIS_DIR),
+        tenant_name=TENANT_NAME,
+        cloud_owner=CLOUD_OWNER,
+        cloud_region=CLOUD_REGION,
+        api_type="GR_API"
     )
+    mi.create()
 
     assert mi.module_instance_name == MODULE_INSTANCE_NAME
