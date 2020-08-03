@@ -37,11 +37,14 @@
 
 import argparse
 import json
+import logging
 
 from onap_client.resource import Resource
-from onap_client.config import LOG as logger
 from onap_client.client.clients import import_submodules
 from onap_client.exceptions import InvalidSpecException, ResourceTypeNotFoundException
+from onap_client.client.clients import get_client
+
+logger = logging.getLogger("ONAP_CLIENT")
 
 
 def dumper(obj):
@@ -70,7 +73,7 @@ def show_resource_spec(resource_name):
     list_spec_resources()
 
 
-def load_spec(input_spec, validate_only=False, submit=True):
+def load_spec(input_spec, validate_only=False, submit=True, suppress_out=False, config=None):
     try:
         with open(input_spec, "r") as f:
             jdata = json.loads(f.read())
@@ -79,7 +82,7 @@ def load_spec(input_spec, validate_only=False, submit=True):
         raise
 
     engine = SpecEngine()
-    return engine.load_spec(jdata, validate_only=validate_only, distribute=submit)
+    return engine.load_spec(jdata, validate_only=validate_only, distribute=submit, suppress_out=suppress_out, config=config)
 
 
 def spec_cli(args):
@@ -102,7 +105,15 @@ def spec_cli(args):
     )
 
     parser.add_argument(
+        "--oc-config", required=False, help="Path to configuration file for ONAP Client."
+    )
+
+    parser.add_argument(
         "--no-submit", action="store_false", required=False, default=True, help="Dont execute submit() for each resource in spec."
+    )
+
+    parser.add_argument(
+        "--no-outputs", action="store_true", required=False, default=False, help="Don't return the full output from each created resource."
     )
 
     parser.add_argument(
@@ -119,9 +130,9 @@ def spec_cli(args):
     elif arguments.show_resource_spec:
         show_resource_spec(arguments.show_resource_spec)
     elif arguments.validate_spec:
-        print(json.dumps(load_spec(arguments.validate_spec, validate_only=True), indent=4))
+        print(json.dumps(load_spec(arguments.validate_spec, validate_only=True, suppress_out=arguments.no_outputs), indent=4))
     elif arguments.load_spec:
-        load_spec(arguments.load_spec, submit=arguments.no_submit)
+        print(json.dumps(load_spec(arguments.load_spec, submit=arguments.no_submit, suppress_out=arguments.no_outputs, config=arguments.oc_config), indent=4))
 
 
 class SpecEngine:
@@ -132,15 +143,23 @@ class SpecEngine:
     def initialize(self):
         import_submodules("onap_client")
 
-    def load_spec(self, spec, distribute=True, validate_only=False):
+    def load_spec(self, spec, distribute=True, validate_only=False, suppress_out=False, config=None):
         # print("loading spec {}".format(spec))
+
+        if config:
+            oc = get_client(config)  # noqa: F841
+
         self.spec = resolve_spec(spec)
         self.validate(self.spec.get("spec", {}))
 
-        if not validate_only:
-            self._create(self.spec.get("spec", {}), distribute)
+        logger.info("Loading spec into spec engine:")
+        logger.info(json.dumps(self.spec, indent=4))
 
-        return self.spec
+        out = self.spec
+        if not validate_only:
+            out = self._create(self.spec.get("spec", {}), distribute, suppress_out)
+
+        return out
 
     def validate(self, spec):
         if not isinstance(spec, list):
@@ -174,7 +193,7 @@ class SpecEngine:
                 )
             subclass.validate(resource_spec)
 
-    def _create(self, spec, distribute):
+    def _create(self, spec, distribute, suppress_out):
         full_engine_spec = []
         for item_spec in spec:
             resource_type = item_spec.get("type")
@@ -186,10 +205,13 @@ class SpecEngine:
                 )
             full_spec = subclass.validate(resource_spec)
             logger.debug(json.dumps(full_spec, indent=4))
-            subclass.create_from_spec(full_spec, submit=distribute)
-            full_engine_spec.append({"type": resource_type, "resource_spec": full_spec})
+            t = subclass.create_from_spec(full_spec, submit=distribute)
+            finished_spec = {"type": resource_type, "resource_spec": full_spec}
+            if not suppress_out:
+                finished_spec["output"] = t._output()
+            full_engine_spec.append(finished_spec)
 
-        logger.info(json.dumps(full_engine_spec, indent=4))
+        return full_engine_spec
 
 
 def resolve_spec(spec_dict):

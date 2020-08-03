@@ -38,11 +38,9 @@
 import uuid
 
 from functools import partial
-from onap_client import aai
 from onap_client.client.clients import Client
 from onap_client import config
 
-aai_properties = aai.AAI_PROPERTIES
 application_id = config.APPLICATION_ID
 
 
@@ -53,25 +51,22 @@ class AAIClient(Client):
 
     @property
     def catalog_resources(self):
-        return CATALOG_RESOURCES
-
-
-CATALOG_RESOURCES = {
-    "HEALTH_CHECK": {
-        "verb": "GET",
-        "description": "Queries AAI health check endpoint",
-        "uri": partial(
-            "{endpoint}{service_path}".format,
-            endpoint=aai_properties.AAI_BE_ENDPOINT,
-            service_path=aai_properties.AAI_HEALTH_CHECK_PATH,
-        ),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (aai_properties.AAI_USERNAME, aai_properties.AAI_PASSWORD,),
-    },
-}
+        return {
+            "HEALTH_CHECK": {
+                "verb": "GET",
+                "description": "Queries AAI health check endpoint",
+                "uri": partial(
+                    "{endpoint}{service_path}".format,
+                    endpoint=self.config.aai.AAI_BE_ENDPOINT,
+                    service_path=self.config.aai.AAI_HEALTH_CHECK_PATH,
+                ),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+            },
+        }

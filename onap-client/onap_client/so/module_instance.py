@@ -37,7 +37,7 @@
 
 import uuid
 from onap_client.resource import Resource
-from onap_client.client.clients import Client
+from onap_client.client.clients import get_client as Client
 from onap_client.exceptions import ServiceInstanceNotFound, VNFInstanceNotFound, ModuleInstanceNotFound
 from onap_client import so
 from onap_client import sdnc

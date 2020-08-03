@@ -38,9 +38,8 @@
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
 from onap_client import exceptions
-from onap_client.client.clients import Client
+from onap_client.client.clients import get_client as Client
 from onap_client.sdc.vnf import get_vnf_id
-from onap_client.sdc import SDC_PROPERTIES
 from onap_client.util import utility
 
 import base64
@@ -160,7 +159,9 @@ class Service(Resource):
 
     def _submit(self):
         """Submits the service in SDC and distributes the model"""
-        DISTRIBUTION_STEPS = SDC_PROPERTIES.SERVICE_DISTRIBUTION or []
+        oc = Client()
+
+        DISTRIBUTION_STEPS = oc.config.sdc.SERVICE_DISTRIBUTION or []
 
         self.oc.sdc.service.checkin_service(**self.attributes, user_remarks="checking in")
 
@@ -293,6 +294,9 @@ class Service(Resource):
             catalog_service_id=self.catalog_service_id
         ).response_data
 
+    def _output(self):
+        return self.tosca
+
 
 def update_service(existing_service_id, service_input):
     oc = Client()
@@ -401,7 +405,9 @@ def get_distribution_id(service_name):
 @utility
 def poll_distribution(service_name):
     """Polls a distributed service until distribution is complete"""
-    poll_interval = SDC_PROPERTIES.POLL_INTERVAL or 30
+    oc = Client()
+
+    poll_interval = oc.config.sdc.POLL_INTERVAL or 30
     x = 0
     while x < 30:
         distribution = get_service_distribution(service_name)

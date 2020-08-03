@@ -38,60 +38,55 @@
 import uuid
 from functools import partial
 
-from onap_client import sdnc
 from onap_client import config
 from onap_client.sdnc.client import SDNCClient
 
 PAYLOADS_DIR = config.PAYLOADS_DIR
-sdnc_properties = sdnc.SDNC_PROPERTIES
 application_id = config.APPLICATION_ID
 
 
 class OperationsClient(SDNCClient):
     @property
-    def catalog_resources(self):
-        return CATALOG_RESOURCES
-
-    @property
     def namespace(self):
         return "operations"
 
-
-CATALOG_RESOURCES = {
-    "GR_API_PRELOAD": {
-        "verb": "POST",
-        "description": "Upload a GR API preload to SDNC",
-        "uri": partial(
-            "{endpoint}{service_path}/GENERIC-RESOURCE-API:preload-vf-module-topology-operation".format,
-            endpoint=sdnc_properties.SDNC_ENDPOINT,
-            service_path=sdnc_properties.SDNC_OPERATIONS_PATH,
-        ),
-        "payload-path": ["preload_path"],
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (sdnc_properties.SDNC_USERNAME, sdnc_properties.SDNC_PASSWORD,),
-    },
-    "VNF_API_PRELOAD": {
-        "verb": "POST",
-        "description": "Upload a VNF API preload to SDNC",
-        "uri": partial(
-            "{endpoint}{service_path}/VNF-API:preload-vnf-topology-operation".format,
-            endpoint=sdnc_properties.SDNC_ENDPOINT,
-            service_path=sdnc_properties.SDNC_OPERATIONS_PATH,
-        ),
-        "payload-path": ["preload_path"],
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (sdnc_properties.SDNC_USERNAME, sdnc_properties.SDNC_PASSWORD,),
-    },
-}
+    @property
+    def catalog_resources(self):
+        return {
+            "GR_API_PRELOAD": {
+                "verb": "POST",
+                "description": "Upload a GR API preload to SDNC",
+                "uri": partial(
+                    "{endpoint}{service_path}/GENERIC-RESOURCE-API:preload-vf-module-topology-operation".format,
+                    endpoint=self.config.sdnc.SDNC_ENDPOINT,
+                    service_path=self.config.sdnc.SDNC_OPERATIONS_PATH,
+                ),
+                "payload-path": ["preload_path"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+            },
+            "VNF_API_PRELOAD": {
+                "verb": "POST",
+                "description": "Upload a VNF API preload to SDNC",
+                "uri": partial(
+                    "{endpoint}{service_path}/VNF-API:preload-vnf-topology-operation".format,
+                    endpoint=self.config.sdnc.SDNC_ENDPOINT,
+                    service_path=self.config.sdnc.SDNC_OPERATIONS_PATH,
+                ),
+                "payload-path": ["preload_path"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+            },
+        }

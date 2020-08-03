@@ -36,11 +36,9 @@
 # ============LICENSE_END============================================
 
 from functools import partial
-from onap_client import so
 from onap_client.client.clients import Client
 from onap_client import config
 
-so_properties = so.SO_PROPERTIES
 application_id = config.APPLICATION_ID
 
 
@@ -51,19 +49,16 @@ class SOClient(Client):
 
     @property
     def catalog_resources(self):
-        return CATALOG_RESOURCES
-
-
-CATALOG_RESOURCES = {
-    "HEALTH_CHECK": {
-        "verb": "GET",
-        "description": "Queries so health check endpoint",
-        "uri": partial(
-            "{endpoint}{service_path}".format,
-            endpoint=so_properties.SO_ENDPOINT,
-            service_path=so_properties.SO_HEALTH_CHECK_PATH,
-        ),
-        "success_code": 200,
-        "auth": (so_properties.SO_USERNAME, so_properties.SO_PASSWORD),
-    },
-}
+        return {
+            "HEALTH_CHECK": {
+                "verb": "GET",
+                "description": "Queries so health check endpoint",
+                "uri": partial(
+                    "{endpoint}{service_path}".format,
+                    endpoint=self.config.so.SO_ENDPOINT,
+                    service_path=self.config.so.SO_HEALTH_CHECK_PATH,
+                ),
+                "success_code": 200,
+                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+            },
+        }

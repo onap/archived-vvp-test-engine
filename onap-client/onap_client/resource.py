@@ -36,7 +36,7 @@
 # ============LICENSE_END============================================
 from abc import ABC
 from onap_client.exceptions import InvalidSpecException, ResourceAlreadyExistsException, ResourceCreationFailure
-from onap_client.client.clients import Client
+from onap_client.client.clients import get_client as Client
 
 
 class Resource(ABC):
@@ -67,6 +67,9 @@ class Resource(ABC):
 
     def _on_failure(self):
         pass
+
+    def _output(self):
+        return None
 
     @classmethod
     def create_from_spec(cls, spec, submit=True):

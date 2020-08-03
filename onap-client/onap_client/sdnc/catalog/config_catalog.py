@@ -38,77 +38,72 @@
 import uuid
 from functools import partial
 
-from onap_client import sdnc
 from onap_client import config
 from onap_client.sdnc.client import SDNCClient
 
 PAYLOADS_DIR = config.PAYLOADS_DIR
-sdnc_properties = sdnc.SDNC_PROPERTIES
 application_id = config.APPLICATION_ID
 
 
 class ConfigClient(SDNCClient):
     @property
-    def catalog_resources(self):
-        return CATALOG_RESOURCES
-
-    @property
     def namespace(self):
         return "config"
 
-
-CATALOG_RESOURCES = {
-    "GET_SERVICE_INSTANCES": {
-        "verb": "GET",
-        "description": "Get a list of all service instances",
-        "uri": partial(
-            "{endpoint}{service_path}/GENERIC-RESOURCE-API:services".format,
-            endpoint=sdnc_properties.SDNC_ENDPOINT,
-            service_path=sdnc_properties.SDNC_CONFIG_PATH,
-        ),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (sdnc_properties.SDNC_USERNAME, sdnc_properties.SDNC_PASSWORD,),
-    },
-    "GET_SERVICE_INSTANCE": {
-        "verb": "GET",
-        "description": "Get details for a service instance",
-        "uri": partial(
-            "{endpoint}{service_path}/GENERIC-RESOURCE-API:services/service/{service_instance_id}".format,
-            endpoint=sdnc_properties.SDNC_ENDPOINT,
-            service_path=sdnc_properties.SDNC_CONFIG_PATH,
-        ),
-        "uri-parameters": ["service_instance_id"],
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (sdnc_properties.SDNC_USERNAME, sdnc_properties.SDNC_PASSWORD,),
-    },
-    "GET_VNF_INSTANCE": {
-        "verb": "GET",
-        "description": "Get details for a vnf instance",
-        "uri": partial(
-            "{endpoint}{service_path}/GENERIC-RESOURCE-API:services/service/{service_instance_id}/service-data/vnfs/vnf/{vnf_instance_id}".format,
-            endpoint=sdnc_properties.SDNC_ENDPOINT,
-            service_path=sdnc_properties.SDNC_CONFIG_PATH,
-        ),
-        "uri-parameters": ["service_instance_id", "vnf_instance_id"],
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (sdnc_properties.SDNC_USERNAME, sdnc_properties.SDNC_PASSWORD,),
-    },
-}
+    @property
+    def catalog_resources(self):
+        return {
+            "GET_SERVICE_INSTANCES": {
+                "verb": "GET",
+                "description": "Get a list of all service instances",
+                "uri": partial(
+                    "{endpoint}{service_path}/GENERIC-RESOURCE-API:services".format,
+                    endpoint=self.config.sdnc.SDNC_ENDPOINT,
+                    service_path=self.config.sdnc.SDNC_CONFIG_PATH,
+                ),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+            },
+            "GET_SERVICE_INSTANCE": {
+                "verb": "GET",
+                "description": "Get details for a service instance",
+                "uri": partial(
+                    "{endpoint}{service_path}/GENERIC-RESOURCE-API:services/service/{service_instance_id}".format,
+                    endpoint=self.config.sdnc.SDNC_ENDPOINT,
+                    service_path=self.config.sdnc.SDNC_CONFIG_PATH,
+                ),
+                "uri-parameters": ["service_instance_id"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+            },
+            "GET_VNF_INSTANCE": {
+                "verb": "GET",
+                "description": "Get details for a vnf instance",
+                "uri": partial(
+                    "{endpoint}{service_path}/GENERIC-RESOURCE-API:services/service/{service_instance_id}/service-data/vnfs/vnf/{vnf_instance_id}".format,
+                    endpoint=self.config.sdnc.SDNC_ENDPOINT,
+                    service_path=self.config.sdnc.SDNC_CONFIG_PATH,
+                ),
+                "uri-parameters": ["service_instance_id", "vnf_instance_id"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+            },
+        }

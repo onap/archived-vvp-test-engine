@@ -38,95 +38,90 @@
 import uuid
 from functools import partial
 
-from onap_client import aai
 from onap_client import config
 from onap_client.aai.client import AAIClient
 
 PAYLOADS_DIR = config.PAYLOADS_DIR
-aai_properties = aai.AAI_PROPERTIES
 application_id = config.APPLICATION_ID
 
 
 class CloudInfrastructureClient(AAIClient):
     @property
-    def catalog_resources(self):
-        return CATALOG_RESOURCES
-
-    @property
     def namespace(self):
         return "cloud_infrastructure"
 
-
-CATALOG_RESOURCES = {
-    "GET_CLOUD_REGIONS": {
-        "verb": "GET",
-        "description": "Queries AAI for all cloud regions",
-        "uri": partial(
-            "{endpoint}{service_path}/cloud-regions".format,
-            endpoint=aai_properties.AAI_BE_ENDPOINT,
-            service_path=aai_properties.AAI_CLOUD_INFRASTRUCTURE_PATH,
-        ),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (aai_properties.AAI_USERNAME, aai_properties.AAI_PASSWORD,),
-    },
-    "GET_CLOUD_REGION": {
-        "verb": "GET",
-        "description": "Queries AAI for a cloud region",
-        "uri": partial(
-            "{endpoint}{service_path}/cloud-regions/cloud-region/{cloud_owner}/{cloud_region}".format,
-            endpoint=aai_properties.AAI_BE_ENDPOINT,
-            service_path=aai_properties.AAI_CLOUD_INFRASTRUCTURE_PATH,
-        ),
-        "uri-parameters": ["cloud_region", "cloud_owner"],
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (aai_properties.AAI_USERNAME, aai_properties.AAI_PASSWORD,),
-    },
-    "GET_CLOUD_REGION_TENANTS": {
-        "verb": "GET",
-        "description": "Queries AAI for a cloud region's tenants",
-        "uri": partial(
-            "{endpoint}{service_path}/cloud-regions/cloud-region/{cloud_owner}/{cloud_region}/tenants".format,
-            endpoint=aai_properties.AAI_BE_ENDPOINT,
-            service_path=aai_properties.AAI_CLOUD_INFRASTRUCTURE_PATH,
-        ),
-        "uri-parameters": ["cloud_region", "cloud_owner"],
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (aai_properties.AAI_USERNAME, aai_properties.AAI_PASSWORD,),
-    },
-    "GET_ESR_LIST": {
-        "verb": "GET",
-        "description": "Queries AAI for a esr info",
-        "uri": partial(
-            "{endpoint}{service_path}/cloud-regions/cloud-region/{cloud_owner}/{cloud_region}/esr-system-info-list".format,
-            endpoint=aai_properties.AAI_BE_ENDPOINT,
-            service_path=aai_properties.AAI_CLOUD_INFRASTRUCTURE_PATH,
-        ),
-        "uri-parameters": ["cloud_region", "cloud_owner"],
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (aai_properties.AAI_USERNAME, aai_properties.AAI_PASSWORD,),
-    },
-}
+    @property
+    def catalog_resources(self):
+        return {
+            "GET_CLOUD_REGIONS": {
+                "verb": "GET",
+                "description": "Queries AAI for all cloud regions",
+                "uri": partial(
+                    "{endpoint}{service_path}/cloud-regions".format,
+                    endpoint=self.config.aai.AAI_BE_ENDPOINT,
+                    service_path=self.config.aai.AAI_CLOUD_INFRASTRUCTURE_PATH,
+                ),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+            },
+            "GET_CLOUD_REGION": {
+                "verb": "GET",
+                "description": "Queries AAI for a cloud region",
+                "uri": partial(
+                    "{endpoint}{service_path}/cloud-regions/cloud-region/{cloud_owner}/{cloud_region}".format,
+                    endpoint=self.config.aai.AAI_BE_ENDPOINT,
+                    service_path=self.config.aai.AAI_CLOUD_INFRASTRUCTURE_PATH,
+                ),
+                "uri-parameters": ["cloud_region", "cloud_owner"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+            },
+            "GET_CLOUD_REGION_TENANTS": {
+                "verb": "GET",
+                "description": "Queries AAI for a cloud region's tenants",
+                "uri": partial(
+                    "{endpoint}{service_path}/cloud-regions/cloud-region/{cloud_owner}/{cloud_region}/tenants".format,
+                    endpoint=self.config.aai.AAI_BE_ENDPOINT,
+                    service_path=self.config.aai.AAI_CLOUD_INFRASTRUCTURE_PATH,
+                ),
+                "uri-parameters": ["cloud_region", "cloud_owner"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+            },
+            "GET_ESR_LIST": {
+                "verb": "GET",
+                "description": "Queries AAI for a esr info",
+                "uri": partial(
+                    "{endpoint}{service_path}/cloud-regions/cloud-region/{cloud_owner}/{cloud_region}/esr-system-info-list".format,
+                    endpoint=self.config.aai.AAI_BE_ENDPOINT,
+                    service_path=self.config.aai.AAI_CLOUD_INFRASTRUCTURE_PATH,
+                ),
+                "uri-parameters": ["cloud_region", "cloud_owner"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+            },
+        }

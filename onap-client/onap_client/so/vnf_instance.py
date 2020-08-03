@@ -39,7 +39,7 @@ import uuid
 
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
-from onap_client.client.clients import Client as SOClient
+from onap_client.client.clients import get_client as Client
 from onap_client.exceptions import (
     ServiceInstanceNotFound,
     VNFComponentNotFound,
@@ -50,12 +50,6 @@ from onap_client.exceptions import (
 from onap_client import sdc
 from onap_client import so
 from onap_client.util import utility
-
-
-oc = SOClient()
-so_client = oc.so
-sdc_client = oc.sdc
-sdnc_client = oc.sdnc
 
 
 class VNFInstance(Resource):
@@ -116,7 +110,7 @@ class VNFInstance(Resource):
         vnf_model_version_id = vnf_component["actualComponentUid"]
         vnf_model_version = vnf_component["componentVersion"]
 
-        vnf_model = sdc_client.vnf.get_catalog_resource(
+        vnf_model = self.oc.sdc.vnf.get_catalog_resource(
             catalog_resource_id=vnf_model_version_id,
         ).response_data
         vnf_model_invariant_id = vnf_model["invariantUUID"]
@@ -135,7 +129,8 @@ class VNFInstance(Resource):
 
 
 def get_vnf_model_component(service_model_name, vnf_model_name):
-    service_model = sdc_client.service.get_sdc_service(
+    oc = Client()
+    service_model = oc.sdc.service.get_sdc_service(
         catalog_service_id=sdc.service.get_service_id(service_model_name)
     ).response_data
 
@@ -146,7 +141,8 @@ def get_vnf_model_component(service_model_name, vnf_model_name):
 
 
 def get_service_instance(service_instance_name):
-    service_instances = sdnc_client.config.get_service_instances().response_data
+    oc = Client()
+    service_instances = oc.sdnc.config.get_service_instances().response_data
     for si in service_instances.get("services", {}).get("service", []):
         si_name = (
             si.get("service-data", {})
@@ -196,8 +192,10 @@ def get_vnf_instance(service_instance, vnf_instance_name):
 
 
 def create_vnf_instance(instance_input):
+    oc = Client()
+
     headers = {"X-TransactionId": str(uuid.uuid4())}
-    vnf_instance = so_client.service_instantiation.create_vnf_instance(
+    vnf_instance = oc.so.service_instantiation.create_vnf_instance(
         **instance_input, **headers
     )
 
@@ -213,6 +211,7 @@ def create_vnf_instance(instance_input):
 @utility
 def delete_vnf_instance(service_instance_name, vnf_instance_name, api_type="GR_API"):
     """Delete a VNF Instance from SO"""
+    oc = Client()
     si = so.service_instance.get_service_instance(service_instance_name)
     si_id = si.get("service-instance-id")
     for vnfi in si.get("service-data", {}).get("vnfs", {}).get("vnf", []):
@@ -223,7 +222,7 @@ def delete_vnf_instance(service_instance_name, vnf_instance_name, api_type="GR_A
             tenant_id = vnfi.get("vnf-data").get("vnf-request-input").get("tenant")
             cloud_owner = vnfi.get("vnf-data").get("vnf-request-input").get("cloud-owner")
             cloud_region = vnfi.get("vnf-data").get("vnf-request-input").get("aic-cloud-region")
-            return so_client.service_instantiation.delete_vnf_instance(
+            return oc.so.service_instantiation.delete_vnf_instance(
                 vnf_invariant_id=invariant_id,
                 vnf_version=vnf_version,
                 vnf_name=vnf_instance_name,

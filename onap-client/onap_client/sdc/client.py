@@ -38,11 +38,9 @@
 import uuid
 
 from functools import partial
-from onap_client import sdc
 from onap_client.client.clients import Client
 from onap_client import config
 
-sdc_properties = sdc.SDC_PROPERTIES
 application_id = config.APPLICATION_ID
 
 
@@ -53,48 +51,45 @@ class SDCClient(Client):
 
     @property
     def catalog_resources(self):
-        return CATALOG_RESOURCES
-
-
-CATALOG_RESOURCES = {
-    "HEALTH_CHECK": {
-        "verb": "GET",
-        "description": "Queries SDC health check endpoint",
-        "uri": partial(
-            "{endpoint}{service_path}".format,
-            endpoint=sdc_properties.SDC_HC_ENDPOINT,
-            service_path=sdc_properties.SDC_HEALTH_CHECK_PATH,
-        ),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (
-            sdc_properties.SDC_DESIGNER_USER_ID,
-            sdc_properties.SDC_DESIGNER_PASSWORD,
-        ),
-    },
-    "GET_RESOURCE_CATEGORIES": {
-        "verb": "GET",
-        "description": "Queries SDC for resource categories",
-        "uri": partial(
-            "{endpoint}{service_path}".format,
-            endpoint=sdc_properties.SDC_BE_ENDPOINT,
-            service_path=sdc_properties.SDC_RESOURCE_CATEGORIES_PATH,
-        ),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "USER_ID": sdc_properties.SDC_DESIGNER_USER_ID,
-        },
-        "auth": (
-            sdc_properties.GLOBAL_SDC_USERNAME,
-            sdc_properties.GLOBAL_SDC_PASSWORD,
-        ),
-    },
-}
+        return {
+            "HEALTH_CHECK": {
+                "verb": "GET",
+                "description": "Queries SDC health check endpoint",
+                "uri": partial(
+                    "{endpoint}{service_path}".format,
+                    endpoint=self.config.sdc.SDC_HC_ENDPOINT,
+                    service_path=self.config.sdc.SDC_HEALTH_CHECK_PATH,
+                ),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (
+                    self.config.sdc.SDC_DESIGNER_USER_ID,
+                    self.config.sdc.SDC_DESIGNER_PASSWORD,
+                ),
+            },
+            "GET_RESOURCE_CATEGORIES": {
+                "verb": "GET",
+                "description": "Queries SDC for resource categories",
+                "uri": partial(
+                    "{endpoint}{service_path}".format,
+                    endpoint=self.config.sdc.SDC_BE_ENDPOINT,
+                    service_path=self.config.sdc.SDC_RESOURCE_CATEGORIES_PATH,
+                ),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                },
+                "auth": (
+                    self.config.sdc.GLOBAL_SDC_USERNAME,
+                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                ),
+            },
+        }

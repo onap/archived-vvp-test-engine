@@ -35,11 +35,9 @@
 #
 # ============LICENSE_END============================================
 
-from onap_client import sdnc
 from onap_client.client.clients import Client
 from onap_client import config
 
-sdnc_properties = sdnc.SDNC_PROPERTIES
 application_id = config.APPLICATION_ID
 
 

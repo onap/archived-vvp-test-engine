@@ -36,11 +36,9 @@
 # ============LICENSE_END============================================
 
 from functools import partial
-from onap_client import vid
 from onap_client.client.clients import Client
 from onap_client import config
 
-vid_properties = vid.VID_PROPERTIES
 application_id = config.APPLICATION_ID
 
 
@@ -51,19 +49,16 @@ class VIDClient(Client):
 
     @property
     def catalog_resources(self):
-        return CATALOG_RESOURCES
-
-
-CATALOG_RESOURCES = {
-    "HEALTH_CHECK": {
-        "verb": "GET",
-        "description": "Queries VID health check endpoint",
-        "uri": partial(
-            "{endpoint}{service_path}".format,
-            endpoint=vid_properties.VID_ENDPOINT,
-            service_path=vid_properties.VID_HEALTH_CHECK_PATH,
-        ),
-        "success_code": 200,
-        "auth": (vid_properties.VID_USERNAME, vid_properties.VID_PASSWORD,),
-    },
-}
+        return {
+            "HEALTH_CHECK": {
+                "verb": "GET",
+                "description": "Queries VID health check endpoint",
+                "uri": partial(
+                    "{endpoint}{service_path}".format,
+                    endpoint=self.config.vid.VID_ENDPOINT,
+                    service_path=self.config.vid.VID_HEALTH_CHECK_PATH,
+                ),
+                "success_code": 200,
+                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+            },
+        }

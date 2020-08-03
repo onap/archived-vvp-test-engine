@@ -39,17 +39,35 @@ import importlib
 import onap_client
 import pkgutil
 import inspect
+import sys
+import logging
 
 from onap_client.client.catalog import Catalog
+from onap_client import config
+
+CACHED_CLIENT = None
+
+
+def get_client(config_file=None):
+    clients = sys.modules[__name__]
+    if not clients.CACHED_CLIENT or config_file:
+        clients.CACHED_CLIENT = Client(config_file)
+    return clients.CACHED_CLIENT
 
 
 class Client(Catalog):
     """Base class for the ONAP client. Subclasses are dynamically
     loaded and added as attributes. Instantiate and use this class
     to interact with ONAP."""
-    def __init__(self):
+    def __init__(self, config_file=None):
+        self.config = config.APP_CONFIG
         self.modules = import_submodules(onap_client)
+
         super().__init__()
+
+        if config_file:
+            config.LOG.info("Overriding ONAP Client configuration: {}".format(config_file))
+            self.set_config(config_file)
 
     @property
     def namespace(self):
@@ -69,6 +87,20 @@ class Client(Catalog):
                 if hasattr(function, "utility_function"):
                     utility_functions[func[0]] = func[1]
         return utility_functions
+
+    def set_config(self, config_file):
+        self.config = config.load_config(config_file, "onap_client")
+        self._set_logging(self.config.LOG_LEVEL)
+        for attr_name, attr in self.__dict__.items():
+            if isinstance(attr, Client):
+                config.LOG.info("Reloading {} {}".format(attr_name, attr))
+                attr.set_config(config_file)
+                for k, v in attr.catalog_resources.items():
+                    attr.load(k, v)
+
+    def _set_logging(self, level):
+        LOG = logging.getLogger("ONAP_CLIENT")
+        LOG.setLevel(getattr(logging, level.upper()))
 
 
 def import_submodules(package, recursive=True):

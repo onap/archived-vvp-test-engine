@@ -38,117 +38,112 @@
 import uuid
 from functools import partial
 
-from onap_client import vid
 from onap_client import config
 from onap_client.vid.client import VIDClient
 
 PAYLOADS_DIR = config.PAYLOADS_DIR
-vid_properties = vid.VID_PROPERTIES
 application_id = config.APPLICATION_ID
 
 
 class MaintenanceClient(VIDClient):
     @property
-    def catalog_resources(self):
-        return CATALOG_RESOURCES
-
-    @property
     def namespace(self):
         return "maintenance"
 
-
-CATALOG_RESOURCES = {
-    "CREATE_OWNING_ENTITY": {
-        "verb": "POST",
-        "description": "Creates an owning entity in VID",
-        "uri": partial(
-            "{endpoint}{service_path}/category_parameter/owningEntity".format,
-            endpoint=vid_properties.VID_ENDPOINT,
-            service_path=vid_properties.VID_MAINTENANCE_PATH,
-        ),
-        "payload-parameters": ["name"],
-        "payload": "{}/vid_maintenance.jinja".format(PAYLOADS_DIR),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (vid_properties.VID_USERNAME, vid_properties.VID_PASSWORD,),
-    },
-    "CREATE_LINE_OF_BUSINESS": {
-        "verb": "POST",
-        "description": "Creates a line of business in VID",
-        "uri": partial(
-            "{endpoint}{service_path}/category_parameter/lineOfBusiness".format,
-            endpoint=vid_properties.VID_ENDPOINT,
-            service_path=vid_properties.VID_MAINTENANCE_PATH,
-        ),
-        "payload-parameters": ["name"],
-        "payload": "{}/vid_maintenance.jinja".format(PAYLOADS_DIR),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (vid_properties.VID_USERNAME, vid_properties.VID_PASSWORD,),
-    },
-    "CREATE_PLATFORM": {
-        "verb": "POST",
-        "description": "Creates a platform in VID",
-        "uri": partial(
-            "{endpoint}{service_path}/category_parameter/platform".format,
-            endpoint=vid_properties.VID_ENDPOINT,
-            service_path=vid_properties.VID_MAINTENANCE_PATH,
-        ),
-        "payload-parameters": ["name"],
-        "payload": "{}/vid_maintenance.jinja".format(PAYLOADS_DIR),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (vid_properties.VID_USERNAME, vid_properties.VID_PASSWORD,),
-    },
-    "CREATE_PROJECT": {
-        "verb": "POST",
-        "description": "Creates a project in VID",
-        "uri": partial(
-            "{endpoint}{service_path}/category_parameter/project".format,
-            endpoint=vid_properties.VID_ENDPOINT,
-            service_path=vid_properties.VID_MAINTENANCE_PATH,
-        ),
-        "payload-parameters": ["name"],
-        "payload": "{}/vid_maintenance.jinja".format(PAYLOADS_DIR),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (vid_properties.VID_USERNAME, vid_properties.VID_PASSWORD,),
-    },
-    "GET_CATEGORY_PARAMETERS": {
-        "verb": "GET",
-        "description": "Returns the category parameters currently stored in VID",
-        "uri": partial(
-            "{endpoint}{service_path}/category_parameter?familyName=PARAMETER_STANDARDIZATION".format,
-            endpoint=vid_properties.VID_ENDPOINT,
-            service_path=vid_properties.VID_MAINTENANCE_PATH,
-        ),
-        "success_code": 200,
-        "headers": {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-TransactionId": str(uuid.uuid4()),
-            "X-FromAppId": application_id,
-        },
-        "auth": (vid_properties.VID_USERNAME, vid_properties.VID_PASSWORD,),
-    },
-}
+    @property
+    def catalog_resources(self):
+        return {
+            "CREATE_OWNING_ENTITY": {
+                "verb": "POST",
+                "description": "Creates an owning entity in VID",
+                "uri": partial(
+                    "{endpoint}{service_path}/category_parameter/owningEntity".format,
+                    endpoint=self.config.vid.VID_ENDPOINT,
+                    service_path=self.config.vid.VID_MAINTENANCE_PATH,
+                ),
+                "payload-parameters": ["name"],
+                "payload": "{}/vid_maintenance.jinja".format(PAYLOADS_DIR),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+            },
+            "CREATE_LINE_OF_BUSINESS": {
+                "verb": "POST",
+                "description": "Creates a line of business in VID",
+                "uri": partial(
+                    "{endpoint}{service_path}/category_parameter/lineOfBusiness".format,
+                    endpoint=self.config.vid.VID_ENDPOINT,
+                    service_path=self.config.vid.VID_MAINTENANCE_PATH,
+                ),
+                "payload-parameters": ["name"],
+                "payload": "{}/vid_maintenance.jinja".format(PAYLOADS_DIR),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+            },
+            "CREATE_PLATFORM": {
+                "verb": "POST",
+                "description": "Creates a platform in VID",
+                "uri": partial(
+                    "{endpoint}{service_path}/category_parameter/platform".format,
+                    endpoint=self.config.vid.VID_ENDPOINT,
+                    service_path=self.config.vid.VID_MAINTENANCE_PATH,
+                ),
+                "payload-parameters": ["name"],
+                "payload": "{}/vid_maintenance.jinja".format(PAYLOADS_DIR),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+            },
+            "CREATE_PROJECT": {
+                "verb": "POST",
+                "description": "Creates a project in VID",
+                "uri": partial(
+                    "{endpoint}{service_path}/category_parameter/project".format,
+                    endpoint=self.config.vid.VID_ENDPOINT,
+                    service_path=self.config.vid.VID_MAINTENANCE_PATH,
+                ),
+                "payload-parameters": ["name"],
+                "payload": "{}/vid_maintenance.jinja".format(PAYLOADS_DIR),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+            },
+            "GET_CATEGORY_PARAMETERS": {
+                "verb": "GET",
+                "description": "Returns the category parameters currently stored in VID",
+                "uri": partial(
+                    "{endpoint}{service_path}/category_parameter?familyName=PARAMETER_STANDARDIZATION".format,
+                    endpoint=self.config.vid.VID_ENDPOINT,
+                    service_path=self.config.vid.VID_MAINTENANCE_PATH,
+                ),
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+            },
+        }

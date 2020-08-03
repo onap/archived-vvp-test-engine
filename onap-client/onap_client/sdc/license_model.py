@@ -37,7 +37,7 @@
 
 from onap_client.lib import generate_dummy_string, generate_dummy_date
 from onap_client.resource import Resource
-from onap_client.client.clients import Client
+from onap_client.client.clients import get_client as Client
 
 
 class LicenseModel(Resource):
@@ -96,6 +96,9 @@ class LicenseModel(Resource):
 
         license_model = self.oc.sdc.license_model.get_license_model(**self.attributes)
         self.attributes["tosca"] = license_model.response_data
+
+    def _output(self):
+        return self.tosca
 
 
 # TODO

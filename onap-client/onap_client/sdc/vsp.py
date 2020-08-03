@@ -37,7 +37,7 @@
 
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
-from onap_client.client.clients import Client
+from onap_client.client.clients import get_client as Client
 from onap_client import sdc
 from onap_client.util import utility
 from onap_client.exceptions import ResourceAlreadyExistsException
@@ -118,6 +118,9 @@ class VSP(Resource):
 
         vsp = self.oc.sdc.vsp.get_software_product(**self.attributes)
         self.attributes["tosca"] = vsp.response_data
+
+    def _output(self):
+        return self.tosca
 
 
 def update_vsp(existing_vsp, vsp_input):

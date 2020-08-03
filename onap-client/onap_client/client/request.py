@@ -40,11 +40,13 @@ import requests
 import json
 import os
 import copy
+import logging
 
 from onap_client.client.response import ResponseHandler
-from onap_client.config import LOG as logger
 from onap_client.exceptions import FilesRequestFailure
 from jinja2 import exceptions as jinja_exceptions
+
+logger = logging.getLogger("ONAP_CLIENT")
 
 
 class RequestHandler:

@@ -34,7 +34,3 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
-from onap_client.config import APP_CONFIG
-
-VID_PROPERTIES = APP_CONFIG.vid

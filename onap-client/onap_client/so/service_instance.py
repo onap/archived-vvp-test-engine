@@ -39,8 +39,7 @@ import uuid
 
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
-from onap_client.client.clients import Client
-from onap_client.so import SO_PROPERTIES
+from onap_client.client.clients import get_client as Client
 from onap_client.exceptions import (
     SORequestStatusUnavailable,
     SORequestFailed,
@@ -152,7 +151,7 @@ def poll_request(request_id):
     """Poll an SO request until completion"""
     oc = Client()
 
-    poll_interval = SO_PROPERTIES.POLL_INTERVAL or 30
+    poll_interval = oc.config.so.POLL_INTERVAL or 30
     request = None
     x = 0
     while x < 30:

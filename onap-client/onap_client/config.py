@@ -36,7 +36,7 @@
 # ============LICENSE_END============================================
 
 import distutils.sysconfig
-import logging as logger
+import logging
 import os
 import yaml
 
@@ -70,7 +70,7 @@ class Config:
                 with open(self.config_file, "r") as f:
                     config_data = yaml.safe_load(f)
             except FileNotFoundError:
-                logger.warn(
+                logging.warn(
                     "Config file {} not found, using default.".format(self.config_file)
                 )
 
@@ -96,6 +96,11 @@ APPLICATION_ID = "robot-ete"
 CONFIG_ENV = os.environ.get("OC_CONFIG")
 CONFIG_FILE = CONFIG_ENV or "/etc/onap_client/config.yaml"
 APP_CONFIG = load_config(CONFIG_FILE, "onap_client")
-LOG = logger
-log_level = getattr(LOG, APP_CONFIG.LOG_LEVEL.upper())
-LOG.basicConfig(format="%(asctime)s %(message)s", level=log_level)
+LOG = logging.getLogger("ONAP_CLIENT")
+LOG.propagate = False
+log_level = getattr(logging, APP_CONFIG.LOG_LEVEL.upper())
+ch = logging.StreamHandler()
+LOG.setLevel(log_level)
+formatter = logging.Formatter('%(levelname)s %(asctime)s %(name)s %(message)s')
+ch.setFormatter(formatter)
+LOG.addHandler(ch)

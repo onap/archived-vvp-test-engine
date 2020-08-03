@@ -37,8 +37,8 @@
 
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
-from onap_client import exceptions, sdc
-from onap_client.client.clients import Client
+from onap_client import exceptions
+from onap_client.client.clients import get_client as Client
 from onap_client.sdc import vsp
 from onap_client.util import utility
 
@@ -444,8 +444,9 @@ class VNF(Resource):
         :policy_name: name of the policy, matching onap-client.conf
 
         """
-        sdc_properties = sdc.SDC_PROPERTIES
-        policy = sdc_properties.POLICIES.get(policy_name)
+        oc = Client()
+
+        policy = oc.config.sdc.POLICIES.get(policy_name)
         if not policy:
             raise exceptions.UnknownPolicyException(
                 "Policy {} was not found in configuration file".format(policy_name)
@@ -471,6 +472,9 @@ class VNF(Resource):
         """GETs the VNF model from SDC and updates the VNF object"""
         vnf = self.oc.sdc.vnf.get_catalog_resource(**self.attributes)
         self.attributes["tosca"] = vnf.response_data
+
+    def _output(self):
+        return self.tosca
 
 
 def update_vnf(catalog_resource_id, vnf_input):
