@@ -159,12 +159,12 @@ class VNF(Resource):
 
         for policy in policies:
             policy_name = policy.get("policy_name")
-            if self.policy_exists(policy_name):
-                continue
-            policy_model = self.add_policy_resource(policy_name)
-            self.associate_policy(policy_model.catalog_resource_id, vm_type_instances)
+            policy_id = self.policy_exists(policy_name)
+            if not policy_id:
+                policy_id = self.add_policy_resource(policy_name)
+                self.associate_policy(policy_id, vm_type_instances)
             for k, v in policy.get("properties", {}).items():
-                self.add_policy_property(policy_model.catalog_resource_id, k, v)
+                self.add_policy_property(policy_id, k, v)
 
         for k, v in inputs.items():
             self.add_input_value(k, v)
@@ -291,9 +291,9 @@ class VNF(Resource):
         for p_name, policy in policies.items():
             tosca_policy_name = policy.get("name").lower()
             if tosca_policy_name.find("{}..{}".format(self.vnf_name.lower().replace("-", ""), policy_name.lower())) != -1:
-                return True
+                return policy.get("uniqueId")
 
-        return False
+        return None
 
     def add_input_value(self, input_name, input_default_value):
         """Updates an input value on a VNF
@@ -425,7 +425,7 @@ class VNF(Resource):
                 property_type = prop.get("type")
                 description = prop.get("description")
                 return self.oc.sdc.vnf.add_catalog_policy_property(
-                    **self.attributes,
+                    catalog_resource_id=self.catalog_resource_id,
                     unique_id=unique_id,
                     catalog_policy_id=policy_id,
                     property_name=property_name,
@@ -452,9 +452,11 @@ class VNF(Resource):
                 "Policy {} was not found in configuration file".format(policy_name)
             )
 
-        return self.oc.sdc.vnf.add_catalog_resource_policy(
+        new_policy = self.oc.sdc.vnf.add_catalog_resource_policy(
             **self.attributes, catalog_policy_name=policy
         )
+
+        return new_policy.catalog_resource_id
 
     def associate_policy(self, policy_id, instance_ids):
         """associates an SDC policy resource to an VNF instance resource

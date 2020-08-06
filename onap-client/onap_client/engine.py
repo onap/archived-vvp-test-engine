@@ -211,7 +211,7 @@ class SpecEngine:
                 finished_spec["output"] = t._output()
             full_engine_spec.append(finished_spec)
 
-        return full_engine_spec
+        return {"spec": full_engine_spec}
 
 
 def resolve_spec(spec_dict):

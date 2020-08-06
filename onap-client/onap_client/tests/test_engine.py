@@ -46,4 +46,4 @@ def test_engine():
 
     t = load_spec(spec_file)
 
-    assert isinstance(t, list)
+    assert isinstance(t, dict)
