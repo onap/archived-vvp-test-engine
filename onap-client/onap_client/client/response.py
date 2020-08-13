@@ -79,13 +79,8 @@ class ResponseHandler:
                     response_items,
                 ) in self.request_object.return_data.items():
                     response_value = response_iterator(response_data, *response_items)
-                    if not response_value:
-                        logger.warning(
-                            "Request was successful but value for {} was not present in response".format(
-                                response_key
-                            )
-                        )
-                    setattr(self, response_key, response_value)
+                    if response_value:
+                        setattr(self, response_key, response_value)
             except simplejson.errors.JSONDecodeError:
                 response_data = response.text
 

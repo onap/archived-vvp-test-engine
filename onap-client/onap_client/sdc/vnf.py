@@ -151,11 +151,16 @@ class VNF(Resource):
             properties = vm_type.get("properties")
             resources = vm_type.get("resources", [])
             instance_ids = instance_ids_for_property(model, "vm_type_tag", vm_type_tag)
+            x = 0
             for instance_id in instance_ids:
+                name_index = ""
+                if x > 0:
+                    name_index = x
                 vm_type_instances.append(instance_id)
                 self._add_instance_properties(instance_id, properties)
-                self._add_resources(instance_id, resources)
+                self._add_resources(instance_id, resources, resource_name_index=name_index)
                 self._add_vm_type_network_role(instance_id, network_roles)
+                x += 1
 
         for policy in policies:
             policy_name = policy.get("policy_name")
@@ -186,9 +191,11 @@ class VNF(Resource):
             # updating vm_type properties
             self.add_instance_property(instance_id, k, v)
 
-    def _add_resources(self, instance_id, resources_dict):
+    def _add_resources(self, instance_id, resources_dict, resource_name_index=""):
         for resource in resources_dict:
             resource_name = resource.get("resource_name")
+            if resource_name_index:
+                resource_name = "{}-{}".format(resource_name, resource_name_index)
 
             if self.resource_exists(resource_name):
                 continue
@@ -207,6 +214,7 @@ class VNF(Resource):
                         )
                     )
             new_resource = add_resource(self.catalog_resource_id, resource_id, resource_name, origin_type=resource_origin)
+            self._refresh()
             new_resource_id = new_resource["id"]
             if resource_relationship:
                 relationship_type = resource_relationship.get("relationship_type")
@@ -226,7 +234,7 @@ class VNF(Resource):
                     capability_name = capability.get("name")
                     capability_uid = capability.get("uniqueId")
 
-                    return self.oc.sdc.vnf.add_resource_relationship(
+                    self.oc.sdc.vnf.add_resource_relationship(
                         **self.attributes,
                         from_node_resource_id=from_node,
                         to_node_resource_id=to_node,
@@ -302,8 +310,6 @@ class VNF(Resource):
         :property_value: value to update input with
 
         """
-        self._refresh()
-
         inputs = self.tosca.get("inputs", [])
         for item in inputs:
             if item["name"] == input_name:
@@ -335,8 +341,6 @@ class VNF(Resource):
         :property_value: value to update property with
 
         """
-        self._refresh()
-
         instance_inputs = self.tosca.get(origin_section, {}).get(
             instance_id, {}
         )
@@ -374,8 +378,6 @@ class VNF(Resource):
         :property_value: value to update property with
 
         """
-        self._refresh()
-
         instance_inputs = self.tosca.get(origin_section, {}).get(
             instance_id, {}
         )
@@ -413,8 +415,6 @@ class VNF(Resource):
         :property_value: value to update property with
 
         """
-        self._refresh()
-
         policies = (
             self.tosca.get("policies", {}).get(policy_id, {}).get("properties", {})
         )
@@ -455,6 +455,8 @@ class VNF(Resource):
         new_policy = self.oc.sdc.vnf.add_catalog_resource_policy(
             **self.attributes, catalog_policy_name=policy
         )
+
+        self._refresh()
 
         return new_policy.catalog_resource_id
 
@@ -619,6 +621,7 @@ def add_resource(parent_resource_id, catalog_resource_id, catalog_resource_name,
         "id": resource_instance.catalog_resource_instance_id,
         "tosca": resource_instance.response_data,
     }
+
     return response
 
 
