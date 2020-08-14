@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73f46ac1_e149aa6d",
+        "filename": "onap-client/onap_client/sdc/vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 3999
+      },
+      "writtenOn": "2020-08-14T15:12:44Z",
+      "side": 1,
+      "message": "This works, but you can do...\n\nfor x, instance_id in enumerate(instance_ids): and not have to worry about initializing and incrementing x",
+      "revId": "6b5ef9b8b18f46358e699686a6e706ed3002bd9a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
