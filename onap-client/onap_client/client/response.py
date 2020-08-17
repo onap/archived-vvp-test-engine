@@ -36,9 +36,7 @@
 # ============LICENSE_END============================================
 
 import simplejson
-import logging
-
-logger = logging.getLogger("ONAP_CLIENT")
+import logging as logger
 
 
 class ResponseHandler:

@@ -316,14 +316,18 @@ class VNF(Resource):
                 unique_id = item["uniqueId"]
                 parent_unique_id = item["parentUniqueId"]
                 owner_id = item["ownerId"]
-                return self.oc.sdc.vnf.add_catalog_resource_input(
-                    **self.attributes,
-                    input_default_value=input_default_value,
-                    input_name=input_name,
-                    input_parent_unique_id=parent_unique_id,
-                    input_unique_id=unique_id,
-                    input_owner_id=owner_id,
-                )
+                default_value = item.get("defaultValue", "")
+                if default_value != input_default_value:
+                    return self.oc.sdc.vnf.add_catalog_resource_input(
+                        **self.attributes,
+                        input_default_value=input_default_value,
+                        input_name=input_name,
+                        input_parent_unique_id=parent_unique_id,
+                        input_unique_id=unique_id,
+                        input_owner_id=owner_id,
+                    )
+                else:
+                    return None
 
         raise exceptions.InputNotFoundException(
             "Input {} was not found in VF".format(input_name)
@@ -352,17 +356,21 @@ class VNF(Resource):
                 owner_id = prop.get("ownerId")
                 schemaType = prop.get("schemaType", "")
                 property_type = prop.get("type")
-                return self.oc.sdc.vnf.add_catalog_resource_property(
-                    **self.attributes,
-                    unique_id=unique_id,
-                    parent_unique_id=parent_unique_id,
-                    owner_id=owner_id,
-                    catalog_resource_instance_id=instance_id,
-                    property_name=property_name,
-                    property_default_value=property_value,
-                    schema_type=schemaType,
-                    property_type=property_type,
-                )
+                value = prop.get("value", "")
+                if value != property_value:
+                    return self.oc.sdc.vnf.add_catalog_resource_property(
+                        **self.attributes,
+                        unique_id=unique_id,
+                        parent_unique_id=parent_unique_id,
+                        owner_id=owner_id,
+                        catalog_resource_instance_id=instance_id,
+                        property_name=property_name,
+                        property_default_value=property_value,
+                        schema_type=schemaType,
+                        property_type=property_type,
+                    )
+                else:
+                    return None
 
         raise exceptions.PropertyNotFoundException(
             "Property {} was not found in Instance {}".format(
@@ -389,17 +397,21 @@ class VNF(Resource):
                 owner_id = prop.get("ownerId")
                 schemaType = prop.get("schemaType", "")
                 property_type = prop.get("type")
-                return self.oc.sdc.vnf.add_catalog_resource_property_non_vf(
-                    **self.attributes,
-                    unique_id=unique_id,
-                    parent_unique_id=parent_unique_id,
-                    owner_id=owner_id,
-                    catalog_resource_instance_id=instance_id,
-                    property_name=property_name,
-                    property_default_value=property_value,
-                    schema_type=schemaType,
-                    property_type=property_type,
-                )
+                value = prop.get("value", "")
+                if value != property_value:
+                    return self.oc.sdc.vnf.add_catalog_resource_property_non_vf(
+                        **self.attributes,
+                        unique_id=unique_id,
+                        parent_unique_id=parent_unique_id,
+                        owner_id=owner_id,
+                        catalog_resource_instance_id=instance_id,
+                        property_name=property_name,
+                        property_default_value=property_value,
+                        schema_type=schemaType,
+                        property_type=property_type,
+                    )
+                else:
+                    return None
 
         raise exceptions.PropertyNotFoundException(
             "Property {} was not found in Instance {}".format(
@@ -424,15 +436,19 @@ class VNF(Resource):
                 unique_id = prop.get("uniqueId")
                 property_type = prop.get("type")
                 description = prop.get("description")
-                return self.oc.sdc.vnf.add_catalog_policy_property(
-                    catalog_resource_id=self.catalog_resource_id,
-                    unique_id=unique_id,
-                    catalog_policy_id=policy_id,
-                    property_name=property_name,
-                    property_default_value=property_value,
-                    description=description,
-                    property_type=property_type,
-                )
+                value = prop.get("value", "")
+                if value != property_value:
+                    return self.oc.sdc.vnf.add_catalog_policy_property(
+                        catalog_resource_id=self.catalog_resource_id,
+                        unique_id=unique_id,
+                        catalog_policy_id=policy_id,
+                        property_name=property_name,
+                        property_default_value=property_value,
+                        description=description,
+                        property_type=property_type,
+                    )
+                else:
+                    return None
 
         raise exceptions.PropertyNotFoundException(
             "Property {} was not found in policy {}".format(property_name, policy_id)

@@ -34,65 +34,12 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
-import distutils.sysconfig
 import logging
-import os
-import yaml
 
-
-class Config:
-    class ConfigClient:
-        def __init__(self, config_dict):
-            self.config = config_dict
-
-        def __getattr__(self, attr):
-            return self.config.get(attr, None)
-
-    def __init__(self, config_file):
-        self.config = {}
-        self.config_file = config_file
-
-    def __getattr__(self, attr):
-        item = self.config.get(attr, None)
-        if isinstance(item, str):
-            return item
-        elif isinstance(item, dict):
-            return self.ConfigClient(item)
-        else:
-            return None
-
-    def load(self, *keys):
-        config_data = {}
-
-        if self.config_file and self.config_file != "NONE":
-            try:
-                with open(self.config_file, "r") as f:
-                    config_data = yaml.safe_load(f)
-            except FileNotFoundError:
-                logging.debug(
-                    "Config file {} not found, using default.".format(self.config_file)
-                )
-
-        if not config_data:
-            with open("{}/config.example.yaml".format(PATH), "r") as f:
-                config_data = yaml.safe_load(f)
-
-        self.config = config_data
-        for key in keys:
-            self.config = self.config.get(key, {})
-
-
-def load_config(config_file, *config_args):
-    config = Config(config_file)
-    config.load(*config_args)
-
-    return config
-
-
-PATH = "{}/onap_client".format(distutils.sysconfig.PREFIX)
-PAYLOADS_DIR = "{}/payloads".format(PATH)
-APPLICATION_ID = "robot-ete"
-CONFIG_ENV = os.environ.get("OC_CONFIG")
-CONFIG_FILE = CONFIG_ENV or "/etc/onap_client/config.yaml"
-APP_CONFIG = load_config(CONFIG_FILE, "onap_client")
+LOG = logging.getLogger()
+log_level = getattr(logging, "DEBUG")
+ch = logging.StreamHandler()
+LOG.setLevel(log_level)
+formatter = logging.Formatter('%(levelname)s %(asctime)s %(name)s %(message)s')
+ch.setFormatter(formatter)
+LOG.addHandler(ch)
