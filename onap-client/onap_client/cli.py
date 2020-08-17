@@ -36,9 +36,10 @@
 # ============LICENSE_END============================================
 
 import json
+import logging
 
 from prettytable import PrettyTable
-from onap_client.client.clients import Client
+from onap_client.client.clients import get_client as Client
 from onap_client.client.catalog import Catalog
 from onap_client.engine import spec_cli
 from onap_client.util import utility_cli
@@ -51,6 +52,7 @@ def main(*args):
     keys = None
 
     oc = Client()
+    configure_logging()
 
     if len(args) > 0 and args[0] == "spec-engine":
         # use engine cli instead
@@ -213,3 +215,16 @@ def get_catalog_item_data(catalog_item):
     item["description"] = catalog_item.description
 
     return item
+
+
+def configure_logging():
+    oc = Client()
+    LOG_LEVEL = oc.config.LOG_LEVEL if oc.config.LOG_LEVEL else "INFO"
+
+    LOG = logging.getLogger()
+    log_level = getattr(logging, LOG_LEVEL.upper())
+    ch = logging.StreamHandler()
+    LOG.setLevel(log_level)
+    formatter = logging.Formatter('%(levelname)s %(asctime)s %(name)s %(message)s')
+    ch.setFormatter(formatter)
+    LOG.addHandler(ch)

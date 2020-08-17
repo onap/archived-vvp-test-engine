@@ -40,13 +40,11 @@ import requests
 import json
 import os
 import copy
-import logging
+import logging as logger
 
 from onap_client.client.response import ResponseHandler
 from onap_client.exceptions import FilesRequestFailure
 from jinja2 import exceptions as jinja_exceptions
-
-logger = logging.getLogger("ONAP_CLIENT")
 
 
 class RequestHandler:
@@ -62,7 +60,7 @@ class RequestHandler:
     def make_request(self):
         r = Request(self.request_object)
 
-        logger.warning("Submitting request: {}".format(self.request_object.description))
+        logger.info("Submitting request: {}".format(self.request_object.description))
         # TODO
         # Add verify to config file
         return ResponseHandler(r.request(verify=False), self.request_object)
@@ -110,7 +108,6 @@ class Request:
 
         try:
             logger.info(json.dumps(debug_request, indent=4))
-            # logger.info(debug_request)
         except TypeError:
             logger.info(debug_request)
 

@@ -37,14 +37,12 @@
 
 import argparse
 import json
-import logging
+import logging as logger
 
 from onap_client.resource import Resource
 from onap_client.client.clients import import_submodules
 from onap_client.exceptions import InvalidSpecException, ResourceTypeNotFoundException
 from onap_client.client.clients import get_client
-
-logger = logging.getLogger("ONAP_CLIENT")
 
 
 def dumper(obj):

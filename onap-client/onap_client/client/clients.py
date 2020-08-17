@@ -40,7 +40,6 @@ import onap_client
 import pkgutil
 import inspect
 import sys
-import logging
 
 from onap_client.client.catalog import Catalog
 from onap_client import config
@@ -90,17 +89,12 @@ class Client(Catalog):
 
     def set_config(self, config_file):
         self.config = config.load_config(config_file, "onap_client")
-        self._set_logging(self.config.LOG_LEVEL)
         for attr_name, attr in self.__dict__.items():
             if isinstance(attr, Client):
                 config.LOG.info("Reloading {} {}".format(attr_name, attr))
                 attr.set_config(config_file)
                 for k, v in attr.catalog_resources.items():
                     attr.load(k, v)
-
-    def _set_logging(self, level):
-        LOG = logging.getLogger("ONAP_CLIENT")
-        LOG.setLevel(getattr(logging, level.upper()))
 
 
 def import_submodules(package, recursive=True):
