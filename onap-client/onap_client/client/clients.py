@@ -48,10 +48,10 @@ from onap_client import config
 CACHED_CLIENT = None
 
 
-def get_client(config_file=None):
+def get_client(config_file=None, **kwargs):
     clients = sys.modules[__name__]
     if not clients.CACHED_CLIENT or config_file:
-        clients.CACHED_CLIENT = Client(config_file)
+        clients.CACHED_CLIENT = Client(config_file, **kwargs)
     return clients.CACHED_CLIENT
 
 
@@ -59,14 +59,15 @@ class Client(Catalog):
     """Base class for the ONAP client. Subclasses are dynamically
     loaded and added as attributes. Instantiate and use this class
     to interact with ONAP."""
-    def __init__(self, config_file=None):
+    def __init__(self, config_file=None, **kwargs):
         self.config = config.APP_CONFIG
         self.modules = import_submodules(onap_client)
+        self._config_overrides = kwargs
 
-        super().__init__()
+        super().__init__(**kwargs)
 
         if config_file:
-            logging.info("Overriding ONAP Client configuration: {}".format(config_file))
+            logging.debug("Overriding ONAP Client configuration: {}".format(config_file))
             self.set_config(config_file)
 
     @property
@@ -92,10 +93,18 @@ class Client(Catalog):
         self.config = config.load_config(config_file, "onap_client")
         for attr_name, attr in self.__dict__.items():
             if isinstance(attr, Client):
-                logging.info("Reloading {} {}".format(attr_name, attr))
+                logging.debug("Reloading {} {}".format(attr_name, attr))
                 attr.set_config(config_file)
                 for k, v in attr.catalog_resources.items():
                     attr.load(k, v)
+
+    def override(override_key):
+        def decorator(func):
+            def override_check(self):
+                o = self._config_overrides.get(override_key)
+                return o if o else func(self)
+            return override_check
+        return decorator
 
 
 def import_submodules(package, recursive=True):

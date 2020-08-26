@@ -42,14 +42,12 @@ from prettytable import PrettyTable
 from onap_client.client.clients import get_client as Client
 from onap_client.client.catalog import Catalog
 from onap_client.engine import spec_cli
-from onap_client.util import utility_cli
+from onap_client.util import utility_cli, get_actions
 
 
 def main(*args):
     cli_arguments = list(args)
     request_arguments = {}
-    search_key = None
-    keys = None
 
     oc = Client()
     configure_logging()
@@ -57,23 +55,18 @@ def main(*args):
     if len(args) > 0 and args[0] == "spec-engine":
         # use engine cli instead
         spec_cli(cli_arguments[1:])
-    elif len(args) > 0 and args[0] == "utility":
-        # use engine cli instead
-        utility_cli(oc, cli_arguments[1:])
+    elif len(args) > 0 and convert_to_underscores(args[0]) in oc.utility_functions:
+        # use utility cli instead
+        utility_cli(oc, cli_arguments)
     elif len(args) == 0 or args[0] == "--help":
-        print(help(oc, extra_clients=["spec-engine", "utility"]))
+        print(help(oc, extra_clients=["spec-engine"], include_utility=True))
     else:
         while cli_arguments:
             arg = cli_arguments.pop(0)
+
             if arg == "--help":
                 print(help(oc))
                 return
-            elif arg == "--search":
-                search_key = cli_arguments.pop(0)
-                continue
-            elif arg == "--keys":
-                keys = True
-                continue
 
             if is_argument(arg):
                 arg = convert_to_underscores(arg)
@@ -88,6 +81,7 @@ def main(*args):
                 except IndexError:
                     print("No Value passed for argument: {}. Try --help".format(arg))
                     return
+
                 request_arguments[arg] = value
             else:
                 arg = convert_to_underscores(arg)
@@ -101,13 +95,8 @@ def main(*args):
 
             output_data = data.response_data
 
-            if isinstance(output_data, dict):
-                if keys:
-                    print("\n".join(x for x in output_data.keys()))
-                elif search_key:
-                    print(output_data.get(search_key))
-                else:
-                    print(json.dumps(output_data, indent=4))
+            if isinstance(output_data, dict) or isinstance(output_data, list):
+                print(json.dumps(output_data, indent=4))
             else:
                 print(output_data)
         else:
@@ -139,9 +128,10 @@ def get_value(value):
     return value
 
 
-def help(client, extra_clients=[]):
+def help(client, extra_clients=[], include_utility=False):
     namespaces = []
     actions = []
+    utility_data = {}
 
     if isinstance(client, Catalog):
 
@@ -158,22 +148,23 @@ def help(client, extra_clients=[]):
     data = {"clients": namespaces, "actions": actions}
     data["clients"].extend(extra_clients)
 
-    return help_table(data)
+    if include_utility:
+        utility_data = get_actions(client.utility_functions)
+
+    return help_table(data, utility_data)
 
 
-def help_table(data):
+def help_table(data, utility_data={}):
     x = PrettyTable()
 
     x.field_names = [
         "name",
         "description",
         "required parameters",
-        "optional parameters",
     ]
     x.align["name"] = "l"
     x.align["description"] = "l"
     x.align["required parameters"] = "l"
-    x.align["optional parameters"] = "l"
 
     for item in data.get("actions"):
         name = item.get("name").lower().replace("_", "-")
@@ -185,15 +176,23 @@ def help_table(data):
             elif isinstance(param, list):
                 for param2 in param:
                     parameters.append(parameterize(param2))
-        x.add_row([name, description, "\n".join(parameters), "--keys, --search"])
-        x.add_row(["", "", "", ""])
+        x.add_row([name, description, "\n".join(parameters)])
+        x.add_row(["", "", ""])
 
     for item in data.get("clients"):
         name = item
         description = "Various actions available for {}".format(name)
         parameters = ["--help"]
-        x.add_row([name, description, "\n".join(parameters), ""])
-        x.add_row(["", "", "", ""])
+        x.add_row([name, description, "\n".join(parameters)])
+        x.add_row(["", "", ""])
+
+    for action, data in utility_data.items():
+        name = action
+        description = data[0]
+        parameters = []
+        parameters.extend("<{}>".format(x) for x in data[1])
+        x.add_row([name, description, "\n".join(parameters)])
+        x.add_row(["", "", ""])
 
     return x
 

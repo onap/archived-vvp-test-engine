@@ -68,10 +68,10 @@ class SDCClient(Client):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
-                "auth": (
-                    self.config.sdc.SDC_DESIGNER_USER_ID,
-                    self.config.sdc.SDC_DESIGNER_PASSWORD,
-                ),
+                # "auth": (
+                #     self.sdc_designer_user_id,
+                #     self.config.sdc.SDC_DESIGNER_PASSWORD,
+                # ),
             },
             "GET_RESOURCE_CATEGORIES": {
                 "verb": "GET",
@@ -85,11 +85,47 @@ class SDCClient(Client):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
         }
+
+    @property
+    @Client.override("global_sdc_username")
+    def global_sdc_username(self):
+        """Username to authenticate to SDC"""
+        return self.config.sdc.GLOBAL_SDC_USERNAME
+
+    @property
+    @Client.override("global_sdc_password")
+    def global_sdc_password(self):
+        """Password to authenticate to SDC"""
+        return self.config.sdc.GLOBAL_SDC_PASSWORD
+
+    @property
+    @Client.override("sdc_designer_user_id")
+    def sdc_designer_user_id(self):
+        """Designer role User ID"""
+        return self.config.sdc.SDC_DESIGNER_USER_ID
+
+    @property
+    @Client.override("sdc_tester_user_id")
+    def sdc_tester_user_id(self):
+        """Tester role User ID"""
+        return self.config.sdc.SDC_TESTER_USER_ID
+
+    @property
+    @Client.override("sdc_ops_user_id")
+    def sdc_ops_user_id(self):
+        """Ops role User ID"""
+        return self.config.sdc.SDC_OPS_USER_ID
+
+    @property
+    @Client.override("sdc_governor_user_id")
+    def sdc_governor_user_id(self):
+        """Ops role User ID"""
+        return self.config.sdc.SDC_GOVERNOR_USER_ID

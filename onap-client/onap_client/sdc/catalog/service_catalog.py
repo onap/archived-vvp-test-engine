@@ -83,14 +83,14 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "CHECKOUT_CATALOG_SERVICE": {
@@ -106,14 +106,14 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_RESOURCE_INSTANCE": {
@@ -138,14 +138,14 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_resource_instance_id": ("uniqueId",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "DELETE_RESOURCE_FROM_SERVICE": {
@@ -161,13 +161,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "UPDATE_RESOURCE_VERSION": {
@@ -187,13 +187,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "CHECKIN_SERVICE": {
@@ -211,13 +211,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "REQUEST_SERVICE_CERTIFICATION": {
@@ -235,13 +235,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "START_SERVICE_CERTIFICATION": {
@@ -259,13 +259,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_TESTER_USER_ID,
+                    "USER_ID": self.sdc_tester_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "FINISH_SERVICE_CERTIFICATION": {
@@ -283,14 +283,14 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_TESTER_USER_ID,
+                    "USER_ID": self.sdc_tester_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "APPROVE_SERVICE_CERTIFICATION": {
@@ -308,13 +308,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_GOVERNOR_USER_ID,
+                    "USER_ID": self.sdc_governor_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "DISTRIBUTE_SDC_SERVICE": {
@@ -331,13 +331,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_OPS_USER_ID,
+                    "USER_ID": self.sdc_ops_user_id,
                     # "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_SERVICE_PROPERTY": {
@@ -363,13 +363,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_SERVICE_INPUT": {
@@ -393,13 +393,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SDC_SERVICE": {
@@ -415,13 +415,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SERVICES": {
@@ -436,14 +436,14 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"services": ("services",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SERVICE_DISTRIBUTION": {
@@ -459,13 +459,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SERVICE_DISTRIBUTION_DETAILS": {
@@ -481,13 +481,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SDC_CSAR": {
@@ -503,13 +503,13 @@ class ServiceCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
         }

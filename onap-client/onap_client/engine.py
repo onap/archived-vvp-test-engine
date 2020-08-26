@@ -40,7 +40,6 @@ import json
 import logging as logger
 
 from onap_client.resource import Resource
-from onap_client.client.clients import import_submodules
 from onap_client.exceptions import InvalidSpecException, ResourceTypeNotFoundException
 from onap_client.client.clients import get_client
 
@@ -79,8 +78,8 @@ def load_spec(input_spec, validate_only=False, submit=True, suppress_out=False, 
         print("{} is not valid json, exiting...".format(input_spec))
         raise
 
-    engine = SpecEngine()
-    return engine.load_spec(jdata, validate_only=validate_only, distribute=submit, suppress_out=suppress_out, config=config)
+    engine = SpecEngine(config_file=config)
+    return engine.load_spec(jdata, validate_only=validate_only, distribute=submit, suppress_out=suppress_out)
 
 
 def spec_cli(args):
@@ -134,19 +133,11 @@ def spec_cli(args):
 
 
 class SpecEngine:
-    def __init__(self):
-        self.initialize()
+    def __init__(self, config_file=None, **oc_kwargs):
         self.spec = {}
+        self.oc = get_client(config_file=config_file, **oc_kwargs)
 
-    def initialize(self):
-        import_submodules("onap_client")
-
-    def load_spec(self, spec, distribute=True, validate_only=False, suppress_out=False, config=None):
-        # print("loading spec {}".format(spec))
-
-        if config:
-            oc = get_client(config)  # noqa: F841
-
+    def load_spec(self, spec, distribute=True, validate_only=False, suppress_out=False):
         self.spec = resolve_spec(spec)
         self.validate(self.spec.get("spec", {}))
 

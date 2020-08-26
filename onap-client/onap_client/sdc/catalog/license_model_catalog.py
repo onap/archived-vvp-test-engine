@@ -67,7 +67,7 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
@@ -76,8 +76,8 @@ class LicenseModelClient(SDCClient):
                     "license_model_version_id": ("version", "id"),
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_KEY_GROUP": {
@@ -99,14 +99,14 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"key_group_id": ("value",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_ENTITLEMENT_POOL": {
@@ -128,14 +128,14 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"entitlement_pool_id": ("value",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_FEATURE_GROUP": {
@@ -158,14 +158,14 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"feature_group_id": ("value",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_LICENSE_AGREEMENT": {
@@ -183,14 +183,14 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"license_agreement_id": ("value",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "SUBMIT_LICENSE_MODEL": {
@@ -208,13 +208,13 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_LICENSE_MODEL": {
@@ -230,7 +230,7 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
@@ -240,8 +240,8 @@ class LicenseModelClient(SDCClient):
                     "description": ("description",),
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_LICENSE_MODEL_VERSION_ATTRIBUTE": {
@@ -257,13 +257,13 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_LICENSE_MODEL_VERSIONS": {
@@ -279,13 +279,13 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_LICENSE_MODELS": {
@@ -300,14 +300,14 @@ class LicenseModelClient(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"results": ("results",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
         }

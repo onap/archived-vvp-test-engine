@@ -59,16 +59,16 @@ def utility_cli(onap_client, cli_arguments):
                 return
 
             if callable(functions):
-                if cli_arguments[0] == "--help":
-                    help(functions)
-                    return
-
                 if functions.__code__.co_argcount != len(cli_arguments):
                     print(
                         "Function requires {} arguments, but {} were passed. Try --help.".format(
                             functions.__code__.co_argcount, len(cli_arguments)
                         )
                     )
+                    return
+
+                if cli_arguments[0] == "--help":
+                    help(functions)
                     return
 
                 return_data = functions(*cli_arguments[0:])
@@ -89,6 +89,12 @@ def convert_to_dash(argument):
 
 
 def help(functions):
+    actions = get_actions(functions)
+
+    print(help_table(actions))
+
+
+def get_actions(functions):
     actions = {}
     actions["--help"] = ("", "")
     if isinstance(functions, dict):
@@ -103,7 +109,7 @@ def help(functions):
             list(functions.__code__.co_varnames[: functions.__code__.co_argcount]),
         )
 
-    print(help_table(actions))
+    return actions
 
 
 def help_table(actions):

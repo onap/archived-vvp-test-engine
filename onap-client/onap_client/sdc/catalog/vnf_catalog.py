@@ -75,14 +75,14 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "CERTIFY_CATALOG_RESOURCE": {
@@ -100,14 +100,14 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_RESOURCE_INPUT": {
@@ -131,13 +131,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "UPDATE_CATALOG_RESOURCE": {
@@ -155,13 +155,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "CHECKOUT_CATALOG_RESOURCE": {
@@ -177,13 +177,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_RESOURCE_PROPERTY": {
@@ -209,13 +209,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_RESOURCE_PROPERTY_NON_VF": {
@@ -241,13 +241,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_RESOURCE_POLICY": {
@@ -263,14 +263,14 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_POLICY_PROPERTY": {
@@ -294,13 +294,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_RESOURCE_GROUP": {
@@ -316,14 +316,14 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_CATALOG_GROUP_PROPERTY": {
@@ -349,13 +349,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_GROUP_TO_INSTANCE": {
@@ -373,13 +373,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_POLICY_TO_INSTANCE": {
@@ -397,13 +397,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_RESOURCE_INSTANCE": {
@@ -429,13 +429,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_RESOURCE_RELATIONSHIP": {
@@ -462,13 +462,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_CATALOG_RESOURCE": {
@@ -484,14 +484,14 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"catalog_resource_name": ("name",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_CATALOG_RESOURCE_METADATA": {
@@ -507,13 +507,13 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_RESOURCES": {
@@ -528,14 +528,14 @@ class VNFCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"resources": ("resources",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
         }

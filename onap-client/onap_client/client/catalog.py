@@ -53,7 +53,7 @@ class Catalog(ABC):
         def __call__(self, **kwargs):
             return make_request(self.resource, **kwargs)
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         """Iterates through all child classes and attaches them as attributes, named
         after the namespace property.
 
@@ -64,7 +64,7 @@ class Catalog(ABC):
         self.catalog_items = {}
 
         for cls in self.__class__.__subclasses__():
-            subclass = cls()
+            subclass = cls(**kwargs)
             namespace = subclass.namespace
             catalog_resources = subclass.catalog_resources
 

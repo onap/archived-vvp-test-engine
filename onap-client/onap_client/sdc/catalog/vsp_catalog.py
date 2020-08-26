@@ -77,7 +77,7 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
@@ -86,8 +86,8 @@ class VSPCatalog(SDCClient):
                     "software_product_version_id": ("version", "id"),
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "UPDATE_SOFTWARE_PRODUCT": {
@@ -107,13 +107,13 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "UPLOAD_HEAT_PACKAGE": {
@@ -130,13 +130,13 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "multipart/form-data",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "VALIDATE_SOFTWARE_PRODUCT": {
@@ -152,13 +152,13 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "SUBMIT_SOFTWARE_PRODUCT": {
@@ -176,13 +176,13 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "PACKAGE_SOFTWARE_PRODUCT": {
@@ -200,13 +200,13 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SOFTWARE_PRODUCT": {
@@ -222,14 +222,14 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"name": ("name",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SOFTWARE_PRODUCT_INFORMATION": {
@@ -245,14 +245,14 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"name": ("name",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SOFTWARE_PRODUCT_VERSIONS": {
@@ -268,7 +268,7 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
@@ -277,8 +277,8 @@ class VSPCatalog(SDCClient):
                     "description": ("description",),
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_SOFTWARE_PRODUCTS": {
@@ -293,14 +293,14 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "return_data": {"results": ("results",)},
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "GET_VSP_PERMISSIONS": {
@@ -316,13 +316,13 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "ADD_VSP_CONTRIBUTER": {
@@ -340,13 +340,13 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
             "MODIFY_VSP_OWNER": {
@@ -364,13 +364,13 @@ class VSPCatalog(SDCClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
+                    "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": application_id,
                 },
                 "auth": (
-                    self.config.sdc.GLOBAL_SDC_USERNAME,
-                    self.config.sdc.GLOBAL_SDC_PASSWORD,
+                    self.global_sdc_username,
+                    self.global_sdc_password,
                 ),
             },
         }
