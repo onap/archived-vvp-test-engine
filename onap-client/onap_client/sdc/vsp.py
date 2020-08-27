@@ -61,6 +61,11 @@ class VSP(Resource):
             "required": False,
             "default": "new software product",
         },
+        "update_message": {
+            "type": str,
+            "required": False,
+            "default": "New VSP Version",
+        },
         "category": {"type": str, "required": False, "default": "generic"},
         "sub_category": {"type": str, "required": False, "default": "abstract"},
         "contributers": {
@@ -133,7 +138,7 @@ def update_vsp(existing_vsp, vsp_input):
         oc.sdc.vsp.update_software_product(
             software_product_id=existing_vsp_id,
             software_product_version_id=existing_vsp_version_id,
-            description=vsp_input.get("description", "New VSP Version")
+            description=vsp_input.get("update_message", "New VSP Version")
         )
 
     vsp_input["software_product_id"] = existing_vsp_id
