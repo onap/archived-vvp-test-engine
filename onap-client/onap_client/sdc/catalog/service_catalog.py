@@ -402,6 +402,32 @@ class ServiceCatalog(SDCClient):
                     self.global_sdc_password,
                 ),
             },
+            "UPDATE_MODULE_DEPLOYMENT_PROPERTIES": {
+                "verb": "POST",
+                "description": "Updates the deployment properties for a module.",
+                "uri": partial(
+                    "{endpoint}{service_path}/{catalog_service_id}/resourceInstance/{catalog_resource_instance_id}/artifacts/{module_id}".format,
+                    endpoint=self.config.sdc.SDC_BE_ENDPOINT,
+                    service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
+                ),
+                "uri-parameters": ["catalog_service_id", "catalog_resource_instance_id", "module_id"],
+                "payload": "{}/generic_payload.jinja".format(PAYLOADS_DIR),
+                "payload-parameters": [
+                    "payload_data",
+                ],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.sdc_designer_user_id,
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": application_id,
+                },
+                "auth": (
+                    self.global_sdc_username,
+                    self.global_sdc_password,
+                ),
+            },
             "GET_SDC_SERVICE": {
                 "verb": "GET",
                 "description": "Gets a service from the SDC Catalog",

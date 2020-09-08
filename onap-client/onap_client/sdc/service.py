@@ -110,6 +110,7 @@ class Service(Resource):
                 "catalog_resource_name": {"type": str, "required": False},
                 "origin_type": {"type": str, "required": False, "default": "VF"},
                 "properties": {"type": dict, "required": False, "default": {}},
+                "deployment_properties": {"type": dict, "required": False, "default": {}}
             },
         },
         "allow_update": {"type": bool, "required": False, "default": False},
@@ -156,6 +157,9 @@ class Service(Resource):
                 if isinstance(v, dict):
                     v = json.dumps(v).replace('"', '\\"')
                 self.add_property_value(resource_name, k, v)
+
+            if resource.get("deployment_properties"):
+                self.update_resource_deployment_properties(resource_name, resource.get("deployment_properties"))
 
     def _submit(self):
         """Submits the service in SDC and distributes the model"""
@@ -243,6 +247,30 @@ class Service(Resource):
         self.attributes[catalog_resource_name] = response
 
         self._refresh()
+
+    def update_resource_deployment_properties(self, resource_name, deployment_properties):
+        vnf_instance = {}
+        for component_instance in self.tosca.get("componentInstances", []):
+            if component_instance.get("componentName") == resource_name:
+                vnf_instance = component_instance
+                break
+
+        if not vnf_instance:
+            raise exceptions.ResourceNotFoundException(
+                "Resource {} was not found on Service {}".format(
+                    resource_name, self.service_name
+                )
+            )
+
+        for deployment_artifact_name, deployment_artifact in vnf_instance.get("deploymentArtifacts").items():
+            if deployment_artifact.get("artifactType") == "HEAT_ENV":
+                deployment_artifact.update(deployment_properties)
+                self.oc.sdc.service.update_module_deployment_properties(
+                    catalog_service_id=self.catalog_service_id,
+                    catalog_resource_instance_id=vnf_instance.get("uniqueId"),
+                    module_id=deployment_artifact.get("uniqueId"),
+                    payload_data=deployment_artifact,
+                )
 
     def add_property_value(self, resource_name, property_name, input_value):
         """Updates an property value on a resource attached to a Service
