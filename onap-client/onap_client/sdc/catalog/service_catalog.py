@@ -34,15 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 from functools import partial
 
-from onap_client import config
 from onap_client.sdc.client import SDCClient
-
-PAYLOADS_DIR = config.PAYLOADS_DIR
-application_id = config.APPLICATION_ID
 
 
 class ServiceCatalog(SDCClient):
@@ -61,7 +56,7 @@ class ServiceCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ENDPOINT,
                     service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
                 ),
-                "payload": "{}/catalog_service.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_service.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "service_name",
                     "instantiation_type",
@@ -85,7 +80,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
                 "auth": (
@@ -108,7 +103,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
                 "auth": (
@@ -125,7 +120,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id"],
-                "payload": "{}/resource_instance.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/resource_instance.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "milli_timestamp",
                     "catalog_resource_id",
@@ -140,7 +135,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_instance_id": ("uniqueId",)},
                 "auth": (
@@ -163,7 +158,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -179,7 +174,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id", "component_name"],
-                "payload": "{}/update_resource_instance.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/update_resource_instance.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "component_id",
                 ],
@@ -189,7 +184,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -205,7 +200,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id"],
-                "payload": "{}/user_remarks.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/user_remarks.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["user_remarks"],
                 "success_code": 200,
                 "headers": {
@@ -213,7 +208,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -229,7 +224,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id"],
-                "payload": "{}/user_remarks.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/user_remarks.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["user_remarks"],
                 "success_code": 200,
                 "headers": {
@@ -237,7 +232,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -253,7 +248,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id"],
-                "payload": "{}/user_remarks.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/user_remarks.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["user_remarks"],
                 "success_code": 200,
                 "headers": {
@@ -261,7 +256,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_tester_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -277,7 +272,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id"],
-                "payload": "{}/user_remarks.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/user_remarks.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["user_remarks"],
                 "success_code": 200,
                 "headers": {
@@ -285,7 +280,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_tester_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
                 "auth": (
@@ -302,7 +297,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id"],
-                "payload": "{}/user_remarks.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/user_remarks.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["user_remarks"],
                 "success_code": 200,
                 "headers": {
@@ -310,7 +305,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_governor_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -333,7 +328,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_ops_user_id,
                     # "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -349,7 +344,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id", "catalog_resource_instance_id"],
-                "payload": "{}/catalog_service_property.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_service_property.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "unique_id",
                     "parent_unique_id",
@@ -365,7 +360,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -381,7 +376,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id", "catalog_resource_instance_id"],
-                "payload": "{}/catalog_service_property.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_service_property.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "unique_id",
                     "parent_unique_id",
@@ -395,7 +390,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -411,7 +406,7 @@ class ServiceCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
                 "uri-parameters": ["catalog_service_id", "catalog_resource_instance_id", "module_id"],
-                "payload": "{}/generic_payload.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/generic_payload.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "payload_data",
                 ],
@@ -421,7 +416,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -443,7 +438,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -464,7 +459,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"services": ("services",)},
                 "auth": (
@@ -487,7 +482,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -509,7 +504,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -531,7 +526,7 @@ class ServiceCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,

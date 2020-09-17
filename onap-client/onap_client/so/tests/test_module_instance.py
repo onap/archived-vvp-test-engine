@@ -130,7 +130,8 @@ def test_module_instance():
                             "groupUUID": MODULE_MODEL_VERSION_ID,
                             "customizationUUID": MODULE_MODEL_CUSTOMIZATION_ID,
                             "groupName": MODULE_MODEL_NAME,
-                            "version": MODULE_MODEL_VERSION
+                            "version": MODULE_MODEL_VERSION,
+                            "properties": []
                         }
                     ]
                 }
@@ -148,7 +149,7 @@ def test_module_instance():
         oc.sdnc.operations.catalog_items["GR_API_PRELOAD"],
     )
     mockup_catalog_item(
-        oc.sdnc.config.catalog_items["GET_SERVICE_INSTANCES"],
+        oc.sdnc.configuration.catalog_items["GET_SERVICE_INSTANCES"],
         override_return_data={
             "services": {
                 "service": [
@@ -179,6 +180,12 @@ def test_module_instance():
                                                     "model-customization-uuid": VNF_CUSTOMIZATION_UUID,
                                                     "model-version": "1.0"
                                                 }
+                                            },
+                                            "vnf-request-input": {
+                                                "vnf-name": VNF_INSTANCE_NAME,
+                                                "tenant": TENANT_ID,
+                                                "cloud-owner": CLOUD_OWNER,
+                                                "aic-cloud-region": CLOUD_REGION
                                             }
                                         }
                                     }

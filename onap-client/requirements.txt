@@ -40,3 +40,4 @@ requests
 PTable
 simplejson
 prettytable
+importlib_resources

@@ -34,15 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 from functools import partial
 
-from onap_client import config
 from onap_client.sdc.client import SDCClient
-
-PAYLOADS_DIR = config.PAYLOADS_DIR
-application_id = config.APPLICATION_ID
 
 
 class VSPCatalog(SDCClient):
@@ -61,7 +56,7 @@ class VSPCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ONBOARD_ENDPOINT,
                     service_path=self.config.sdc.SDC_VENDOR_SOFTWARE_PRODUCT_PATH,
                 ),
-                "payload": "{}/software_product.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/software_product.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "software_product_name",
                     "feature_group_id",
@@ -79,7 +74,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {
                     "software_product_id": ("itemId",),
@@ -98,7 +93,7 @@ class VSPCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ONBOARD_ENDPOINT,
                     service_path=self.config.sdc.SDC_VENDOR_ITEMS_PATH,
                 ),
-                "payload": "{}/software_product_update.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/software_product_update.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "description",
                 ],
@@ -109,7 +104,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -132,7 +127,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "multipart/form-data",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -154,7 +149,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -170,7 +165,7 @@ class VSPCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_SOFTWARE_PRODUCT_PATH,
                 ),
                 "uri-parameters": ["software_product_id", "software_product_version_id"],
-                "payload": "{}/action.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/action.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["action"],
                 "success_code": 200,
                 "headers": {
@@ -178,7 +173,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -194,7 +189,7 @@ class VSPCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_SOFTWARE_PRODUCT_PATH,
                 ),
                 "uri-parameters": ["software_product_id", "software_product_version_id"],
-                "payload": "{}/action.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/action.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["action"],
                 "success_code": 200,
                 "headers": {
@@ -202,7 +197,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -224,7 +219,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"name": ("name",)},
                 "auth": (
@@ -247,7 +242,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"name": ("name",)},
                 "auth": (
@@ -270,7 +265,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {
                     "software_product_version_id": ("id",),
@@ -295,7 +290,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"results": ("results",)},
                 "auth": (
@@ -318,7 +313,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -334,7 +329,7 @@ class VSPCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_ITEMS_PATH,
                 ),
                 "uri-parameters": ["software_product_id"],
-                "payload": "{}/add_vsp_contributer.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/add_vsp_contributer.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["user_id"],
                 "success_code": 200,
                 "headers": {
@@ -342,7 +337,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -358,7 +353,7 @@ class VSPCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_ITEMS_PATH,
                 ),
                 "uri-parameters": ["software_product_id"],
-                "payload": "{}/add_vsp_contributer.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/add_vsp_contributer.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["user_id"],
                 "success_code": 200,
                 "headers": {
@@ -366,7 +361,7 @@ class VSPCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,

@@ -37,11 +37,7 @@
 import uuid
 from functools import partial
 
-from onap_client import config
 from onap_client.aai.client import AAIClient
-
-PAYLOADS_DIR = config.PAYLOADS_DIR
-application_id = config.APPLICATION_ID
 
 
 class BusinessClient(AAIClient):
@@ -66,7 +62,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -83,7 +79,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -101,7 +97,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -118,7 +114,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -136,7 +132,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -153,7 +149,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -171,7 +167,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -188,7 +184,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -205,7 +201,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -219,13 +215,13 @@ class BusinessClient(AAIClient):
                 ),
                 "uri-parameters": ["customer_name"],
                 "payload-parameters": ["customer_name", "subscriber_name"],
-                "payload": "{}/aai_create_customer.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/aai_create_customer.jinja".format(self.config.payload_directory),
                 "success_code": 201,
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -243,7 +239,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -261,7 +257,7 @@ class BusinessClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },

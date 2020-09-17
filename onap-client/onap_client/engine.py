@@ -70,7 +70,7 @@ def show_resource_spec(resource_name):
     list_spec_resources()
 
 
-def load_spec(input_spec, validate_only=False, submit=True, suppress_out=False, config=None):
+def load_spec(input_spec, validate_only=False, submit=True, suppress_out=False, config=None, delete=False):
     try:
         with open(input_spec, "r") as f:
             jdata = json.loads(f.read())
@@ -79,7 +79,7 @@ def load_spec(input_spec, validate_only=False, submit=True, suppress_out=False, 
         raise
 
     engine = SpecEngine(config_file=config)
-    return engine.load_spec(jdata, validate_only=validate_only, distribute=submit, suppress_out=suppress_out)
+    return engine.load_spec(jdata, validate_only=validate_only, distribute=submit, suppress_out=suppress_out, delete=delete)
 
 
 def spec_cli(args):
@@ -89,6 +89,12 @@ def spec_cli(args):
         "--load-spec",
         required=False,
         help="Load a local spec file into the ONAP client spec engine.",
+    )
+
+    parser.add_argument(
+        "--delete-spec",
+        required=False,
+        help="Delete the resources from a local spec file.",
     )
 
     parser.add_argument(
@@ -127,9 +133,41 @@ def spec_cli(args):
     elif arguments.show_resource_spec:
         show_resource_spec(arguments.show_resource_spec)
     elif arguments.validate_spec:
-        print(json.dumps(load_spec(arguments.validate_spec, validate_only=True, suppress_out=arguments.no_outputs), indent=4))
+        print(
+            json.dumps(
+                load_spec(
+                    arguments.validate_spec,
+                    validate_only=True,
+                    suppress_out=arguments.no_outputs
+                ),
+                indent=4
+            )
+        )
     elif arguments.load_spec:
-        print(json.dumps(load_spec(arguments.load_spec, submit=arguments.no_submit, suppress_out=arguments.no_outputs, config=arguments.oc_config), indent=4))
+        print(
+            json.dumps(
+                load_spec(
+                    arguments.load_spec,
+                    submit=arguments.no_submit,
+                    suppress_out=arguments.no_outputs,
+                    config=arguments.oc_config
+                ),
+                indent=4
+            )
+        )
+    elif arguments.delete_spec:
+        print(
+            json.dumps(
+                load_spec(
+                    arguments.delete_spec,
+                    submit=arguments.no_submit,
+                    suppress_out=arguments.no_outputs,
+                    config=arguments.oc_config,
+                    delete=True
+                ),
+                indent=4
+            )
+        )
 
 
 class SpecEngine:
@@ -137,7 +175,7 @@ class SpecEngine:
         self.spec = {}
         self.oc = get_client(config_file=config_file, **oc_kwargs)
 
-    def load_spec(self, spec, distribute=True, validate_only=False, suppress_out=False):
+    def load_spec(self, spec, distribute=True, validate_only=False, suppress_out=False, delete=False):
         self.spec = resolve_spec(spec)
         self.validate(self.spec.get("spec", {}))
 
@@ -146,7 +184,9 @@ class SpecEngine:
 
         out = self.spec
         if not validate_only:
-            out = self._create(self.spec.get("spec", {}), distribute, suppress_out)
+            resources = self.spec.get("spec", [])
+            resources = list(reversed(resources)) if delete else resources
+            out = self._load(resources, distribute, suppress_out, delete)
 
         return out
 
@@ -182,22 +222,32 @@ class SpecEngine:
                 )
             subclass.validate(resource_spec)
 
-    def _create(self, spec, distribute, suppress_out):
+    def _load(self, resources, distribute, suppress_out, delete):
         full_engine_spec = []
-        for item_spec in spec:
+        for item_spec in resources:
             resource_type = item_spec.get("type")
             resource_spec = item_spec.get("resource_spec")
             subclass = get_resource_subclass(resource_type)
+
             if not subclass:
                 raise ResourceTypeNotFoundException(
                     "Resource type {} was not found".format(resource_type)
                 )
+
             full_spec = subclass.validate(resource_spec)
+
             logger.debug(json.dumps(full_spec, indent=4))
-            t = subclass.create_from_spec(full_spec, submit=distribute)
+
+            if delete:
+                t = subclass.delete_from_spec(full_spec, oc=self.oc)
+            else:
+                t = subclass.create_from_spec(full_spec, submit=distribute, oc=self.oc)
+
             finished_spec = {"type": resource_type, "resource_spec": full_spec}
-            if not suppress_out:
+
+            if not suppress_out and not delete:
                 finished_spec["output"] = t._output()
+
             full_engine_spec.append(finished_spec)
 
         return {"spec": full_engine_spec}

@@ -41,13 +41,13 @@ import os
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-datafiles = [("onap_client", ["etc/config.example.yaml"])]
-for file in os.listdir("etc/payloads"):
-    datafiles.append(("onap_client/payloads", ["etc/payloads/{}".format(file)]))
+# datafiles = [("onap_client", ["etc/config.example.yaml"])]
+# for file in os.listdir("etc/payloads"):
+#     datafiles.append(("onap_client/payloads", ["etc/payloads/{}".format(file)]))
 
 setuptools.setup(
     name="onap-client",
-    version="0.10.2",
+    version="1.0.0",
     author="Steven Stark",
     author_email="steven.stark@att.com",
     description="Python API wrapper for ONAP applications",
@@ -62,13 +62,15 @@ setuptools.setup(
     license='Apache License, Version 2.0',
     python_requires=">=3.6",
     scripts=["bin/onap-client"],
-    data_files=datafiles,
+    # data_files=datafiles,
+    include_package_data=True,
     install_requires=[
         "Jinja2>=2.10",
         "PyYAML>=5.1.2",
         "requests>=2.22.0",
         "PTable>=0.9.2",
         "simplejson>=3.17.0",
-        "prettytable>=0.7.2"
+        "prettytable>=0.7.2",
+        "importlib_resources",
     ]
 )

@@ -34,14 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 
 from functools import partial
 from onap_client.client.clients import Client
-from onap_client import config
-
-application_id = config.APPLICATION_ID
 
 
 class SDCClient(Client):
@@ -66,7 +62,7 @@ class SDCClient(Client):
                     "Content-Type": "application/json",
                     "USER_ID": self.config.sdc.SDC_DESIGNER_USER_ID,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 # "auth": (
                 #     self.sdc_designer_user_id,

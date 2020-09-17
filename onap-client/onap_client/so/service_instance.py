@@ -46,6 +46,8 @@ from onap_client.exceptions import (
     SORequestTimeout,
     TenantNotFound,
     ServiceInstanceNotFound,
+    VNFInstanceNotFound,
+    ModuleInstanceNotFound,
 )
 from onap_client import sdc
 from onap_client.util import utility
@@ -77,14 +79,16 @@ class ServiceInstance(Resource):
         tenant_id = get_tenant_id(
             instance_input.get("cloud_region"),
             instance_input.get("cloud_owner"),
-            instance_input.get("tenant_name")
+            instance_input.get("tenant_name"),
+            oc=self.oc
         )
         instance_input["tenant_id"] = tenant_id
         instance_input["customer_id"] = instance_input.get("customer_name")
 
         service_model = self.oc.sdc.service.get_sdc_service(
             catalog_service_id=sdc.service.get_service_id(
-                instance_input.get("model_name")
+                instance_input.get("model_name"),
+                oc=self.oc
             )
         ).response_data
 
@@ -97,25 +101,23 @@ class ServiceInstance(Resource):
                 instance_input["owning_entity_id"] = entity.get("id")
                 break
 
-        return create_service_instance(instance_input)
+        return create_service_instance(instance_input, oc=self.oc)
+
+    def _delete(self, instance_input):
+        request = delete_service_instance(
+            instance_input.get("service_instance_name"),
+            instance_input.get("api_type"),
+            oc=self.oc
+        )
+        request_id = request.get("requestReferences", {}).get(
+            "requestId"
+        )
+        poll_request(request_id, oc=self.oc)
 
 
-@utility
-def get_service_instance(instance_name):
-    """Queries SDNC for a list of all service instances and returns
-    The service instance that matches <instance name>"""
-    oc = Client()
-
-    service_instances = oc.sdnc.config.get_service_instances().response_data
-    for si in service_instances.get("services", {}).get("service", []):
-        if si.get("service-data", {}).get("service-request-input", {}).get("service-instance-name") == instance_name:
-            return si
-
-    raise ServiceInstanceNotFound("Service Instance {} was not found".format(instance_name))
-
-
-def get_tenant_id(cloud_region, cloud_owner, tenant_name):
-    oc = Client()
+def get_tenant_id(cloud_region, cloud_owner, tenant_name, oc=None):
+    if not oc:
+        oc = Client()
 
     tenants = oc.aai.cloud_infrastructure.get_cloud_region_tenants(
         cloud_owner=cloud_owner,
@@ -129,8 +131,9 @@ def get_tenant_id(cloud_region, cloud_owner, tenant_name):
     raise TenantNotFound("Tenant {} was not found in AAI".format(tenant_name))
 
 
-def create_service_instance(instance_input):
-    oc = Client()
+def create_service_instance(instance_input, oc=None):
+    if not oc:
+        oc = Client()
 
     headers = {"X-TransactionId": str(uuid.uuid4())}
     service_instance = oc.so.service_instantiation.create_service_instance(
@@ -141,15 +144,16 @@ def create_service_instance(instance_input):
         "requestId"
     )
 
-    instance_input["request_info"] = poll_request(request_id)
+    instance_input["request_info"] = poll_request(request_id, oc=oc)
 
     return instance_input
 
 
 @utility
-def poll_request(request_id):
+def poll_request(request_id, oc=None):
     """Poll an SO request until completion"""
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     poll_interval = oc.config.so.POLL_INTERVAL or 30
     request = None
@@ -181,11 +185,12 @@ def poll_request(request_id):
 
 
 @utility
-def delete_service_instance(service_instance_name, api_type="GR_API"):
+def delete_service_instance(service_instance_name, api_type="GR_API", oc=None):
     """Delete a Service Instance from SO"""
-    oc = Client()
+    if not oc:
+        oc = Client()
 
-    si = get_service_instance(service_instance_name)
+    si = get_service_instance(service_instance_name, oc=oc)
     si_id = si.get("service-instance-id")
     invariant_id = si.get("service-data").get("service-information").get("onap-model-information").get("model-invariant-uuid")
     version = si.get("service-data").get("service-information").get("onap-model-information").get("model-version")
@@ -197,3 +202,35 @@ def delete_service_instance(service_instance_name, api_type="GR_API"):
         service_instance_id=si_id,
         api_type=api_type,
     ).response_data
+
+
+@utility
+def get_service_instance(instance_name, oc=None):
+    """Queries SDNC for a list of all service instances and returns
+    The service instance that matches <instance name>"""
+    if not oc:
+        oc = Client()
+
+    service_instances = oc.sdnc.configuration.get_service_instances().response_data
+    for si in service_instances.get("services", {}).get("service", []):
+        if si.get("service-data", {}).get("service-request-input", {}).get("service-instance-name") == instance_name:
+            return si
+
+    raise ServiceInstanceNotFound("Service Instance {} was not found".format(instance_name))
+
+
+def get_vnf_instance(service_instance_dict, vnf_instance_name):
+    for vnfi in service_instance_dict.get("service-data", {}).get("vnfs", {}).get("vnf", []):
+        if vnfi.get("vnf-data", {}).get("vnf-request-input", {}).get("vnf-name") == vnf_instance_name:
+            return vnfi
+
+    raise VNFInstanceNotFound("VNF Instance was not found: {}".format(vnf_instance_name))
+
+
+def get_module_instance(vnf_instance_dict, module_instance_name):
+    for modulei in vnf_instance_dict.get("vnf-data").get("vf-modules", {}).get("vf-module", []):
+        if modulei.get("vf-module-data", {}).get("vf-module-request-input", {}).get("vf-module-name") == module_instance_name:
+            return modulei
+
+    raise ModuleInstanceNotFound("Module Instance was not found: {}".format(module_instance_name))
+

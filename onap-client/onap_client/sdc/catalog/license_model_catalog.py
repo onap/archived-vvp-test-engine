@@ -34,15 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 from functools import partial
 
-from onap_client import config
 from onap_client.sdc.client import SDCClient
-
-PAYLOADS_DIR = config.PAYLOADS_DIR
-application_id = config.APPLICATION_ID
 
 
 class LicenseModelClient(SDCClient):
@@ -61,7 +56,7 @@ class LicenseModelClient(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ONBOARD_ENDPOINT,
                     service_path=self.config.sdc.SDC_VENDOR_LICENSE_MODEL_PATH,
                 ),
-                "payload": "{}/license_model.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/license_model.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["vendor_name"],
                 "success_code": 200,
                 "headers": {
@@ -69,7 +64,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {
                     "license_model_id": ("itemId",),
@@ -89,7 +84,7 @@ class LicenseModelClient(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_LICENSE_MODEL_PATH,
                 ),
                 "uri-parameters": ["license_model_id", "license_model_version_id"],
-                "payload": "{}/key_group.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/key_group.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "license_start_date",
                     "license_end_date",
@@ -101,7 +96,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"key_group_id": ("value",)},
                 "auth": (
@@ -118,7 +113,7 @@ class LicenseModelClient(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_LICENSE_MODEL_PATH,
                 ),
                 "uri-parameters": ["license_model_id", "license_model_version_id"],
-                "payload": "{}/entitlement_pool.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/entitlement_pool.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "license_start_date",
                     "license_end_date",
@@ -130,7 +125,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"entitlement_pool_id": ("value",)},
                 "auth": (
@@ -147,7 +142,7 @@ class LicenseModelClient(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_LICENSE_MODEL_PATH,
                 ),
                 "uri-parameters": ["license_model_id", "license_model_version_id"],
-                "payload": "{}/feature_group.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/feature_group.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "feature_group_name",
                     "key_group_id",
@@ -160,7 +155,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"feature_group_id": ("value",)},
                 "auth": (
@@ -177,7 +172,7 @@ class LicenseModelClient(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_LICENSE_MODEL_PATH,
                 ),
                 "uri-parameters": ["license_model_id", "license_model_version_id"],
-                "payload": "{}/license_agreement.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/license_agreement.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["feature_group_id", "license_agreement_name"],
                 "success_code": 200,
                 "headers": {
@@ -185,7 +180,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"license_agreement_id": ("value",)},
                 "auth": (
@@ -202,7 +197,7 @@ class LicenseModelClient(SDCClient):
                     service_path=self.config.sdc.SDC_VENDOR_LICENSE_MODEL_PATH,
                 ),
                 "uri-parameters": ["license_model_id", "license_model_version_id"],
-                "payload": "{}/action.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/action.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["action"],
                 "success_code": 200,
                 "headers": {
@@ -210,7 +205,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -232,7 +227,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {
                     "vendor_name": ("vendorName",),
@@ -259,7 +254,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -281,7 +276,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -302,7 +297,7 @@ class LicenseModelClient(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"results": ("results",)},
                 "auth": (

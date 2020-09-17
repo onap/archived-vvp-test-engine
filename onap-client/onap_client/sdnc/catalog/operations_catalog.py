@@ -34,15 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 from functools import partial
 
-from onap_client import config
 from onap_client.sdnc.client import SDNCClient
-
-PAYLOADS_DIR = config.PAYLOADS_DIR
-application_id = config.APPLICATION_ID
 
 
 class OperationsClient(SDNCClient):
@@ -67,7 +62,7 @@ class OperationsClient(SDNCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
             },
@@ -85,7 +80,7 @@ class OperationsClient(SDNCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
             },

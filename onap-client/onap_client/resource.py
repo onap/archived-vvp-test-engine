@@ -35,7 +35,12 @@
 #
 # ============LICENSE_END============================================
 from abc import ABC
-from onap_client.exceptions import InvalidSpecException, ResourceAlreadyExistsException, ResourceCreationFailure
+from onap_client.exceptions import (
+    InvalidSpecException,
+    ResourceAlreadyExistsException,
+    ResourceCreationFailure,
+    ResourceDeleteFailure
+)
 from onap_client.client.clients import get_client as Client
 
 
@@ -43,9 +48,14 @@ class Resource(ABC):
     resource_name = "abstract"
     spec = {}
 
-    def __init__(self, **kwargs):
+    def __init__(self, oc=None, **kwargs):
         self.attributes = {}
-        self.oc = Client()
+
+        if not oc:
+            self.oc = Client()
+        else:
+            self.oc = oc
+
         self.input_spec = self.validate(kwargs, spec=self.spec)
 
     def __getattr__(self, attr):
@@ -56,7 +66,13 @@ class Resource(ABC):
         self.resolve_attributes(attributes)
         self._post_create()
 
+    def delete(self):
+        self._delete(self.input_spec)
+
     def _create(self, input):
+        pass
+
+    def _delete(self, input):
         pass
 
     def _post_create(self):
@@ -72,8 +88,8 @@ class Resource(ABC):
         return None
 
     @classmethod
-    def create_from_spec(cls, spec, submit=True):
-        instance = cls(**spec)
+    def create_from_spec(cls, spec, submit=True, oc=None):
+        instance = cls(**spec, oc=oc)
 
         try:
             instance.create()
@@ -85,6 +101,19 @@ class Resource(ABC):
             instance._on_failure()
             raise ResourceCreationFailure(
                 "Failed to create resource {}: {}".format(instance.resource_name, str(e))
+            )
+
+        return instance
+
+    @classmethod
+    def delete_from_spec(cls, spec, oc=None):
+        instance = cls(**spec, oc=oc)
+
+        try:
+            instance.delete()
+        except Exception as e:
+            raise ResourceDeleteFailure(
+                "Failed to delete resource {}: {}".format(instance.resource_name, str(e))
             )
 
         return instance

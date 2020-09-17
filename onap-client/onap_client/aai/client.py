@@ -34,14 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 
 from functools import partial
 from onap_client.client.clients import Client
-from onap_client import config
-
-application_id = config.APPLICATION_ID
 
 
 class AAIClient(Client):
@@ -65,7 +61,7 @@ class AAIClient(Client):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },

@@ -146,3 +146,7 @@ class TenantNotFound(Exception):
 
 class ResourceCreationFailure(Exception):
     pass
+
+
+class ResourceDeleteFailure(Exception):
+    pass

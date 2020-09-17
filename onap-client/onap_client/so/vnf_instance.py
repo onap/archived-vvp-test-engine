@@ -40,13 +40,7 @@ import uuid
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
 from onap_client.client.clients import get_client as Client
-from onap_client.exceptions import (
-    ServiceInstanceNotFound,
-    VNFComponentNotFound,
-    ModuleModelNameNotFound,
-    NoArtifactFoundInModel,
-    VNFInstanceNotFound,
-)
+from onap_client.exceptions import VNFComponentNotFound
 from onap_client import sdc
 from onap_client import so
 from onap_client.util import utility
@@ -75,19 +69,15 @@ class VNFInstance(Resource):
         tenant_id = so.service_instance.get_tenant_id(
             instance_input.get("cloud_region"),
             instance_input.get("cloud_owner"),
-            instance_input.get("tenant_name")
+            instance_input.get("tenant_name"),
+            oc=self.oc
         )
         instance_input["tenant_id"] = tenant_id
 
-        service_instance = get_service_instance(
-            instance_input.get("service_instance_name")
+        service_instance = so.service_instance.get_service_instance(
+            instance_input.get("service_instance_name"),
+            oc=self.oc
         )
-        if not service_instance:
-            raise ServiceInstanceNotFound(
-                "No service instance found for {}".format(
-                    instance_input.get("service_instance_name")
-                )
-            )
         service_instance_id = service_instance.get("service-instance-id")
         model_information = (
             service_instance.get("service-data")
@@ -100,7 +90,7 @@ class VNFInstance(Resource):
         service_model_name = model_information["model-name"]
 
         vnf_component = get_vnf_model_component(
-            service_model_name, instance_input.get("model_name")
+            service_model_name, instance_input.get("model_name"), oc=self.oc
         )
         if not vnf_component:
             raise VNFComponentNotFound(
@@ -125,13 +115,27 @@ class VNFInstance(Resource):
         instance_input["service_model_version_id"] = service_model_id
         instance_input["service_instance_id"] = service_instance_id
 
-        return create_vnf_instance(instance_input)
+        return create_vnf_instance(instance_input, oc=self.oc)
+
+    def _delete(self, instance_input):
+        request = delete_vnf_instance(
+            instance_input.get("service_instance_name"),
+            instance_input.get("vnf_instance_name"),
+            instance_input.get("api_type"),
+            oc=self.oc
+        )
+        request_id = request.get("requestReferences", {}).get(
+            "requestId"
+        )
+        so.service_instance.poll_request(request_id, oc=self.oc)
 
 
-def get_vnf_model_component(service_model_name, vnf_model_name):
-    oc = Client()
+def get_vnf_model_component(service_model_name, vnf_model_name, oc=None):
+    if not oc:
+        oc = Client()
+
     service_model = oc.sdc.service.get_sdc_service(
-        catalog_service_id=sdc.service.get_service_id(service_model_name)
+        catalog_service_id=sdc.service.get_service_id(service_model_name, oc=oc)
     ).response_data
 
     for component in service_model.get("componentInstances", []):
@@ -140,59 +144,9 @@ def get_vnf_model_component(service_model_name, vnf_model_name):
     return None
 
 
-def get_service_instance(service_instance_name):
-    oc = Client()
-    service_instances = oc.sdnc.config.get_service_instances().response_data
-    for si in service_instances.get("services", {}).get("service", []):
-        si_name = (
-            si.get("service-data", {})
-            .get("service-request-input", {})
-            .get("service-instance-name")
-        )
-        if si_name == service_instance_name:
-            return si
-    return None
-
-
-def get_module_model(vnf_model, heat_template_name):
-    artifact_uuid = None
-    deployment_artifacts = vnf_model.get("deploymentArtifacts", {})
-    for artifact_name, artifact_data in deployment_artifacts.items():
-        if artifact_data.get("artifactName") == heat_template_name:
-            artifact_uuid = artifact_data.get("artifactUUID")
-
-    if not artifact_uuid:
-        raise NoArtifactFoundInModel(
-            "Heat Template {} was not found in service model".format(heat_template_name)
-        )
-
-    group_instances = vnf_model.get("groupInstances", [])
-    for instance in group_instances:
-        if artifact_uuid in instance.get("artifactsUuid", []):
-            # return instance.get("groupName")
-            return instance
-
-    raise ModuleModelNameNotFound(
-        "Module Model Name for {} was not found in service model".format(
-            heat_template_name
-        )
-    )
-
-
-def get_vnf_instance(service_instance, vnf_instance_name):
-    for vnf_instance in (
-        service_instance.get("service-data", {}).get("vnfs", {}).get("vnf", [])
-    ):
-        vi_name = (
-            vnf_instance.get("vnf-data", {}).get("vnf-information", {}).get("vnf-name")
-        )
-        if vi_name == vnf_instance_name:
-            return vnf_instance
-    return None
-
-
-def create_vnf_instance(instance_input):
-    oc = Client()
+def create_vnf_instance(instance_input, oc=None):
+    if not oc:
+        oc = Client()
 
     headers = {"X-TransactionId": str(uuid.uuid4())}
     vnf_instance = oc.so.service_instantiation.create_vnf_instance(
@@ -203,35 +157,36 @@ def create_vnf_instance(instance_input):
         "requestId"
     )
 
-    instance_input["request_info"] = so.service_instance.poll_request(request_id)
+    instance_input["request_info"] = so.service_instance.poll_request(request_id, oc=oc)
 
     return instance_input
 
 
 @utility
-def delete_vnf_instance(service_instance_name, vnf_instance_name, api_type="GR_API"):
+def delete_vnf_instance(service_instance_name, vnf_instance_name, api_type="GR_API", oc=None):
     """Delete a VNF Instance from SO"""
-    oc = Client()
-    si = so.service_instance.get_service_instance(service_instance_name)
-    si_id = si.get("service-instance-id")
-    for vnfi in si.get("service-data", {}).get("vnfs", {}).get("vnf", []):
-        vnfi_id = vnfi.get("vnf-id")
-        if vnfi.get("vnf-data", {}).get("vnf-request-input", {}).get("vnf-name") == vnf_instance_name:
-            invariant_id = vnfi.get("vnf-data").get("vnf-information").get("onap-model-information").get("model-invariant-uuid")
-            vnf_version = vnfi.get("vnf-data").get("vnf-information").get("onap-model-information").get("model-version")
-            tenant_id = vnfi.get("vnf-data").get("vnf-request-input").get("tenant")
-            cloud_owner = vnfi.get("vnf-data").get("vnf-request-input").get("cloud-owner")
-            cloud_region = vnfi.get("vnf-data").get("vnf-request-input").get("aic-cloud-region")
-            return oc.so.service_instantiation.delete_vnf_instance(
-                vnf_invariant_id=invariant_id,
-                vnf_version=vnf_version,
-                vnf_name=vnf_instance_name,
-                cloud_region=cloud_region,
-                cloud_owner=cloud_owner,
-                tenant_id=tenant_id,
-                vnf_instance_id=vnfi_id,
-                service_instance_id=si_id,
-                api_type=api_type,
-            ).response_data
+    if not oc:
+        oc = Client()
 
-    raise VNFInstanceNotFound("VNF Instance was not found: {} {}".format(service_instance_name, vnf_instance_name))
+    si = so.service_instance.get_service_instance(service_instance_name, oc=oc)
+    vnfi = so.service_instance.get_vnf_instance(si, vnf_instance_name)
+
+    si_id = si.get("service-instance-id")
+    vnfi_id = vnfi.get("vnf-id")
+    invariant_id = vnfi.get("vnf-data").get("vnf-information").get("onap-model-information").get("model-invariant-uuid")
+    vnf_version = vnfi.get("vnf-data").get("vnf-information").get("onap-model-information").get("model-version")
+    tenant_id = vnfi.get("vnf-data").get("vnf-request-input").get("tenant")
+    cloud_owner = vnfi.get("vnf-data").get("vnf-request-input").get("cloud-owner")
+    cloud_region = vnfi.get("vnf-data").get("vnf-request-input").get("aic-cloud-region")
+
+    return oc.so.service_instantiation.delete_vnf_instance(
+        vnf_invariant_id=invariant_id,
+        vnf_version=vnf_version,
+        vnf_name=vnf_instance_name,
+        cloud_region=cloud_region,
+        cloud_owner=cloud_owner,
+        tenant_id=tenant_id,
+        vnf_instance_id=vnfi_id,
+        service_instance_id=si_id,
+        api_type=api_type,
+    ).response_data

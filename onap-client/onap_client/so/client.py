@@ -34,12 +34,8 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 from functools import partial
 from onap_client.client.clients import Client
-from onap_client import config
-
-application_id = config.APPLICATION_ID
 
 
 class SOClient(Client):

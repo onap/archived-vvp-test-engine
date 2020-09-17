@@ -1,0 +1,3 @@
+include onap_client/etc/config.example.yaml
+include onap_client/etc/payloads/*.jinja
+include onap_client/README.md

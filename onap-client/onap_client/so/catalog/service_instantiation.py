@@ -34,15 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 from functools import partial
 
-from onap_client import config
 from onap_client.so.client import SOClient
-
-PAYLOADS_DIR = config.PAYLOADS_DIR
-application_id = config.APPLICATION_ID
 
 
 class ServiceInstantiationClient(SOClient):
@@ -61,7 +56,7 @@ class ServiceInstantiationClient(SOClient):
                     endpoint=self.config.so.SO_ENDPOINT,
                     service_path=self.config.so.SO_SERVICE_INSTANCE_PATH,
                 ),
-                "payload": "{}/so_service_instance.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/so_service_instance.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "service_instance_name",
                     "requestor_id",
@@ -84,7 +79,7 @@ class ServiceInstantiationClient(SOClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     # "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },
@@ -97,7 +92,7 @@ class ServiceInstantiationClient(SOClient):
                     service_path=self.config.so.SO_SERVICE_INSTANCE_PATH,
                 ),
                 "uri-parameters": ["service_instance_id"],
-                "payload": "{}/so_delete_service.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/so_delete_service.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "service_invariant_id",
                     "service_name",
@@ -110,7 +105,7 @@ class ServiceInstantiationClient(SOClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     # "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },
@@ -123,7 +118,7 @@ class ServiceInstantiationClient(SOClient):
                     service_path=self.config.so.SO_SERVICE_INSTANCE_PATH,
                 ),
                 "uri-parameters": ["service_instance_id"],
-                "payload": "{}/so_vnf_instance.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/so_vnf_instance.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "vnf_instance_name",
                     "requestor_id",
@@ -150,7 +145,7 @@ class ServiceInstantiationClient(SOClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     # "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },
@@ -163,7 +158,7 @@ class ServiceInstantiationClient(SOClient):
                     service_path=self.config.so.SO_SERVICE_INSTANCE_PATH,
                 ),
                 "uri-parameters": ["service_instance_id", "vnf_instance_id"],
-                "payload": "{}/so_delete_vnf.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/so_delete_vnf.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "vnf_invariant_id",
                     "vnf_name",
@@ -178,8 +173,50 @@ class ServiceInstantiationClient(SOClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    # "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+            },
+            "CREATE_VOLUME_MODULE_INSTANCE": {
+                "verb": "POST",
+                "description": "Creates a VNF Volume Module Instance.",
+                "uri": partial(
+                    "{endpoint}{service_path}/{service_instance_id}/vnfs/{vnf_instance_id}/volumeGroups".format,
+                    endpoint=self.config.so.SO_ENDPOINT,
+                    service_path=self.config.so.SO_SERVICE_INSTANCE_PATH,
+                ),
+                "uri-parameters": ["service_instance_id", "vnf_instance_id"],
+                "payload": "{}/so_create_volume_module.jinja".format(self.config.payload_directory),
+                "payload-parameters": [
+                    "volume_module_instance_name",
+                    "model_invariant_id",
+                    "model_version_id",
+                    "model_name",
+                    "model_version",
+                    "model_customization_id",
+                    "model_name",
+                    "api_type",
+                    "tenant_id",
+                    "cloud_owner",
+                    "cloud_region",
+                    "service_instance_id",
+                    "service_model_name",
+                    "service_model_invariant_id",
+                    "service_model_version",
+                    "service_model_version_id",
+                    "vnf_instance_id",
+                    "vnf_model_name",
+                    "vnf_model_invariant_id",
+                    "vnf_model_version",
+                    "vnf_model_version_id",
+                    "vnf_model_customization_id",
+                ],
+                "header-parameters": ["X-TransactionId"],
+                "success_code": 202,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },
@@ -192,7 +229,7 @@ class ServiceInstantiationClient(SOClient):
                     service_path=self.config.so.SO_SERVICE_INSTANCE_PATH,
                 ),
                 "uri-parameters": ["service_instance_id", "vnf_instance_id"],
-                "payload": "{}/so_create_module.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/so_create_module.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "module_instance_name",
                     "model_invariant_id",
@@ -222,8 +259,7 @@ class ServiceInstantiationClient(SOClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    # "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },
@@ -236,7 +272,7 @@ class ServiceInstantiationClient(SOClient):
                     service_path=self.config.so.SO_SERVICE_INSTANCE_PATH,
                 ),
                 "uri-parameters": ["service_instance_id", "vnf_instance_id", "vf_module_id"],
-                "payload": "{}/so_delete_module.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/so_delete_module.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "module_invariant_id",
                     "module_name",
@@ -251,8 +287,35 @@ class ServiceInstantiationClient(SOClient):
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    # "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+            },
+            "DELETE_VOLUME_MODULE_INSTANCE": {
+                "verb": "DELETE",
+                "description": "Deletes a VNF Volume Module Instance.",
+                "uri": partial(
+                    "{endpoint}{service_path}/{service_instance_id}/vnfs/{vnf_instance_id}/volumeGroups/{volume_module_id}".format,
+                    endpoint=self.config.so.SO_ENDPOINT,
+                    service_path=self.config.so.SO_SERVICE_INSTANCE_PATH,
+                ),
+                "uri-parameters": ["service_instance_id", "vnf_instance_id", "volume_module_id"],
+                "payload": "{}/so_delete_volume_module.jinja".format(self.config.payload_directory),
+                "payload-parameters": [
+                    "module_invariant_id",
+                    "module_name",
+                    "module_version",
+                    "cloud_region",
+                    "cloud_owner",
+                    "tenant_id",
+                    "api_type",
+                ],
+                "header-parameters": ["X-TransactionId"],
+                "success_code": 202,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },
@@ -270,7 +333,7 @@ class ServiceInstantiationClient(SOClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },
@@ -287,7 +350,7 @@ class ServiceInstantiationClient(SOClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },
@@ -304,7 +367,24 @@ class ServiceInstantiationClient(SOClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+            },
+            "GET_MODULE_CUSTOMIZATION": {
+                "verb": "GET",
+                "description": "Searches the SO catalog for module customization object.",
+                "uri": partial(
+                    "{endpoint}vfModuleCustomization/search/findFirstByModelCustomizationUUIDOrderByCreatedDesc?MODEL_CUSTOMIZATION_UUID={module_customization_id}".format,
+                    endpoint=self.config.so.SO_ENDPOINT,
+                ),
+                "uri-parameters": ["module_customization_id"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
             },

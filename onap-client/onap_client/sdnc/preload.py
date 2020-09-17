@@ -56,8 +56,8 @@ class Preload(Resource):
     }
 
     def _create(self, instance_input):
-        service_instance = so.vnf_instance.get_service_instance(
-            instance_input.get("service_instance_name")
+        service_instance = so.service_instance.get_service_instance(
+            instance_input.get("service_instance_name"), oc=self.oc
         )
         if not service_instance:
             raise ServiceInstanceNotFound(
@@ -66,7 +66,7 @@ class Preload(Resource):
                 )
             )
 
-        vnf_instance = so.vnf_instance.get_vnf_instance(
+        vnf_instance = so.service_instance.get_vnf_instance(
             service_instance, instance_input.get("vnf_instance_name")
         )
         if not vnf_instance:
@@ -90,9 +90,9 @@ class Preload(Resource):
         vnf_model_name = vnf_model_information["model-name"]
 
         vnf_component = so.vnf_instance.get_vnf_model_component(
-            service_model_name, vnf_model_name
+            service_model_name, vnf_model_name, oc=self.oc
         )
-        module_model = so.vnf_instance.get_module_model(
+        module_model = so.module_instance.get_module_model(
             vnf_component, instance_input.get("heat_template_name")
         )
 
@@ -105,13 +105,14 @@ class Preload(Resource):
             module_model.get("groupName"),
         )
 
-        create_preload(preload_path, instance_input.get("api_type"))
+        create_preload(preload_path, instance_input.get("api_type"), oc=self.oc)
 
         return instance_input
 
 
-def create_preload(preload_path, api_type):
-    oc = Client()
+def create_preload(preload_path, api_type, oc=None):
+    if not oc:
+        oc = Client()
 
     if api_type == "GR_API":
         oc.sdnc.operations.gr_api_preload(preload_path=preload_path)

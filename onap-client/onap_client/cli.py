@@ -48,9 +48,9 @@ from onap_client.util import utility_cli, get_actions
 def main(*args):
     cli_arguments = list(args)
     request_arguments = {}
+    configure_logging()
 
     oc = Client()
-    configure_logging()
 
     if len(args) > 0 and args[0] == "spec-engine":
         # use engine cli instead
@@ -180,7 +180,7 @@ def help_table(data, utility_data={}):
         x.add_row(["", "", ""])
 
     for item in data.get("clients"):
-        name = item
+        name = item.lower().replace("_", "-")
         description = "Various actions available for {}".format(name)
         parameters = ["--help"]
         x.add_row([name, description, "\n".join(parameters)])

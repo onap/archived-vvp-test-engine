@@ -126,11 +126,11 @@ class VNF(Resource):
         """Creates a vnf object in SDC"""
         vnf = None
 
-        existing = get_vnf_id(vnf_input.get("vnf_name"))
+        existing = get_vnf_id(vnf_input.get("vnf_name"), oc=self.oc)
         if not existing:
-            vnf = create_vnf(vnf_input)
+            vnf = create_vnf(vnf_input, oc=self.oc)
         elif vnf_input.get("allow_update"):
-            vnf = update_vnf(existing, vnf_input)
+            vnf = update_vnf(existing, vnf_input, oc=self.oc)
         else:
             raise exceptions.ResourceAlreadyExistsException(
                 "VNF resource {} already exists".format(vnf_input.get("vnf_name"))
@@ -206,14 +206,14 @@ class VNF(Resource):
             resource_relationship = resource.get("relationship", {})
 
             if not resource_id:
-                resource_id = get_vnf_id(catalog_resource_name)
+                resource_id = get_vnf_id(catalog_resource_name, oc=self.oc)
                 if not resource_id:
                     raise exceptions.ResourceIDNotFoundException(
                         "resource ID was not passed, and resource lookup by name was not found {}".format(
                             resource_name
                         )
                     )
-            new_resource = add_resource(self.catalog_resource_id, resource_id, resource_name, origin_type=resource_origin)
+            new_resource = add_resource(self.catalog_resource_id, resource_id, resource_name, origin_type=resource_origin, oc=self.oc)
             self._refresh()
             new_resource_id = new_resource["id"]
             if resource_relationship:
@@ -460,9 +460,7 @@ class VNF(Resource):
         :policy_name: name of the policy, matching onap-client.conf
 
         """
-        oc = Client()
-
-        policy = oc.config.sdc.POLICIES.get(policy_name)
+        policy = self.oc.config.sdc.POLICIES.get(policy_name)
         if not policy:
             raise exceptions.UnknownPolicyException(
                 "Policy {} was not found in configuration file".format(policy_name)
@@ -497,8 +495,9 @@ class VNF(Resource):
         return self.tosca
 
 
-def update_vnf(catalog_resource_id, vnf_input):
-    oc = Client()
+def update_vnf(catalog_resource_id, vnf_input, oc=None):
+    if not oc:
+        oc = Client()
 
     existing_vnf = oc.sdc.vnf.get_catalog_resource(
         catalog_resource_id=catalog_resource_id
@@ -511,7 +510,7 @@ def update_vnf(catalog_resource_id, vnf_input):
 
     new_vnf_metadata = oc.sdc.vnf.get_catalog_resource_metadata(catalog_resource_id=vnf.get("uniqueId")).response_data.get("metadata", {})
 
-    csar_version = vsp.get_vsp_version_id(vnf.get("csarUUID"), search_key="name")
+    csar_version = vsp.get_vsp_version_id(vnf.get("csarUUID"), search_key="name", oc=oc)
 
     vnf["csarVersion"] = csar_version
     vnf["componentMetadata"] = new_vnf_metadata
@@ -524,18 +523,19 @@ def update_vnf(catalog_resource_id, vnf_input):
     return vnf_input
 
 
-def create_vnf(vnf_input):
+def create_vnf(vnf_input, oc=None):
     """Creates a vnf object in SDC
 
     :vnf_input: dictionary with values to input for vnf creation
 
     :return: dictionary of updated values for created vnf
     """
-    oc = Client()
+    if not oc:
+        oc = Client()
 
-    software_product_id = vsp.get_vsp_id(vnf_input.get("software_product_name"))
-    software_product_version_id = vsp.get_vsp_version_id(software_product_id)
-    vsp_model = vsp.get_vsp_model(software_product_id, software_product_version_id)
+    software_product_id = vsp.get_vsp_id(vnf_input.get("software_product_name"), oc=oc)
+    software_product_version_id = vsp.get_vsp_version_id(software_product_id, oc=oc)
+    vsp_model = vsp.get_vsp_model(software_product_id, software_product_version_id, oc=oc)
 
     vsp_vendor = vsp_model.get("vendorName")
     vsp_category = vsp_model.get("category")
@@ -547,7 +547,7 @@ def create_vnf(vnf_input):
     vnf_input["vendor_name"] = vsp_vendor
     vnf_input["vnf_description"] = vnf_input.get("description")
 
-    category = get_resource_category(vsp_category)
+    category = get_resource_category(vsp_category, oc=oc)
     vsp_sub_categories = []
     for subcategory in category.get("subcategories", []):
         if subcategory.get("uniqueId").lower() == vsp_sub_category.lower():
@@ -555,7 +555,7 @@ def create_vnf(vnf_input):
             break
 
     category["subcategories"] = vsp_sub_categories
-    vnf_input["contact_id"] = vsp.get_vsp_owner(software_product_id)
+    vnf_input["contact_id"] = vsp.get_vsp_owner(software_product_id, oc=oc)
 
     vnf = oc.sdc.vnf.add_catalog_resource(**vnf_input, categories=[category])
 
@@ -611,7 +611,7 @@ def network_role_property_for_instance(network_role_tag, vnf_model, instance_id)
     return properties
 
 
-def add_resource(parent_resource_id, catalog_resource_id, catalog_resource_name, origin_type="VF"):
+def add_resource(parent_resource_id, catalog_resource_id, catalog_resource_name, origin_type="VF", oc=None):
     """Attaches a resource to a VNF in SDC
 
     :catalog_resource_id: ID of a resource in the SDC catalog
@@ -619,7 +619,8 @@ def add_resource(parent_resource_id, catalog_resource_id, catalog_resource_name,
     :origin_type: specifies the origin of the attached resource
 
     """
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     milli_timestamp = int(time.time() * 1000)
 
@@ -642,17 +643,20 @@ def add_resource(parent_resource_id, catalog_resource_id, catalog_resource_name,
 
 
 @utility
-def get_vnf(vnf_name):
+def get_vnf(vnf_name, oc=None):
     """Queries SDC for the TOSCA model for a VNF"""
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     return oc.sdc.vnf.get_catalog_resource(
-        catalog_resource_id=get_vnf_id(vnf_name)
+        catalog_resource_id=get_vnf_id(vnf_name, oc=oc)
     ).response_data
 
 
-def get_resource_category(category_name):
-    oc = Client()
+def get_resource_category(category_name, oc=None):
+    if not oc:
+        oc = Client()
+
     resource_categories = oc.sdc.get_resource_categories().response_data
     for category in resource_categories:
         if category.get("uniqueId").lower() == category_name.lower():
@@ -660,8 +664,9 @@ def get_resource_category(category_name):
     return None
 
 
-def get_vnf_id(vnf_name):
-    oc = Client()
+def get_vnf_id(vnf_name, oc=None):
+    if not oc:
+        oc = Client()
 
     response = oc.sdc.vnf.get_resources()
     results = response.response_data.get("resources", [])

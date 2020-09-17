@@ -34,11 +34,12 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
-import distutils.sysconfig
 import logging
 import os
 import yaml
+from importlib_resources import files
+
+from onap_client import etc
 
 
 class Config:
@@ -75,12 +76,20 @@ class Config:
                 )
 
         if not config_data:
-            with open("{}/config.example.yaml".format(PATH), "r") as f:
+            with open(os.path.join(files(etc), "config.example.yaml"), "r") as f:
                 config_data = yaml.safe_load(f)
 
         self.config = config_data
         for key in keys:
             self.config = self.config.get(key, {})
+
+    @property
+    def payload_directory(self):
+        return os.path.join(files(etc), "payloads")
+
+    @property
+    def application_id(self):
+        return "robot-ete"
 
 
 def load_config(config_file, *config_args):
@@ -88,11 +97,3 @@ def load_config(config_file, *config_args):
     config.load(*config_args)
 
     return config
-
-
-PATH = "{}/onap_client".format(distutils.sysconfig.PREFIX)
-PAYLOADS_DIR = "{}/payloads".format(PATH)
-APPLICATION_ID = "robot-ete"
-CONFIG_ENV = os.environ.get("OC_CONFIG")
-CONFIG_FILE = CONFIG_ENV or "/etc/onap_client/config.yaml"
-APP_CONFIG = load_config(CONFIG_FILE, "onap_client")

@@ -114,7 +114,7 @@ def test_vnf_instance():
         override_uri_params={"catalog_resource_id": VNF_ACTUAL_UUID},
     )
     mockup_catalog_item(
-        oc.sdnc.config.catalog_items["GET_SERVICE_INSTANCES"],
+        oc.sdnc.configuration.catalog_items["GET_SERVICE_INSTANCES"],
         override_return_data={
             "services": {
                 "service": [

@@ -121,11 +121,11 @@ class Service(Resource):
         """Creates a service object in SDC"""
         service = None
 
-        existing = get_service_id(service_input.get("service_name"))
+        existing = get_service_id(service_input.get("service_name"), oc=self.oc)
         if existing is None:
-            service = create_service(service_input)
+            service = create_service(service_input, oc=self.oc)
         elif service_input.get("allow_update"):
-            service = update_service(existing, service_input)
+            service = update_service(existing, service_input, oc=self.oc)
         else:
             raise exceptions.ResourceAlreadyExistsException(
                 "Service resource {} already exists".format(
@@ -144,7 +144,7 @@ class Service(Resource):
             resource_id = resource.get("resource_id")
             resource_properties = resource.get("properties")
             if not resource_id:
-                resource_id = get_vnf_id(catalog_resource_name)
+                resource_id = get_vnf_id(catalog_resource_name, oc=self.oc)
                 if not resource_id:
                     raise exceptions.ResourceIDNotFoundException(
                         "resource ID was not passed, and resource lookup by name was not found {}".format(
@@ -205,7 +205,7 @@ class Service(Resource):
         self.oc.sdc.service.distribute_sdc_service(**self.attributes, **headers)
 
         if self.wait_for_distribution:
-            poll_distribution(self.service_name)
+            poll_distribution(self.service_name, oc=self.oc)
 
         self._refresh()
 
@@ -326,8 +326,9 @@ class Service(Resource):
         return self.tosca
 
 
-def update_service(existing_service_id, service_input):
-    oc = Client()
+def update_service(existing_service_id, service_input, oc=None):
+    if not oc:
+        oc = Client()
 
     kwargs = service_input
 
@@ -348,14 +349,15 @@ def update_service(existing_service_id, service_input):
     return kwargs
 
 
-def create_service(service_input):
+def create_service(service_input, oc=None):
     """Creates a service object in SDC
 
     :service_input: dictionary with values to input for service creation
 
     :return: dictionary of updated values for created service
     """
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     category_name_lower = service_input.get("category_name").lower()
     category_name_icon = normalize_category_icon(service_input.get("category_name"))
@@ -373,19 +375,21 @@ def create_service(service_input):
 
 
 @utility
-def get_service(service_name):
+def get_service(service_name, oc=None):
     """Queries SDC for the TOSCA model for a service"""
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     return oc.sdc.service.get_sdc_service(
-        catalog_service_id=get_service_id(service_name)
+        catalog_service_id=get_service_id(service_name, oc=oc)
     ).response_data
 
 
 @utility
-def get_service_id(service_name):
+def get_service_id(service_name, oc=None):
     """Queries SDC for the uniqueId of a service model"""
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     response = oc.sdc.service.get_services()
     results = response.response_data.get("services", [])
@@ -399,14 +403,18 @@ def get_service_id(service_name):
     return catalog_service.get("uniqueId")
 
 
-def get_service_uuid(service_name):
-    return get_service(service_name).get("uuid")
+def get_service_uuid(service_name, oc=None):
+    if not oc:
+        oc = Client()
+
+    return get_service(service_name, oc=oc).get("uuid")
 
 
-def get_service_distribution(service_name):
-    oc = Client()
+def get_service_distribution(service_name, oc=None):
+    if not oc:
+        oc = Client()
 
-    distribution_id = get_distribution_id(service_name)
+    distribution_id = get_distribution_id(service_name, oc=oc)
 
     if distribution_id:
         return oc.sdc.service.get_service_distribution_details(
@@ -416,11 +424,12 @@ def get_service_distribution(service_name):
     return None
 
 
-def get_distribution_id(service_name):
-    oc = Client()
+def get_distribution_id(service_name, oc=None):
+    if not oc:
+        oc = Client()
 
     distribution = oc.sdc.service.get_service_distribution(
-        distribution_service_id=get_service_uuid(service_name)
+        distribution_service_id=get_service_uuid(service_name, oc=oc)
     ).response_data
     if distribution:
         details = distribution.get("distributionStatusOfServiceList", [])
@@ -431,14 +440,15 @@ def get_distribution_id(service_name):
 
 
 @utility
-def poll_distribution(service_name):
+def poll_distribution(service_name, oc=None):
     """Polls a distributed service until distribution is complete"""
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     poll_interval = oc.config.sdc.POLL_INTERVAL or 30
     x = 0
     while x < 30:
-        distribution = get_service_distribution(service_name)
+        distribution = get_service_distribution(service_name, oc=oc)
         if not distribution:
             raise exceptions.DistributionNotFound(
                 "Could not determine distribution status for {}".format(service_name)
@@ -470,10 +480,11 @@ def poll_distribution(service_name):
 
 
 @utility
-def download_csar(service_name, output_file):
-    oc = Client()
+def download_csar(service_name, output_file, oc=None):
+    if not oc:
+        oc = Client()
 
-    service = get_service(service_name)
+    service = get_service(service_name, oc=oc)
     artifact_id = service.get("toscaArtifacts", {}).get("assettoscacsar", {}).get("uniqueId")
 
     csar_data = oc.sdc.service.get_sdc_csar(

@@ -34,15 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 from functools import partial
 
-from onap_client import config
 from onap_client.aai.client import AAIClient
-
-PAYLOADS_DIR = config.PAYLOADS_DIR
-application_id = config.APPLICATION_ID
 
 
 class CloudInfrastructureClient(AAIClient):
@@ -66,7 +61,7 @@ class CloudInfrastructureClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -84,7 +79,7 @@ class CloudInfrastructureClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -102,7 +97,7 @@ class CloudInfrastructureClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },
@@ -120,7 +115,25 @@ class CloudInfrastructureClient(AAIClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+            },
+            "GET_VOLUME_GROUPS": {
+                "verb": "GET",
+                "description": "Queries AAI for the list of volume groups",
+                "uri": partial(
+                    "{endpoint}{service_path}/cloud-regions/cloud-region/{cloud_owner}/{cloud_region}/volume-groups".format,
+                    endpoint=self.config.aai.AAI_BE_ENDPOINT,
+                    service_path=self.config.aai.AAI_CLOUD_INFRASTRUCTURE_PATH,
+                ),
+                "uri-parameters": ["cloud_region", "cloud_owner"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
             },

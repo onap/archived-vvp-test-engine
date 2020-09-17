@@ -87,7 +87,7 @@ class LicenseModel(Resource):
 
     def _create(self, license_input):
         """Creates a license model object in SDC"""
-        return create_license_model(license_input)
+        return create_license_model(license_input, oc=self.oc)
 
     def _submit(self):
         """Submits the license model in SDC"""
@@ -103,14 +103,15 @@ class LicenseModel(Resource):
 
 # TODO
 # Break this up into class funcs?
-def create_license_model(license_input):
+def create_license_model(license_input, oc=None):
     """Creates a license model object in SDC
 
     :license_input: dictionary with values to input for lm creation
 
     :return: dictionary of updated values for created lm
     """
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     kwargs = license_input
     license_model = oc.sdc.license_model.add_license_model(**kwargs)
@@ -141,14 +142,15 @@ def create_license_model(license_input):
     return kwargs
 
 
-def get_license_model_id(license_model_name):
+def get_license_model_id(license_model_name, oc=None):
     """GETs license model UUID from SDC
 
     :license_model_name: name of license model in SDC
 
     :return: uuid of lm or None
     """
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     response = oc.sdc.license_model.get_license_models()
     results = response.response_data.get("results")
@@ -158,14 +160,15 @@ def get_license_model_id(license_model_name):
     return None
 
 
-def get_license_model_version_id(license_model_id):
+def get_license_model_version_id(license_model_id, oc=None):
     """GETs license model version UUID from SDC
 
     :license_model_id: uuid of license model in SDC
 
     :return: uuid of lm version id or None
     """
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     license_model_version_id = None
     creation_time = -1
@@ -181,7 +184,7 @@ def get_license_model_version_id(license_model_id):
     return license_model_version_id
 
 
-def get_license_model_attribute(license_model_id, license_model_version_id, attribute):
+def get_license_model_attribute(license_model_id, license_model_version_id, attribute, oc=None):
     """GETs license model attribute from SDC
 
     :license_model_id: uuid of license model in SDC
@@ -190,7 +193,8 @@ def get_license_model_attribute(license_model_id, license_model_version_id, attr
 
     :return: uuid of attribute of license-model
     """
-    oc = Client()
+    if not oc:
+        oc = Client()
 
     response = oc.sdc.license_model.get_license_model_version_attribute(
         license_model_id=license_model_id,

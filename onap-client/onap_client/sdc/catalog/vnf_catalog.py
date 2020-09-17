@@ -34,15 +34,10 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import uuid
 from functools import partial
 
-from onap_client import config
 from onap_client.sdc.client import SDCClient
-
-PAYLOADS_DIR = config.PAYLOADS_DIR
-application_id = config.APPLICATION_ID
 
 
 class VNFCatalog(SDCClient):
@@ -61,7 +56,7 @@ class VNFCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ENDPOINT,
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
-                "payload": "{}/catalog_resource.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_resource.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "software_product_id",
                     "vnf_name",
@@ -77,7 +72,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
                 "auth": (
@@ -94,7 +89,7 @@ class VNFCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
                 "uri-parameters": ["catalog_resource_id"],
-                "payload": "{}/user_remarks.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/user_remarks.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["user_remarks"],
                 "success_code": 200,
                 "headers": {
@@ -102,7 +97,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
                 "auth": (
@@ -118,7 +113,7 @@ class VNFCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ENDPOINT,
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
-                "payload": "{}/catalog_vnf_input.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_vnf_input.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "input_default_value",
                     "input_name",
@@ -133,7 +128,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -150,14 +145,14 @@ class VNFCatalog(SDCClient):
                 ),
                 "uri-parameters": ["catalog_resource_id"],
                 "success_code": 200,
-                "payload": "{}/generic_payload.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/generic_payload.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["payload_data"],
                 "headers": {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -179,7 +174,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -194,7 +189,7 @@ class VNFCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ENDPOINT,
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
-                "payload": "{}/catalog_vnf_property.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_vnf_property.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "unique_id",
                     "parent_unique_id",
@@ -211,7 +206,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -226,7 +221,7 @@ class VNFCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ENDPOINT,
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
-                "payload": "{}/catalog_vnf_property.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_vnf_property.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "unique_id",
                     "parent_unique_id",
@@ -243,7 +238,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -265,7 +260,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
                 "auth": (
@@ -282,7 +277,7 @@ class VNFCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
                 "uri-parameters": ["catalog_resource_id", "catalog_policy_id"],
-                "payload": "{}/catalog_vnf_policy_property.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_vnf_policy_property.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "unique_id",
                     "property_name",
@@ -296,7 +291,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -318,7 +313,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
                 "auth": (
@@ -335,7 +330,7 @@ class VNFCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
                 "uri-parameters": ["catalog_resource_id", "catalog_group_id"],
-                "payload": "{}/catalog_vnf_group_property.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_vnf_group_property.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "unique_id",
                     "property_name",
@@ -351,7 +346,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -366,7 +361,7 @@ class VNFCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ENDPOINT,
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
-                "payload": "{}/catalog_vnf_group.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_vnf_group.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["instance_id"],
                 "uri-parameters": ["catalog_resource_id", "catalog_group_id"],
                 "success_code": 200,
@@ -375,7 +370,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -390,7 +385,7 @@ class VNFCatalog(SDCClient):
                     endpoint=self.config.sdc.SDC_BE_ENDPOINT,
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
-                "payload": "{}/catalog_vnf_policy.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/catalog_vnf_policy.jinja".format(self.config.payload_directory),
                 "payload-parameters": ["instance_ids"],
                 "uri-parameters": ["catalog_resource_id", "catalog_policy_id"],
                 "success_code": 200,
@@ -399,7 +394,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -415,7 +410,7 @@ class VNFCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
                 "uri-parameters": ["catalog_resource_id"],
-                "payload": "{}/resource_instance_vnf.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/resource_instance_vnf.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "milli_timestamp",
                     "new_catalog_resource_id",
@@ -431,7 +426,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -447,7 +442,7 @@ class VNFCatalog(SDCClient):
                     service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
                 "uri-parameters": ["catalog_resource_id"],
-                "payload": "{}/add_resource_relationship.jinja".format(PAYLOADS_DIR),
+                "payload": "{}/add_resource_relationship.jinja".format(self.config.payload_directory),
                 "payload-parameters": [
                     "from_node_resource_id",
                     "to_node_resource_id",
@@ -464,7 +459,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -486,7 +481,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_name": ("name",)},
                 "auth": (
@@ -509,7 +504,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "auth": (
                     self.global_sdc_username,
@@ -530,7 +525,7 @@ class VNFCatalog(SDCClient):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                     "X-TransactionId": str(uuid.uuid4()),
-                    "X-FromAppId": application_id,
+                    "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"resources": ("resources",)},
                 "auth": (

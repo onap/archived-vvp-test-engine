@@ -34,9 +34,25 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
+import onap_client
+import pkgutil
+import inspect
+import sys
+import os
+import importlib
 
 from abc import ABC, abstractmethod
 from onap_client.lib import make_request
+from onap_client import config
+
+CACHED_MODULES = {}
+
+
+def get_modules():
+    catalog = sys.modules[__name__]
+    if not catalog.CACHED_MODULES:
+        catalog.CACHED_MODULES = import_submodules(onap_client)
+    return catalog.CACHED_MODULES
 
 
 class Catalog(ABC):
@@ -53,7 +69,7 @@ class Catalog(ABC):
         def __call__(self, **kwargs):
             return make_request(self.resource, **kwargs)
 
-    def __init__(self, **kwargs):
+    def __init__(self, config_file=None, **kwargs):
         """Iterates through all child classes and attaches them as attributes, named
         after the namespace property.
 
@@ -61,10 +77,15 @@ class Catalog(ABC):
         catalog_resources property, they will be added as attributes to the child attribute
         as a CallHandle object.
         """
+        if not config_file:
+            config_file = os.environ.get("OC_CONFIG") or "/etc/onap_client/config.yaml"
+
         self.catalog_items = {}
+        self.modules = get_modules()
+        self._config_overrides = kwargs
 
         for cls in self.__class__.__subclasses__():
-            subclass = cls(**kwargs)
+            subclass = cls(config_file=config_file, **kwargs)
             namespace = subclass.namespace
             catalog_resources = subclass.catalog_resources
 
@@ -72,6 +93,8 @@ class Catalog(ABC):
                 subclass.load(k, v)
 
             setattr(self, namespace, subclass)
+
+        self.set_config(config_file)
 
     def load(self, item_name, resource_data):
         """Consume a catalog resource entry as an APICatalogResource,
@@ -90,6 +113,33 @@ class Catalog(ABC):
     @abstractmethod
     def catalog_resources(self):
         raise NotImplementedError
+
+    @property
+    def utility_functions(self):
+        utility_functions = {}
+        for module_name, module in self.modules.items():
+            all_functions = inspect.getmembers(module, inspect.isfunction)
+            for func in all_functions:
+                function = func[1]
+                if hasattr(function, "utility_function"):
+                    utility_functions[func[0]] = func[1]
+        return utility_functions
+
+    def set_config(self, config_file):
+        self.config = config.load_config(config_file, "onap_client")
+        for attr_name, attr in self.__dict__.items():
+            if isinstance(attr, Catalog):
+                attr.set_config(config_file)
+                for k, v in attr.catalog_resources.items():
+                    attr.load(k, v)
+
+    def override(override_key):
+        def decorator(func):
+            def override_check(self):
+                o = self._config_overrides.get(override_key)
+                return o if o else func(self)
+            return override_check
+        return decorator
 
 
 class APICatalogResource:
@@ -154,3 +204,19 @@ class APICatalogResource:
     @property
     def auth(self):
         return self.catalog_resource_data.get("auth", None)
+
+
+def import_submodules(package, recursive=True):
+    """Import all the modules in onap-client, except for those starting
+    with tests*. This is needed so that the Client object can register child classes"""
+    if isinstance(package, str):
+        package = importlib.import_module(package)
+    results = {}
+    for loader, name, is_pkg in pkgutil.walk_packages(package.__path__):
+        full_name = package.__name__ + "." + name
+        if full_name.find("tests") == -1:
+            results[full_name] = importlib.import_module(full_name)
+            if recursive and is_pkg:
+                results.update(import_submodules(full_name))
+
+    return results
