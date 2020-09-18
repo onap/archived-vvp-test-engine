@@ -4,6 +4,8 @@
 *pytest_cache*
 .coverage
 coverage.xml
+*junit*
+*htmlcov*
 build
 dist
 *egg-info*

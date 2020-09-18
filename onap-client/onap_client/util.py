@@ -34,8 +34,8 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 import json
+import inspect
 from prettytable import PrettyTable
 
 
@@ -59,10 +59,11 @@ def utility_cli(onap_client, cli_arguments):
                 return
 
             if callable(functions):
-                if functions.__code__.co_argcount != len(cli_arguments):
+                cf = CallableFunction(functions)
+                if cf.required_arg_count != len(cli_arguments):
                     print(
                         "Function requires {} arguments, but {} were passed. Try --help.".format(
-                            functions.__code__.co_argcount, len(cli_arguments)
+                            cf.required_arg_count, len(cli_arguments)
                         )
                     )
                     return
@@ -99,14 +100,16 @@ def get_actions(functions):
     actions["--help"] = ("", "")
     if isinstance(functions, dict):
         for k, v in functions.items():
+            cf = CallableFunction(v)
             actions[convert_to_dash(k)] = (
-                v.__doc__,
-                list(v.__code__.co_varnames[: v.__code__.co_argcount]),
+                cf.doc_string,
+                cf.required_arguments,
             )
     elif callable(functions):
-        actions[convert_to_dash(functions.__name__)] = (
-            functions.__doc__,
-            list(functions.__code__.co_varnames[: functions.__code__.co_argcount]),
+        cf = CallableFunction(functions)
+        actions[convert_to_dash(cf.name)] = (
+            cf.doc_string,
+            cf.required_arguments,
         )
 
     return actions
@@ -138,3 +141,25 @@ def help_table(actions):
 def utility(func):
     func.utility_function = True
     return func
+
+
+class CallableFunction:
+    def __init__(self, function):
+        self.function = function
+        self.required_arguments = []
+
+        for param in inspect.signature(self.function).parameters.values():
+            if param.default == param.empty:
+                self.required_arguments.append(param.name)
+
+    @property
+    def required_arg_count(self):
+        return len(self.required_arguments)
+
+    @property
+    def doc_string(self):
+        return self.function.__doc__
+
+    @property
+    def name(self):
+        return self.function.__name__
