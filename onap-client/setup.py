@@ -47,7 +47,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="onap-client",
-    version="1.0.0",
+    version="1.0.1",
     author="Steven Stark",
     author_email="steven.stark@att.com",
     description="Python API wrapper for ONAP applications",
