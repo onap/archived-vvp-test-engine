@@ -63,11 +63,12 @@ class Catalog(ABC):
         """Attached as an attribute for each catalog entry in a catalog.
         Used to make a request to ONAP."""
 
-        def __init__(self, catalog_resource):
+        def __init__(self, catalog_resource, verify=False):
             self.resource = catalog_resource
+            self.verify_request = verify
 
         def __call__(self, **kwargs):
-            return make_request(self.resource, **kwargs)
+            return make_request(self.resource, self.verify_request, **kwargs)
 
     def __init__(self, config_file=None, **kwargs):
         """Iterates through all child classes and attaches them as attributes, named
@@ -96,13 +97,13 @@ class Catalog(ABC):
 
         self.set_config(config_file)
 
-    def load(self, item_name, resource_data):
+    def load(self, item_name, resource_data, verify=False):
         """Consume a catalog resource entry as an APICatalogResource,
         and set it as an attribute on this.class as a CallHandle object"""
         resource = APICatalogResource(item_name, resource_data)
 
         self.catalog_items[item_name] = resource
-        setattr(self, item_name.lower(), self.CallHandle(resource))
+        setattr(self, item_name.lower(), self.CallHandle(resource, verify=verify))
 
     @property
     @abstractmethod
@@ -127,11 +128,12 @@ class Catalog(ABC):
 
     def set_config(self, config_file):
         self.config = config.load_config(config_file, "onap_client")
+        verify = self.config.REQUESTS_VERIFY
         for attr_name, attr in self.__dict__.items():
             if isinstance(attr, Catalog):
                 attr.set_config(config_file)
                 for k, v in attr.catalog_resources.items():
-                    attr.load(k, v)
+                    attr.load(k, v, verify=verify)
 
     def override(override_key):
         def decorator(func):

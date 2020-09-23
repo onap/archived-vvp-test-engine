@@ -56,7 +56,7 @@ class Config:
 
     def __getattr__(self, attr):
         item = self.config.get(attr, None)
-        if isinstance(item, str):
+        if isinstance(item, (str, bool)):
             return item
         elif isinstance(item, dict):
             return self.ConfigClient(item)

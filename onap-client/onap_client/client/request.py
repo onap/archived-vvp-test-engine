@@ -57,13 +57,13 @@ class RequestHandler:
         """
         self.request_object = request_object
 
-    def make_request(self):
+    def make_request(self, verify):
         r = Request(self.request_object)
 
         logger.info("Submitting request: {}".format(self.request_object.description))
         # TODO
         # Add verify to config file
-        return ResponseHandler(r.request(verify=False), self.request_object)
+        return ResponseHandler(r.request(verify=verify), self.request_object)
 
 
 class Request:
