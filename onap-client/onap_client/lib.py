@@ -36,6 +36,7 @@
 # ============LICENSE_END============================================
 
 import uuid
+
 from datetime import datetime, timedelta
 
 from onap_client import exceptions

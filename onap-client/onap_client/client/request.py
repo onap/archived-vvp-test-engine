@@ -156,9 +156,6 @@ class APICatalogRequestObject:
         self.resolve_uri()
 
     def resolve_files(self):
-        # TODO
-        # is there a better way to figure out waht params are needed?
-        # right now its hardcoded
         file_type = self.file_parameters.get("file_type", "application/zip")
         file_path = self.file_parameters.get("file_path")
         if not file_path:

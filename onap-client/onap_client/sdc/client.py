@@ -35,9 +35,12 @@
 #
 # ============LICENSE_END============================================
 import uuid
+from frozendict import frozendict
 
 from functools import partial
+
 from onap_client.client.clients import Client
+from onap_client.auth import auth_handler
 
 
 class SDCClient(Client):
@@ -64,10 +67,7 @@ class SDCClient(Client):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                # "auth": (
-                #     self.sdc_designer_user_id,
-                #     self.config.sdc.SDC_DESIGNER_PASSWORD,
-                # ),
+                "auth": self.auth,
             },
             "GET_RESOURCE_CATEGORIES": {
                 "verb": "GET",
@@ -83,10 +83,25 @@ class SDCClient(Client):
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
+                "auth": self.auth,
+            },
+            "ADD_USER": {
+                "verb": "POST",
+                "description": "Add a user to SDC.",
+                "uri": partial(
+                    "{endpoint}{service_path}".format,
+                    endpoint=self.config.sdc.SDC_BE_ENDPOINT,
+                    service_path=self.config.sdc.SDC_USER_PATH,
                 ),
+                "payload": "{}/sdc_add_user.jinja".format(self.config.payload_directory),
+                "payload-parameters": ["first_name", "last_name", "user_id", "email", "role"],
+                "success_code": 201,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.sdc_ops_user_id,
+                },
+                "auth": self.auth,
             },
         }
 
@@ -125,3 +140,11 @@ class SDCClient(Client):
     def sdc_governor_user_id(self):
         """Ops role User ID"""
         return self.config.sdc.SDC_GOVERNOR_USER_ID
+
+    @property
+    def auth(self):
+        return auth_handler(
+            frozendict(self.config.sdc.AUTH_PLUGIN) if self.config.sdc.AUTH_PLUGIN else None,
+            self.global_sdc_username,
+            self.global_sdc_password,
+        )

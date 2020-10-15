@@ -37,7 +37,9 @@
 import uuid
 
 from functools import partial
+from frozendict import frozendict
 from onap_client.client.clients import Client
+from onap_client.auth import auth_handler
 
 
 class AAIClient(Client):
@@ -63,6 +65,24 @@ class AAIClient(Client):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
         }
+
+    @property
+    def aai_username(self):
+        """Username to authenticate to AAI"""
+        return self.config.aai.AAI_USERNAME
+
+    @property
+    def aai_password(self):
+        """Password to authenticate to AAI"""
+        return self.config.aai.AAI_PASSWORD
+
+    @property
+    def auth(self):
+        return auth_handler(
+            frozendict(self.config.aai.AUTH_PLUGIN) if self.config.aai.AUTH_PLUGIN else None,
+            self.aai_username,
+            self.aai_password,
+        )

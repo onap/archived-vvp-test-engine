@@ -70,10 +70,7 @@ class LicenseModelClient(SDCClient):
                     "license_model_id": ("itemId",),
                     "license_model_version_id": ("version", "id"),
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_KEY_GROUP": {
                 "verb": "POST",
@@ -99,10 +96,7 @@ class LicenseModelClient(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"key_group_id": ("value",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_ENTITLEMENT_POOL": {
                 "verb": "POST",
@@ -128,10 +122,7 @@ class LicenseModelClient(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"entitlement_pool_id": ("value",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_FEATURE_GROUP": {
                 "verb": "POST",
@@ -158,10 +149,7 @@ class LicenseModelClient(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"feature_group_id": ("value",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_LICENSE_AGREEMENT": {
                 "verb": "POST",
@@ -183,10 +171,7 @@ class LicenseModelClient(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"license_agreement_id": ("value",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "SUBMIT_LICENSE_MODEL": {
                 "verb": "PUT",
@@ -207,10 +192,7 @@ class LicenseModelClient(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_LICENSE_MODEL": {
                 "verb": "GET",
@@ -234,10 +216,7 @@ class LicenseModelClient(SDCClient):
                     "license_model_id": ("id",),
                     "description": ("description",),
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_LICENSE_MODEL_VERSION_ATTRIBUTE": {
                 "verb": "GET",
@@ -256,10 +235,7 @@ class LicenseModelClient(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_LICENSE_MODEL_VERSIONS": {
                 "verb": "GET",
@@ -278,10 +254,7 @@ class LicenseModelClient(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_LICENSE_MODELS": {
                 "verb": "GET",
@@ -300,9 +273,6 @@ class LicenseModelClient(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"results": ("results",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
         }

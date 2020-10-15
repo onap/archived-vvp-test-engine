@@ -41,7 +41,6 @@ from prettytable import PrettyTable
 
 def utility_cli(onap_client, cli_arguments):
     functions = onap_client.utility_functions
-
     if len(cli_arguments) == 0 or cli_arguments[0] == "--help":
         help(functions)
     else:
@@ -68,7 +67,7 @@ def utility_cli(onap_client, cli_arguments):
                     )
                     return
 
-                if cli_arguments[0] == "--help":
+                if len(cli_arguments) and cli_arguments[0] == "--help":
                     help(functions)
                     return
 

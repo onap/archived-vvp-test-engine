@@ -64,7 +64,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_OWNING_ENTITIES": {
                 "verb": "GET",
@@ -81,7 +81,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_CUSTOMER": {
                 "verb": "GET",
@@ -99,7 +99,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_CUSTOMERS": {
                 "verb": "GET",
@@ -116,7 +116,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_PLATFORM": {
                 "verb": "GET",
@@ -134,7 +134,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_PLATFORMS": {
                 "verb": "GET",
@@ -151,7 +151,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_PROJECT": {
                 "verb": "GET",
@@ -169,7 +169,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_PROJECTS": {
                 "verb": "GET",
@@ -186,7 +186,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_LINES_OF_BUSINESS": {
                 "verb": "GET",
@@ -203,7 +203,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "CREATE_CUSTOMER": {
                 "verb": "PUT",
@@ -223,7 +223,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_CUSTOMER_SUBSCRIPTIONS": {
                 "verb": "GET",
@@ -241,7 +241,7 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_SERVICE_INSTANCES": {
                 "verb": "GET",
@@ -259,6 +259,6 @@ class BusinessClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
         }

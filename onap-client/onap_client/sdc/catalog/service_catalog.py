@@ -83,10 +83,7 @@ class ServiceCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "CHECKOUT_CATALOG_SERVICE": {
                 "verb": "POST",
@@ -106,10 +103,7 @@ class ServiceCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_RESOURCE_INSTANCE": {
                 "verb": "POST",
@@ -138,10 +132,7 @@ class ServiceCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_instance_id": ("uniqueId",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "DELETE_RESOURCE_FROM_SERVICE": {
                 "verb": "DELETE",
@@ -160,10 +151,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "UPDATE_RESOURCE_VERSION": {
                 "verb": "POST",
@@ -186,10 +174,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "CHECKIN_SERVICE": {
                 "verb": "POST",
@@ -210,10 +195,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "REQUEST_SERVICE_CERTIFICATION": {
                 "verb": "POST",
@@ -234,10 +216,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "START_SERVICE_CERTIFICATION": {
                 "verb": "POST",
@@ -258,10 +237,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "FINISH_SERVICE_CERTIFICATION": {
                 "verb": "POST",
@@ -283,10 +259,7 @@ class ServiceCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_service_id": ("uniqueId",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "APPROVE_SERVICE_CERTIFICATION": {
                 "verb": "POST",
@@ -307,10 +280,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "DISTRIBUTE_SDC_SERVICE": {
                 "verb": "POST",
@@ -330,10 +300,7 @@ class ServiceCatalog(SDCClient):
                     # "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_CATALOG_SERVICE_PROPERTY": {
                 "verb": "POST",
@@ -362,10 +329,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_CATALOG_SERVICE_INPUT": {
                 "verb": "POST",
@@ -392,10 +356,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "UPDATE_MODULE_DEPLOYMENT_PROPERTIES": {
                 "verb": "POST",
@@ -418,10 +379,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SDC_SERVICE": {
                 "verb": "GET",
@@ -440,10 +398,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SERVICES": {
                 "verb": "GET",
@@ -462,10 +417,7 @@ class ServiceCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"services": ("services",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SERVICE_DISTRIBUTION": {
                 "verb": "GET",
@@ -484,10 +436,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SERVICE_DISTRIBUTION_DETAILS": {
                 "verb": "GET",
@@ -506,10 +455,7 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SDC_CSAR": {
                 "verb": "GET",
@@ -528,9 +474,6 @@ class ServiceCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
         }

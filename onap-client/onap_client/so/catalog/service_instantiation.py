@@ -81,7 +81,7 @@ class ServiceInstantiationClient(SOClient):
                     # "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "DELETE_SERVICE_INSTANCE": {
                 "verb": "DELETE",
@@ -107,7 +107,7 @@ class ServiceInstantiationClient(SOClient):
                     # "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "CREATE_VNF_INSTANCE": {
                 "verb": "POST",
@@ -147,7 +147,7 @@ class ServiceInstantiationClient(SOClient):
                     # "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "DELETE_VNF_INSTANCE": {
                 "verb": "DELETE",
@@ -175,7 +175,7 @@ class ServiceInstantiationClient(SOClient):
                     "Content-Type": "application/json",
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "CREATE_VOLUME_MODULE_INSTANCE": {
                 "verb": "POST",
@@ -218,7 +218,7 @@ class ServiceInstantiationClient(SOClient):
                     "Content-Type": "application/json",
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "CREATE_MODULE_INSTANCE": {
                 "verb": "POST",
@@ -261,7 +261,7 @@ class ServiceInstantiationClient(SOClient):
                     "Content-Type": "application/json",
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "DELETE_MODULE_INSTANCE": {
                 "verb": "DELETE",
@@ -289,7 +289,7 @@ class ServiceInstantiationClient(SOClient):
                     "Content-Type": "application/json",
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "DELETE_VOLUME_MODULE_INSTANCE": {
                 "verb": "DELETE",
@@ -317,7 +317,7 @@ class ServiceInstantiationClient(SOClient):
                     "Content-Type": "application/json",
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "GET_REQUEST_STATUS": {
                 "verb": "GET",
@@ -335,7 +335,7 @@ class ServiceInstantiationClient(SOClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "GET_SERVICE_MODEL": {
                 "verb": "GET",
@@ -352,7 +352,7 @@ class ServiceInstantiationClient(SOClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "GET_SERVICE_MODEL_DETAILS": {
                 "verb": "GET",
@@ -369,7 +369,7 @@ class ServiceInstantiationClient(SOClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
             "GET_MODULE_CUSTOMIZATION": {
                 "verb": "GET",
@@ -386,6 +386,6 @@ class ServiceInstantiationClient(SOClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
         }

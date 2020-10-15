@@ -75,10 +75,7 @@ class VNFCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "CERTIFY_CATALOG_RESOURCE": {
                 "verb": "POST",
@@ -100,10 +97,7 @@ class VNFCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_CATALOG_RESOURCE_INPUT": {
                 "verb": "POST",
@@ -130,10 +124,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "UPDATE_CATALOG_RESOURCE": {
                 "verb": "PUT",
@@ -154,10 +145,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "CHECKOUT_CATALOG_RESOURCE": {
                 "verb": "POST",
@@ -176,10 +164,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_CATALOG_RESOURCE_PROPERTY": {
                 "verb": "POST",
@@ -208,10 +193,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_CATALOG_RESOURCE_PROPERTY_NON_VF": {
                 "verb": "POST",
@@ -240,10 +222,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_CATALOG_RESOURCE_POLICY": {
                 "verb": "POST",
@@ -263,10 +242,26 @@ class VNFCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
+                "auth": self.auth,
+            },
+            "DELETE_CATALOG_RESOURCE_POLICY": {
+                "verb": "DELETE",
+                "description": "Deletes policy resource to a VNF.",
+                "uri": partial(
+                    "{endpoint}{service_path}/{catalog_resource_id}/policies/{policy_id}".format,
+                    endpoint=self.config.sdc.SDC_BE_ENDPOINT,
+                    service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
+                "uri-parameters": ["catalog_resource_id", "policy_id"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.sdc_designer_user_id,
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": self.auth,
             },
             "ADD_CATALOG_POLICY_PROPERTY": {
                 "verb": "PUT",
@@ -293,10 +288,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_CATALOG_RESOURCE_GROUP": {
                 "verb": "POST",
@@ -316,10 +308,7 @@ class VNFCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_id": ("uniqueId",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_CATALOG_GROUP_PROPERTY": {
                 "verb": "PUT",
@@ -348,10 +337,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_GROUP_TO_INSTANCE": {
                 "verb": "POST",
@@ -372,10 +358,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_POLICY_TO_INSTANCE": {
                 "verb": "POST",
@@ -396,10 +379,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_RESOURCE_INSTANCE": {
                 "verb": "POST",
@@ -428,10 +408,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_RESOURCE_RELATIONSHIP": {
                 "verb": "POST",
@@ -461,10 +438,26 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
+                "auth": self.auth,
+            },
+            "DELETE_RESOURCE_FROM_VNF": {
+                "verb": "DELETE",
+                "description": "Delete a resource from a VNF.",
+                "uri": partial(
+                    "{endpoint}{service_path}/{catalog_resource_id}/resourceInstance/{resource_id}".format,
+                    endpoint=self.config.sdc.SDC_BE_ENDPOINT,
+                    service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
                 ),
+                "uri-parameters": ["catalog_resource_id", "resource_id"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.sdc_designer_user_id,
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": self.auth,
             },
             "GET_CATALOG_RESOURCE": {
                 "verb": "GET",
@@ -484,10 +477,7 @@ class VNFCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"catalog_resource_name": ("name",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_CATALOG_RESOURCE_METADATA": {
                 "verb": "GET",
@@ -506,10 +496,7 @@ class VNFCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_RESOURCES": {
                 "verb": "GET",
@@ -528,9 +515,6 @@ class VNFCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"resources": ("resources",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
         }

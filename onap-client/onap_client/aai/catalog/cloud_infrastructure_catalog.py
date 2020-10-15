@@ -63,7 +63,7 @@ class CloudInfrastructureClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_CLOUD_REGION": {
                 "verb": "GET",
@@ -81,7 +81,7 @@ class CloudInfrastructureClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_CLOUD_REGION_TENANTS": {
                 "verb": "GET",
@@ -99,7 +99,7 @@ class CloudInfrastructureClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_ESR_LIST": {
                 "verb": "GET",
@@ -117,7 +117,7 @@ class CloudInfrastructureClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_VOLUME_GROUPS": {
                 "verb": "GET",
@@ -135,6 +135,6 @@ class CloudInfrastructureClient(AAIClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.aai.AAI_USERNAME, self.config.aai.AAI_PASSWORD,),
+                "auth": self.auth,
             },
         }

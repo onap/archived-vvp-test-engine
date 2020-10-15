@@ -64,7 +64,7 @@ class OperationsClient(SDNCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+                "auth": self.auth,
             },
             "VNF_API_PRELOAD": {
                 "verb": "POST",
@@ -82,6 +82,6 @@ class OperationsClient(SDNCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+                "auth": self.auth,
             },
         }

@@ -41,3 +41,4 @@ PTable
 simplejson
 prettytable
 importlib_resources
+frozendict

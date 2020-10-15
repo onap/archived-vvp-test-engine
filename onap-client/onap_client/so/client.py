@@ -35,7 +35,9 @@
 #
 # ============LICENSE_END============================================
 from functools import partial
+from frozendict import frozendict
 from onap_client.client.clients import Client
+from onap_client.auth import auth_handler
 
 
 class SOClient(Client):
@@ -55,6 +57,24 @@ class SOClient(Client):
                     service_path=self.config.so.SO_HEALTH_CHECK_PATH,
                 ),
                 "success_code": 200,
-                "auth": (self.config.so.SO_USERNAME, self.config.so.SO_PASSWORD),
+                "auth": self.auth,
             },
         }
+
+    @property
+    def so_username(self):
+        """Username to authenticate to SO"""
+        return self.config.so.SO_USERNAME
+
+    @property
+    def so_password(self):
+        """Password to authenticate to SO"""
+        return self.config.so.SO_PASSWORD
+
+    @property
+    def auth(self):
+        return auth_handler(
+            frozendict(self.config.so.AUTH_PLUGIN) if self.config.so.AUTH_PLUGIN else None,
+            self.so_username,
+            self.so_password,
+        )

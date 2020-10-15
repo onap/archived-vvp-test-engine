@@ -63,7 +63,7 @@ class ConfigClient(SDNCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_SERVICE_INSTANCE": {
                 "verb": "GET",
@@ -81,7 +81,7 @@ class ConfigClient(SDNCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_VNF_INSTANCE": {
                 "verb": "GET",
@@ -99,6 +99,6 @@ class ConfigClient(SDNCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.sdnc.SDNC_USERNAME, self.config.sdnc.SDNC_PASSWORD,),
+                "auth": self.auth,
             },
         }

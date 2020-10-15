@@ -150,3 +150,11 @@ class ResourceCreationFailure(Exception):
 
 class ResourceDeleteFailure(Exception):
     pass
+
+
+class AuthClassNotFound(Exception):
+    pass
+
+
+class AuthModuleNotDefined(Exception):
+    pass

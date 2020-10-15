@@ -65,7 +65,7 @@ class MaintenanceClient(VIDClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+                "auth": self.auth,
             },
             "CREATE_LINE_OF_BUSINESS": {
                 "verb": "POST",
@@ -84,7 +84,7 @@ class MaintenanceClient(VIDClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+                "auth": self.auth,
             },
             "CREATE_PLATFORM": {
                 "verb": "POST",
@@ -103,7 +103,7 @@ class MaintenanceClient(VIDClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+                "auth": self.auth,
             },
             "CREATE_PROJECT": {
                 "verb": "POST",
@@ -122,7 +122,7 @@ class MaintenanceClient(VIDClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+                "auth": self.auth,
             },
             "GET_CATEGORY_PARAMETERS": {
                 "verb": "GET",
@@ -139,6 +139,6 @@ class MaintenanceClient(VIDClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (self.config.vid.VID_USERNAME, self.config.vid.VID_PASSWORD,),
+                "auth": self.auth,
             },
         }

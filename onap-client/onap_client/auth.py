@@ -34,34 +34,37 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-from frozendict import frozendict
-from onap_client.client.clients import Client
-from onap_client.auth import auth_handler
+from importlib import import_module
+from requests.auth import HTTPBasicAuth, AuthBase
+from inspect import getmembers, isclass
+from functools import lru_cache
+
+from onap_client.exceptions import AuthClassNotFound, AuthModuleNotDefined
 
 
-class SDNCClient(Client):
-    @property
-    def namespace(self):
-        return "sdnc"
+@lru_cache()
+def auth_handler(auth_plugin_config, username, password):
+    if not auth_plugin_config:
+        return HTTPBasicAuth(username, password)
 
-    @property
-    def catalog_resources(self):
-        return {}
+    if not auth_plugin_config.get("AUTH_MODULE"):
+        raise AuthModuleNotDefined("Property AUTH_MODULE was not defined in configuration file.")
 
-    @property
-    def sdnc_username(self):
-        """Username to authenticate to SDNC"""
-        return self.config.sdnc.SDNC_USERNAME
+    auth_module = import_module(auth_plugin_config.get("AUTH_MODULE"))
 
-    @property
-    def sdnc_password(self):
-        """Password to authenticate to SDNC"""
-        return self.config.sdnc.SDNC_PASSWORD
+    auth_class = get_auth_class(auth_module)
 
-    @property
-    def auth(self):
-        return auth_handler(
-            frozendict(self.config.sdnc.AUTH_PLUGIN) if self.config.sdnc.AUTH_PLUGIN else None,
-            self.sdnc_username,
-            self.sdnc_password,
-        )
+    return auth_class(username, password, **auth_plugin_config)
+
+
+def get_auth_class(auth_module):
+    """
+    Returns first Class definition in auth_module that inherits from AuthBase.
+    """
+    for name, obj in getmembers(
+        auth_module,
+        lambda x: isclass(x) and issubclass(x, AuthBase) and x != AuthBase
+    ):
+        return obj
+
+    raise AuthClassNotFound("No auth class found in module: {}".format(auth_module))

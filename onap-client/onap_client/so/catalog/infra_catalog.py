@@ -34,34 +34,58 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-from frozendict import frozendict
-from onap_client.client.clients import Client
-from onap_client.auth import auth_handler
+import uuid
+from functools import partial
+
+from onap_client.so.client import SOClient
+from onap_client.util import utility
+from onap_client.client.clients import get_client as Client
 
 
-class SDNCClient(Client):
+class ServiceInstantiationClient(SOClient):
     @property
     def namespace(self):
-        return "sdnc"
+        return "infra"
 
     @property
     def catalog_resources(self):
-        return {}
+        return {
+            "GET_ACTIVE_REQUESTS": {
+                "verb": "GET",
+                "description": "Queries for the list of infraActiveRequests",
+                "uri": partial(
+                    "{endpoint}/infraActiveRequests?size={size}&sort=startTime,DESC".format,
+                    endpoint=self.config.so.SO_ENDPOINT,
+                ),
+                "uri-parameters": ["size"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-TransactionId": str(uuid.uuid4()),
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": self.auth,
+            },
+        }
 
-    @property
-    def sdnc_username(self):
-        """Username to authenticate to SDNC"""
-        return self.config.sdnc.SDNC_USERNAME
 
-    @property
-    def sdnc_password(self):
-        """Password to authenticate to SDNC"""
-        return self.config.sdnc.SDNC_PASSWORD
+@utility
+def get_all_infra_requests(oc=None):
+    if not oc:
+        oc = Client()
 
-    @property
-    def auth(self):
-        return auth_handler(
-            frozendict(self.config.sdnc.AUTH_PLUGIN) if self.config.sdnc.AUTH_PLUGIN else None,
-            self.sdnc_username,
-            self.sdnc_password,
-        )
+    infra_data = oc.so.infra.get_active_requests(size="20").response_data
+
+    total_elements = int(infra_data.get("page", {}).get("totalElements", 20))
+
+    return oc.so.infra.get_active_requests(size=total_elements).response_data
+
+
+@utility
+def get_recent_infra_requests(size, oc=None):
+    if not oc:
+        oc = Client()
+
+    return oc.so.infra.get_active_requests(size=size).response_data
+

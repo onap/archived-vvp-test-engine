@@ -80,10 +80,7 @@ class VSPCatalog(SDCClient):
                     "software_product_id": ("itemId",),
                     "software_product_version_id": ("version", "id"),
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "UPDATE_SOFTWARE_PRODUCT": {
                 "verb": "POST",
@@ -106,10 +103,7 @@ class VSPCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "UPLOAD_HEAT_PACKAGE": {
                 "verb": "POST",
@@ -129,10 +123,7 @@ class VSPCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "VALIDATE_SOFTWARE_PRODUCT": {
                 "verb": "PUT",
@@ -151,10 +142,7 @@ class VSPCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "SUBMIT_SOFTWARE_PRODUCT": {
                 "verb": "PUT",
@@ -175,10 +163,7 @@ class VSPCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "PACKAGE_SOFTWARE_PRODUCT": {
                 "verb": "PUT",
@@ -199,10 +184,7 @@ class VSPCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SOFTWARE_PRODUCT": {
                 "verb": "GET",
@@ -222,10 +204,7 @@ class VSPCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"name": ("name",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SOFTWARE_PRODUCT_INFORMATION": {
                 "verb": "GET",
@@ -245,10 +224,7 @@ class VSPCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"name": ("name",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SOFTWARE_PRODUCT_VERSIONS": {
                 "verb": "GET",
@@ -271,10 +247,7 @@ class VSPCatalog(SDCClient):
                     "software_product_version_id": ("id",),
                     "description": ("description",),
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_SOFTWARE_PRODUCTS": {
                 "verb": "GET",
@@ -293,10 +266,7 @@ class VSPCatalog(SDCClient):
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"results": ("results",)},
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "GET_VSP_PERMISSIONS": {
                 "verb": "GET",
@@ -315,10 +285,7 @@ class VSPCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "ADD_VSP_CONTRIBUTER": {
                 "verb": "PUT",
@@ -339,10 +306,7 @@ class VSPCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
             "MODIFY_VSP_OWNER": {
                 "verb": "PUT",
@@ -363,9 +327,6 @@ class VSPCatalog(SDCClient):
                     "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
-                "auth": (
-                    self.global_sdc_username,
-                    self.global_sdc_password,
-                ),
+                "auth": self.auth,
             },
         }

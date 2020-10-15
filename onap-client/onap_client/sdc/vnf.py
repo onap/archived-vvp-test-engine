@@ -165,9 +165,14 @@ class VNF(Resource):
         for policy in policies:
             policy_name = policy.get("policy_name")
             policy_id = self.policy_exists(policy_name)
-            if not policy_id:
-                policy_id = self.add_policy_resource(policy_name)
-                self.associate_policy(policy_id, vm_type_instances)
+            if policy_id:
+                self.oc.sdc.vnf.delete_catalog_resource_policy(
+                    policy_id=policy_id,
+                    catalog_resource_id=self.catalog_resource_id
+                )
+
+            policy_id = self.add_policy_resource(policy_name)
+            self.associate_policy(policy_id, vm_type_instances)
             for k, v in policy.get("properties", {}).items():
                 self.add_policy_property(policy_id, k, v)
 
@@ -198,7 +203,7 @@ class VNF(Resource):
                 resource_name = "{}-{}".format(resource_name, resource_name_index)
 
             if self.resource_exists(resource_name):
-                continue
+                self.delete_resource(resource_name)
 
             catalog_resource_name = resource.get("catalog_resource_name")
             resource_id = resource.get("resource_id")
@@ -284,6 +289,17 @@ class VNF(Resource):
                 return True
 
         return False
+
+    def delete_resource(self, resource_name):
+        component_instances = self.tosca.get("componentInstances", [])
+
+        for component in component_instances:
+            if component.get("name") == resource_name:
+                self.oc.sdc.vnf.delete_resource_from_vnf(
+                    catalog_resource_id=self.catalog_resource_id,
+                    resource_id=component.get("uniqueId")
+                )
+                return
 
     def policy_exists(self, policy_name):
         """Checking the tosca model for a VF to see if a resource
