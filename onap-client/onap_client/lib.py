@@ -58,17 +58,17 @@ def make_request(catalog_item, verify_request, **kwargs):
 
     request_handler = RequestHandler(catalog_request)
 
-    response_handler = request_handler.make_request(verify_request)
+    return request_handler.make_request(verify_request)
 
-    if not response_handler.success:
-        raise exceptions.RequestFailure(
-            "Failed making request for catalog item {}: {}".format(
-                catalog_item.catalog_resource_name,
-                response_handler.response_data
-            )
-        )
+    # if not response_handler.success:
+    #     raise exceptions.RequestFailure(
+    #         "Failed making request for catalog item {}: {}".format(
+    #             catalog_item.catalog_resource_name,
+    #             response_handler.response_data
+    #         )
+    #     )
 
-    return response_handler
+    # return response_handler
 
 
 def validate_request(catalog_item, kwargs):
