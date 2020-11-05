@@ -42,8 +42,9 @@ import os
 import importlib
 
 from abc import ABC, abstractmethod
+from datetime import datetime
 from onap_client.lib import make_request
-from onap_client import config
+from onap_client import config, exceptions
 
 CACHED_MODULES = {}
 
@@ -58,19 +59,44 @@ def get_modules():
 class Catalog(ABC):
     """Abstract class for an ONAP client, automatically loads
     child classes as attributes."""
-
     class CallHandle:
         """Attached as an attribute for each catalog entry in a catalog.
         Used to make a request to ONAP."""
 
-        def __init__(self, catalog_resource, verify=False):
+        def __init__(self, catalog_resource, response_callback=None, verify=False):
             self.resource = catalog_resource
             self.verify_request = verify
+            self.callback = response_callback if response_callback else self.empty_callback
+
+        def empty_callback(self, *args, **kwargs):
+            pass
 
         def __call__(self, **kwargs):
-            return make_request(self.resource, self.verify_request, **kwargs)
+            self.callback(message=f"Submitting request: {self.resource.description}")
 
-    def __init__(self, config_file=None, **kwargs):
+            response_handler = make_request(self.resource, self.verify_request, **kwargs)
+
+            self.callback(response_handler=response_handler)
+
+            if not response_handler.success:
+                self.callback(message=f"Request Failure: {self.resource.catalog_resource_name} {response_handler.response_data}")
+                raise exceptions.RequestFailure(
+                    "Failed making request for catalog item {}: {}".format(
+                        self.resource.catalog_resource_name,
+                        response_handler.response_data
+                    )
+                )
+
+            self.callback(message="Request was Successful")
+
+            return response_handler
+
+    def __init__(
+        self,
+        config_file=None,
+        history_buffer=[],
+        **kwargs
+    ):
         """Iterates through all child classes and attaches them as attributes, named
         after the namespace property.
 
@@ -84,9 +110,13 @@ class Catalog(ABC):
         self.catalog_items = {}
         self.modules = get_modules()
         self._config_overrides = kwargs
+        self.history = history_buffer
+
+        if not self.history:
+            self.add_to_history("Creating ONAP Client...")
 
         for cls in self.__class__.__subclasses__():
-            subclass = cls(config_file=config_file, **kwargs)
+            subclass = cls(config_file=config_file, history_buffer=self.history, **kwargs)
             namespace = subclass.namespace
             catalog_resources = subclass.catalog_resources
 
@@ -103,7 +133,41 @@ class Catalog(ABC):
         resource = APICatalogResource(item_name, resource_data)
 
         self.catalog_items[item_name] = resource
-        setattr(self, item_name.lower(), self.CallHandle(resource, verify=verify))
+
+        callback = self.add_to_history
+
+        setattr(self, item_name.lower(), self.CallHandle(resource, response_callback=callback, verify=verify))
+
+    def add_to_history(self, message="", response_handler=None):
+        if response_handler:
+            request_object = response_handler.request_object
+            request_data = {}
+            if request_object.verb:
+                request_data["method"] = request_object.verb
+
+            if request_object.uri:
+                request_data["url"] = request_object.uri
+
+            if request_object.headers:
+                request_data["headers"] = request_object.headers
+
+            if request_object.payload:
+                request_data["data"] = request_object.payload
+
+            if request_object.files:
+                request_data["files"] = str(request_object.files)
+
+            message = request_data
+
+        self.add_message_to_history(message)
+
+    def add_message_to_history(self, message):
+        current_time = datetime.now()
+        history_message = {
+            "date": f"{current_time}",
+            "message": message
+        }
+        self.history.append(history_message)
 
     @property
     @abstractmethod
