@@ -97,6 +97,7 @@ class ServiceInstantiationClient(SOClient):
                     "service_invariant_id",
                     "service_name",
                     "service_version",
+                    "service_model_version_id",
                     "api_type",
                 ],
                 "header-parameters": ["X-TransactionId"],

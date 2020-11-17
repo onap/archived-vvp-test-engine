@@ -194,12 +194,14 @@ def delete_service_instance(service_instance_name, api_type="GR_API", oc=None):
     si_id = si.get("service-instance-id")
     invariant_id = si.get("service-data").get("service-information").get("onap-model-information").get("model-invariant-uuid")
     version = si.get("service-data").get("service-information").get("onap-model-information").get("model-version")
+    version_id = si.get("service-data").get("service-information").get("onap-model-information").get("model-uuid")
 
     return oc.so.service_instantiation.delete_service_instance(
         service_invariant_id=invariant_id,
         service_name=service_instance_name,
         service_version=version,
         service_instance_id=si_id,
+        service_model_version_id=version_id,
         api_type=api_type,
     ).response_data
 

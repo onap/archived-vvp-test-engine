@@ -34,7 +34,6 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-import uuid
 from functools import partial
 
 from onap_client.sdc.client import SDCClient
@@ -73,7 +72,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {
@@ -100,7 +98,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -120,7 +117,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "multipart/form-data",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -139,7 +135,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -160,7 +155,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -181,7 +175,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -200,7 +193,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"name": ("name",)},
@@ -220,7 +212,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"name": ("name",)},
@@ -240,7 +231,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {
@@ -262,7 +252,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"results": ("results",)},
@@ -282,7 +271,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -303,7 +291,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -324,7 +311,6 @@ class VSPCatalog(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,

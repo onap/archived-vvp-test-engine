@@ -34,7 +34,6 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-import uuid
 from functools import partial
 
 from onap_client.sdc.client import SDCClient
@@ -63,7 +62,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {
@@ -92,7 +90,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"key_group_id": ("value",)},
@@ -118,7 +115,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"entitlement_pool_id": ("value",)},
@@ -145,7 +141,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"feature_group_id": ("value",)},
@@ -167,7 +162,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"license_agreement_id": ("value",)},
@@ -189,7 +183,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -208,7 +201,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {
@@ -232,7 +224,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -251,7 +242,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "auth": self.auth,
@@ -269,7 +259,6 @@ class LicenseModelClient(SDCClient):
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     "USER_ID": self.sdc_designer_user_id,
-                    "X-TransactionId": str(uuid.uuid4()),
                     "X-FromAppId": self.config.application_id,
                 },
                 "return_data": {"results": ("results",)},

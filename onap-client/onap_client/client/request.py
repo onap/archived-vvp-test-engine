@@ -45,6 +45,8 @@ import logging as logger
 from onap_client.client.response import ResponseHandler
 from onap_client.exceptions import FilesRequestFailure
 from jinja2 import exceptions as jinja_exceptions
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 
 class RequestHandler:
@@ -112,7 +114,19 @@ class Request:
             logger.info(debug_request)
 
     def request(self, verify=True):
-        return requests.request(**self.kwargs, verify=verify)
+        http = requests.Session()
+        retry_strategy = Retry(
+            total=3,
+            backoff_factor=5,
+            status_forcelist=[404, 429, 500, 501, 502, 503, 504],
+            method_whitelist=["HEAD", "GET", "PUT", "DELETE", "OPTIONS", "TRACE", "POST"],
+            raise_on_status=False
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        http.mount("https://", adapter)
+        http.mount("http://", adapter)
+
+        return http.request(**self.kwargs, verify=verify)
 
 
 class APICatalogRequestObject:
