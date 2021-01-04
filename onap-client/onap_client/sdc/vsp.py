@@ -124,6 +124,9 @@ class VSP(Resource):
         vsp = self.oc.sdc.vsp.get_software_product(**self.attributes)
         self.attributes["tosca"] = vsp.response_data
 
+        self.oc.cache("vsp", self.software_product_name, "tosca", self.tosca)
+        self.oc.cache("vsp", self.software_product_name, "owner", self.owner)
+
     def _output(self):
         return self.tosca
 
@@ -136,14 +139,16 @@ def update_vsp(existing_vsp, vsp_input, oc=None):
     existing_vsp_version_id = existing_vsp.get("version")
 
     if get_vsp_version_id(existing_vsp_id, search_key="status", oc=oc) == "Certified":
-        oc.sdc.vsp.update_software_product(
+        response_data = oc.sdc.vsp.update_software_product(
             software_product_id=existing_vsp_id,
             software_product_version_id=existing_vsp_version_id,
             description=vsp_input.get("update_message", "New VSP Version")
-        )
+        ).response_data
+        oc.cache("vsp", existing_vsp.get("name"), "csar_version", response_data.get("name"))
+        existing_vsp_version_id = response_data.get("id")
 
     vsp_input["software_product_id"] = existing_vsp_id
-    vsp_input["software_product_version_id"] = get_vsp_version_id(existing_vsp_id, oc=oc)
+    vsp_input["software_product_version_id"] = existing_vsp_version_id
 
     oc.sdc.vsp.upload_heat_package(**vsp_input)
     oc.sdc.vsp.validate_software_product(**vsp_input)

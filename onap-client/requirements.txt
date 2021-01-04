@@ -36,7 +36,7 @@
 # ============LICENSE_END============================================
 jinja2
 PyYaml
-requests
+requests==2.22.0
 PTable
 simplejson
 prettytable

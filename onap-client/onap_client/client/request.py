@@ -59,13 +59,13 @@ class RequestHandler:
         """
         self.request_object = request_object
 
-    def make_request(self, verify):
+    def make_request(self, attempts, verify):
         r = Request(self.request_object)
 
         logger.info("Submitting request: {}".format(self.request_object.description))
         # TODO
         # Add verify to config file
-        return ResponseHandler(r.request(verify=verify), self.request_object)
+        return ResponseHandler(r.request(attempts, verify=verify), self.request_object)
 
 
 class Request:
@@ -113,10 +113,10 @@ class Request:
         except TypeError:
             logger.info(debug_request)
 
-    def request(self, verify=True):
+    def request(self, attempts, verify=True):
         http = requests.Session()
         retry_strategy = Retry(
-            total=3,
+            total=attempts,
             backoff_factor=5,
             status_forcelist=[404, 429, 500, 501, 502, 503, 504],
             method_whitelist=["HEAD", "GET", "PUT", "DELETE", "OPTIONS", "TRACE", "POST"],

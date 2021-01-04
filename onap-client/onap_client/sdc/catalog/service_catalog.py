@@ -366,6 +366,24 @@ class ServiceCatalog(SDCClient):
                 },
                 "auth": self.auth,
             },
+            "GET_SERVICE_BY_NAME_VERSION": {
+                "verb": "GET",
+                "description": "Gets a Service in the SDC catalog",
+                "uri": partial(
+                    "{endpoint}{service_path}/serviceName/{catalog_service_name}/serviceVersion/{catalog_service_version}".format,
+                    endpoint=self.config.sdc.SDC_BE_ENDPOINT,
+                    service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
+                ),
+                "uri-parameters": ["catalog_service_name", "catalog_service_version"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.sdc_designer_user_id,
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": self.auth,
+            },
             "GET_SDC_SERVICE": {
                 "verb": "GET",
                 "description": "Gets a service from the SDC Catalog",

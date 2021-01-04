@@ -34,7 +34,6 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-
 from onap_client.lib import generate_dummy_string
 from onap_client.resource import Resource
 from onap_client import exceptions
@@ -126,11 +125,11 @@ class VNF(Resource):
         """Creates a vnf object in SDC"""
         vnf = None
 
-        existing = get_vnf_id(vnf_input.get("vnf_name"), oc=self.oc)
-        if not existing:
+        existing_vnf_id, __ = get_vnf_id(vnf_input.get("vnf_name"), oc=self.oc)
+        if not existing_vnf_id:
             vnf = create_vnf(vnf_input, oc=self.oc)
         elif vnf_input.get("allow_update"):
-            vnf = update_vnf(existing, vnf_input, oc=self.oc)
+            vnf = update_vnf(existing_vnf_id, vnf_input, oc=self.oc)
         else:
             raise exceptions.ResourceAlreadyExistsException(
                 "VNF resource {} already exists".format(vnf_input.get("vnf_name"))
@@ -191,6 +190,8 @@ class VNF(Resource):
         self.attributes["catalog_resource_name"] = vnf.catalog_resource_name
         self.attributes["tosca"] = vnf.response_data
 
+        self.oc.cache("vnf", self.vnf_name, "tosca", self.tosca)
+
     def _add_instance_properties(self, instance_id, properties_dict):
         for k, v in properties_dict.items():
             # updating vm_type properties
@@ -211,7 +212,7 @@ class VNF(Resource):
             resource_relationship = resource.get("relationship", {})
 
             if not resource_id:
-                resource_id = get_vnf_id(catalog_resource_name, oc=self.oc)
+                resource_id, __ = get_vnf_id(catalog_resource_name, oc=self.oc)
                 if not resource_id:
                     raise exceptions.ResourceIDNotFoundException(
                         "resource ID was not passed, and resource lookup by name was not found {}".format(
@@ -522,11 +523,13 @@ def update_vnf(catalog_resource_id, vnf_input, oc=None):
     if existing_vnf.get("lifecycleState") != "NOT_CERTIFIED_CHECKOUT":
         vnf = oc.sdc.vnf.checkout_catalog_resource(catalog_resource_id=catalog_resource_id).response_data
     else:
-        vnf = oc.sdc.vnf.get_catalog_resource_metadata(catalog_resource_id=catalog_resource_id).response_data.get("metadata", {})
+        vnf = existing_vnf
 
     new_vnf_metadata = oc.sdc.vnf.get_catalog_resource_metadata(catalog_resource_id=vnf.get("uniqueId")).response_data.get("metadata", {})
 
-    csar_version = vsp.get_vsp_version_id(vnf.get("csarUUID"), search_key="name", oc=oc)
+    csar_version = oc.get_cached("vsp", vnf_input.get("software_product_name"), "csar_version")
+    if not csar_version:
+        csar_version = vsp.get_vsp_version_id(vnf.get("csarUUID"), search_key="name", oc=oc)
 
     vnf["csarVersion"] = csar_version
     vnf["componentMetadata"] = new_vnf_metadata
@@ -549,9 +552,14 @@ def create_vnf(vnf_input, oc=None):
     if not oc:
         oc = Client()
 
-    software_product_id = vsp.get_vsp_id(vnf_input.get("software_product_name"), oc=oc)
-    software_product_version_id = vsp.get_vsp_version_id(software_product_id, oc=oc)
-    vsp_model = vsp.get_vsp_model(software_product_id, software_product_version_id, oc=oc)
+    vsp_model = oc.get_cached("vsp", vnf_input.get("software_product_name"), "tosca")
+    if not vsp_model:
+        software_product_id = vsp.get_vsp_id(vnf_input.get("software_product_name"), oc=oc)
+        software_product_version_id = vsp.get_vsp_version_id(software_product_id, oc=oc)
+        vsp_model = vsp.get_vsp_model(software_product_id, software_product_version_id, oc=oc)
+    else:
+        software_product_id = vsp_model.get("id")
+        software_product_version_id = vsp_model.get("version")
 
     vsp_vendor = vsp_model.get("vendorName")
     vsp_category = vsp_model.get("category")
@@ -571,7 +579,12 @@ def create_vnf(vnf_input, oc=None):
             break
 
     category["subcategories"] = vsp_sub_categories
-    vnf_input["contact_id"] = vsp.get_vsp_owner(software_product_id, oc=oc)
+
+    owner = oc.get_cached("vsp", vnf_input.get("software_product_name"), "owner")
+    if not owner:
+        owner = vsp.get_vsp_owner(software_product_id, oc=oc)
+
+    vnf_input["contact_id"] = owner
 
     vnf = oc.sdc.vnf.add_catalog_resource(**vnf_input, categories=[category])
 
@@ -664,9 +677,13 @@ def get_vnf(vnf_name, oc=None):
     if not oc:
         oc = Client()
 
-    return oc.sdc.vnf.get_catalog_resource(
-        catalog_resource_id=get_vnf_id(vnf_name, oc=oc)
-    ).response_data
+    catalog_resource_id, catalog_resource = get_vnf_id(vnf_name, oc=oc)
+    if not catalog_resource:
+        return oc.sdc.vnf.get_catalog_resource(
+            catalog_resource_id=catalog_resource_id
+        ).response_data
+    else:
+        return catalog_resource
 
 
 def get_resource_category(category_name, oc=None):
@@ -681,16 +698,29 @@ def get_resource_category(category_name, oc=None):
 
 
 def get_vnf_id(vnf_name, oc=None):
+    """Returns the latest VNF id for a VNF Model. If there is only one version
+    of a VNF model, that will also be returned"""
     if not oc:
         oc = Client()
 
-    response = oc.sdc.vnf.get_resources()
-    results = response.response_data.get("resources", [])
-    catalog_resource = {}
-    update_time = -1
-    for vnf in results:
-        if vnf.get("name") == vnf_name and vnf.get("lastUpdateDate") > update_time:
-            update_time = vnf.get("lastUpdateDate")
-            catalog_resource = vnf
+    response = oc.sdc.vnf.get_resource_by_name_version(
+        catalog_resource_name=vnf_name,
+        catalog_resource_version="1.0",
+        raise_on_error=False,
+        attempts=1,
+    )
+    if not response.success:
+        return None, None
 
-    return catalog_resource.get("uniqueId")
+    versions = response.response_data.get("allVersions")
+    catalog_resource_id = ""
+    catalog_resource = None
+    highest_version = 0
+    for version, vnf_id in versions.items():
+        if float(version) > highest_version:
+            highest_version = float(version)
+            catalog_resource_id = vnf_id
+
+    if highest_version == 1.0:
+        catalog_resource = response.response_data
+    return catalog_resource_id, catalog_resource

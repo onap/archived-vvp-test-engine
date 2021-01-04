@@ -139,6 +139,18 @@ def test_module_instance():
         }
     )
     mockup_catalog_item(
+        oc.sdc.service.catalog_items["GET_SERVICE_BY_NAME_VERSION"],
+        override_uri_params={"catalog_service_name": SERVICE_MODEL_NAME, "catalog_service_version": "1.0"},
+        override_return_data={
+            "uniqueId": SERVICE_MODEL_ID,
+            "allVersions": {
+                "1.0": "badid",
+                "2.0": SERVICE_MODEL_ID
+            },
+            "name": SERVICE_MODEL_NAME,
+        }
+    )
+    mockup_catalog_item(
         oc.sdc.vnf.catalog_items["GET_CATALOG_RESOURCE"],
         override_return_data={
             "invariantUUID": VNF_INVARIANT_ID

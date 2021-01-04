@@ -85,12 +85,7 @@ class ServiceInstance(Resource):
         instance_input["tenant_id"] = tenant_id
         instance_input["customer_id"] = instance_input.get("customer_name")
 
-        service_model = self.oc.sdc.service.get_sdc_service(
-            catalog_service_id=sdc.service.get_service_id(
-                instance_input.get("model_name"),
-                oc=self.oc
-            )
-        ).response_data
+        service_model = sdc.service.get_service(instance_input.get("model_name"), oc=self.oc)
 
         instance_input["model_invariant_id"] = service_model["invariantUUID"]
         instance_input["model_version_id"] = service_model["uniqueId"]

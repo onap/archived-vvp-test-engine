@@ -65,6 +65,9 @@ def test_vnf_create():
                 {"name": "nf_role", "value": "dfankafd"},
             ]
         },
+        "allVersions": {
+            "1.0": CATALOG_RESOURCE_ID
+        },
         "name": VNF_NAME,
     }
     mockup_catalog_item(
@@ -106,6 +109,12 @@ def test_vnf_create():
         oc.sdc.vnf.catalog_items["GET_CATALOG_RESOURCE"],
         override_return_data=return_data,
         override_uri_params={"catalog_resource_id": CATALOG_RESOURCE_ID},
+    )
+    mockup_catalog_item(
+        oc.sdc.vnf.catalog_items["GET_RESOURCE_BY_NAME_VERSION"],
+        override_return_data=return_data,
+        override_uri_params={"catalog_resource_name": VNF_NAME, "catalog_resource_version": "1.0"},
+        status=404,
     )
     mockup_catalog_item(
         oc.sdc.vnf.catalog_items["CERTIFY_CATALOG_RESOURCE"],

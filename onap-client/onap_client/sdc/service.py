@@ -121,7 +121,7 @@ class Service(Resource):
         """Creates a service object in SDC"""
         service = None
 
-        existing = get_service_id(service_input.get("service_name"), oc=self.oc)
+        existing, __ = get_service_id(service_input.get("service_name"), oc=self.oc)
         if existing is None:
             service = create_service(service_input, oc=self.oc)
         elif service_input.get("allow_update"):
@@ -144,13 +144,19 @@ class Service(Resource):
             resource_id = resource.get("resource_id")
             resource_properties = resource.get("properties")
             if not resource_id:
-                resource_id = get_vnf_id(catalog_resource_name, oc=self.oc)
+                cached_resource = self.oc.get_cached("vnf", catalog_resource_name, "tosca")
+                if not cached_resource:
+                    resource_id, __ = get_vnf_id(catalog_resource_name, oc=self.oc)
+                else:
+                    resource_id = cached_resource.get("uniqueId")
+
                 if not resource_id:
                     raise exceptions.ResourceIDNotFoundException(
                         "resource ID was not passed, and resource lookup by name was not found {}".format(
                             resource_name
                         )
                     )
+
             resource_origin = resource.get("origin_type")
             self.add_resource(resource_id, resource_name, origin_type=resource_origin)
             for k, v in resource_properties.items():
@@ -208,6 +214,8 @@ class Service(Resource):
             poll_distribution(self.service_name, oc=self.oc)
 
         self._refresh()
+
+        self.oc.cache("service", self.service_name, "tosca", self.tosca)
 
     def add_resource(
         self, catalog_resource_id, catalog_resource_name, origin_type="VF"
@@ -380,27 +388,42 @@ def get_service(service_name, oc=None):
     if not oc:
         oc = Client()
 
-    return oc.sdc.service.get_sdc_service(
-        catalog_service_id=get_service_id(service_name, oc=oc)
-    ).response_data
+    catalog_service_id, catalog_service = get_service_id(service_name, oc=oc)
+    if not catalog_service:
+        return oc.sdc.service.get_sdc_service(
+            catalog_service_id=catalog_service_id
+        ).response_data
+    else:
+        return catalog_service
 
 
 @utility
 def get_service_id(service_name, oc=None):
-    """Queries SDC for the uniqueId of a service model"""
     if not oc:
         oc = Client()
 
-    response = oc.sdc.service.get_services()
-    results = response.response_data.get("services", [])
-    update_time = -1
-    catalog_service = {}
-    for service in results:
-        if service.get("name") == service_name and service.get("lastUpdateDate") > update_time:
-            update_time = service.get("lastUpdateDate")
-            catalog_service = service
+    response = oc.sdc.service.get_service_by_name_version(
+        catalog_service_name=service_name,
+        catalog_service_version="1.0",
+        raise_on_error=False,
+        attempts=1,
+    )
+    if not response.success:
+        return None, None
 
-    return catalog_service.get("uniqueId")
+    versions = response.response_data.get("allVersions")
+    catalog_service_id = ""
+    catalog_service = None
+    highest_version = 0
+    for version, service_id in versions.items():
+        if float(version) > highest_version:
+            highest_version = float(version)
+            catalog_service_id = service_id
+
+    if highest_version == 1.0:
+        catalog_service = response.response_data
+
+    return catalog_service_id, catalog_service
 
 
 def get_service_uuid(service_name, oc=None):

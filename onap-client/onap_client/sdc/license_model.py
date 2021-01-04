@@ -97,6 +97,8 @@ class LicenseModel(Resource):
         license_model = self.oc.sdc.license_model.get_license_model(**self.attributes)
         self.attributes["tosca"] = license_model.response_data
 
+        self.oc.cache("license_model", self.license_model_name, "tosca", self.tosca)
+
     def _output(self):
         return self.tosca
 

@@ -134,8 +134,10 @@ def get_vnf_model_component(service_model_name, vnf_model_name, oc=None):
     if not oc:
         oc = Client()
 
+    catalog_service_id, catalog_service = sdc.service.get_service_id(service_model_name, oc=oc)
+
     service_model = oc.sdc.service.get_sdc_service(
-        catalog_service_id=sdc.service.get_service_id(service_model_name, oc=oc)
+        catalog_service_id=catalog_service_id
     ).response_data
 
     for component in service_model.get("componentInstances", []):

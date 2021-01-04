@@ -460,6 +460,24 @@ class VNFCatalog(SDCClient):
                 "return_data": {"catalog_resource_name": ("name",)},
                 "auth": self.auth,
             },
+            "GET_RESOURCE_BY_NAME_VERSION": {
+                "verb": "GET",
+                "description": "Gets a VNF in the SDC catalog",
+                "uri": partial(
+                    "{endpoint}{service_path}/resourceName/{catalog_resource_name}/resourceVersion/{catalog_resource_version}".format,
+                    endpoint=self.config.sdc.SDC_BE_ENDPOINT,
+                    service_path=self.config.sdc.SDC_CATALOG_RESOURCES_PATH,
+                ),
+                "uri-parameters": ["catalog_resource_name", "catalog_resource_version"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.sdc_designer_user_id,
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": self.auth,
+            },
             "GET_CATALOG_RESOURCE_METADATA": {
                 "verb": "GET",
                 "description": "Gets metadata for a VNF in the SDC catalog",

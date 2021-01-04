@@ -90,6 +90,20 @@ def test_vnf_instance():
             ],
         }
     )
+
+    mockup_catalog_item(
+        oc.sdc.service.catalog_items["GET_SERVICE_BY_NAME_VERSION"],
+        override_uri_params={"catalog_service_name": SERVICE_MODEL_NAME, "catalog_service_version": "1.0"},
+        override_return_data={
+            "uniqueId": SERVICE_MODEL_ID,
+            "allVersions": {
+                "1.0": "badid",
+                "2.0": SERVICE_MODEL_ID
+            },
+            "name": SERVICE_MODEL_NAME,
+        }
+    )
+
     mockup_catalog_item(
         oc.sdc.service.catalog_items["GET_SDC_SERVICE"],
         override_uri_params={"catalog_service_id": SERVICE_MODEL_ID},
@@ -106,6 +120,7 @@ def test_vnf_instance():
             ]
         }
     )
+
     mockup_catalog_item(
         oc.sdc.vnf.catalog_items["GET_CATALOG_RESOURCE"],
         override_return_data={
@@ -113,6 +128,7 @@ def test_vnf_instance():
         },
         override_uri_params={"catalog_resource_id": VNF_ACTUAL_UUID},
     )
+
     mockup_catalog_item(
         oc.sdnc.configuration.catalog_items["GET_SERVICE_INSTANCES"],
         override_return_data={
@@ -138,6 +154,7 @@ def test_vnf_instance():
             }
         },
     )
+
     mockup_catalog_item(
         oc.so.service_instantiation.catalog_items["CREATE_VNF_INSTANCE"],
         override_return_data={
@@ -146,6 +163,7 @@ def test_vnf_instance():
             }
         }
     )
+
     mockup_catalog_item(
         oc.so.service_instantiation.catalog_items["GET_REQUEST_STATUS"],
         override_uri_params={"request_id": REQUEST_ID},

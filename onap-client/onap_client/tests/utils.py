@@ -53,7 +53,7 @@ def mockup_return_item(item, item_list):
 
 
 def mockup_catalog_item(
-    catalog_resource, override_return_data=None, override_uri_params={}
+    catalog_resource, override_return_data=None, override_uri_params={}, status=None
 ):
     uri = catalog_resource.uri
     if isinstance(uri, functools.partial):
@@ -75,5 +75,5 @@ def mockup_catalog_item(
         getattr(responses, catalog_resource.verb),
         uri,
         json=return_items,
-        status=catalog_resource.success_code,
+        status=catalog_resource.success_code if not status else status,
     )

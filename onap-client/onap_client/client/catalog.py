@@ -59,6 +59,7 @@ def get_modules():
 class Catalog(ABC):
     """Abstract class for an ONAP client, automatically loads
     child classes as attributes."""
+
     class CallHandle:
         """Attached as an attribute for each catalog entry in a catalog.
         Used to make a request to ONAP."""
@@ -66,37 +67,41 @@ class Catalog(ABC):
         def __init__(self, catalog_resource, response_callback=None, verify=False):
             self.resource = catalog_resource
             self.verify_request = verify
-            self.callback = response_callback if response_callback else self.empty_callback
+            self.callback = (
+                response_callback if response_callback else self.empty_callback
+            )
 
         def empty_callback(self, *args, **kwargs):
             pass
 
-        def __call__(self, **kwargs):
+        def __call__(self, raise_on_error=True, attempts=3, **kwargs):
             self.callback(message=f"Submitting request: {self.resource.description}")
 
-            response_handler = make_request(self.resource, self.verify_request, **kwargs)
+            response_handler = make_request(
+                self.resource, attempts, self.verify_request, **kwargs
+            )
 
             self.callback(response_handler=response_handler)
 
             if not response_handler.success:
-                self.callback(message=f"Request Failure: {self.resource.catalog_resource_name} {response_handler.response_data}")
-                raise exceptions.RequestFailure(
-                    "Failed making request for catalog item {}: {}".format(
-                        self.resource.catalog_resource_name,
-                        response_handler.response_data
-                    )
+                self.callback(
+                    message=f"Failed making request for catalog item: {response_handler.status_code} {self.resource.catalog_resource_name} {response_handler.response_data}"
                 )
-
-            self.callback(message="Request was Successful")
+                if raise_on_error:
+                    raise exceptions.RequestFailure(
+                        "Failed making request for catalog item {}: {}".format(
+                            self.resource.catalog_resource_name,
+                            response_handler.response_data,
+                        )
+                    )
+            else:
+                self.callback(
+                    message=f"{response_handler.status_code} {self.resource.catalog_resource_name} Request was Successful"
+                )
 
             return response_handler
 
-    def __init__(
-        self,
-        config_file=None,
-        history_buffer=[],
-        **kwargs
-    ):
+    def __init__(self, config_file=None, history_buffer=[], **kwargs):
         """Iterates through all child classes and attaches them as attributes, named
         after the namespace property.
 
@@ -107,6 +112,7 @@ class Catalog(ABC):
         if not config_file:
             config_file = os.environ.get("OC_CONFIG") or "/etc/onap_client/config.yaml"
 
+        self._cache = CatalogCache()
         self.catalog_items = {}
         self.modules = get_modules()
         self._config_overrides = kwargs
@@ -116,7 +122,9 @@ class Catalog(ABC):
             self.add_to_history("Creating ONAP Client...")
 
         for cls in self.__class__.__subclasses__():
-            subclass = cls(config_file=config_file, history_buffer=self.history, **kwargs)
+            subclass = cls(
+                config_file=config_file, history_buffer=self.history, **kwargs
+            )
             namespace = subclass.namespace
             catalog_resources = subclass.catalog_resources
 
@@ -136,7 +144,11 @@ class Catalog(ABC):
 
         callback = self.add_to_history
 
-        setattr(self, item_name.lower(), self.CallHandle(resource, response_callback=callback, verify=verify))
+        setattr(
+            self,
+            item_name.lower(),
+            self.CallHandle(resource, response_callback=callback, verify=verify),
+        )
 
     def add_to_history(self, message="", response_handler=None):
         if response_handler:
@@ -163,10 +175,7 @@ class Catalog(ABC):
 
     def add_message_to_history(self, message):
         current_time = datetime.now()
-        history_message = {
-            "date": f"{current_time}",
-            "message": message
-        }
+        history_message = {"date": f"{current_time}", "message": message}
         self.history.append(history_message)
 
     @property
@@ -190,6 +199,12 @@ class Catalog(ABC):
                     utility_functions[func[0]] = func[1]
         return utility_functions
 
+    def cache(self, *args, **kwargs):
+        self._cache.cache(*args, **kwargs)
+
+    def get_cached(self, *args, **kwargs):
+        return self._cache.get_cached(*args, **kwargs)
+
     def set_config(self, config_file):
         self.config = config.load_config(config_file, "onap_client")
         verify = self.config.REQUESTS_VERIFY
@@ -204,8 +219,53 @@ class Catalog(ABC):
             def override_check(self):
                 o = self._config_overrides.get(override_key)
                 return o if o else func(self)
+
             return override_check
+
         return decorator
+
+
+class CatalogCache:
+    """Basic helper dict to cache data from requests"""
+    def __init__(self):
+        self._cached_data = {
+            "service": {},
+            "vnf": {},
+            "license_model": {},
+            "vsp": {},
+            "other": {},
+        }
+
+    def cache(self, *items, cache=None):
+        if cache is None:
+            cache = self._cached_data
+
+        items = list(items)
+        item = items.pop(0)
+
+        if len(items) == 1:
+            cache[item] = items.pop(0)
+            return
+
+        if item not in cache:
+            cache[item] = {}
+
+        self.cache(*items, cache=cache[item])
+
+    def get_cached(self, *items, cache=None):
+        if not cache:
+            cache = self._cached_data
+
+        items = list(items)
+        item = items.pop(0)
+
+        if item not in cache:
+            return None
+
+        if not len(items):
+            return cache[item]
+
+        return self.get_cached(*items, cache=cache[item])
 
 
 class APICatalogResource:

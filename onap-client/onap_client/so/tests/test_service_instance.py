@@ -69,9 +69,9 @@ def test_service_instance():
         },
     )
     mockup_catalog_item(
-        oc.sdc.service.catalog_items["GET_SDC_SERVICE"],
-        override_uri_params={"catalog_service_id": SERVICE_MODEL_ID},
-        override_return_data={"invariantUUID": SERVICE_MODEL_INVARIANT_ID, "uniqueId": SERVICE_MODEL_ID}
+        oc.sdc.service.catalog_items["GET_SERVICE_BY_NAME_VERSION"],
+        override_uri_params={"catalog_service_name": SERVICE_MODEL_NAME, "catalog_service_version": "1.0"},
+        override_return_data={"invariantUUID": SERVICE_MODEL_INVARIANT_ID, "uniqueId": SERVICE_MODEL_ID, "allVersions": {"1.0": SERVICE_MODEL_ID}}
     )
     mockup_catalog_item(
         oc.aai.cloud_infrastructure.catalog_items["GET_CLOUD_REGION_TENANTS"],

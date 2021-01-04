@@ -102,6 +102,12 @@ def test_vnf_create():
             "uniqueId": SERVICE_MODEL_ID,
         }
     )
+    mockup_catalog_item(
+        oc.sdc.service.catalog_items["GET_SERVICE_BY_NAME_VERSION"],
+        override_uri_params={"catalog_service_name": SERVICE_NAME, "catalog_service_version": "1.0"},
+        override_return_data={},
+        status=404
+    )
 
     service = Service(
         instantiation_type="A-la-carte",
