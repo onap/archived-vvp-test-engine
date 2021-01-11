@@ -52,13 +52,17 @@ def make_request(catalog_item, attempts, verify_request, **kwargs):
 
     :return: ResponseHandler object with response data from request
     """
-    request_input = validate_request(catalog_item, kwargs)
-
-    catalog_request = APICatalogRequestObject(catalog_item, **request_input,)
+    catalog_request = get_request_object(catalog_item, **kwargs)
 
     request_handler = RequestHandler(catalog_request)
 
     return request_handler.make_request(attempts, verify_request)
+
+
+def get_request_object(catalog_item, **kwargs):
+    request_input = validate_request(catalog_item, kwargs)
+
+    return APICatalogRequestObject(catalog_item, **request_input)
 
 
 def validate_request(catalog_item, kwargs):

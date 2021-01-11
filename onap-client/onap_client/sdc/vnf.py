@@ -34,7 +34,7 @@
 # limitations under the License.
 #
 # ============LICENSE_END============================================
-from onap_client.lib import generate_dummy_string
+from onap_client.lib import generate_dummy_string, get_request_object
 from onap_client.resource import Resource
 from onap_client import exceptions
 from onap_client.client.clients import get_client as Client
@@ -44,6 +44,7 @@ from onap_client.util import utility
 import time
 import random
 import json
+import copy
 
 
 class VNF(Resource):
@@ -152,13 +153,20 @@ class VNF(Resource):
             instance_ids = instance_ids_for_property(model, "vm_type_tag", vm_type_tag)
             x = 0
             for instance_id in instance_ids:
+                payloads = []
                 name_index = ""
                 if x > 0:
                     name_index = x
                 vm_type_instances.append(instance_id)
-                self._add_instance_properties(instance_id, properties)
+                payloads.extend(self._get_instance_properties_payloads(instance_id, properties))
+                payloads.extend(self._get_vm_type_network_role_payloads(instance_id, network_roles))
+                if payloads:
+                    self.oc.sdc.vnf.add_catalog_resource_property_multi(
+                        **self.attributes,
+                        catalog_resource_instance_id=instance_id,
+                        payload_data=json.dumps(payloads)
+                    )
                 self._add_resources(instance_id, resources, resource_name_index=name_index)
-                self._add_vm_type_network_role(instance_id, network_roles)
                 x += 1
 
         for policy in policies:
@@ -172,11 +180,27 @@ class VNF(Resource):
 
             policy_id = self.add_policy_resource(policy_name)
             self.associate_policy(policy_id, vm_type_instances)
-            for k, v in policy.get("properties", {}).items():
-                self.add_policy_property(policy_id, k, v)
+            policy_payloads = []
 
+            for k, v in policy.get("properties", {}).items():
+                policy_payloads.append(self.get_policy_property_payloads(policy_id, k, v))
+
+            if len(policy_payloads):
+                self.oc.sdc.vnf.add_catalog_policy_property_multi(
+                    **self.attributes,
+                    catalog_policy_id=policy_id,
+                    payload_data=json.dumps(policy_payloads)
+                )
+
+        input_payloads = []
         for k, v in inputs.items():
-            self.add_input_value(k, v)
+            input_payloads.append(self.get_input_payload(k, v))
+
+        if len(input_payloads):
+            self.oc.sdc.vnf.add_catalog_resource_input_multi(
+                **self.attributes,
+                payload_data=json.dumps(input_payloads)
+            )
 
     def _submit(self):
         """Submits the vnf in SDC"""
@@ -192,10 +216,11 @@ class VNF(Resource):
 
         self.oc.cache("vnf", self.vnf_name, "tosca", self.tosca)
 
-    def _add_instance_properties(self, instance_id, properties_dict):
+    def _get_instance_properties_payloads(self, instance_id, properties_dict):
+        payloads = []
         for k, v in properties_dict.items():
-            # updating vm_type properties
-            self.add_instance_property(instance_id, k, v)
+            payloads.append(self.get_instance_property_payload(instance_id, k, v))
+        return payloads
 
     def _add_resources(self, instance_id, resources_dict, resource_name_index=""):
         for resource in resources_dict:
@@ -227,8 +252,17 @@ class VNF(Resource):
                 relationship_requirement = resource_relationship.get("requirement")
                 relationship_requirement_id = resource_relationship.get("requirement_id")
                 self.add_resource_relationship(new_resource_id, instance_id, relationship_type, relationship_requirement, relationship_requirement_id)
+
+                resource_payloads = []
                 for k, v in resource_relationship.get("properties", {}).items():
-                    self.add_instance_property_non_vf(new_resource_id, k, v, origin_section="componentInstancesProperties")
+                    resource_payloads.append(self.get_instance_property_non_vf_payload(new_resource_id, k, v, origin_section="componentInstancesProperties"))
+
+                if len(resource_payloads):
+                    self.oc.sdc.vnf.add_catalog_resource_property_non_vf_multi(
+                        **self.attributes,
+                        catalog_resource_instance_id=new_resource_id,
+                        payload_data=json.dumps(resource_payloads)
+                    )
 
     def add_resource_relationship(self, from_node, to_node, relationship_type, relationship_requirement, relationship_requirement_id):
         components = self.tosca.get("componentInstances", [])
@@ -252,8 +286,9 @@ class VNF(Resource):
                         requirement_id=relationship_requirement_id,
                     )
 
-    def _add_vm_type_network_role(self, instance_id, network_roles_dict):
+    def _get_vm_type_network_role_payloads(self, instance_id, network_roles_dict):
         model = self.tosca
+        payloads = []
         for network_role in network_roles_dict:
             # checking if abstract node has matching network role,
             # and updating if found
@@ -264,7 +299,7 @@ class VNF(Resource):
                 nrt, model, instance_id
             )
             for instance_property in instance_properties:
-                self.add_instance_property(instance_id, instance_property, nr)
+                payloads.append(self.get_instance_property_payload(instance_id, instance_property, nr))
                 if related_networks:
                     property_val = [
                         {"related_network_role": related_network_role}
@@ -273,11 +308,15 @@ class VNF(Resource):
                     rnr_instance_property = instance_property.replace(
                         "_network_role", "_related_networks"
                     )
-                    self.add_instance_property(
-                        instance_id,
-                        rnr_instance_property,
-                        str(property_val).replace("'", '\\"'),
+                    payloads.append(
+                        self.get_instance_property_payload(
+                            instance_id,
+                            rnr_instance_property,
+                            str(property_val).replace("'", '\\"'),
+                        )
                     )
+
+        return payloads
 
     def resource_exists(self, resource_name):
         """Checking the tosca model for a VF to see if a resource
@@ -320,7 +359,7 @@ class VNF(Resource):
 
         return None
 
-    def add_input_value(self, input_name, input_default_value):
+    def get_input_payload(self, input_name, input_default_value):
         """Updates an input value on a VNF
 
         :input_name: input name to update
@@ -333,18 +372,19 @@ class VNF(Resource):
                 unique_id = item["uniqueId"]
                 parent_unique_id = item["parentUniqueId"]
                 owner_id = item["ownerId"]
-                default_value = item.get("defaultValue", "")
-                if default_value != input_default_value:
-                    return self.oc.sdc.vnf.add_catalog_resource_input(
-                        **self.attributes,
-                        input_default_value=input_default_value,
-                        input_name=input_name,
-                        input_parent_unique_id=parent_unique_id,
-                        input_unique_id=unique_id,
-                        input_owner_id=owner_id,
-                    )
-                else:
-                    return None
+                payload_string = get_request_object(
+                    self.oc.sdc.vnf.catalog_items["ADD_CATALOG_RESOURCE_INPUT"],
+                    **self.attributes,
+                    input_default_value=input_default_value,
+                    input_name=input_name,
+                    input_parent_unique_id=parent_unique_id,
+                    input_unique_id=unique_id,
+                    input_owner_id=owner_id,
+                ).payload
+                try:
+                    return json.loads(payload_string)
+                except Exception:
+                    return payload_string
 
         raise exceptions.InputNotFoundException(
             "Input {} was not found in VF".format(input_name)
@@ -354,7 +394,42 @@ class VNF(Resource):
     # instance, policy, and group properties can probably be merged
     # rn there is a lot of dup
 
-    def add_instance_property(self, instance_id, property_name, property_value, origin_section="componentInstancesInputs"):
+    def get_instance_property_payload(self, instance_id, property_name, property_value, origin_section="componentInstancesInputs"):
+        instance_inputs = self.tosca.get(origin_section, {}).get(
+            instance_id, {}
+        )
+
+        for prop in instance_inputs:
+            if prop.get("name") == property_name:
+                unique_id = prop.get("uniqueId")
+                parent_unique_id = prop.get("parentUniqueId")
+                owner_id = prop.get("ownerId")
+                schemaType = prop.get("schemaType", "")
+                property_type = prop.get("type")
+                payload_string = get_request_object(
+                    self.oc.sdc.vnf.catalog_items["ADD_CATALOG_RESOURCE_PROPERTY"],
+                    **self.attributes,
+                    unique_id=unique_id,
+                    parent_unique_id=parent_unique_id,
+                    owner_id=owner_id,
+                    catalog_resource_instance_id=instance_id,
+                    property_name=property_name,
+                    property_default_value=property_value,
+                    schema_type=schemaType,
+                    property_type=property_type,
+                ).payload
+                try:
+                    return json.loads(payload_string)
+                except Exception:
+                    return payload_string
+
+        raise exceptions.PropertyNotFoundException(
+            "Property {} was not found in Instance {}".format(
+                property_name, instance_id
+            )
+        )
+
+    def get_instance_property_non_vf_payload(self, instance_id, property_name, property_value, origin_section="componentInstancesProperties"):
         """Updates an instance property on a abstract instance attached to a VNF
 
         :instance_id: ID of a instance attached to a VNF
@@ -373,21 +448,22 @@ class VNF(Resource):
                 owner_id = prop.get("ownerId")
                 schemaType = prop.get("schemaType", "")
                 property_type = prop.get("type")
-                value = prop.get("value", "")
-                if value != property_value:
-                    return self.oc.sdc.vnf.add_catalog_resource_property(
-                        **self.attributes,
-                        unique_id=unique_id,
-                        parent_unique_id=parent_unique_id,
-                        owner_id=owner_id,
-                        catalog_resource_instance_id=instance_id,
-                        property_name=property_name,
-                        property_default_value=property_value,
-                        schema_type=schemaType,
-                        property_type=property_type,
-                    )
-                else:
-                    return None
+                payload_string = get_request_object(
+                    self.oc.sdc.vnf.catalog_items["ADD_CATALOG_RESOURCE_PROPERTY_NON_VF"],
+                    **self.attributes,
+                    unique_id=unique_id,
+                    parent_unique_id=parent_unique_id,
+                    owner_id=owner_id,
+                    catalog_resource_instance_id=instance_id,
+                    property_name=property_name,
+                    property_default_value=property_value,
+                    schema_type=schemaType,
+                    property_type=property_type,
+                ).payload
+                try:
+                    return json.loads(payload_string)
+                except Exception:
+                    return payload_string
 
         raise exceptions.PropertyNotFoundException(
             "Property {} was not found in Instance {}".format(
@@ -395,48 +471,7 @@ class VNF(Resource):
             )
         )
 
-    def add_instance_property_non_vf(self, instance_id, property_name, property_value, origin_section="componentInstancesProperties"):
-        """Updates an instance property on a abstract instance attached to a VNF
-
-        :instance_id: ID of a instance attached to a VNF
-        :property_name: property name to update
-        :property_value: value to update property with
-
-        """
-        instance_inputs = self.tosca.get(origin_section, {}).get(
-            instance_id, {}
-        )
-
-        for prop in instance_inputs:
-            if prop.get("name") == property_name:
-                unique_id = prop.get("uniqueId")
-                parent_unique_id = prop.get("parentUniqueId")
-                owner_id = prop.get("ownerId")
-                schemaType = prop.get("schemaType", "")
-                property_type = prop.get("type")
-                value = prop.get("value", "")
-                if value != property_value:
-                    return self.oc.sdc.vnf.add_catalog_resource_property_non_vf(
-                        **self.attributes,
-                        unique_id=unique_id,
-                        parent_unique_id=parent_unique_id,
-                        owner_id=owner_id,
-                        catalog_resource_instance_id=instance_id,
-                        property_name=property_name,
-                        property_default_value=property_value,
-                        schema_type=schemaType,
-                        property_type=property_type,
-                    )
-                else:
-                    return None
-
-        raise exceptions.PropertyNotFoundException(
-            "Property {} was not found in Instance {}".format(
-                property_name, instance_id
-            )
-        )
-
-    def add_policy_property(self, policy_id, property_name, property_value):
+    def get_policy_property_payloads(self, policy_id, property_name, property_value):
         """Updates a policy property on a polic attached to a VNF
 
         :policy_id: ID of a policy attached to a VNF
@@ -453,19 +488,20 @@ class VNF(Resource):
                 unique_id = prop.get("uniqueId")
                 property_type = prop.get("type")
                 description = prop.get("description")
-                value = prop.get("value", "")
-                if value != property_value:
-                    return self.oc.sdc.vnf.add_catalog_policy_property(
-                        catalog_resource_id=self.catalog_resource_id,
-                        unique_id=unique_id,
-                        catalog_policy_id=policy_id,
-                        property_name=property_name,
-                        property_default_value=property_value,
-                        description=description,
-                        property_type=property_type,
-                    )
-                else:
-                    return None
+                payload_string = get_request_object(
+                    self.oc.sdc.vnf.catalog_items["ADD_CATALOG_POLICY_PROPERTY"],
+                    catalog_resource_id=self.catalog_resource_id,
+                    unique_id=unique_id,
+                    catalog_policy_id=policy_id,
+                    property_name=property_name,
+                    property_default_value=property_value,
+                    description=description,
+                    property_type=property_type,
+                ).payload
+                try:
+                    return json.loads(payload_string)
+                except Exception:
+                    return payload_string
 
         raise exceptions.PropertyNotFoundException(
             "Property {} was not found in policy {}".format(property_name, policy_id)
@@ -522,10 +558,10 @@ def update_vnf(catalog_resource_id, vnf_input, oc=None):
 
     if existing_vnf.get("lifecycleState") != "NOT_CERTIFIED_CHECKOUT":
         vnf = oc.sdc.vnf.checkout_catalog_resource(catalog_resource_id=catalog_resource_id).response_data
+        new_vnf_metadata = oc.sdc.vnf.get_catalog_resource_metadata(catalog_resource_id=vnf.get("uniqueId")).response_data.get("metadata", {})
     else:
-        vnf = existing_vnf
-
-    new_vnf_metadata = oc.sdc.vnf.get_catalog_resource_metadata(catalog_resource_id=vnf.get("uniqueId")).response_data.get("metadata", {})
+        vnf = oc.sdc.vnf.get_catalog_resource_metadata(catalog_resource_id=catalog_resource_id).response_data.get("metadata", {})
+        new_vnf_metadata = copy.deepcopy(vnf)
 
     csar_version = oc.get_cached("vsp", vnf_input.get("software_product_name"), "csar_version")
     if not csar_version:
@@ -586,7 +622,14 @@ def create_vnf(vnf_input, oc=None):
 
     vnf_input["contact_id"] = owner
 
-    vnf = oc.sdc.vnf.add_catalog_resource(**vnf_input, categories=[category])
+    try:
+        vnf = oc.sdc.vnf.add_catalog_resource(**vnf_input, categories=[category])
+    except Exception as e:
+        if str(e).lower().find("was already imported for vf") != -1:
+            catalog_resource_id, __ = get_vnf_id(vnf_input.get("vnf_name"), oc=oc, no_certified=True)
+            if catalog_resource_id:
+                return update_vnf(catalog_resource_id, vnf_input, oc=oc)
+        raise
 
     vnf_input["catalog_resource_id"] = vnf.catalog_resource_id
     vnf_input["tosca"] = vnf.response_data
@@ -697,30 +740,37 @@ def get_resource_category(category_name, oc=None):
     return None
 
 
-def get_vnf_id(vnf_name, oc=None):
+def get_vnf_id(vnf_name, oc=None, no_certified=False):
     """Returns the latest VNF id for a VNF Model. If there is only one version
     of a VNF model, that will also be returned"""
     if not oc:
         oc = Client()
 
-    response = oc.sdc.vnf.get_resource_by_name_version(
-        catalog_resource_name=vnf_name,
-        catalog_resource_version="1.0",
-        raise_on_error=False,
-        attempts=1,
-    )
-    if not response.success:
-        return None, None
+    if no_certified:
+        resources = oc.sdc.vnf.get_resources().response_data.get("resources", [])
+        for resource in resources:
+            if resource.get("name") == vnf_name:
+                return resource.get("uniqueId"), resource
+        return "", None
+    else:
+        response = oc.sdc.vnf.get_resource_by_name_version(
+            catalog_resource_name=vnf_name,
+            catalog_resource_version="1.0",
+            raise_on_error=False,
+            attempts=1,
+        )
+        if not response.success:
+            return None, None
 
-    versions = response.response_data.get("allVersions")
-    catalog_resource_id = ""
-    catalog_resource = None
-    highest_version = 0
-    for version, vnf_id in versions.items():
-        if float(version) > highest_version:
-            highest_version = float(version)
-            catalog_resource_id = vnf_id
+        versions = response.response_data.get("allVersions")
+        catalog_resource_id = ""
+        catalog_resource = None
+        highest_version = 0
+        for version, vnf_id in versions.items():
+            if float(version) > highest_version:
+                highest_version = float(version)
+                catalog_resource_id = vnf_id
 
-    if highest_version == 1.0:
-        catalog_resource = response.response_data
-    return catalog_resource_id, catalog_resource
+        if highest_version == 1.0:
+            catalog_resource = response.response_data
+        return catalog_resource_id, catalog_resource
