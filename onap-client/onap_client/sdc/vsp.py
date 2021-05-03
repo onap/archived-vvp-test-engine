@@ -183,6 +183,12 @@ def create_vsp(vsp_input, oc=None):
         oc=oc
     )
 
+    # Workaround for first time users to avoid ENTITY_NOT_FOUND error
+    oc.sdc.license_model.get_license_model_version(
+        license_model_id=license_model_id,
+        license_model_version_id=license_model_version_id,
+    )
+
     feature_group = sdc.license_model.get_license_model_attribute(
         license_model_id,
         license_model_version_id,

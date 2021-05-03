@@ -130,6 +130,24 @@ class ServiceCatalog(SDCClient):
                 "return_data": {"catalog_resource_instance_id": ("uniqueId",)},
                 "auth": self.auth,
             },
+            "UNDO_CHECKOUT": {
+                "verb": "POST",
+                "description": "Undo a checked-out service in SDC.",
+                "uri": partial(
+                    "{endpoint}{service_path}/{catalog_service_id}/lifecycleState/UNDOCHECKOUT".format,
+                    endpoint=self.config.sdc.SDC_BE_ENDPOINT,
+                    service_path=self.config.sdc.SDC_CATALOG_SERVICES_PATH,
+                ),
+                "uri-parameters": ["catalog_service_id"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.sdc_designer_user_id,
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": self.auth,
+            },
             "DELETE_RESOURCE_FROM_SERVICE": {
                 "verb": "DELETE",
                 "description": "Deletes a resource from a service.",

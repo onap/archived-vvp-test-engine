@@ -64,6 +64,10 @@ def test_vsp_create():
         },
     )
     mockup_catalog_item(
+        oc.sdc.license_model.catalog_items["GET_LICENSE_MODEL_VERSION"],
+        override_uri_params={"license_model_id": LICENSE_MODEL_ID, "license_model_version_id": LICENSE_MODEL_VERSION_ID},
+    )
+    mockup_catalog_item(
         oc.sdc.license_model.catalog_items["GET_LICENSE_MODEL_VERSIONS"],
         override_return_data={
             "results": [{"name": LICENSE_MODEL_NAME, "id": LICENSE_MODEL_VERSION_ID}]

@@ -228,6 +228,24 @@ class LicenseModelClient(SDCClient):
                 },
                 "auth": self.auth,
             },
+            "GET_LICENSE_MODEL_VERSION": {
+                "verb": "GET",
+                "description": "Returns the version list for a license model",
+                "uri": partial(
+                    "{endpoint}{service_path}/{license_model_id}/versions/{license_model_version_id}".format,
+                    endpoint=self.config.sdc.SDC_BE_ONBOARD_ENDPOINT,
+                    service_path=self.config.sdc.SDC_VENDOR_ITEMS_PATH,
+                ),
+                "uri-parameters": ["license_model_id", "license_model_version_id"],
+                "success_code": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "USER_ID": self.sdc_designer_user_id,
+                    "X-FromAppId": self.config.application_id,
+                },
+                "auth": self.auth,
+            },
             "GET_LICENSE_MODEL_VERSIONS": {
                 "verb": "GET",
                 "description": "Returns the version list for a license model",
