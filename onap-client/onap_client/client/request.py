@@ -126,7 +126,7 @@ class Request:
         http.mount("https://", adapter)
         http.mount("http://", adapter)
 
-        return http.request(**self.kwargs, verify=verify)
+        return http.request(**self.kwargs, verify=verify, timeout=(6.05, 60))
 
 
 class APICatalogRequestObject:
