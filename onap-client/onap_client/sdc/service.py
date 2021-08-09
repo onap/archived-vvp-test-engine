@@ -402,13 +402,18 @@ def get_service_id(service_name, oc=None):
     if not oc:
         oc = Client()
 
-    response = oc.sdc.service.get_service_by_name_version(
-        catalog_service_name=service_name,
-        catalog_service_version="1.0",
-        raise_on_error=False,
-        attempts=1,
-    )
-    if not response.success:
+    try:
+        response = oc.sdc.service.get_service_by_name_version(
+            catalog_service_name=service_name,
+            catalog_service_version="1.0",
+            attempts=1,
+        )
+    except Exception as e:
+        if str(e).lower().find("service was not found") != -1:
+            services = oc.sdc.service.get_services().response_data.get("services", [])
+            for service in services:
+                if service.get("name") == service_name:
+                    return service.get("uniqueId"), service
         return None, None
 
     versions = response.response_data.get("allVersions")
