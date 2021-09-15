@@ -91,6 +91,17 @@ class Config:
     def application_id(self):
         return "robot-ete"
 
+    @property
+    def http_proxy(self):
+        return self.config.get("HTTP_PROXY")
+
+    @property
+    def proxies(self):
+        return {
+            "http": self.http_proxy,
+            "https": self.http_proxy
+        }
+
 
 def load_config(config_file, *config_args):
     config = Config(config_file)

@@ -43,7 +43,7 @@ from onap_client import exceptions
 from onap_client.client.request import RequestHandler, APICatalogRequestObject
 
 
-def make_request(catalog_item, attempts, verify_request, **kwargs):
+def make_request(catalog_item, attempts, verify_request, proxies, **kwargs):
     """Makes a request using by merging an APICatalogResource and
     kwargs to fill in the required parameters
 
@@ -56,7 +56,7 @@ def make_request(catalog_item, attempts, verify_request, **kwargs):
 
     request_handler = RequestHandler(catalog_request)
 
-    return request_handler.make_request(attempts, verify_request)
+    return request_handler.make_request(attempts, verify_request, proxies)
 
 
 def get_request_object(catalog_item, **kwargs):

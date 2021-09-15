@@ -64,9 +64,10 @@ class Catalog(ABC):
         """Attached as an attribute for each catalog entry in a catalog.
         Used to make a request to ONAP."""
 
-        def __init__(self, catalog_resource, response_callback=None, verify=False):
+        def __init__(self, catalog_resource, response_callback=None, verify=False, proxies={}):
             self.resource = catalog_resource
             self.verify_request = verify
+            self.proxies = proxies
             self.callback = (
                 response_callback if response_callback else self.empty_callback
             )
@@ -78,7 +79,7 @@ class Catalog(ABC):
             self.callback(message=f"Submitting request: {self.resource.description}")
 
             response_handler = make_request(
-                self.resource, attempts, self.verify_request, **kwargs
+                self.resource, attempts, self.verify_request, self.proxies, **kwargs
             )
 
             self.callback(response_handler=response_handler)
@@ -135,7 +136,7 @@ class Catalog(ABC):
 
         self.set_config(config_file)
 
-    def load(self, item_name, resource_data, verify=False):
+    def load(self, item_name, resource_data, verify=False, proxies={}):
         """Consume a catalog resource entry as an APICatalogResource,
         and set it as an attribute on this.class as a CallHandle object"""
         resource = APICatalogResource(item_name, resource_data)
@@ -147,7 +148,7 @@ class Catalog(ABC):
         setattr(
             self,
             item_name.lower(),
-            self.CallHandle(resource, response_callback=callback, verify=verify),
+            self.CallHandle(resource, response_callback=callback, verify=verify, proxies=proxies),
         )
 
     def add_to_history(self, message="", response_handler=None):
@@ -212,7 +213,7 @@ class Catalog(ABC):
             if isinstance(attr, Catalog):
                 attr.set_config(config_file)
                 for k, v in attr.catalog_resources.items():
-                    attr.load(k, v, verify=verify)
+                    attr.load(k, v, verify=verify, proxies=self.config.proxies)
 
     def override(override_key):
         def decorator(func):

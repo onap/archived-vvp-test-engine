@@ -59,13 +59,13 @@ class RequestHandler:
         """
         self.request_object = request_object
 
-    def make_request(self, attempts, verify):
+    def make_request(self, attempts, verify, proxies):
         r = Request(self.request_object)
 
         logger.info("Submitting request: {}".format(self.request_object.description))
         # TODO
         # Add verify to config file
-        return ResponseHandler(r.request(attempts, verify=verify), self.request_object)
+        return ResponseHandler(r.request(attempts, proxies, verify=verify), self.request_object)
 
 
 class Request:
@@ -113,7 +113,7 @@ class Request:
         except TypeError:
             logger.info(debug_request)
 
-    def request(self, attempts, verify=True):
+    def request(self, attempts, proxies, verify=True):
         http = requests.Session()
         retry_strategy = Retry(
             total=attempts,
@@ -126,7 +126,9 @@ class Request:
         http.mount("https://", adapter)
         http.mount("http://", adapter)
 
-        return http.request(**self.kwargs, verify=verify, timeout=(6.05, int(os.environ.get("ONAP_CLIENT_TIMEOUT", 120))))
+        logger.info(f"Using http proxy for request: {proxies}")
+
+        return http.request(**self.kwargs, proxies=proxies, verify=verify, timeout=(6.05, int(os.environ.get("ONAP_CLIENT_TIMEOUT", 120))))
 
 
 class APICatalogRequestObject:
